@@ -6,6 +6,10 @@ import { AppComponent } from './app.component';
 import { CoreModule } from './Modules/core/core.module';
 import { LoginModule } from './Modules/login/login.module';
 import { SharedModule } from './Modules/shared/shared.module';
+import { MothersModule } from './Modules/mothers/mothers.module';
+import { ChildsModule } from './Modules/childs/childs.module';
+import { ProfessionalsModule } from './Modules/professionals/professionals.module';
+import { ControlsModule } from './Modules/controls/controls.module';
 
 @NgModule({
   declarations: [
@@ -17,6 +21,10 @@ import { SharedModule } from './Modules/shared/shared.module';
     CoreModule,
     LoginModule,
     SharedModule,
+    MothersModule,
+    ChildsModule,
+    ProfessionalsModule,
+    ControlsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
