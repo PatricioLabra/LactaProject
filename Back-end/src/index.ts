@@ -2,8 +2,8 @@ import app from './app';
 
 
 function main(){
-    app.listen(3000);
-    console.log('Server on port 3000')
+    app.listen(app.get('port'));
+    console.log('Server running on port', app.get('port'))
 }
 
 main();
