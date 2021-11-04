@@ -8,7 +8,7 @@
     "build": "tsc --build",
     "clean": "tsc --build --clean",
     "serve": "npm run build && node dist/index.js",
-    "dev:serve": "nodemon --watch './**/*.ts' --exec 'ts-node' src/index.ts"
+    "dev:serve": "nodemon --watch './**/*.ts' --exec \"ts-node\" src/index.ts"
   },
   "repository": {
     "type": "git",
