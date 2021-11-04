@@ -1,9 +1,21 @@
 import {Router} from 'express';
-import * as productCtrl from './child.controller';
+import * as childCtrl from './child.controller';
 
 const router = Router();
 
 //agregar nuevo lactante
-router.get('/child',);
+router.post('/child', );
+
+//modificar Lactante
+router.put('/child/:id, ')
+
+//eliminar Lactante
+router.delete('/child/:id')
+
+//obtener Lactante
+router.get('/child/:id')
+
+//obtener Lista Lactantes
+router.get('/child')
 
 export default router
