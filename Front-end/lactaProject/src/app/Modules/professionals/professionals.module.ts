@@ -14,6 +14,7 @@ import { ProfessionalsRoutingModule } from './professionals-routing.module';
   imports: [
     CommonModule,
     ProfessionalsRoutingModule
-  ]
+  ],
+  exports:[ProfessionalDataComponent, ProfessionalProfileComponent, ProfessionalsListComponent , ProfessionalsViewComponent, ProfessionalFormComponent]
 })
 export class ProfessionalsModule { }

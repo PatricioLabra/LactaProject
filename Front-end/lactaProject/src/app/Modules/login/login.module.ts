@@ -11,6 +11,7 @@ import { LoginRoutingModule } from './login-routing.module';
   imports: [
     CommonModule,
     LoginRoutingModule
-  ]
+  ],
+  exports: [LoginViewComponent, PostloginViewComponent]
 })
 export class LoginModule { }

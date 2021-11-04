@@ -18,6 +18,13 @@ import { ChildProfileComponent } from './pages/child-profile/child-profile.compo
   ],
   imports: [
     CommonModule,
+  ],
+  exports:[
+    BirthDataComponent,
+    ChildsListComponent,
+    LactancyDataComponent,
+    ChildFormComponent,
+    ChildProfileComponent
   ]
 })
 export class ChildsModule { }

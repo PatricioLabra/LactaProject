@@ -15,6 +15,7 @@ import { ControlsRoutingModule } from './controls-routing.module';
   imports: [
     CommonModule,
     ControlsRoutingModule
-  ]
+  ],
+  exports:[PastControlsComponent, InprocessControlComponent, MotherIncomingcontrolsListComponent, ControlDataComponent, AddControlComponent, ControlsListComponent]
 })
 export class ControlsModule { }

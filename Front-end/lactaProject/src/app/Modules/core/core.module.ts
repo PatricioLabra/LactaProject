@@ -12,6 +12,7 @@ import { ControlPanelComponent } from './pages/control-panel/control-panel.compo
   imports: [
     CommonModule,
     CoreRoutingModule
-  ]
+  ],
+  exports:[HeaderComponent, FooterComponent , ControlPanelComponent]
 })
 export class CoreModule { }

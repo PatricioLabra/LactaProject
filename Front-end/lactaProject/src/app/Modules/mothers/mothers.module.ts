@@ -12,6 +12,7 @@ import { MothersListComponent } from './components/mothers-list/mothers-list.com
   declarations: [MothersViewComponent, MotherProfileComponent, MotherFormComponent, MotherDataComponent, MothersListComponent],
   imports: [
     CommonModule
-  ]
+  ],
+  exports:[MothersViewComponent, MotherProfileComponent, MotherFormComponent, MotherDataComponent, MothersListComponent]
 })
 export class MothersModule { }
