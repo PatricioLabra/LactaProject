@@ -1,3 +1,3 @@
 # LactaProject
-Web application developed for LactaPlanet
+Web application developed for LactaPlanet.
 
