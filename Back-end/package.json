@@ -1,0 +1,19 @@
+{
+  "name": "back-end",
+  "version": "1.0.0",
+  "description": "Backend for the project LactaProject",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PatricioLabra/LactaProject.git"
+  },
+  "author": "Dan Santos",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/PatricioLabra/LactaProject/issues"
+  },
+  "homepage": "https://github.com/PatricioLabra/LactaProject#readme"
+}
