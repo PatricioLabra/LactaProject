@@ -1,0 +1,36 @@
+{
+  "name": "back-end",
+  "version": "1.0.0",
+  "description": "Backend for the project LactaProject",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc --build",
+    "clean": "tsc --build --clean",
+    "serve": "npm run build && node dist/index.js",
+    "dev:serve": "nodemon --watch './**/*.ts' --exec \"ts-node\" src/index.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PatricioLabra/LactaProject.git"
+  },
+  "author": "Dan Santos",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/PatricioLabra/LactaProject/issues"
+  },
+  "homepage": "https://github.com/PatricioLabra/LactaProject#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.12",
+    "@types/express": "^4.17.13",
+    "@types/morgan": "^1.9.3",
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.14",
+    "ts-node": "^10.4.0"
+  }
+}
