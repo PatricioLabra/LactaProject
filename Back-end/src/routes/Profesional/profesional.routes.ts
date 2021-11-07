@@ -4,18 +4,18 @@ import * as motherlCtrl from './profesional.controller';
 const router = Router();
 
 //agregar nuevo profesional 
-router.post('/profesional', );
+router.post('/profesional');
 
 //modificar un profesional
-router.put('/profesional/:id, ')
+router.put('/profesional/:id');
 
 //eliminar un profesional
-router.delete('/profesional/:id')
+router.delete('/profesional/:id');
 
 //obtener profesional
-router.get('/profesional/:id')
+router.get('/profesional/:id');
 
 //obtener lista profesionales
-router.get('/profesional')
+router.get('/profesional');
 
 export default router
