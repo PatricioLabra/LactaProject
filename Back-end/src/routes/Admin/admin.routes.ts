@@ -4,7 +4,7 @@ import * as adminCtrl from './admin.controller';
 const router = Router();
 
 // Agregar un nuevo admin
-router.post('/admin/signup');
+router.post('/admin/signup', adminCtrl.signUp);
 
 // Obtener la informacion de un admin
 router.get('/admin/:nick');
