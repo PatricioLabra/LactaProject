@@ -1,7 +1,6 @@
 import { Router } from 'express';
 import * as adminCtrl from './admin.controller';
 
-
 const router = Router();
 
 // Agregar un nuevo admin
