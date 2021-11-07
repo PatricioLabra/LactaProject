@@ -4,18 +4,18 @@ import * as controlCtrl from './control.controller';
 const router = Router();
 
 //agregar nuevo control
-router.post('/control', );
+router.post('/control');
 
 //modificar control
-router.put('/control/:id, ')
+router.put('/control/:id');
 
 //eliminar control
-router.delete('/control/:id')
+router.delete('/control/:id');
 
 //obtener control
-router.get('/control/:id')
+router.get('/control/:id');
 
 //obtener todos los controles
-router.get('/control')
+router.get('/control');
 
 export default router
