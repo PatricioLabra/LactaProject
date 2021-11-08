@@ -1,6 +1,6 @@
 import { RequestHandler } from "express";
 import { createHmac } from "crypto";
-import User from './usermodel';
+import User from './user.model';
 import jwt from 'jsonwebtoken';
 
 export const signUp: RequestHandler = async (req, res) => {
