@@ -1,7 +1,7 @@
 import { RequestHandler } from "express";
 import { createHmac } from "crypto";
 import User from './user.model';
-import jwt from 'jsonwebtoken';
+import { signToken } from "../jwt";
 
 export const signUp: RequestHandler = async (req, res) => {
     const { rut, name ,password, email, permission_level} = req.body;
@@ -15,4 +15,6 @@ export const signUp: RequestHandler = async (req, res) => {
     if(userFound){
         return res.status(301).send({ succes: false, message: 'Error: el usuario ingresado ya existe en el sistema.' });
     }
+
+    const newUser = new User(req.body);
 }
