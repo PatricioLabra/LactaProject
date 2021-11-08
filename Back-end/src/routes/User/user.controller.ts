@@ -1,6 +1,6 @@
 import { RequestHandler } from "express";
 import { createHmac } from "crypto";
-import Admin from './admin.model';
+import User from './usermodel';
 import jwt from 'jsonwebtoken';
 
 export const signUp: RequestHandler = async (req, res) => {
@@ -10,9 +10,9 @@ export const signUp: RequestHandler = async (req, res) => {
         return res.status(400).send({ succes: false, message: 'Error: datos inválidos'+ req.body });
     }
 
-    const adminFound = await Admin.findOne({ name });
+    const userFound = await User.findOne({ name });
 
-    if(adminFound){
-        return res.status(301).send({ succes: false, message: 'Error: el admin ingresado ya existe en el sistema.' });
+    if(userFound){
+        return res.status(301).send({ succes: false, message: 'Error: el usuario ingresado ya existe en el sistema.' });
     }
 }

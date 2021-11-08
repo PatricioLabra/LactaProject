@@ -1,12 +1,12 @@
 import { Router } from 'express';
-import * as adminCtrl from './admin.controller';
+import * as userCtrl from './user.controller';
 
 const router = Router();
 
-// Agregar un nuevo admin
-router.post('/admin/signup', adminCtrl.signUp);
+// Agregar un nuevo usuario
+router.post('/admin/signup', userCtrl.signUp);
 
-// Obtener la informacion de un admin
+// Obtener la informacion de un usuario
 router.get('/admin/:nick');
 
 // Inicia sesión

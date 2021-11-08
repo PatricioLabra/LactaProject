@@ -1,6 +1,6 @@
 import { Schema, model } from "mongoose";
 
-const adminSchema = new Schema({
+const userSchema = new Schema({
 	rut: {
     required: true,
     type: String,
@@ -31,4 +31,4 @@ const adminSchema = new Schema({
   timestamps: true
 });
 
-export default model('Admin', adminSchema);
+export default model('User', userSchema);
