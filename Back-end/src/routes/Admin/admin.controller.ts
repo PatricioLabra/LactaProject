@@ -3,7 +3,16 @@ import { createHmac } from "crypto";
 import Admin from './admin.model';
 import jwt from 'jsonwebtoken';
 
-
 export const signUp: RequestHandler = async (req, res) => {
-    res.send('asdasdasd');
+    const { rut, name ,password, email, permission_level} = req.body;
+
+    if(!rut || !password || !name || !email || !permission_level){
+        return res.status(400).send({ succes: false, message: 'Error: datos inválidos'+ req.body });
+    }
+
+    const adminFound = await Admin.findOne({ name });
+
+    if(adminFound){
+        return res.status(301).send({ succes: false, message: 'Error: el admin ingresado ya existe en el sistema.' });
+    }
 }
