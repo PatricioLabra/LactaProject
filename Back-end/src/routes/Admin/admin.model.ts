@@ -7,6 +7,11 @@ const adminSchema = new Schema({
     trim: true,
     min: 12,
   },
+  name: {
+    required: true,
+    type: String,
+    trim: true,
+  },
   password: {
     required: true,
     type: String,
