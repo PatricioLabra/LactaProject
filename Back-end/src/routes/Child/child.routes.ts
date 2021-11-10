@@ -4,7 +4,7 @@ import * as childCtrl from './child.controller';
 const router = Router();
 
 //agregar nuevo lactante
-router.post('/child');
+router.post('/child/:idMother');
 
 //modificar Lactante
 router.put('/child/:id');
@@ -12,7 +12,7 @@ router.put('/child/:id');
 //eliminar Lactante
 router.delete('/child/:id');
 
-//obtener Lactante resumido
+//obtener lista Lactante resumido(idMother)
 router.get('/child/:id');
 
 //obtener Lactante completo

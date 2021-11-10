@@ -4,7 +4,7 @@ import * as controlCtrl from './control.controller';
 const router = Router();
 
 //agregar nuevo control
-router.post('/control');
+router.post('/control/:idChild');
 
 //modificar control
 router.put('/control/:id');
