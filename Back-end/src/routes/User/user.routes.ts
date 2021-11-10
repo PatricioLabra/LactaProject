@@ -7,7 +7,7 @@ const router = Router();
 router.post('/user/signup', userCtrl.signUp);
 
 // Obtener la informacion de un usuario
-router.get('/user/id');
+router.get('/user/:id');
 
 // Editar usuario
 router.put('/user/:id');
