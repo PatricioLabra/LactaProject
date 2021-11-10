@@ -18,7 +18,7 @@ router.get('/control/:idMother');
 //obtener controles pasados resumido por madre(id)
 router.get('/control/pasado/:idMother');
 
-//obtener informacion control pendiente detallada(idControlPasado_)
+//obtener informacion control pasado detallado(idControlPasado_)
 router.get('/control/:idControl');
 
 // Obtener barra de busqueda, keyword: name, date. 
