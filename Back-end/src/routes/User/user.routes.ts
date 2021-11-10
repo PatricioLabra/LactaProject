@@ -10,11 +10,9 @@ router.post('/user/signup', userCtrl.signUp);
 router.get('/user/_id');
 
 // Editar usuario
-
 router.put('/user/:_id');
 
 // Eliminar usuario
-
 router.delete('/user/:_id');
 
 // Inicia sesión
@@ -22,5 +20,11 @@ router.post('/user/signin');
 
 // Obtener barra de busqueda
 router.post('/user/:keyword');
+
+// Recuperar password
+router.get('/user/:rut');
+
+//Obtener lista usuarios
+router.get('/user');
 
 export default router;
