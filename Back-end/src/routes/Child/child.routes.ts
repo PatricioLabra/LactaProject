@@ -18,7 +18,4 @@ router.get('/child/:id');
 //obtener Lactante completo
 router.get('/child/profile/:id');
 
-//obtener lista Lactantes
-router.get('/child');
-
 export default router
