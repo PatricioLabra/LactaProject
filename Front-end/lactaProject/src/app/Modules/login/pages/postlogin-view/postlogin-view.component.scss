@@ -1,0 +1,70 @@
+body{
+    width: 100%;
+    height: 100vh;
+    background-image: url(../../../../../assets/login-wallpaper.jpeg);
+    background-position: center center;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container{
+    position: absolute;
+    width: 70%;
+    min-width: 300px;
+    background-color: rgba(152, 152, 152, 0.5);
+    padding: 50px 50px;
+    border-radius: 10px;
+    box-shadow: 7px 7px 10px rgb(43, 42, 42);
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.form-container{
+    width: 100%;
+}
+
+.titulo-container{
+    font-size: 40px;
+    margin:10px;
+    padding:10px;
+    text-align: center;
+    color: white;
+}
+
+.check-container{
+    margin:10px;
+    padding:10px;
+    text-align: center;
+    color: white;
+    display: flex;
+    flex-wrap: wrap;
+    min-height: 200px;
+}
+
+.form-check{
+    margin:0px;
+    padding: 0px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    width:50%;
+    min-width: 150px;
+}
+
+.button-container{
+    margin:10px;
+    padding:10px;
+    text-align: center;
+    color: white;
+}
+
+.continue-button{
+    color:white;
+    background-color: rgba(254, 186, 173, 1);
+    box-shadow: 3px 3px 10px rgb(92, 91, 91);
+    border-radius: 20px;
+    border-style: none;
+    padding: 10px 30px 10px 30px;
+}
