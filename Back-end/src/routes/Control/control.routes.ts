@@ -12,10 +12,16 @@ router.put('/control/:id');
 //eliminar control
 router.delete('/control/:id');
 
-//obtener control
+//obtener lista controles pendientes resumidos por madre(id)
 router.get('/control/:id');
 
-//obtener todos los controles
-router.get('/control');
+//obtener controles pasados resumido por madre(id)
+router.get('/control/pasado/:id');
+
+//obtener informacion control pendiente detallada(idControlPasado_)
+router.get('/control/:idControl');
+
+// Obtener barra de busqueda, keyword: name, date. 
+router.post('/control/:idMother/:keyword/:lower_limit/:upper_limit');
 
 export default router
