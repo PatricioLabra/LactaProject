@@ -7,13 +7,13 @@ const router = Router();
 router.post('/user/signup', userCtrl.signUp);
 
 // Obtener la informacion de un usuario
-router.get('/user/_id');
+router.get('/user/id');
 
 // Editar usuario
-router.put('/user/:_id');
+router.put('/user/:id');
 
 // Eliminar usuario
-router.delete('/user/:_id');
+router.delete('/user/:id');
 
 // Inicia sesión
 router.post('/user/signin');
