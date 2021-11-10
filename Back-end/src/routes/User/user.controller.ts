@@ -4,7 +4,7 @@ import User from './user.model';
 import { signToken } from "../jwt";
 
 export const signUp: RequestHandler = async (req, res) => {
-    const { rut, name ,password, mail, permission_level} = req.body;
+    const { name, rut ,password, mail, permission_level} = req.body;
 
     if(!rut || !password || !name || !mail || !permission_level){
         return res.status(400).send({ succes: false, message: 'Error: datos inválidos'+ req.body });

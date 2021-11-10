@@ -1,16 +1,16 @@
 import { Schema, model } from "mongoose";
 
 const userSchema = new Schema({
-	rut: {
-    required: true,
-    type: String,
-    trim: true,
-    min: 12,
-  },
   name: {
     required: true,
     type: String,
     trim: true,
+  },
+  rut: {
+    required: true,
+    type: String,
+    trim: true,
+    min: 12,
   },
   password: {
     required: true,
