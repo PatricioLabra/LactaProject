@@ -7,16 +7,16 @@ const router = Router();
 router.post('/control/:idChild');
 
 //modificar control
-router.put('/control/:id');
+router.put('/control/:idControl');
 
 //eliminar control
-router.delete('/control/:id');
+router.delete('/control/:idControl');
 
 //obtener lista controles pendientes resumidos por madre(id)
-router.get('/control/:id');
+router.get('/control/:idMother');
 
 //obtener controles pasados resumido por madre(id)
-router.get('/control/pasado/:id');
+router.get('/control/pasado/:idMother');
 
 //obtener informacion control pendiente detallada(idControlPasado_)
 router.get('/control/:idControl');
