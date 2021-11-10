@@ -18,7 +18,7 @@ router.delete('/user/:id');
 // Inicia sesión
 router.post('/user/signin');
 
-// Obtener barra de busqueda
+// Obtener barra de busqueda, keyword: name, rut
 router.post('/user/:keyword');
 
 // Recuperar password
