@@ -12,8 +12,11 @@ router.put('/child/:id');
 //eliminar Lactante
 router.delete('/child/:id');
 
-//obtener Lactante
+//obtener Lactante resumido
 router.get('/child/:id');
+
+//obtener Lactante completo
+router.get('/child/profile/:id');
 
 //obtener lista Lactantes
 router.get('/child');
