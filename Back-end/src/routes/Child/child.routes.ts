@@ -7,15 +7,15 @@ const router = Router();
 router.post('/child/:idMother');
 
 //modificar Lactante
-router.put('/child/:id');
+router.put('/child/:idLactante');
 
 //eliminar Lactante
-router.delete('/child/:id');
+router.delete('/child/:idLactante');
 
 //obtener lista Lactante resumido(idMother)
-router.get('/child/:id');
+router.get('/child/:idMother');
 
 //obtener Lactante completo
-router.get('/child/profile/:id');
+router.get('/child/profile/:idLactante');
 
 export default router
