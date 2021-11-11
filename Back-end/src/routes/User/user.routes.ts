@@ -22,7 +22,7 @@ router.post('/user/signin', userCtrl.signIn);
 router.post('/user/:keyword', userCtrl.searchUser);
 
 // Recuperar password
-router.get('/user/:rut', userCtrl.getPass);
+router.get('/user/pass/:rut', userCtrl.getPass);
 
 //Obtener lista usuarios
 router.get('/user', userCtrl.getUsers);
