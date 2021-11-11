@@ -7,24 +7,24 @@ const router = Router();
 router.post('/user/signup', userCtrl.signUp);
 
 // Obtener la informacion de un usuario
-router.get('/user/:id');
+router.get('/user/:id', userCtrl.getUserName);
 
 // Editar usuario
-router.put('/user/:id');
+router.put('/user/:id', userCtrl.editUser);
 
 // Eliminar usuario
-router.delete('/user/:id');
+router.delete('/user/:id', userCtrl.deleteUser);
 
 // Inicia sesión
-router.post('/user/signin');
+router.post('/user/signin', userCtrl.signIn);
 
 // Obtener barra de busqueda, keyword: name, rut
-router.post('/user/:keyword');
+router.post('/user/:keyword', userCtrl.searchUser);
 
 // Recuperar password
-router.get('/user/:rut');
+router.get('/user/:rut', userCtrl.getPass);
 
 //Obtener lista usuarios
-router.get('/user');
+router.get('/user', userCtrl.getUsers);
 
 export default router;

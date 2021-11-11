@@ -22,5 +22,33 @@ export const signUp: RequestHandler = async (req, res) => {
 
     const token = signToken(newUser._id);
 
-    return res.status(201).send({success: true,token});
+    return res.status(201).send({ success: true,token });
+}
+
+export const getUserName: RequestHandler = async (req, res) => {
+    
+}
+
+export const editUser: RequestHandler = async (req, res) => {
+
+}
+
+export const deleteUser: RequestHandler = async (req, res) => {
+
+}
+
+export const signIn: RequestHandler = async (req, res) => {
+
+}
+
+export const searchUser: RequestHandler = async (req, res) => {
+
+}
+
+export const getPass: RequestHandler = async (req, res) => {
+
+}
+
+export const getUsers: RequestHandler = async (req, res) => {
+
 }
