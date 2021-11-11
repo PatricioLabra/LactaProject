@@ -19,6 +19,6 @@ router.get('/mother/:id');
 router.get('/mother');
 
 // Obtener barra de busqueda, keyword: name, rut, last control, next control
-router.post('/mother/:keyword');
+router.post('/mother/search/:keyword');
 
 export default router
