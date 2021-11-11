@@ -10,7 +10,7 @@ router.post('/child/:idMother');
 router.put('/child/:idLactante');
 
 //eliminar Lactante en la lista de la madre
-router.delete('/child/:idLactante/:Mother');
+router.delete('/child/:idLactante/:idMother');
 
 //obtener lista Lactante resumido(idMother)
 router.get('/child/:idMother');
