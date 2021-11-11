@@ -16,7 +16,7 @@ router.delete('/contro/:idLactante/:idControl');
 router.get('/control/:idMother');
 
 //obtener controles pasados resumido por madre(id)
-router.get('/control/pasado/:idMother');
+router.get('/control/past/:idMother');
 
 //obtener informacion control pasado detallado(idControlPasado_)
 router.get('/control/:idControl');
