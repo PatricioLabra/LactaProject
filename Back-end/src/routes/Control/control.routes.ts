@@ -4,18 +4,24 @@ import * as controlCtrl from './control.controller';
 const router = Router();
 
 //agregar nuevo control
-router.post('/control');
+router.post('/control/:idChild');
 
 //modificar control
-router.put('/control/:id');
+router.put('/control/:idControl');
 
 //eliminar control
-router.delete('/control/:id');
+router.delete('/contro/:idLactante/:idControl');
 
-//obtener control
-router.get('/control/:id');
+//obtener lista controles pendientes resumidos por madre(id)
+router.get('/control/:idMother');
 
-//obtener todos los controles
-router.get('/control');
+//obtener controles pasados resumido por madre(id)
+router.get('/control/past/:idMother');
+
+//obtener informacion control pasado detallado(idControlPasado_)
+router.get('/control/:idControl');
+
+// Obtener barra de busqueda, keyword: name, date. 
+router.post('/control/:idMother/:keyword/:lower_limit/:upper_limit');
 
 export default router

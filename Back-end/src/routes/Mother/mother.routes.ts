@@ -12,10 +12,13 @@ router.put('/mother/:id');
 //eliminar una asesorada
 router.delete('/mother/:id');
 
-//obtener asesorada
+//obtener asesorada detallada (panel completo)
 router.get('/mother/:id');
 
 //obtener todas las asesoradas
 router.get('/mother');
+
+// Obtener barra de busqueda, keyword: name, rut, last control, next control
+router.post('/mother/search/:keyword');
 
 export default router
