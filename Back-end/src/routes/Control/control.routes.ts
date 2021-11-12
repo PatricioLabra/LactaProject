@@ -4,24 +4,32 @@ import * as controlCtrl from './control.controller';
 const router = Router();
 
 //agregar nuevo control
-router.post('/control/:idChild');
+router.post('/control/:idChild', controlCtrl.newControl);
 
 //modificar control
-router.put('/control/:idControl');
+router.put('/control/:idControl', controlCtrl.editControl);
 
 //eliminar control
-router.delete('/contro/:idLactante/:idControl');
+router.delete('/contro/:idControl', controlCtrl.deleteControl);
 
 //obtener lista controles pendientes resumidos por madre(id)
-router.get('/control/:idMother');
+router.get('/control/:idMother', controlCtrl.getControl);
 
 //obtener controles pasados resumido por madre(id)
-router.get('/control/past/:idMother');
+router.get('/control/past/:idMother', controlCtrl.getPassControl);
 
 //obtener informacion control pasado detallado(idControlPasado_)
-router.get('/control/:idControl');
+router.get('/control/:idControl', controlCtrl.getDetailedPassControl);
 
 // Obtener barra de busqueda, keyword: name, date. 
-router.post('/control/:idMother/:keyword/:lower_limit/:upper_limit');
+router.post('/control/:idMother/:keyword/:lower_limit/:upper_limit', controlCtrl.getSeach);
+
+//Obtener ultimo control asociado a una madre
+router.get('/control/last-control/:idMother', controlCtrl.getLastControl);
+
+//obtener proximo control asociado a una madre
+router.get('/control/next-control/:idMother', controlCtrl.getNextControl);
+
+
 
 export default router
