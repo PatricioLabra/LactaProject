@@ -5,14 +5,20 @@ import { FooterComponent } from './components/footer/footer.component';
 import { CoreRoutingModule } from './core-routing.module';
 import { ControlPanelComponent } from './pages/control-panel/control-panel.component';
 
-
-
 @NgModule({
-  declarations: [HeaderComponent, FooterComponent , ControlPanelComponent],
+  declarations: [
+    HeaderComponent,
+    FooterComponent,
+    ControlPanelComponent
+  ],
   imports: [
     CommonModule,
     CoreRoutingModule
   ],
-  exports:[HeaderComponent, FooterComponent , ControlPanelComponent]
+  exports:[
+    HeaderComponent,
+    FooterComponent,
+    ControlPanelComponent
+  ],
 })
 export class CoreModule { }
