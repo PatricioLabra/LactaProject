@@ -1,24 +1,24 @@
 import {Router} from 'express';
-import * as motherlCtrl from './mother.controller';
+import * as motherCtrl from './mother.controller';
 
 const router = Router();
 
 //agregar nueva asesorada 
-router.post('/mother');
+router.post('/mother', motherCtrl.newMother);
 
 //modificar una asesorada
-router.put('/mother/:id');
+router.put('/mother/:id', motherCtrl.editMother);
 
 //eliminar una asesorada
-router.delete('/mother/:id');
+router.delete('/mother/:id', motherCtrl.deleteMother);
 
 //obtener asesorada detallada (panel completo)
-router.get('/mother/:id');
+router.get('/mother/:id', motherCtrl.getDetailedMother);
 
 //obtener todas las asesoradas
-router.get('/mother');
+router.get('/mother', motherCtrl.getMothers);
 
 // Obtener barra de busqueda, keyword: name, rut, last control, next control
-router.post('/mother/search/:keyword');
+router.post('/mother/search/:keyword', motherCtrl.getSearch);
 
 export default router
