@@ -6,7 +6,7 @@ const router = Router();
 //agregar nuevo lactante
 router.post('/child/:idMother', childCtrl.newChild);
 
-//modificar Lactante
+//modificar Lactantee
 router.put('/child/:idLactante', childCtrl.editChild);
 
 //eliminar Lactante en la lista de la madre
