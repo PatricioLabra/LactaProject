@@ -6,6 +6,11 @@ const childSchema = new Schema({
     type: String,
     trim: true
   },
+  controls:{
+    required: true,
+    type: [Schema.Types.Mixed],
+    trim: true
+  },
   gestacion_data:{
     diseases_during_pregnancy:{required:true, type: [String]} ,
     nutritional_status_mother: {required:true, type: String},
@@ -32,11 +37,9 @@ const childSchema = new Schema({
     last_weight_control:{required:true, type: Number}
   },
   id_mother:{required:true, type: Schema.Types.ObjectId}
-  },
-  {
+},{
     versionKey: false,
     timestamps: true
-  });
-
+});
 
 export default model('Child', childSchema);
