@@ -1,6 +1,4 @@
-#barraPrincipal{
-    background-color: rgba(199, 199, 199, 0.5);
-}
+
 img { 
     width: 30%;
     height: 30%;
@@ -27,9 +25,10 @@ img {
     display: inline-block;
     font-size: 16px;
     margin: 4px 2px;
+    p{
+        position: relative;
+        top: 10%;
+    }
 }
-button p{
-    position: relative;
-    top: 10%;
-}
+
 .button5 {border-radius: 30px;}
