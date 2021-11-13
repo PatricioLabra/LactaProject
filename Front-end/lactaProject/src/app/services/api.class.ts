@@ -5,7 +5,7 @@ export class ApiClass {
 
   readonly API_URL: string = environment.API_URL;
 
-  constructor(private http: HttpClient) { }
+  constructor(protected http: HttpClient) { }
 
   /**
    * Crea una url hacia la api, con los parametros ingresados
