@@ -43,10 +43,6 @@ export const getUserName: RequestHandler = async (req, res) => {
 }
 
 export const editUser: RequestHandler = async (req, res) => {
-
-}
-
-export const deleteUser: RequestHandler = async (req, res) => {
     const _id = req.params.id;
     const updateUser = req.body;
      
@@ -64,7 +60,11 @@ export const deleteUser: RequestHandler = async (req, res) => {
 
     await User.findByIdAndUpdate(_id, updateUser)
 
-    return res.status(200).send({ sucess: true });
+    return res.status(200).send({ sucess: true })
+}
+
+export const deleteUser: RequestHandler = async (req, res) => {
+
 }
 
 export const signIn: RequestHandler = async (req, res) => {
