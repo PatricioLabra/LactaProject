@@ -3,6 +3,7 @@ import morgan from 'morgan';
 import cors, { CorsOptions } from 'cors';
 import dotenv from 'dotenv';
 
+// Load enviroments variables
 dotenv.config();
 
 // Internal imports
@@ -13,7 +14,6 @@ const app = express();
 const corsConfig: CorsOptions = {
     origin: process.env.ORIGIN_FRONT_IP,
     credentials: true
-
 };
 
 // Settings
@@ -29,3 +29,4 @@ app.use(cors(corsConfig));
 app.use(indexRoutes);
 
 export default app;
+
