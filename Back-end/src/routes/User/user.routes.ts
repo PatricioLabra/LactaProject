@@ -19,7 +19,7 @@ router.delete('/user/:id', userCtrl.deleteUser);
 router.post('/user/signin', userCtrl.signIn);
 
 // Obtener barra de busqueda, keyword: name, rut
-router.post('/user/keyword/:keyword', userCtrl.searchUser);
+router.post('/user/search/:keyword', userCtrl.searchUser);
 
 // Recuperar password
 router.get('/user/pass/:rut', userCtrl.getPass);
@@ -28,6 +28,6 @@ router.get('/user/pass/:rut', userCtrl.getPass);
 router.get('/user', userCtrl.getUsers);
 
 //Cambiar password
-router.put('/user/new-password/:id', userCtrl.changePass);
+router.put('/user/pass/:id', userCtrl.changePass);
 
 export default router;
