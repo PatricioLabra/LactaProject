@@ -1,1 +1,49 @@
-<p>header works!</p>
+<!-- Image and text -->
+
+
+<!--Navbar-->
+<mdb-navbar SideClass="rgba-white-light fixed-top" [containerInside]="false">
+
+  <div class="container-fluid text-center text-md-left">
+
+    <!-- Grid row -->
+    <div class="row">
+
+        <div class="col">
+            <div class="icono">
+                <a class="navbar-brand" href="#">
+                    <img src="../../../../../assets/Logo-Lacta-Planet-black.png" height="30" class="d-inline-block align-top" alt="">
+                </a>
+            </div>
+        </div>
+
+
+        <hr class="clearfix w-100 d-md-none pb-3">
+
+        <div class="col-6">
+            <div *ngIf="logged==1" class="usuario">
+                <h2>{{name}}</h2>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="derecha">
+                <div class="box">
+                    <button class="button button5">
+                        <p>Cerrar Sesion</p>
+                    </button>
+                </div>
+                <div class="box">
+                    <a class="nav-link waves-light white-text" mdbWavesEffect><mdb-icon fas icon="cog"></mdb-icon> Settings</a>
+                </div>
+            </div>
+        </div>
+
+
+
+
+    </div>
+    <!-- Grid row -->
+
+  </div>
+

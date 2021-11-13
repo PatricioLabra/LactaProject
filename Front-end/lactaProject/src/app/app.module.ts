@@ -10,6 +10,8 @@ import { MothersModule } from '@mothers/mothers.module';
 import { ChildsModule } from '@childs/childs.module';
 import { ProfessionalsModule } from '@professionals/professionals.module';
 import { ControlsModule } from '@controls/controls.module';
+import { MDBBootstrapModule } from 'angular-bootstrap-md';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,9 @@ import { ControlsModule } from '@controls/controls.module';
     MothersModule,
     ChildsModule,
     ProfessionalsModule,
-    ControlsModule
+    ControlsModule,
+    MDBBootstrapModule.forRoot(),
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

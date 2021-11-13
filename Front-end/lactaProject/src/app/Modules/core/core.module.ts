@@ -4,6 +4,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { CoreRoutingModule } from './core-routing.module';
 import { ControlPanelComponent } from './pages/control-panel/control-panel.component';
+import { MDBBootstrapModule } from 'angular-bootstrap-md';
 
 
 
@@ -11,7 +12,8 @@ import { ControlPanelComponent } from './pages/control-panel/control-panel.compo
   declarations: [HeaderComponent, FooterComponent , ControlPanelComponent],
   imports: [
     CommonModule,
-    CoreRoutingModule
+    CoreRoutingModule,
+    MDBBootstrapModule
   ],
   exports:[HeaderComponent, FooterComponent , ControlPanelComponent]
 })
