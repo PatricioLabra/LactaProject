@@ -24,7 +24,8 @@
       "@login/*": ["src/app/Modules/login/*"],
       "@mothers/*":["src/app/Modules/mothers/*"],
       "@professionals/*":["src/app/Modules/professionals/*"],
-      "@shared/*":["src/app/Modules/shared/*"]
+      "@shared/*":["src/app/Modules/shared/*"],
+      "@interfaces/*": ["src/app/interfaces/*"]
     }
   }
 }
