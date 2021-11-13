@@ -26,7 +26,19 @@ export const signUp: RequestHandler = async (req, res) => {
 }
 
 export const getUserName: RequestHandler = async (req, res) => {
-    
+    const userFound = await User.findOne({ nombre: req.params.name });
+
+    if(!userFound){
+        return res.status(404).send({ success: false, message: 'Error: el usuario ingresado no existe en el sistema.'});                   
+    }
+
+    const userInfo = destructureUser(userFound)
+
+	return res.status(200).send({
+		success:true, 
+		userInfo: userInfo
+	});
+
 }
 
 export const editUser: RequestHandler = async (req, res) => {
@@ -42,13 +54,13 @@ export const signIn: RequestHandler = async (req, res) => {
     const user = await User.findOne({ rut });
 
     if(!user){
-        return res.status(404).send({ success: false, message: 'Error: el administrador ingresado no existe en el sistema.' });
+        return res.status(404).send({ success: false, message: 'Error: el usuario ingresado no existe en el sistema.' });
     }
 
     if (user.password !== password){
         return res.status(400).send({ success:false, message: 'Error: la password ingresada no es válida.' });
     }
-    
+
     const token = signToken(user._id);
 
     return res.status(200).send({ succes: true, token, message: "Se ingreso correctamente! =D"});
@@ -68,4 +80,13 @@ export const getUsers: RequestHandler = async (req, res) => {
 
 export const changePass: RequestHandler = async (req, res) => {
 
+}
+
+function destructureUser(user:any){
+	const { name, permission_level} = user;
+
+	return {
+		name, 
+		permission_level
+	};
 }
