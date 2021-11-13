@@ -58,12 +58,22 @@ export const editUser: RequestHandler = async (req, res) => {
         return res.status(404).send({ success: false, message:'Error: el usuario no existe en el sistema.' });
     }
 
-    await User.findByIdAndUpdate(_id, updateUser)
+    await User.findByIdAndUpdate(_id, updateUser);
 
-    return res.status(200).send({ sucess: true })
+    return res.status(200).send({ sucess: true });
 }
 
 export const deleteUser: RequestHandler = async (req, res) => {
+    const _id = req.params.id;
+
+    //se valida el id
+    if ( !Types.ObjectId.isValid( _id)){
+        return res.status(400).send({ succes: false, message:'Error: el id ingresado no es valido.' });
+    }
+
+    await User.findByIdAndDelete(_id);
+
+    return res.status(200).send({ succes: true });
 
 }
 
