@@ -2,6 +2,7 @@ import { RequestHandler } from "express";
 import { createHmac } from "crypto";
 import User from './user.model';
 import { signToken } from "../jwt";
+import { Types } from "mongoose";
 
 export const signUp: RequestHandler = async (req, res) => {
     const { name, rut ,password, mail, permission_level} = req.body;
@@ -46,7 +47,24 @@ export const editUser: RequestHandler = async (req, res) => {
 }
 
 export const deleteUser: RequestHandler = async (req, res) => {
+    const _id = req.params.id;
+    const updateUser = req.body;
+     
+    //se valida el id
+    if ( !Types.ObjectId.isValid( _id)){
+        return res.status(400).send({ succes: false, message:'Error: el id ingresado no es valido.' });
+    }
 
+    const userFound = await updateUser.findById( _id);
+
+    //se valida si es que existe el usuario
+    if(!userFound){
+        return res.status(404).send({ success: false, message:'Error: el usuario no existe en el sistema.' });
+    }
+
+    await User.findByIdAndUpdate(_id, updateUser)
+
+    return res.status(200).send({ sucess: true });
 }
 
 export const signIn: RequestHandler = async (req, res) => {
