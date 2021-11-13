@@ -1,0 +1,35 @@
+#barraPrincipal{
+    background-color: rgba(199, 199, 199, 0.5);
+}
+img { 
+    width: 30%;
+    height: 30%;
+}
+.box{
+    padding-top: 25px;
+    position: relative;
+    float: right;
+}
+.usuario{
+    position: relative;
+    margin: auto;
+    text-align: center;
+    padding-top: 30px;
+}
+.button {
+    width: 153px;
+    height: 40px;
+    background-color: #ffffff;
+    border: none;
+    color: rgb(0, 0, 0);
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+}
+button p{
+    position: relative;
+    top: 10%;
+}
+.button5 {border-radius: 30px;}
