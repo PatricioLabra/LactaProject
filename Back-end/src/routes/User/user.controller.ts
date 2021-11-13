@@ -52,3 +52,7 @@ export const getPass: RequestHandler = async (req, res) => {
 export const getUsers: RequestHandler = async (req, res) => {
 
 }
+
+export const changePass: RequestHandler = async (req, res) => {
+
+}
