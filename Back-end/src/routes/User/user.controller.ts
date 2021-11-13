@@ -38,7 +38,20 @@ export const deleteUser: RequestHandler = async (req, res) => {
 }
 
 export const signIn: RequestHandler = async (req, res) => {
+    const { rut, password } = req.body;
+    const user = await User.findOne({ rut });
 
+    if(!user){
+        return res.status(404).send({ success: false, message: 'Error: el administrador ingresado no existe en el sistema.' });
+    }
+
+    if (user.password !== password){
+        return res.status(400).send({ success:false, message: 'Error: la password ingresada no es válida.' });
+    }
+    
+    const token = signToken(user._id);
+
+    return res.status(200).send({ succes: true, token, message: "Se ingreso correctamente! =D"});
 }
 
 export const searchUser: RequestHandler = async (req, res) => {
