@@ -17,7 +17,7 @@ export const newMother: RequestHandler = async (req, res) => {
     } = req.body;
 
     //se valida si alguno de los atributos required no son válidos
-    if ( !name || !rut || !commune || !phone_number || !mail || !birth || !ocupation || !studies || 
+    if ( !name || !rut || !commune || !phone_number || !birth || !ocupation || !studies || 
         !marital_status || !forecast || !chronic_diseases || !number_of_living_children || !childs)
         return res.status(400).send({ succes: false, data:{}, message:"ERROR: Datos inválidos" + req.body });
 
