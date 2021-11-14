@@ -63,7 +63,7 @@ const motherSchema = new Schema({
     },
     childs:{
         type: [Schema.Types.Mixed],
-        required: true,
+        required: false,
         trim: true
     }
 },{
