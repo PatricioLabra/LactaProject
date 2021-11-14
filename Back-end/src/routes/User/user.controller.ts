@@ -60,7 +60,7 @@ export const editUser: RequestHandler = async (req, res) => {
 
     await User.findByIdAndUpdate(_id, updateUser);
 
-    return res.status(200).send({ sucess: true });
+    return res.status(200).send({ sucess: true, message:'Se modifico exitosamente al usuario!'});
 }
 
 export const deleteUser: RequestHandler = async (req, res) => {
@@ -73,7 +73,7 @@ export const deleteUser: RequestHandler = async (req, res) => {
 
     await User.findByIdAndDelete(_id);
 
-    return res.status(200).send({ succes: true });
+    return res.status(200).send({ succes: true, message:'Se elimino exitosamente el usuario!' });
 
 }
 
@@ -103,7 +103,16 @@ export const getPass: RequestHandler = async (req, res) => {
 }
 
 export const getUsers: RequestHandler = async (req, res) => {
+    const users = await User.find();
 
+    if(!users){
+        return res.status(200).send({ success: true, message:'No se encontro ningun usuario en el sistema :(.'}) ;
+    }
+    
+    return res.status(200).send({
+		success:true, 
+		userInfo: users
+	});
 }
 
 export const changePass: RequestHandler = async (req, res) => {
@@ -111,10 +120,9 @@ export const changePass: RequestHandler = async (req, res) => {
 }
 
 function destructureUser(user:any){
-	const { name, permission_level} = user;
+	const { name } = user;
 
 	return {
-		name, 
-		permission_level
+		name
 	};
 }
