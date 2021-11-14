@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ControlPanelComponent implements OnInit {
 
+  flag=1; //variable que deberia indicar si el usuario esta conectado como admin o asesora normal.
+
   constructor() { }
 
   ngOnInit(): void {
