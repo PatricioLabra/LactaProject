@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { CoreModule } from '@core/core.module';
 import { ApiClass } from './api.class';
 
 @Injectable({
-  providedIn: CoreModule
+  providedIn: 'root'
 })
-export class ApiSendService extends ApiClass {
+export class ApiGetService extends ApiClass {
 
   constructor(http: HttpClient) {
     super(http);

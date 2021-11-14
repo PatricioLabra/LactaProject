@@ -7,8 +7,6 @@ import { ControlPanelComponent } from './pages/control-panel/control-panel.compo
 import { HttpClientModule } from '@angular/common/http';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 
-
-
 @NgModule({
   declarations: [
     HeaderComponent,
