@@ -114,7 +114,6 @@ export const getMothers: RequestHandler = async (req, res) => {
     return res.status(200).send({ succes: true, data:{ list_of_mothers: listMothers }, message: "Se obtuvieron a todas las madres del sistema de manera exitosoa." });
 }
 
-
 export const getSearch: RequestHandler = async (req, res) => {
     
 }
