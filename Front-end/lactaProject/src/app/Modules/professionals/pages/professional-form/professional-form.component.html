@@ -1,7 +1,7 @@
 <body>
     <div class="container">
         <div class="form-container">
-            <form [formGroup]="form" (ngSubmit)="send_professional_data()" autocomplete="off">
+            <form [formGroup]="form" (ngSubmit)="sendProfessionalData()" autocomplete="off">
                 <!-- Titulo -->
                 <div class="title-container">
                     <p class="title-text">Formulario Ingreso de Profesional</p>
@@ -81,19 +81,10 @@
                 <!-- Nivel de Permiso -->
                 <div class="input-label-container"> 
                     <label class="label-text">Nivel de Permiso:</label>
-                    <select class="browser-default custom-select" formControlName="permission_level"
-                        [ngClass]="{ 'is-invalid': form.controls['permission_level'].invalid && (form.controls['permission_level'].dirty || form.controls['permission_level'].touched),
-                        'is-valid': form.controls['permission_level'].valid && (form.controls['permission_level'].dirty || form.controls['permission_level'].touched)  }">
+                    <select class="browser-default custom-select" formControlName="permission_level">
                         <option value="0">Profesional</option>
                         <option value="1">Administrador</option>
                     </select>
-                    <div *ngIf="form.controls['permission_level'].invalid && (form.controls['permission_level'].dirty || form.controls['permission_level'].touched)">
-                        <div *ngIf="form.controls['permission_level']?.hasError('required')" > 
-                            <div class="invalid-text">
-                                Debe rellenar el campo
-                            </div>
-                        </div>
-                    </div>
                 </div>
                 <!-- Boton Agregar -->
                 <div class="button-container">
