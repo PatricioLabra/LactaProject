@@ -36,8 +36,8 @@ export class MotherFormComponent implements OnInit {
   ngOnInit(): void {
   }
   // Funcion que ACTUALMENTE solo se encarga de imprimir por consola los valores obtenidos en el formulario
-  send_mother_data(){
-    this.create_list();
+  sendMotherData(){
+    this.createList();
     console.log(this.form.get("name")?.value);
     console.log(this.form.get("rut")?.value + "-" + this.form.get("rut_vc")?.value);
     console.log(this.form.get("comune")?.value);
@@ -52,14 +52,14 @@ export class MotherFormComponent implements OnInit {
     console.log(this.chronic_diseases);
   }
   // Funcion que se encarga de crear enfermedades que no esten en la lista principal
- other_disease_function(){
+ otherDiseaseFunction(){
     if(this.form.get("other")?.value != ""){
       this.chronic_diseases.push(this.form.get("other")?.value);
       this.other_diseases.push(this.form.get("other")?.value);
     }
   }
   // Funcion que crea una lista de enfermedades cronicas
-  create_list(){
+  createList(){
     if(this.form.get("hipertension_a")?.value == true){
       this.chronic_diseases.push("hipertension arterial"); 
     }

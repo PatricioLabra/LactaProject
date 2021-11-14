@@ -1,7 +1,7 @@
 <body>
     <div class="container">
         <div class="form-container">
-            <form [formGroup]="form" (ngSubmit)="send_mother_data()" autocomplete="off">
+            <form [formGroup]="form" (ngSubmit)="sendMotherData()" autocomplete="off">
                 <!-- Titulo -->
                 <div class="title-container">
                     <p class="title-text">Formulario Ingreso de Asesorada</p>
@@ -228,7 +228,7 @@
                     </div>
                     <div class="other-disease-container">
                         <input type="text" formControlName="other" class="form-control">
-                        <button type="button" (click)="other_disease_function()" class="new-disease-button">+</button>
+                        <button type="button" (click)="otherDiseaseFunction()" class="new-disease-button">+</button>
                     </div>
                 </div>
                 <!-- Boton Agregar -->
