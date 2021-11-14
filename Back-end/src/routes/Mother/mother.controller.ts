@@ -6,6 +6,41 @@ export const newMother: RequestHandler = async (req, res) => {
     
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /**
  * Función que maneja la petición de editar a una madre registrada en el sistema.
  * @route Put /mother
