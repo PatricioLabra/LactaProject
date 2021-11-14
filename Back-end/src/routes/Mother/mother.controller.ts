@@ -1,5 +1,6 @@
 import { RequestHandler } from "express";
 import Mother from './mother.model';
+import Types from "moongose";
 
 
 /**
@@ -54,7 +55,11 @@ export const deleteMother: RequestHandler = async (req, res) => {
  * @param res Response, retorna un un object con succes:true, data:{  mother:{} } y un message: "String" de la madre obtenida si todo sale bien
  */
 export const getDetailedMother: RequestHandler = async (req, res) => {
-    
+    const _id: req.params.id;
+
+    //se valida el _id ingresado
+    if ( !Types.ObjecId.isValid( _id ))
+
 }
 
 export const getMothers: RequestHandler = async (req, res) => {
