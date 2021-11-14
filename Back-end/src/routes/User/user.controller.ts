@@ -4,6 +4,12 @@ import User from './user.model';
 import { signToken } from "../jwt";
 import { Types } from "mongoose";
 
+/**
+ * Funcion que maneja la petición de los datos de un producto en particular.
+ * @route Post '/user/signUp'
+ * @param req req Request de la petición, se espera que tenga la información del nuevo producto
+ * @param res Response, retornará el token del usuario con un mensaje de creacion correcta mas un mensaje true
+ */
 export const signUp: RequestHandler = async (req, res) => {
     const { name, rut ,password, mail, permission_level} = req.body;
 
@@ -28,6 +34,12 @@ export const signUp: RequestHandler = async (req, res) => {
     return res.status(201).send({ success: true, data: { token }, message: 'Se ha creado correctamente el nuevo usuario.' });
 }
 
+/**
+ * Establece las direcciones url de las imagenes de un producto en particular
+ * @route Get /user/:id
+ * @param req Request, se espera que tenga el id del usuario
+ * @param res Response, returna true, el nombre del usuario ingresado por id y un mensaje de confirmacion
+ */
 export const getUserName: RequestHandler = async (req, res) => {
 
     const _id = req.params.id;
@@ -48,6 +60,12 @@ export const getUserName: RequestHandler = async (req, res) => {
 	});
 }
 
+/**
+ * Establece las direcciones url de las imagenes de un producto en particular
+ * @route Put /user/:id
+ * @param req Request, se espera que tenga la informacion del usuario modificada
+ * @param res Response, returna true, un data vacio y un mensaje de confirmacion
+ */
 export const editUser: RequestHandler = async (req, res) => {
     const _id = req.params.id;
     const updateUser = req.body;
@@ -70,6 +88,12 @@ export const editUser: RequestHandler = async (req, res) => {
     return res.status(200).send({ sucess: true, data:{}, message: 'Se modifico exitosamente al usuario!' });
 }
 
+/**
+ * Establece las direcciones url de las imagenes de un producto en particular
+ * @route Delete /user/:id
+ * @param req Request, se espera que tenga el id del usuario a eliminar
+ * @param res Response, returna true, un data vacio y un mensaje de confirmacion
+ */
 export const deleteUser: RequestHandler = async (req, res) => {
     const _id = req.params.id;
 
@@ -84,6 +108,12 @@ export const deleteUser: RequestHandler = async (req, res) => {
     return res.status(200).send({ succes: true, data:{}, message: 'Se elimino exitosamente el usuario.' });
 }
 
+/**
+ * Establece las direcciones url de las imagenes de un producto en particular
+ * @route Post /user/signin
+ * @param req Request, se espera que tenga el id del usuario a eliminar
+ * @param res Response, returna true, el token del usuario y un mensaje de confirmacion
+ */
 export const signIn: RequestHandler = async (req, res) => {
     const { rut, password } = req.body;
     const user = await User.findOne({ rut });
