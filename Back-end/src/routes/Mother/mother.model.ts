@@ -57,7 +57,7 @@ const motherSchema = new Schema({
         trim: true
     },
     number_of_living_children:{
-        required: true,
+        required: false,
         type: Number,
         trim: true
     },
