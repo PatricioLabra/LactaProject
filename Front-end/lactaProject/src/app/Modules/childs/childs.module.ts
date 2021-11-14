@@ -5,6 +5,7 @@ import { ChildsListComponent } from './components/childs-list/childs-list.compon
 import { LactancyDataComponent } from './components/lactancy-data/lactancy-data.component';
 import { ChildFormComponent } from './pages/child-form/child-form.component';
 import { ChildProfileComponent } from './pages/child-profile/child-profile.component';
+import { ChildsRoutingModule } from './childs-routing.module';
 
 
 
@@ -18,6 +19,7 @@ import { ChildProfileComponent } from './pages/child-profile/child-profile.compo
   ],
   imports: [
     CommonModule,
+    ChildsRoutingModule
   ],
   exports:[
     BirthDataComponent,
