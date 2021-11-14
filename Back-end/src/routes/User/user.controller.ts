@@ -141,6 +141,12 @@ export const getPass: RequestHandler = async (req, res) => {
 
 }
 
+/**
+ * Establece las direcciones url de las imagenes de un producto en particular
+ * @route Get /user
+ * @param req Request, no contiene nada
+ * @param res Response, returna true, los nombres y rut de todos los usuarios y un mensaje de confirmacion
+ */
 export const getUsers: RequestHandler = async (req, res) => {
     const users = await User.find();
 
@@ -150,7 +156,7 @@ export const getUsers: RequestHandler = async (req, res) => {
     }
     
     //Se guarda el nombre y rut de todos los usuarios
-    const nameUsers = users.map(user => { return { name: user.name, rut: user.rut }});
+    const nameUsers = users.map(user => { return { name: user.name, rut: user.rut, id: user._id }});
     
     return res.status(200).send({
 		success:true, 
