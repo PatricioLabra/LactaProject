@@ -7,14 +7,17 @@ import { ControlDataComponent } from './components/control-data/control-data.com
 import { AddControlComponent } from './components/add-control/add-control.component';
 import { ControlsListComponent } from './components/controls-list/controls-list.component';
 import { ControlsRoutingModule } from './controls-routing.module';
+import { PopUpPrintControlComponent } from './components/pop-up-print-control/pop-up-print-control.component';
+import { MDBBootstrapModule } from 'angular-bootstrap-md';
 
 
 
 @NgModule({
-  declarations: [PastControlsComponent, InprocessControlComponent, MotherIncomingcontrolsListComponent, ControlDataComponent, AddControlComponent, ControlsListComponent],
+  declarations: [PastControlsComponent, InprocessControlComponent, MotherIncomingcontrolsListComponent, ControlDataComponent, AddControlComponent, ControlsListComponent, PopUpPrintControlComponent],
   imports: [
     CommonModule,
-    ControlsRoutingModule
+    ControlsRoutingModule,
+    MDBBootstrapModule
   ],
   exports:[PastControlsComponent, InprocessControlComponent, MotherIncomingcontrolsListComponent, ControlDataComponent, AddControlComponent, ControlsListComponent]
 })
