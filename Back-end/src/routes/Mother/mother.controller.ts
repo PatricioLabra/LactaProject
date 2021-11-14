@@ -37,7 +37,7 @@ export const newMother: RequestHandler = async (req, res) => {
     const motherSaved = new Mother(newMother);
     await motherSaved.save();
 
-    return res.status(201).send({ succes: true, data: { _id: motherSaved._id }, message: "Madre agregada con éxito al sistema."});
+    return res.status(201).send({ succes: true, data: { _id: motherSaved._id }, message: "Madre agregada con éxito al sistema." });
 }
 
 export const editMother: RequestHandler = async (req, res) => {
