@@ -22,7 +22,7 @@ const motherSchema = new Schema({
         trim: true
     },
     mail:{
-        required: true,
+        required: false,
         type: String,
         trim: true
     },
