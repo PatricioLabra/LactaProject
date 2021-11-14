@@ -6,13 +6,23 @@ import { MotherFormComponent } from './pages/mother-form/mother-form.component';
 import { MotherDataComponent } from './components/mother-data/mother-data.component';
 import { MothersListComponent } from './components/mothers-list/mothers-list.component';
 
-
-
 @NgModule({
-  declarations: [MothersViewComponent, MotherProfileComponent, MotherFormComponent, MotherDataComponent, MothersListComponent],
+  declarations: [
+    MothersViewComponent,
+    MotherProfileComponent,
+    MotherFormComponent,
+    MotherDataComponent,
+    MothersListComponent
+  ],
   imports: [
     CommonModule
   ],
-  exports:[MothersViewComponent, MotherProfileComponent, MotherFormComponent, MotherDataComponent, MothersListComponent]
+  exports:[
+    MothersViewComponent,
+    MotherProfileComponent,
+    MotherFormComponent,
+    MotherDataComponent,
+    MothersListComponent
+  ]
 })
 export class MothersModule { }
