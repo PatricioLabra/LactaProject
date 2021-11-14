@@ -18,7 +18,7 @@ export const newMother: RequestHandler = async (req, res) => {
 
     //se valida si alguno de los atributos required no son válidos
     if ( !name || !rut || !commune || !phone_number || !birth || !ocupation || !studies || 
-        !marital_status || !forecast || !chronic_diseases || !childs || number_of_living_children < 0)
+        !marital_status || !forecast || !chronic_diseases || number_of_living_children < 0)
         return res.status(400).send({ succes: false, data:{}, message:'ERROR: Datos inválidos' + req.body });
 
     const motherFound = await Mother.findOne({ rut });
@@ -30,7 +30,7 @@ export const newMother: RequestHandler = async (req, res) => {
     const newMother = {
         name, rut, commune, phone_number, mail, birth, 
         ocupation, studies, marital_status, forecast,
-        chronic_diseases, number_of_living_children, childs
+        chronic_diseases, number_of_living_children, childs : []
     }
 
     //se almacena la madre en el sistema
@@ -39,41 +39,6 @@ export const newMother: RequestHandler = async (req, res) => {
 
     return res.status(201).send({ succes: true, data: { _id: motherSaved._id }, message: 'Madre agregada con éxito al sistema.' });
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /**
  * Función que maneja la petición de editar a una madre registrada en el sistema.
