@@ -1,1 +1,38 @@
-<p>control-panel works!</p>
+<div class="fondocartas">
+    <div class="container-fluid">
+        <div class="row">
+
+            <div class="col">
+                <mdb-card id="card1">
+                    <mdb-card-body>
+                        <div class=button>
+                            <a href="#" mdbBtn color="" class="text-white" mdbWavesEffect>Asesoradas</a>
+                        </div>
+                    </mdb-card-body>
+                </mdb-card>
+
+            </div>
+
+            <div *ngIf="flag!=0" class="col">
+                <mdb-card id="card2">
+                    <mdb-card-body>
+                        <div class=button>
+                            <a href="#" mdbBtn color="" class="text-white" mdbWavesEffect>Profesionales</a>
+                        </div> 
+                    </mdb-card-body>
+                </mdb-card>
+            </div>
+
+            <div class="col">
+                <mdb-card id="card3">
+                    <mdb-card-body>
+                        <div class=button>
+                            <a href="#" mdbBtn color="" class="text-white"mdbWavesEffect>Estadisticas</a>
+                        </div>
+                    </mdb-card-body>
+                </mdb-card>
+            </div>
+
+        </div>
+    </div>
+</div>
