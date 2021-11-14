@@ -85,4 +85,3 @@ export const getMother: RequestHandler = async (req, res) => {
 export const getSearch: RequestHandler = async (req, res) => {
     
 }
- 
