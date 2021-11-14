@@ -5,6 +5,9 @@ import { FooterComponent } from './components/footer/footer.component';
 import { CoreRoutingModule } from './core-routing.module';
 import { ControlPanelComponent } from './pages/control-panel/control-panel.component';
 import { HttpClientModule } from '@angular/common/http';
+import { MDBBootstrapModule } from 'angular-bootstrap-md';
+
+
 
 @NgModule({
   declarations: [
@@ -15,6 +18,7 @@ import { HttpClientModule } from '@angular/common/http';
   imports: [
     CommonModule,
     CoreRoutingModule,
+    MDBBootstrapModule,
     HttpClientModule
   ],
   exports:[
