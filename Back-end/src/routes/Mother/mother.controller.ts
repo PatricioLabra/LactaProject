@@ -57,7 +57,7 @@ export const editMother: RequestHandler = async (req, res) => {
     const motherFound = await Mother.findById( _id );
 
     //se valida la existencia de la madre en el sistema
-    if ( motherFound ) 
+    if ( !motherFound ) 
         return res.status(404).send({ succes: false, data:{}, message: 'ERROR: La madre ingresada no existe en el sistema.' });
 
     //se actualiza la madre en el sistema
@@ -85,3 +85,4 @@ export const getMother: RequestHandler = async (req, res) => {
 export const getSearch: RequestHandler = async (req, res) => {
     
 }
+ 
