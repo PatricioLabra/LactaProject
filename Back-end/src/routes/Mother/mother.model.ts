@@ -22,7 +22,7 @@ const motherSchema = new Schema({
         trim: true
     },
     mail:{
-        required: true,
+        required: false,
         type: String,
         trim: true
     },
@@ -57,7 +57,7 @@ const motherSchema = new Schema({
         trim: true
     },
     number_of_living_children:{
-        required: true,
+        required: false,
         type: Number,
         trim: true
     },
