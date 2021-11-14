@@ -70,7 +70,7 @@ export const getDetailedMother: RequestHandler = async (req, res) => {
     //se seleccionan los atributos que se van a mandar al front
         const motherFiltered = destructureMother( motherFound );
 
-    return res.status(200).send({ succes: false, data:{ motherFiltered }, message:'Madre encontrada y obtenida de manera correcta.' })
+    return res.status(200).send({ succes: true, data:{ mother: motherFiltered }, message:'Madre encontrada y obtenida de manera correcta.' })
 }
 
 export const getMothers: RequestHandler = async (req, res) => {
