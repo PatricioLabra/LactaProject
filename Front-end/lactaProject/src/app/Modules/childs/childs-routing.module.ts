@@ -21,4 +21,3 @@ const routes: Routes=[
   ]
 })
 export class ChildsRoutingModule { }
-

@@ -1,0 +1,51 @@
+
+.topBar{
+    margin-top: 7%;
+    
+    .sortButton{
+        width: 77px;
+        height: 39px;
+        background:white;
+        position: absolute;
+        right: 0%;
+        color: grey;
+        margin-right: 20vw;
+        border-radius: 30px;
+    }
+    .backButton{
+        width: 77px;
+        height: 39px;
+        position: absolute;
+        background:white;
+        color: grey;
+        margin-left: 20vw;
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        border-radius: 30px;
+    }
+    .childName{
+        position: relative;
+        .childNameBg{
+            padding-top: 10px;
+            padding-bottom: 10px;
+            width: 20vw;
+            margin: auto;
+            text-align: center;
+            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+            border-radius: 30px;
+        }
+    }
+}
+.container-fluid{
+    margin-top: 20px;
+    height: 60vh;
+    .row{
+        height: 50%;
+        width: 70vw;
+        margin: auto;
+        text-align: center;
+    }
+    .rectangle1{
+        padding-bottom: 3%;
+    }
+    
+}

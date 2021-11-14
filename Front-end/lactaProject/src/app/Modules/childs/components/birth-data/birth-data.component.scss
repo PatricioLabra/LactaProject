@@ -1,0 +1,27 @@
+.dataBg{
+    width: 100%;
+    height: 100%;
+    border-radius: 30px;
+    background-color:whitesmoke;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    .titleBg{
+        padding-top: 2%;
+        h3{
+            margin: auto;
+            width: 40%;
+            border-radius: 10px;
+            padding:4px;
+            background-color:pink;
+            color: black;
+            font-family: Quicksand;
+            font-style: normal;
+            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+            border-radius: 30px;
+        }
+    }
+}
+.container-fluid{
+    text-align: left;
+    padding-left: 30px;
+    padding-top: 10px;
+}
