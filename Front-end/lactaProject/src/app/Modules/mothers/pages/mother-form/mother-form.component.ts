@@ -8,6 +8,7 @@ import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
 })
 export class MotherFormComponent implements OnInit {
   chronic_diseases:Array<string>=[];
+  other_diseases:Array<string>=[];
   form:FormGroup;
   constructor(private fb:FormBuilder) {
     this.form=this.fb.group({
@@ -22,6 +23,7 @@ export class MotherFormComponent implements OnInit {
       studies: ['',Validators.required],
       marital_status: ['',Validators.required],
       forecast: ['',Validators.required],
+      number_of_children: ['',Validators.required],
       hipertension_a: ['',Validators.required],
       diabetes_m1: ['',Validators.required],
       diabetes_m2: ['',Validators.required],
@@ -33,6 +35,7 @@ export class MotherFormComponent implements OnInit {
 
   ngOnInit(): void {
   }
+  // Funcion que ACTUALMENTE solo se encarga de imprimir por consola los valores obtenidos en el formulario
   send_mother_data(){
     this.create_list();
     console.log(this.form.get("name")?.value);
@@ -45,12 +48,14 @@ export class MotherFormComponent implements OnInit {
     console.log(this.form.get("studies")?.value);
     console.log(this.form.get("marital_status")?.value);
     console.log(this.form.get("forecast")?.value);
+    console.log(this.form.get("number_of_children")?.value);
     console.log(this.chronic_diseases);
   }
-
-  hola(){
+  // Funcion que se encarga de crear enfermedades que no esten en la lista principal
+ other_disease_function(){
     if(this.form.get("other")?.value != ""){
       this.chronic_diseases.push(this.form.get("other")?.value);
+      this.other_diseases.push(this.form.get("other")?.value);
     }
   }
   // Funcion que crea una lista de enfermedades cronicas

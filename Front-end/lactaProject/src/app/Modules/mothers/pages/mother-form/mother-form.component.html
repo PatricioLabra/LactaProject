@@ -2,7 +2,7 @@
     <div class="container">
         <div class="form-container">
             <form [formGroup]="form" (ngSubmit)="send_mother_data()" autocomplete="off">
-                <!-- TITULO -->
+                <!-- Titulo -->
                 <div class="title-container">
                     <p class="title-text">Formulario Ingreso de Asesorada</p>
                 </div>
@@ -25,15 +25,18 @@
                 <!-- Rut -->
                 <div class="input-label-container">
                     <label class="label-text">Rut:</label>
-                    <div class="rut-container">
-                        <input type="number" class="form-control" formControlName="rut" placeholder="Rut"
-                        [ngClass]="{ 'is-invalid': form.controls['rut'].invalid && (form.controls['rut'].dirty || form.controls['rut'].touched),
-                        'is-valid': form.controls['rut'].valid && (form.controls['rut'].dirty || form.controls['rut'].touched)  }">
-                    </div>
-                    <div class="rut-vc-container">
-                        <input type="text" class="form-control" formControlName="rut_vc" placeholder="VC"
-                        [ngClass]="{ 'is-invalid': form.controls['rut_vc'].invalid && (form.controls['rut_vc'].dirty || form.controls['rut_vc'].touched),
-                        'is-valid': form.controls['rut_vc'].valid && (form.controls['rut_vc'].dirty || form.controls['rut_vc'].touched)  }">
+                    <div class="full-rut-container">
+                        <div class="rut-container">
+                            <input type="number" class="form-control" formControlName="rut" placeholder="Rut"
+                            [ngClass]="{ 'is-invalid': form.controls['rut'].invalid && (form.controls['rut'].dirty || form.controls['rut'].touched),
+                            'is-valid': form.controls['rut'].valid && (form.controls['rut'].dirty || form.controls['rut'].touched)  }">
+                        </div>
+                        <p class="guion-container">-</p>
+                        <div class="rut-vc-container">
+                            <input type="text" class="form-control" formControlName="rut_vc" placeholder="VC"
+                            [ngClass]="{ 'is-invalid': form.controls['rut_vc'].invalid && (form.controls['rut_vc'].dirty || form.controls['rut_vc'].touched),
+                            'is-valid': form.controls['rut_vc'].valid && (form.controls['rut_vc'].dirty || form.controls['rut_vc'].touched)  }">
+                        </div>
                     </div>
                     <div *ngIf="form.controls['rut'].invalid && (form.controls['rut'].dirty || form.controls['rut'].touched)">
                         <div *ngIf="form.controls['rut']?.hasError('required')">
@@ -182,6 +185,22 @@
                         </div>
                     </div>
                 </div>
+                <!-- N° de hijos vivos -->
+                <div class="input-label-container"> 
+                    <label class="label-text">N° de hijos vivos:</label>
+                    <div class="number-of-children-container">
+                        <input type="number" class="form-control" formControlName="number_of_children"
+                        [ngClass]="{ 'is-invalid': form.controls['number_of_children'].invalid && (form.controls['number_of_children'].dirty || form.controls['number_of_children'].touched),
+                        'is-valid': form.controls['number_of_children'].valid && (form.controls['number_of_children'].dirty || form.controls['number_of_children'].touched)  }">
+                    </div>
+                    <div *ngIf="form.controls['number_of_children'].invalid && (form.controls['number_of_children'].dirty || form.controls['number_of_children'].touched)">
+                        <div *ngIf="form.controls['number_of_children']?.hasError('required')" > 
+                            <div class="invalid-text">
+                                Debe rellenar el campo
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <!-- Enfermedades Crónicas -->
                 <div class="input-label-container">
                     <div class="form-check">
@@ -204,9 +223,12 @@
                         <input type="checkbox" class="form-check-input" formControlName="hipertiroidismo">
                         <label class="form-check-label">hipertiroidismo</label>
                     </div>
-                    <div>
-                        <input type="text" formControlName="other">
-                        <button type="button" (click)="hola()">+</button>
+                    <div *ngFor="let disease of other_diseases" class="disease-container">
+                        {{ disease }}
+                    </div>
+                    <div class="other-disease-container">
+                        <input type="text" formControlName="other" class="form-control">
+                        <button type="button" (click)="other_disease_function()" class="new-disease-button">+</button>
                     </div>
                 </div>
                 <!-- Boton Agregar -->
