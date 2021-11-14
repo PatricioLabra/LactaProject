@@ -81,6 +81,12 @@ export const getMothers: RequestHandler = async (req, res) => {
 export const getSearch: RequestHandler = async (req, res) => {
     
 }
+
+/**
+ * Extrae los atributos del perfil de la madre extraidos desde la base de datos
+ * @param motherFound Madre extraido de la base de datos
+ * @returns Object con los atributos de la madre a enviar al front
+ */
 function destructureMother(motherFound: any) {
     const motherFiltered = {
         _id: motherFound._id,
