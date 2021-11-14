@@ -10,6 +10,6 @@ export interface typeMother{
     studies: string,
     marital_status: string,
     forecast: string,
-    chronic_deseases: string[],
+    chronic_diseases: string[],
     number_of_living_children: Number
 }
