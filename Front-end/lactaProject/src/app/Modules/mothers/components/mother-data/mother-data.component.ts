@@ -15,8 +15,11 @@ export class MotherDataComponent implements OnInit {
   constructor(private apiGet: ApiGetService) { }
 
   ngOnInit(): void {
-    this.apiGet.getMother('618b49b310ac658e96ca116d').subscribe((response: ApiResponse) => {
+    this.apiGet.getMother('618b4a3110ac658e96ca116e').subscribe((response: ApiResponse) => {
       console.log(response);
+      if (response.success) {
+        this.motherData = response.data.mother;
+      }
     });
   }
 }

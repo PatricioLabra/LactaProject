@@ -1,5 +1,16 @@
 <!--Datos asesorada-->
-<div>
-
+<div *ngIf="motherData">
+    <p>{{ motherData.name }}</p>
+    <p>{{ motherData.rut }}</p>
+    <p>{{ motherData.commune }}</p>
+    <p>{{ motherData.phone_number }}</p>
+    <p>{{ motherData.mail }}</p>
+    <p>{{ motherData.birth }}</p>
+    <p>{{ motherData.ocupation }}</p>
+    <p>{{ motherData.studies }}</p>
+    <p>{{ motherData.marital_status }}</p>
+    <p>{{ motherData.forecast }}</p>
+    <p>{{ motherData.chronic_diseases | json }}</p>
+    <p>{{ motherData.number_of_living_children }}</p>
 </div>
 <!--Datos asesorada-->
