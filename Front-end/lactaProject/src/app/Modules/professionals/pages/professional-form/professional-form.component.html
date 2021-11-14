@@ -1,1 +1,105 @@
-<p>professional-form works!</p>
+<body>
+    <div class="container">
+        <div class="form-container">
+            <form [formGroup]="form" (ngSubmit)="send_professional_data()" autocomplete="off">
+                <!-- Titulo -->
+                <div class="title-container">
+                    <p class="title-text">Formulario Ingreso de Profesional</p>
+                </div>
+                <!-- Nombre -->
+                <div class="input-label-container"> 
+                    <label class="label-text">Nombre:</label>
+                    <div class="name-container">
+                        <input type="text" class="form-control" formControlName="name" placeholder="Nombre" maxlength="30"
+                        [ngClass]="{ 'is-invalid': form.controls['name'].invalid && (form.controls['name'].dirty || form.controls['name'].touched),
+                        'is-valid': form.controls['name'].valid && (form.controls['name'].dirty || form.controls['name'].touched)  }">
+                    </div>
+                    <div *ngIf="form.controls['name'].invalid && (form.controls['name'].dirty || form.controls['name'].touched)">
+                        <div *ngIf="form.controls['name']?.hasError('required')" > 
+                            <div class="invalid-text">
+                                Debe rellenar el campo
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Rut -->
+                <div class="input-label-container">
+                    <label class="label-text">Rut:</label>
+                    <div class="full-rut-container">
+                        <div class="rut-container">
+                            <input type="number" class="form-control" formControlName="rut" placeholder="Rut"
+                            [ngClass]="{ 'is-invalid': form.controls['rut'].invalid && (form.controls['rut'].dirty || form.controls['rut'].touched),
+                            'is-valid': form.controls['rut'].valid && (form.controls['rut'].dirty || form.controls['rut'].touched)  }">
+                        </div>
+                        <p class="guion-container">-</p>
+                        <div class="rut-vc-container">
+                            <input type="text" class="form-control" formControlName="rut_vc" placeholder="VC"
+                            [ngClass]="{ 'is-invalid': form.controls['rut_vc'].invalid && (form.controls['rut_vc'].dirty || form.controls['rut_vc'].touched),
+                            'is-valid': form.controls['rut_vc'].valid && (form.controls['rut_vc'].dirty || form.controls['rut_vc'].touched)  }">
+                        </div>
+                    </div>
+                    <div *ngIf="form.controls['rut'].invalid && (form.controls['rut'].dirty || form.controls['rut'].touched)">
+                        <div *ngIf="form.controls['rut']?.hasError('required')">
+                            <div class="invalid-text">
+                                Debe rellenar el campo
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Password -->
+                <div class="input-label-container"> 
+                    <label class="label-text">Password:</label>
+                    <div class="password-container">
+                        <input type="password" class="form-control" formControlName="password" placeholder="Contraseña" maxlength="20"
+                        [ngClass]="{ 'is-invalid': form.controls['password'].invalid && (form.controls['password'].dirty || form.controls['password'].touched),
+                        'is-valid': form.controls['password'].valid && (form.controls['password'].dirty || form.controls['password'].touched)  }">
+                    </div>
+                    <div *ngIf="form.controls['password'].invalid && (form.controls['password'].dirty || form.controls['password'].touched)">
+                        <div *ngIf="form.controls['password']?.hasError('required')" > 
+                            <div class="invalid-text">
+                                Debe rellenar el campo
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Mail -->
+                <div class="input-label-container"> 
+                    <label class="label-text">Mail:</label>
+                    <div class="mail-container">
+                        <input type="email" class="form-control" formControlName="mail" placeholder="Mail"
+                        [ngClass]="{ 'is-invalid': form.controls['mail'].invalid && (form.controls['mail'].dirty || form.controls['mail'].touched),
+                        'is-valid': form.controls['mail'].valid && (form.controls['mail'].dirty || form.controls['mail'].touched)  }">
+                    </div>
+                    <div *ngIf="form.controls['mail'].invalid && (form.controls['mail'].dirty || form.controls['mail'].touched)">
+                        <div *ngIf="form.controls['mail']?.hasError('email')" > 
+                            <div class="invalid-text">
+                                Escriba un correo electronico valido, Ej: Juanito@mail.com
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Nivel de Permiso -->
+                <div class="input-label-container"> 
+                    <label class="label-text">Nivel de Permiso:</label>
+                    <select class="browser-default custom-select" formControlName="permission_level"
+                        [ngClass]="{ 'is-invalid': form.controls['permission_level'].invalid && (form.controls['permission_level'].dirty || form.controls['permission_level'].touched),
+                        'is-valid': form.controls['permission_level'].valid && (form.controls['permission_level'].dirty || form.controls['permission_level'].touched)  }">
+                        <option value="0">Profesional</option>
+                        <option value="1">Administrador</option>
+                    </select>
+                    <div *ngIf="form.controls['permission_level'].invalid && (form.controls['permission_level'].dirty || form.controls['permission_level'].touched)">
+                        <div *ngIf="form.controls['permission_level']?.hasError('required')" > 
+                            <div class="invalid-text">
+                                Debe rellenar el campo
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Boton Agregar -->
+                <div class="button-container">
+                    <button type="submit" class="send-button">AGREGAR</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
