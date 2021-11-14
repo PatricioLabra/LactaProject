@@ -1,6 +1,6 @@
 import { RequestHandler } from "express";
 import Mother from './mother.model';
-import Types from "moongose";
+import { Types } from "mongoose";
 
 
 /**
@@ -55,11 +55,22 @@ export const deleteMother: RequestHandler = async (req, res) => {
  * @param res Response, retorna un un object con succes:true, data:{  mother:{} } y un message: "String" de la madre obtenida si todo sale bien
  */
 export const getDetailedMother: RequestHandler = async (req, res) => {
-    const _id: req.params.id;
+    const _id = req.params.id;
 
-    //se valida el _id ingresado
+    //se válida el _id ingresado
     if ( !Types.ObjecId.isValid( _id ))
+        return res.status(400).send({ succes: false, data:{}, message:'ERROR: El id ingresado no es válido.' });
 
+    const motherFound = await Mother.findById( _id );
+
+    //se válida la existencia de la madre en el sistema
+    if( !motherFound )
+        return res.status(404).send({ succes: false, data:{}, message:'ERROR: La madre a obtener no existe en el sistema.' });
+
+    //se seleccionan los atributos que se van a mandar al front
+        const motherFiltered = destructureMother( motherFound );
+
+    return res.status(200).send({ succes: false, data:{ motherFiltered }, message:'Madre encontrada y obtenida de manera correcta.' })
 }
 
 export const getMothers: RequestHandler = async (req, res) => {
@@ -70,3 +81,7 @@ export const getMothers: RequestHandler = async (req, res) => {
 export const getSearch: RequestHandler = async (req, res) => {
     
 }
+function destructureMother(motherFound: any) {
+    throw new Error("Function not implemented.");
+}
+
