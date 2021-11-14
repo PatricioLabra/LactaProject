@@ -7,18 +7,20 @@ import { Types } from "mongoose";
 export const signUp: RequestHandler = async (req, res) => {
     const { name, rut ,password, mail, permission_level} = req.body;
 
+    //Se valida que los atributos sean validos
     if( !rut || !password || !name || !mail || !permission_level ){
         return res.status(400).send({ succes: false, data:{}, message: 'Error: datos inválidos'+ req.body });
     }
 
     const userFound = await User.findOne({ name });
 
+    //Se valida la existencia de algun usuario con el nombre ingresado
     if( userFound ){
         return res.status(301).send({ succes: false, data:{}, message: 'Error: el usuario ingresado ya existe en el sistema.' });
     }
 
+    //Se guarda
     const newUser = new User(req.body);
-
     await newUser.save();
 
     const token = signToken(newUser._id);
@@ -27,12 +29,16 @@ export const signUp: RequestHandler = async (req, res) => {
 }
 
 export const getUserName: RequestHandler = async (req, res) => {
+
     const _id = req.params.id;
     const userFound = await User.findById(_id);
+
+    //Se valida el _id ingresado
     if( !userFound ){
         return res.status(404).send({ success: false, data:{}, message: 'Error: el usuario ingresado no existe en el sistema.' });                   
     }
 
+    //Se guarda el nombre del usuario ingresado
     const userInfo = userFound.name;
 
 	return res.status(200).send({
@@ -58,6 +64,7 @@ export const editUser: RequestHandler = async (req, res) => {
         return res.status(404).send({ success: false, data:{}, message: 'Error: el usuario no existe en el sistema.' });
     }
 
+    //Se realiza el cambio
     await User.findByIdAndUpdate(_id, updateUser);
 
     return res.status(200).send({ sucess: true, data:{}, message: 'Se modifico exitosamente al usuario!' });
@@ -71,6 +78,7 @@ export const deleteUser: RequestHandler = async (req, res) => {
         return res.status(400).send({ succes: false, data:{}, message: 'Error: el id ingresado no es valido.' });
     }
 
+    //Se busca el usuario y se elimina
     await User.findByIdAndDelete(_id);
 
     return res.status(200).send({ succes: true, data:{}, message: 'Se elimino exitosamente el usuario.' });
@@ -80,10 +88,12 @@ export const signIn: RequestHandler = async (req, res) => {
     const { rut, password } = req.body;
     const user = await User.findOne({ rut });
     
+    //Se valida si existe el usuario
     if( !user ){
         return res.status(404).send({ success: false, data:{}, message: 'Error: el usuario ingresado no existe en el sistema.' });
     }
 
+    //Se comparan las password
     if ( user.password !== password ){
         return res.status(400).send({ success:false, data:{}, message: 'Error: la password ingresada no es válida.' });
     }
@@ -104,10 +114,12 @@ export const getPass: RequestHandler = async (req, res) => {
 export const getUsers: RequestHandler = async (req, res) => {
     const users = await User.find();
 
+    //Se valida la existencia del usuario
     if( !users ){
         return res.status(200).send({ success: true, data:{}, message: 'No se encontro ningun usuario en el sistema.' });
     }
-
+    
+    //Se guarda el nombre y rut de todos los usuarios
     const nameUsers = users.map(user => { return { name: user.name, rut: user.rut }});
     
     return res.status(200).send({
