@@ -95,8 +95,23 @@ export const getDetailedMother: RequestHandler = async (req, res) => {
     return res.status(200).send({ succes: true, data:{ mother: motherFiltered }, message:'Madre encontrada y obtenida de manera correcta.' })
 }
 
+/**
+ * Función que maneja la petición de obtener a todas las madres con sus nombres y rut's
+ * @route Get /mother
+ * @param req Request de la petición, se espera que no contenga nada
+ * @param res Response, retorna un un object con succes:true, data:{  listMothers:[{},{},...] } y un message: "String" de las madres obtenidas si todo sale bien
+ */
 export const getMothers: RequestHandler = async (req, res) => {
-    
+    const mothersFound = await Mother.find();
+
+    //se valida la existencia de madres
+    if ( !mothersFound )
+        return res.status(404).send({ succes: false, data:{}, message:'ERROR: No existen madres registradas en el sistema.' });
+
+    //se filtran los datos publicos a retornar al front de cada madre
+    const listMothers = mothersFound.map( mother => { return { id: mother.id,  name: mother.name, rut: mother.rut }});
+
+    return res.status(200).send({ succes: true, data:{ listMothers: listMothers }, message: "Se obtuvieron a todas las madres del sistema de manera exitosoa." });
 }
 
 
