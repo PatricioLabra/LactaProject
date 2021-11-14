@@ -13,26 +13,25 @@ export class MotherFormComponent implements OnInit {
   constructor(private fb:FormBuilder) {
     this.form=this.fb.group({
       name: ['', Validators.required],
-      rut: ['',Validators.required],
-      rut_vc: ['',Validators.required],
-      comune: ['',Validators.required],
-      phone_number: ['',Validators.required],
-      mail: ['',Validators.email ],
-      birth: ['',Validators.required],
-      ocupation: ['',Validators.required],
-      studies: ['',Validators.required],
-      marital_status: ['',Validators.required],
-      forecast: ['',Validators.required],
-      number_of_children: ['',Validators.required],
-      hipertension_a: ['',Validators.required],
-      diabetes_m1: ['',Validators.required],
-      diabetes_m2: ['',Validators.required],
-      hipotiroidismo: ['',Validators.required],
-      hipertiroidismo: ['',Validators.required],
+      rut: ['', Validators.required],
+      rut_vc: ['', Validators.required],
+      comune: ['', Validators.required],
+      phone_number: ['', Validators.required],
+      mail: ['', [Validators.email, Validators.required] ],
+      birth: ['', Validators.required],
+      ocupation: ['', Validators.required],
+      studies: ['ninguna'],
+      marital_status: ['soltera'],
+      forecast: ['ninguna'],
+      number_of_children: ['', Validators.required],
+      hipertension_a: ['', Validators.required],
+      diabetes_m1: ['', Validators.required],
+      diabetes_m2: ['', Validators.required],
+      hipotiroidismo: ['', Validators.required],
+      hipertiroidismo: ['', Validators.required],
       other: [''],
     });
    }
-
   ngOnInit(): void {
   }
   // Funcion que ACTUALMENTE solo se encarga de imprimir por consola los valores obtenidos en el formulario

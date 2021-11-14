@@ -129,29 +129,18 @@
                 <!-- Escolaridad -->
                 <div class="input-label-container"> 
                     <label class="label-text">Escolaridad:</label>
-                    <select class="browser-default custom-select" formControlName="studies"
-                        [ngClass]="{ 'is-invalid': form.controls['studies'].invalid && (form.controls['studies'].dirty || form.controls['studies'].touched),
-                        'is-valid': form.controls['studies'].valid && (form.controls['studies'].dirty || form.controls['studies'].touched)  }">
+                    <select class="browser-default custom-select" formControlName="studies">
                         <option value="ninguna">Ninguna</option>
                         <option value="basica">Enseñanza Básica</option>
                         <option value="media">Enseñanza Media</option>
                         <option value="tecnica">Tecnica</option>
                         <option value="universitaria">Universitaria</option>
                     </select>
-                    <div *ngIf="form.controls['studies'].invalid && (form.controls['studies'].dirty || form.controls['studies'].touched)">
-                        <div *ngIf="form.controls['studies']?.hasError('required')" > 
-                            <div class="invalid-text">
-                                Debe rellenar el campo
-                            </div>
-                        </div>
-                    </div>
                 </div>
                 <!-- Estado Civil -->
                 <div class="input-label-container"> 
                     <label class="label-text">Estado Civil:</label>
-                    <select class="browser-default custom-select" formControlName="marital_status"
-                        [ngClass]="{ 'is-invalid': form.controls['marital_status'].invalid && (form.controls['marital_status'].dirty || form.controls['marital_status'].touched),
-                        'is-valid': form.controls['marital_status'].valid && (form.controls['marital_status'].dirty || form.controls['marital_status'].touched)  }">
+                    <select class="browser-default custom-select" formControlName="marital_status">
                         <option value="soltera">Soltera</option>
                         <option value="casada">Casada</option>
                         <option value="conviviente civil">Conviviente civil</option>
@@ -159,31 +148,15 @@
                         <option value="separacion en proceso judicial">Separación en proceso judicial</option>
                         <option value="viuda">Viuda</option>
                     </select>
-                    <div *ngIf="form.controls['marital_status'].invalid && (form.controls['marital_status'].dirty || form.controls['marital_status'].touched)">
-                        <div *ngIf="form.controls['marital_status']?.hasError('required')" > 
-                            <div class="invalid-text">
-                                Debe rellenar el campo
-                            </div>
-                        </div>
-                    </div>
                 </div>
                 <!-- Previsión -->
                 <div class="input-label-container"> 
                     <label class="label-text">Previsión:</label>
-                    <select class="browser-default custom-select" formControlName="forecast"
-                        [ngClass]="{ 'is-invalid': form.controls['forecast'].invalid && (form.controls['forecast'].dirty || form.controls['forecast'].touched),
-                        'is-valid': form.controls['forecast'].valid && (form.controls['forecast'].dirty || form.controls['forecast'].touched)  }">
+                    <select class="browser-default custom-select" formControlName="forecast">
                         <option value="ninguna">Ninguna</option>
                         <option value="fonasa">Fonasa</option>
                         <option value="isapre">Isapre</option>
                     </select>
-                    <div *ngIf="form.controls['forecast'].invalid && (form.controls['forecast'].dirty || form.controls['forecast'].touched)">
-                        <div *ngIf="form.controls['forecast']?.hasError('required')" > 
-                            <div class="invalid-text">
-                                Debe rellenar el campo
-                            </div>
-                        </div>
-                    </div>
                 </div>
                 <!-- N° de hijos vivos -->
                 <div class="input-label-container"> 
