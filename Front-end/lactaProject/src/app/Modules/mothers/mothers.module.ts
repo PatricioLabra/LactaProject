@@ -5,14 +5,26 @@ import { MotherProfileComponent } from './pages/mother-profile/mother-profile.co
 import { MotherFormComponent } from './pages/mother-form/mother-form.component';
 import { MotherDataComponent } from './components/mother-data/mother-data.component';
 import { MothersListComponent } from './components/mothers-list/mothers-list.component';
-
+import { SharedModule } from '@shared/shared.module';
 
 
 @NgModule({
-  declarations: [MothersViewComponent, MotherProfileComponent, MotherFormComponent, MotherDataComponent, MothersListComponent],
-  imports: [
-    CommonModule
+  declarations: [
+    MothersViewComponent, 
+    MotherProfileComponent, 
+    MotherFormComponent, 
+    MotherDataComponent, 
+    MothersListComponent
   ],
-  exports:[MothersViewComponent, MotherProfileComponent, MotherFormComponent, MotherDataComponent, MothersListComponent]
+  imports: [
+    CommonModule, SharedModule
+  ],
+  exports: [
+    MothersViewComponent, 
+    MotherProfileComponent, 
+    MotherFormComponent, 
+    MotherDataComponent, 
+    MothersListComponent
+  ]
 })
 export class MothersModule { }

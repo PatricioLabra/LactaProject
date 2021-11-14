@@ -1,1 +1,219 @@
-<p>mother-form works!</p>
+<body>
+    <div class="container">
+        <div class="form-container">
+            <form [formGroup]="form" (ngSubmit)="send_mother_data()" autocomplete="off">
+                <!-- TITULO -->
+                <div class="title-container">
+                    <p class="title-text">Formulario Ingreso de Asesorada</p>
+                </div>
+                <!-- Nombre -->
+                <div class="input-label-container"> 
+                    <label class="label-text">Nombre:</label>
+                    <div class="name-container">
+                        <input type="text" class="form-control" formControlName="name" placeholder="Nombre" maxlength="30"
+                        [ngClass]="{ 'is-invalid': form.controls['name'].invalid && (form.controls['name'].dirty || form.controls['name'].touched),
+                        'is-valid': form.controls['name'].valid && (form.controls['name'].dirty || form.controls['name'].touched)  }">
+                    </div>
+                    <div *ngIf="form.controls['name'].invalid && (form.controls['name'].dirty || form.controls['name'].touched)">
+                        <div *ngIf="form.controls['name']?.hasError('required')" > 
+                            <div class="invalid-text">
+                                Debe rellenar el campo
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Rut -->
+                <div class="input-label-container">
+                    <label class="label-text">Rut:</label>
+                    <div class="rut-container">
+                        <input type="number" class="form-control" formControlName="rut" placeholder="Rut"
+                        [ngClass]="{ 'is-invalid': form.controls['rut'].invalid && (form.controls['rut'].dirty || form.controls['rut'].touched),
+                        'is-valid': form.controls['rut'].valid && (form.controls['rut'].dirty || form.controls['rut'].touched)  }">
+                    </div>
+                    <div class="rut-vc-container">
+                        <input type="text" class="form-control" formControlName="rut_vc" placeholder="VC"
+                        [ngClass]="{ 'is-invalid': form.controls['rut_vc'].invalid && (form.controls['rut_vc'].dirty || form.controls['rut_vc'].touched),
+                        'is-valid': form.controls['rut_vc'].valid && (form.controls['rut_vc'].dirty || form.controls['rut_vc'].touched)  }">
+                    </div>
+                    <div *ngIf="form.controls['rut'].invalid && (form.controls['rut'].dirty || form.controls['rut'].touched)">
+                        <div *ngIf="form.controls['rut']?.hasError('required')">
+                            <div class="invalid-text">
+                                Debe rellenar el campo
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Comuna -->
+                <div class="input-label-container"> 
+                    <label class="label-text">Comuna:</label>
+                    <div class="comune-container">
+                        <input type="text" class="form-control" formControlName="comune" placeholder="Comuna"
+                        [ngClass]="{ 'is-invalid': form.controls['comune'].invalid && (form.controls['comune'].dirty || form.controls['comune'].touched),
+                        'is-valid': form.controls['comune'].valid && (form.controls['comune'].dirty || form.controls['comune'].touched)  }">
+                    </div>
+                    <div *ngIf="form.controls['comune'].invalid && (form.controls['comune'].dirty || form.controls['comune'].touched)">
+                        <div *ngIf="form.controls['comune']?.hasError('required')" > 
+                            <div class="invalid-text">
+                                Debe rellenar el campo
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Numero telefónico -->
+                <div class="input-label-container"> 
+                    <label class="label-text">Teléfono:</label>
+                    <div class="phone-container">
+                        <input type="number" class="form-control" formControlName="phone_number" placeholder="Teléfono" 
+                        [ngClass]="{ 'is-invalid': form.controls['phone_number'].invalid && (form.controls['phone_number'].dirty || form.controls['phone_number'].touched),
+                        'is-valid': form.controls['phone_number'].valid && (form.controls['phone_number'].dirty || form.controls['phone_number'].touched)  }">
+                    </div>
+                    <div *ngIf="form.controls['phone_number'].invalid && (form.controls['phone_number'].dirty || form.controls['phone_number'].touched)">
+                        <div *ngIf="form.controls['phone_number']?.hasError('required')" > 
+                            <div class="invalid-text">
+                                Debe rellenar el campo
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Mail -->
+                <div class="input-label-container"> 
+                    <label class="label-text">Mail:</label>
+                    <div class="mail-container">
+                        <input type="email" class="form-control" formControlName="mail" placeholder="Mail"
+                        [ngClass]="{ 'is-invalid': form.controls['mail'].invalid && (form.controls['mail'].dirty || form.controls['mail'].touched),
+                        'is-valid': form.controls['mail'].valid && (form.controls['mail'].dirty || form.controls['mail'].touched)  }">
+                    </div>
+                    <div *ngIf="form.controls['mail'].invalid && (form.controls['mail'].dirty || form.controls['mail'].touched)">
+                        <div *ngIf="form.controls['mail']?.hasError('email')" > 
+                            <div class="invalid-text">
+                                Escriba un correo electronico valido, Ej: Juanito@mail.com
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Fecha de Nacimiento -->
+                <div class="input-label-container"> 
+                    <label class="label-text">Fecha de Nacimiento:</label>
+                    <div class="birth-container">
+                        <input type="date" class="form-control" formControlName="birth"
+                        [ngClass]="{ 'is-invalid': form.controls['birth'].invalid && (form.controls['birth'].dirty || form.controls['birth'].touched),
+                        'is-valid': form.controls['birth'].valid && (form.controls['birth'].dirty || form.controls['birth'].touched)  }">
+                    </div>
+                    <div *ngIf="form.controls['birth'].invalid && (form.controls['birth'].dirty || form.controls['birth'].touched)">
+                        <div *ngIf="form.controls['birth']?.hasError('required')" > 
+                            <div class="invalid-text">
+                                Debe rellenar el campo
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Ocupación -->
+                <div class="input-label-container"> 
+                    <label class="label-text">Ocupación:</label>
+                    <div class="ocupation-container">
+                        <input type="text" class="form-control" formControlName="ocupation" placeholder="Ocupación"
+                        [ngClass]="{ 'is-invalid': form.controls['ocupation'].invalid && (form.controls['ocupation'].dirty || form.controls['ocupation'].touched),
+                        'is-valid': form.controls['ocupation'].valid && (form.controls['ocupation'].dirty || form.controls['ocupation'].touched)  }">
+                    </div>
+                    <div *ngIf="form.controls['ocupation'].invalid && (form.controls['ocupation'].dirty || form.controls['ocupation'].touched)">
+                        <div *ngIf="form.controls['ocupation']?.hasError('required')" > 
+                            <div class="invalid-text">
+                                Debe rellenar el campo
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Escolaridad -->
+                <div class="input-label-container"> 
+                    <label class="label-text">Escolaridad:</label>
+                    <select class="browser-default custom-select" formControlName="studies"
+                        [ngClass]="{ 'is-invalid': form.controls['studies'].invalid && (form.controls['studies'].dirty || form.controls['studies'].touched),
+                        'is-valid': form.controls['studies'].valid && (form.controls['studies'].dirty || form.controls['studies'].touched)  }">
+                        <option value="ninguna">Ninguna</option>
+                        <option value="basica">Enseñanza Básica</option>
+                        <option value="media">Enseñanza Media</option>
+                        <option value="tecnica">Tecnica</option>
+                        <option value="universitaria">Universitaria</option>
+                    </select>
+                    <div *ngIf="form.controls['studies'].invalid && (form.controls['studies'].dirty || form.controls['studies'].touched)">
+                        <div *ngIf="form.controls['studies']?.hasError('required')" > 
+                            <div class="invalid-text">
+                                Debe rellenar el campo
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Estado Civil -->
+                <div class="input-label-container"> 
+                    <label class="label-text">Estado Civil:</label>
+                    <select class="browser-default custom-select" formControlName="marital_status"
+                        [ngClass]="{ 'is-invalid': form.controls['marital_status'].invalid && (form.controls['marital_status'].dirty || form.controls['marital_status'].touched),
+                        'is-valid': form.controls['marital_status'].valid && (form.controls['marital_status'].dirty || form.controls['marital_status'].touched)  }">
+                        <option value="soltera">Soltera</option>
+                        <option value="casada">Casada</option>
+                        <option value="conviviente civil">Conviviente civil</option>
+                        <option value="divorciada">Divorciada</option>
+                        <option value="separacion en proceso judicial">Separación en proceso judicial</option>
+                        <option value="viuda">Viuda</option>
+                    </select>
+                    <div *ngIf="form.controls['marital_status'].invalid && (form.controls['marital_status'].dirty || form.controls['marital_status'].touched)">
+                        <div *ngIf="form.controls['marital_status']?.hasError('required')" > 
+                            <div class="invalid-text">
+                                Debe rellenar el campo
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Previsión -->
+                <div class="input-label-container"> 
+                    <label class="label-text">Previsión:</label>
+                    <select class="browser-default custom-select" formControlName="forecast"
+                        [ngClass]="{ 'is-invalid': form.controls['forecast'].invalid && (form.controls['forecast'].dirty || form.controls['forecast'].touched),
+                        'is-valid': form.controls['forecast'].valid && (form.controls['forecast'].dirty || form.controls['forecast'].touched)  }">
+                        <option value="ninguna">Ninguna</option>
+                        <option value="fonasa">Fonasa</option>
+                        <option value="isapre">Isapre</option>
+                    </select>
+                    <div *ngIf="form.controls['forecast'].invalid && (form.controls['forecast'].dirty || form.controls['forecast'].touched)">
+                        <div *ngIf="form.controls['forecast']?.hasError('required')" > 
+                            <div class="invalid-text">
+                                Debe rellenar el campo
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Enfermedades Crónicas -->
+                <div class="input-label-container">
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" formControlName="hipertension_a">
+                        <label class="form-check-label">Hipertensión arterial</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" formControlName="diabetes_m1">
+                        <label class="form-check-label">Diabetes mellitus 1</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" formControlName="diabetes_m2">
+                        <label class="form-check-label">Diabetes mellitus 2</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" formControlName="hipotiroidismo">
+                        <label class="form-check-label">hipotiroidismo</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" formControlName="hipertiroidismo">
+                        <label class="form-check-label">hipertiroidismo</label>
+                    </div>
+                    <div>
+                        <input type="text" formControlName="other">
+                        <button type="button" (click)="hola()">+</button>
+                    </div>
+                </div>
+                <!-- Boton Agregar -->
+                <div class="button-container">
+                    <button type="submit" class="send-button">AGREGAR</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
