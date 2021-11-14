@@ -15,14 +15,14 @@ export const signUp: RequestHandler = async (req, res) => {
 
     //Se valida que los atributos sean validos
     if( !rut || !password || !name || !mail || !permission_level ){
-        return res.status(400).send({ succes: false, data:{}, message: 'Error: datos inválidos'+ req.body });
+        return res.status(400).send({ success: false, data:{}, message: 'Error: datos inválidos'+ req.body });
     }
 
     const userFound = await User.findOne({ name });
 
     //Se valida la existencia de algun usuario con el nombre ingresado
     if( userFound ){
-        return res.status(301).send({ succes: false, data:{}, message: 'Error: el usuario ingresado ya existe en el sistema.' });
+        return res.status(301).send({ success: false, data:{}, message: 'Error: el usuario ingresado ya existe en el sistema.' });
     }
 
     //Se guarda
@@ -72,7 +72,7 @@ export const editUser: RequestHandler = async (req, res) => {
      
     //se valida el id
     if ( !Types.ObjectId.isValid(_id) ){
-        return res.status(400).send({ succes: false, data:{}, message: 'Error: el id ingresado no es valido.' });
+        return res.status(400).send({ success: false, data:{}, message: 'Error: el id ingresado no es valido.' });
     }
 
     const userFound = await User.findById(_id);
@@ -85,7 +85,7 @@ export const editUser: RequestHandler = async (req, res) => {
     //Se realiza el cambio
     await User.findByIdAndUpdate(_id, updateUser);
 
-    return res.status(200).send({ sucess: true, data:{}, message: 'Se modifico exitosamente al usuario!' });
+    return res.status(200).send({ success: true, data:{}, message: 'Se modifico exitosamente al usuario!' });
 }
 
 /**
@@ -99,13 +99,13 @@ export const deleteUser: RequestHandler = async (req, res) => {
 
     //se valida el id
     if ( !Types.ObjectId.isValid(_id) ){
-        return res.status(400).send({ succes: false, data:{}, message: 'Error: el id ingresado no es valido.' });
+        return res.status(400).send({ success: false, data:{}, message: 'Error: el id ingresado no es valido.' });
     }
 
     //Se busca el usuario y se elimina
     await User.findByIdAndDelete(_id);
 
-    return res.status(200).send({ succes: true, data:{}, message: 'Se elimino exitosamente el usuario.' });
+    return res.status(200).send({ success: true, data:{}, message: 'Se elimino exitosamente el usuario.' });
 }
 
 /**
@@ -130,7 +130,7 @@ export const signIn: RequestHandler = async (req, res) => {
 
     const token = signToken(user._id);
 
-    return res.status(200).send({ succes: true, data:{ token }, message: 'Se ingreso correctamente.' });
+    return res.status(200).send({ success: true, data:{ token }, message: 'Se ingreso correctamente.' });
 }
 
 export const searchUser: RequestHandler = async (req, res) => {
