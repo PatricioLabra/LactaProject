@@ -5,7 +5,7 @@ import { signToken } from "../jwt";
 import { Types } from "mongoose";
 
 /**
- * Funcion que maneja la petición de los datos de un producto en particular.
+ * Funcion que maneja la peticion de agregar un nuevo usuario al sistema
  * @route Post '/user/signUp'
  * @param req req Request de la petición, se espera que tenga la información del nuevo producto
  * @param res Response, retornará el token del usuario con un mensaje de creacion correcta mas un mensaje true
@@ -35,7 +35,7 @@ export const signUp: RequestHandler = async (req, res) => {
 }
 
 /**
- * Establece las direcciones url de las imagenes de un producto en particular
+ * Funcion que maneja la peticion del nombre de un usuario en particular del sistema
  * @route Get /user/:id
  * @param req Request, se espera que tenga el id del usuario
  * @param res Response, returna true, el nombre del usuario ingresado por id y un mensaje de confirmacion
@@ -61,7 +61,7 @@ export const getUserName: RequestHandler = async (req, res) => {
 }
 
 /**
- * Establece las direcciones url de las imagenes de un producto en particular
+ * Funcion que maneja la peticion de actualizar un usuario en el sistema
  * @route Put /user/:id
  * @param req Request, se espera que tenga la informacion del usuario modificada
  * @param res Response, returna true, un data vacio y un mensaje de confirmacion
@@ -89,7 +89,7 @@ export const editUser: RequestHandler = async (req, res) => {
 }
 
 /**
- * Establece las direcciones url de las imagenes de un producto en particular
+ * Funcion que maneja la eliminacion de un usuario en el sistema
  * @route Delete /user/:id
  * @param req Request, se espera que tenga el id del usuario a eliminar
  * @param res Response, returna true, un data vacio y un mensaje de confirmacion
@@ -109,7 +109,7 @@ export const deleteUser: RequestHandler = async (req, res) => {
 }
 
 /**
- * Establece las direcciones url de las imagenes de un producto en particular
+ * Funcion que maneja el inicio de sesion de un Usuario del sistema
  * @route Post /user/signin
  * @param req Request, se espera que tenga el id del usuario a eliminar
  * @param res Response, returna true, el token del usuario y un mensaje de confirmacion
@@ -142,7 +142,7 @@ export const getPass: RequestHandler = async (req, res) => {
 }
 
 /**
- * Establece las direcciones url de las imagenes de un producto en particular
+ * Funcion que maneja la peticion de obtener todos los usuarios del sistema por su nombre y rut
  * @route Get /user
  * @param req Request, no contiene nada
  * @param res Response, returna true, los nombres y rut de todos los usuarios y un mensaje de confirmacion
