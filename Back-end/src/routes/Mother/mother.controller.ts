@@ -58,7 +58,7 @@ export const getDetailedMother: RequestHandler = async (req, res) => {
     const _id = req.params.id;
 
     //se válida el _id ingresado
-    if ( !Types.ObjecId.isValid( _id ))
+    if ( !Types.ObjectId.isValid( _id ))
         return res.status(400).send({ succes: false, data:{}, message:'ERROR: El id ingresado no es válido.' });
 
     const motherFound = await Mother.findById( _id );
@@ -82,6 +82,21 @@ export const getSearch: RequestHandler = async (req, res) => {
     
 }
 function destructureMother(motherFound: any) {
-    throw new Error("Function not implemented.");
-}
+    const motherFiltered = {
+        _id: motherFound._id,
+        name: motherFound.name, 
+        rut: motherFound.rut,
+        commune: motherFound.commune,
+        phone_number: motherFound.phone_number,
+        mail: motherFound.mail,
+        birth : motherFound.birth,
+        ocupation: motherFound.ocupation,
+        studies: motherFound.studies,
+        marital_status: motherFound.marital_status,
+        forecast: motherFound.forecast,
+        number_of_living_children: motherFound.number_of_living_children,
+        chronic_diseases: motherFound.chronic_diseases
+    };
 
+    return motherFiltered;
+}
