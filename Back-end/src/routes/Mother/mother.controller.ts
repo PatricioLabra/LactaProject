@@ -109,7 +109,7 @@ export const getMothers: RequestHandler = async (req, res) => {
         return res.status(404).send({ succes: false, data:{}, message:'ERROR: No existen madres registradas en el sistema.' });
 
     //se filtran los datos publicos a retornar al front de cada madre
-    const listMothers = mothersFound.map( mother => { return { id: mother.id,  name: mother.name, rut: mother.rut }});
+    const listMothers = mothersFound.map( mother => { return { _id: mother.id,  name: mother.name, rut: mother.rut }});
 
     return res.status(200).send({ succes: true, data:{ list_of_mothers: listMothers }, message: "Se obtuvieron a todas las madres del sistema de manera exitosoa." });
 }
