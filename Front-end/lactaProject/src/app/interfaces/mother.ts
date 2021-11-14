@@ -12,6 +12,5 @@ export interface typeMother{
     forecast:string,
     chronic_deseases:string[],
     number_of_living_children:Number,
-    childrens:string[],
-    last_control:string
+    childs:string[]
 }
