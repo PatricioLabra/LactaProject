@@ -11,6 +11,5 @@ export interface typeMother{
     marital_status:string,
     forecast:string,
     chronic_deseases:string[],
-    number_of_living_children:Number,
-    childs:string[]
+    number_of_living_children:Number
 }
