@@ -80,17 +80,17 @@ export const deleteUser: RequestHandler = async (req, res) => {
 export const signIn: RequestHandler = async (req, res) => {
     const { rut, password } = req.body;
     const user = await User.findOne({ rut });
-
+    console.log("error");
     if(!user){
         return res.status(404).send({ success: false, message: 'Error: el usuario ingresado no existe en el sistema.' });
     }
-
+    console.log("error");
     if (user.password !== password){
         return res.status(400).send({ success:false, message: 'Error: la password ingresada no es válida.' });
     }
-
+    console.log("error");
     const token = signToken(user._id);
-
+    console.log("error");
     return res.status(200).send({ succes: true, token, message: "Se ingreso correctamente! =D"});
 }
 
