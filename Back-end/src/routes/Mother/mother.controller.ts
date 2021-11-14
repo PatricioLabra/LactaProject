@@ -70,18 +70,61 @@ export const deleteMother: RequestHandler = async (req, res) => {
     
 }
 
+/**
+ * Función que maneja la petición de obtener a una madre con sus datos de manera detallada del sistema.
+ * @route Get /mother/:id
+ * @param req Request de la petición, se espera que tenga la información de la madre obtenida
+ * @param res Response, retorna un un object con succes:true, data:{  mother:{} } y un message: "String" de la madre obtenida si todo sale bien
+ */
 export const getDetailedMother: RequestHandler = async (req, res) => {
-    
+    const _id = req.params.id;
+
+    //se válida el _id ingresado
+    if ( !Types.ObjectId.isValid( _id ))
+        return res.status(400).send({ succes: false, data:{}, message:'ERROR: El id ingresado no es válido.' });
+
+    const motherFound = await Mother.findById( _id );
+
+    //se válida la existencia de la madre en el sistema
+    if( !motherFound )
+        return res.status(404).send({ succes: false, data:{}, message:'ERROR: La madre a obtener no existe en el sistema.' });
+
+    //se seleccionan los atributos que se van a mandar al front
+        const motherFiltered = destructureMother( motherFound );
+
+    return res.status(200).send({ succes: true, data:{ mother: motherFiltered }, message:'Madre encontrada y obtenida de manera correcta.' })
 }
 
 export const getMothers: RequestHandler = async (req, res) => {
     
 }
 
-export const getMother: RequestHandler = async (req, res) => {
-    
-}
 
 export const getSearch: RequestHandler = async (req, res) => {
     
+}
+
+/**
+ * Extrae los atributos publicos del perfil de la madre obtenido desde la base de datos
+ * @param motherFound Madre extraida de la base de datos
+ * @returns Object con los atributos de la madre a enviar al front
+ */
+function destructureMother(motherFound: any) {
+    const motherFiltered = {
+        _id: motherFound._id,
+        name: motherFound.name, 
+        rut: motherFound.rut,
+        commune: motherFound.commune,
+        phone_number: motherFound.phone_number,
+        mail: motherFound.mail,
+        birth : motherFound.birth,
+        ocupation: motherFound.ocupation,
+        studies: motherFound.studies,
+        marital_status: motherFound.marital_status,
+        forecast: motherFound.forecast,
+        number_of_living_children: motherFound.number_of_living_children,
+        chronic_diseases: motherFound.chronic_diseases
+    };
+
+    return motherFiltered;
 }
