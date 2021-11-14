@@ -30,7 +30,7 @@ export const newMother: RequestHandler = async (req, res) => {
     const newMother = {
         name, rut, commune, phone_number, mail, birth, 
         ocupation, studies, marital_status, forecast,
-        chronic_diseases, number_of_living_children, childs : []
+        chronic_diseases, number_of_living_children, childs : [] 
     }
 
     //se almacena la madre en el sistema
@@ -61,7 +61,7 @@ export const editMother: RequestHandler = async (req, res) => {
         return res.status(404).send({ succes: false, data:{}, message: 'ERROR: La madre ingresada no existe en el sistema.' });
 
     //se actualiza la madre en el sistema
-    await Mother.findByIdAndUpdate( _id, updatedMother);
+    await Mother.findByIdAndUpdate( _id, updatedMother );
 
     return res.status(200).send({ succes: true, data:{}, message: 'Madre editada de manera correcta.' });
 }
