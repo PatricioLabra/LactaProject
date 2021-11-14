@@ -47,6 +47,12 @@ export const deleteMother: RequestHandler = async (req, res) => {
     
 }
 
+/**
+ * Función que maneja la petición de obtener a una madre con sus datos de manera detallada del sistema.
+ * @route Get /mother/:id
+ * @param req Request de la petición, se espera que tenga la información de la madre obtenida
+ * @param res Response, retorna un un object con succes:true, data:{  mother:{} } y un message: "String" de la madre obtenida si todo sale bien
+ */
 export const getDetailedMother: RequestHandler = async (req, res) => {
     
 }
