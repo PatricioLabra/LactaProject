@@ -5,6 +5,8 @@ import { ChildsListComponent } from './components/childs-list/childs-list.compon
 import { LactancyDataComponent } from './components/lactancy-data/lactancy-data.component';
 import { ChildFormComponent } from './pages/child-form/child-form.component';
 import { ChildProfileComponent } from './pages/child-profile/child-profile.component';
+import { ChildsRoutingModule } from './childs-routing.module';
+import { MDBBootstrapModule } from 'angular-bootstrap-md';
 
 
 
@@ -14,10 +16,12 @@ import { ChildProfileComponent } from './pages/child-profile/child-profile.compo
     ChildsListComponent,
     LactancyDataComponent,
     ChildFormComponent,
-    ChildProfileComponent
+    ChildProfileComponent,
   ],
   imports: [
     CommonModule,
+    ChildsRoutingModule,
+    MDBBootstrapModule
   ],
   exports:[
     BirthDataComponent,
