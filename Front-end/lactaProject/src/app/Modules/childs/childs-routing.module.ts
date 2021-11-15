@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 import { ChildProfileComponent } from './pages/child-profile/child-profile.component';
-import { MDBBootstrapModule } from 'angular-bootstrap-md';
 
 
 
