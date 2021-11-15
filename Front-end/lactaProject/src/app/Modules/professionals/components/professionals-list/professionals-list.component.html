@@ -1,1 +1,55 @@
-<p>professionals-list works!</p>
+<div class="listBg">
+
+    <div class="container">
+        <div class="row">
+          <div class="col-md-6 mx-auto">
+            <div class="md-form">
+              <input type="text" class="form-control" [(ngModel)]="searchText" (keyup)="searchItems()" id="search-input"
+                     mdbInput>
+              <label for="search-input">Search</label>
+            </div>
+          </div>
+          <table mdbTable #tableEl="mdbTable" stickyHeader="true" hover="true" striped="true" class="">
+            <thead class="sticky-top">
+            <tr>
+            <!-- CUANDO EL OBJETO ESTE ESTO DEBERIA QUEDAR IGUAL (CREO XD)-->
+              <th [mdbTableSort]="elements" [sortBy]="headElements[0]"
+                  scope="col">Nombres <mdb-icon fas icon="sort"></mdb-icon>
+              </th>
+
+              <th [mdbTableSort]="elements" [sortBy]="headElements[1]"
+                  scope="col">Rut <mdb-icon fas icon="sort"></mdb-icon>
+              </th>
+
+              <th 
+                  scope="col">
+              </th>
+            </tr>
+            </thead>
+            <tbody #row>
+            <tr mdbTableCol (rowCreated)="onRowCreate($event)" (rowRemoved)="onRowRemove($event)" *ngFor="let el of elements; let i = index">
+              <!--  CUANDO LLEGUE EL OBJETO ESTE LISTO HAY CAMBIAR LOS PARAMETROS DE ABAJO POR "el.(varableDelObjeto)" EJ: "el.names"-->
+              <th *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex" >{{el.id}}</th>
+              <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex" >{{el.first}}</td>
+              <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
+
+                <mdb-icon fas icon="trash" size="lg"></mdb-icon>
+                <mdb-icon fas icon="edit" size="lg"></mdb-icon>
+
+              </td>
+            </tr>
+            </tbody>
+            <tfoot class="grey lighten-5 w-100">
+            <tr>
+              <td colspan="3">
+                <mdb-table-pagination [tableEl]="tableEl" paginationAlign="" [searchDataSource]="elements"></mdb-table-pagination>
+              </td>
+            </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+
+
+    
+</div>

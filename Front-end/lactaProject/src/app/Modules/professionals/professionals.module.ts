@@ -7,6 +7,8 @@ import { ProfessionalDataComponent } from './components/professional-data/profes
 import { ProfessionalFormComponent } from './pages/professional-form/professional-form.component';
 import { ProfessionalsRoutingModule } from './professionals-routing.module';
 import { SharedModule } from '@shared/shared.module';
+import { MDBBootstrapModule } from 'angular-bootstrap-md';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -20,7 +22,10 @@ import { SharedModule } from '@shared/shared.module';
   imports: [
     CommonModule,
     ProfessionalsRoutingModule,
-    SharedModule
+    SharedModule,
+    MDBBootstrapModule,
+    ReactiveFormsModule,
+    FormsModule
   ],
   exports: [
     ProfessionalDataComponent, 
