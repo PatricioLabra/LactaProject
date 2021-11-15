@@ -12,6 +12,7 @@ import { ProfessionalsModule } from '@professionals/professionals.module';
 import { ControlsModule } from '@controls/controls.module';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
