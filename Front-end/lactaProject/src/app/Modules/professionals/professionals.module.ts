@@ -6,15 +6,28 @@ import { ProfessionalsListComponent } from './components/professionals-list/prof
 import { ProfessionalDataComponent } from './components/professional-data/professional-data.component';
 import { ProfessionalFormComponent } from './pages/professional-form/professional-form.component';
 import { ProfessionalsRoutingModule } from './professionals-routing.module';
+import { SharedModule } from '@shared/shared.module';
 
 
 
 @NgModule({
-  declarations: [ProfessionalsViewComponent, ProfessionalProfileComponent, ProfessionalsListComponent, ProfessionalDataComponent, ProfessionalFormComponent],
+  declarations: [
+    ProfessionalsViewComponent, 
+    ProfessionalProfileComponent, 
+    ProfessionalsListComponent, 
+    ProfessionalDataComponent, 
+    ProfessionalFormComponent],
   imports: [
     CommonModule,
-    ProfessionalsRoutingModule
+    ProfessionalsRoutingModule,
+    SharedModule
   ],
-  exports:[ProfessionalDataComponent, ProfessionalProfileComponent, ProfessionalsListComponent , ProfessionalsViewComponent, ProfessionalFormComponent]
+  exports: [
+    ProfessionalDataComponent, 
+    ProfessionalProfileComponent, 
+    ProfessionalsListComponent, 
+    ProfessionalsViewComponent, 
+    ProfessionalFormComponent
+  ]
 })
 export class ProfessionalsModule { }

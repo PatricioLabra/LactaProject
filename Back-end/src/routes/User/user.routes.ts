@@ -6,7 +6,7 @@ const router = Router();
 // Agregar un nuevo usuario
 router.post('/user/signup', userCtrl.signUp);
 
-// Obtener la informacion de un usuario
+// Obtener la informacion de un usuario(Nombre Header)
 router.get('/user/:id', userCtrl.getUserName);
 
 // Editar usuario
