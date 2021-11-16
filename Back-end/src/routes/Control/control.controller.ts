@@ -5,7 +5,6 @@ import Control from './control.model';
 import Child from '../Child/child.model';
 
 
-
 /**
  * Función que maneja la petición de agregar a un nuevo control al sistema.
  * @route Post /control/
@@ -13,7 +12,7 @@ import Child from '../Child/child.model';
  * @param res Response, retorna un un object con success:true, data:{ _id: ObjectId() } y un message: "String" del nuevo control si todo sale bien
  */
 export const newControl: RequestHandler = async (req, res) => {
-    const { id_child, newControl } = req.body;
+    const { id_child, dataNewControl } = req.body;
 
     //se valida el Id del Child
     if ( !Types.ObjectId.isValid(id_child) )
@@ -26,8 +25,30 @@ export const newControl: RequestHandler = async (req, res) => {
         return res.status(404).send({ success: false, data:{}, message: 'ERROR: El lactante ingresado no existe en el sistema.' });
 
     //se validan los campos required del control
-    if ( !newControl.child_name || !newControl.consultation_place || !newControl.monitoring_medium || !newControl.date_control )
+    if ( !dataNewControl.child_name || !dataNewControl.consultation_place || !dataNewControl.monitoring_medium || !dataNewControl.date_control )
         return res.status(400).send({ success: false, data:{}, message: 'ERROR: Los datos del control no son válidos.' + req.body });
+
+    const newControl = {
+        child_name: dataNewControl.child_name,
+        consultation_place: dataNewControl.consultation_place,
+        monitoring_medium: dataNewControl.monitoring_medium,
+        date_control: dataNewControl.date_control,
+        weight: dataNewControl.weight,
+        reason_of_consultation: dataNewControl.reason_of_consultation,
+        accompanied_by: dataNewControl.accompanied_by,
+        emotional_status: dataNewControl.emotional_status,
+        observations: dataNewControl.observations,
+        indications: dataNewControl.indications,
+        id_child,
+        id_mother: childFound.id_mother
+    }
+
+    //se almacena el control en el sistema
+    const controlSaved = new Control(newControl);
+    //await controlSaved.save();
+
+    return res.status(201).send({ newControl });
+
 
 
 }
