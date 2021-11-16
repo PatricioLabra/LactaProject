@@ -22,8 +22,8 @@ export class PastControlsListComponent implements OnInit {
   }
 
   show(value:string){
-    this.fechaPopUp = value;
-    this.contentModal.show();
+      this.fechaPopUp = value;
+      this.contentModal.show();
 }
 
   
