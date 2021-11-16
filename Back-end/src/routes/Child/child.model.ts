@@ -16,8 +16,8 @@ const childSchema = new Schema({
     nutritional_status_mother: { required:true, type: String },
     planned_pregnancy: { required:true, type: Boolean },
     assisted_fertilization: { required: true, type: Boolean },
-    previus_lactation: { required: true, type: String },
-    duration_of_past_lactation: { required: true, type: Number },
+    previous_lactaction: { required: true, type: String },
+    duration_of_past_lactaction_in_months: { required: true, type: Number },
     breastfeeding_education: { required: true, type: Boolean }
   },
   birth_data:{

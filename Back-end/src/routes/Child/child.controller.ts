@@ -1,13 +1,38 @@
 import { RequestHandler } from "express";
 import { Types } from 'mongoose';
+import Mother from '../Mother/mother.model';
 import Child from './child.model';
 
 export const newChild: RequestHandler = async (req, res) => {
     
 }
 
+/**
+ * Funcion que maneja la peticion de editar el lactante
+ * @route Put /child/:idLactante
+ * @param req Request, se espera que tenga archivo json con el usuario editado
+ * @param res Response, returna true, el nuevo usuario y un mensaje de confirmacion
+ */
 export const editChild: RequestHandler = async (req, res) => {
-    
+    const _id = req.params.idLactante;
+    const updatedChild = req.body;
+
+    //se valida el _id del lactante ingresado
+    if ( !Types.ObjectId.isValid(_id) ){
+        return res.status(400).send({ success: false, data:{}, message: 'ERROR: El id ingresado no es válido.' });
+    }
+
+    const childFound = await Child.findById( _id );
+
+    //se valida la existencia del lactante
+    if ( !childFound ){
+        return res.status(404).send({ success: false, data:{}, message: 'ERROR: El lactante ingresado no existe en el sistema.' });
+    }
+
+    //se actualiza el lactante
+    await Child.findByIdAndUpdate( _id, updatedChild );
+
+    return res.status(200).send({ success: true, data:{ updatedChild }, messagge: 'Lactante editado exitosamente' });
 }
 
 export const deleteChild: RequestHandler = async (req, res) => {
@@ -34,7 +59,7 @@ export const getResumeChild: RequestHandler = async (req, res) => {
 
 /**
  * Funcion que maneja la peticion de toda la informacion de un lactante en especifico del sistema
- * @route Get /user/profile/:idLactante
+ * @route Get /child/profile/:idLactante
  * @param req Request, se espera que tenga el id del usuario
  * @param res Response, returna true, informacion del usuario y un mensaje de confirmacion
  */
