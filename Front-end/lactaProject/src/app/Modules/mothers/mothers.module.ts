@@ -7,6 +7,7 @@ import { MotherDataComponent } from './components/mother-data/mother-data.compon
 import { MothersListComponent } from './components/mothers-list/mothers-list.component';
 import { SharedModule } from '@shared/shared.module';
 import { ChildsListComponent } from './components/childs-list/childs-list.component';
+import { ControlsListComponent } from './components/controls-list/controls-list.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { ChildsListComponent } from './components/childs-list/childs-list.compon
     MotherFormComponent, 
     MotherDataComponent, 
     MothersListComponent,
-    ChildsListComponent
+    ChildsListComponent,
+    ControlsListComponent
   ],
   imports: [
     CommonModule,
