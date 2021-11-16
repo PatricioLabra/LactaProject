@@ -7,6 +7,7 @@ import { ChildFormComponent } from './pages/child-form/child-form.component';
 import { ChildProfileComponent } from './pages/child-profile/child-profile.component';
 import { ChildsRoutingModule } from './childs-routing.module';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
+import { SharedModule } from '@shared/shared.module';
 
 
 
@@ -21,7 +22,8 @@ import { MDBBootstrapModule } from 'angular-bootstrap-md';
   imports: [
     CommonModule,
     ChildsRoutingModule,
-    MDBBootstrapModule
+    MDBBootstrapModule,
+    SharedModule
   ],
   exports:[
     BirthDataComponent,
