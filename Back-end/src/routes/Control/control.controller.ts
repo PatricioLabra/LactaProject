@@ -32,11 +32,11 @@ export const newControl: RequestHandler = async (req, res) => {
 
         //se validan los campos required de la primera cita (todos)
         if ( !dataNewControl.consultation_place || !dataNewControl.monitoring_medium || !dataNewControl.date_control 
-            || !dataNewControl.weight || !dataNewControl.reason_of_consultation || !dataNewControl.accompanied_by
+            || !dataNewControl.weights || !dataNewControl.reason_of_consultation || !dataNewControl.accompanied_by
             || !dataNewControl.emotional_status || !dataNewControl.observations || !dataNewControl.indications )
             return res.status(400).send({ success: false, data:{}, message: 'ERROR: Los datos del control no son válidos.' + req.body });
     
-        } else {
+    } else {
 
         //se validan los campos required del proximo control
         if ( !dataNewControl.consultation_place || !dataNewControl.monitoring_medium || !dataNewControl.date_control )
