@@ -31,11 +31,6 @@ import { ControlsListComponent } from './components/controls-list/controls-list.
     FormsModule,
     ReactiveFormsModule,
   ],
-  imports: [
-    CommonModule,
-    SharedModule
-
-  ],
   exports:[
     MothersViewComponent,
     MotherProfileComponent,
