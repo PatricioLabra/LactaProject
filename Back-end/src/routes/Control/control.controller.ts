@@ -94,11 +94,11 @@ export const deleteControl: RequestHandler = async (req, res) => {
 
 }
 
-export const getControl: RequestHandler = async (req, res) => {
+export const getnextControls: RequestHandler = async (req, res) => {
 
 }
 
-export const getPassControl: RequestHandler = async (req, res) => {
+export const getPassControls: RequestHandler = async (req, res) => {
 
 }
 

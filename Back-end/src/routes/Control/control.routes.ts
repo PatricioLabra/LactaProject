@@ -13,10 +13,10 @@ router.put('/control/:idControl', controlCtrl.editControl);
 router.delete('/contro/:idControl', controlCtrl.deleteControl);
 
 //obtener lista controles pendientes resumidos por madre(id)
-router.get('/control/:idMother', controlCtrl.getNextControl);
+router.get('/control/:idMother', controlCtrl.getNextControls);
 
 //obtener controles pasados resumido por madre(id)
-router.get('/control/past/:idMother', controlCtrl.getPassControl);
+router.get('/control/past/:idMother', controlCtrl.getPassControls);
 
 //obtener informacion control pasado detallado(idControlPasado_)
 router.get('/control/:idControl', controlCtrl.getDetailedPassControl);
