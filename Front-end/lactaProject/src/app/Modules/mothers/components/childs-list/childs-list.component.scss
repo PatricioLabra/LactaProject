@@ -1,0 +1,10 @@
+@import 'src/styles/palette';
+
+.child-list-card {
+    background-color: $white;
+    width: 60%;
+
+    .btn-add-control {
+        background-color: $light-blue
+    }
+}
