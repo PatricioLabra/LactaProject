@@ -24,10 +24,25 @@ export const newControl: RequestHandler = async (req, res) => {
     if ( !childFound )
         return res.status(404).send({ success: false, data:{}, message: 'ERROR: El lactante ingresado no existe en el sistema.' });
 
-    //se validan los campos required del proximo control
-    if ( !dataNewControl.consultation_place || !dataNewControl.monitoring_medium || !dataNewControl.date_control )
-        return res.status(400).send({ success: false, data:{}, message: 'ERROR: Los datos del control no son válidos.' + req.body });
-        
+
+    //se obtienen la cantidad de controles del child
+    const controls = await Control.count(id_child);
+
+    if ( controls == 0 ) {
+
+        //se validan los campos required de la primera cita (todos)
+        if ( !dataNewControl.consultation_place || !dataNewControl.monitoring_medium || !dataNewControl.date_control 
+            || !dataNewControl.weights || !dataNewControl.reason_of_consultation || !dataNewControl.accompanied_by
+            || !dataNewControl.emotional_status || !dataNewControl.observations || !dataNewControl.indications )
+            return res.status(400).send({ success: false, data:{}, message: 'ERROR: Los datos del control no son válidos.' + req.body });
+    
+        } else {
+
+        //se validan los campos required del proximo control
+        if ( !dataNewControl.consultation_place || !dataNewControl.monitoring_medium || !dataNewControl.date_control )
+            return res.status(400).send({ success: false, data:{}, message: 'ERROR: Los datos del control no son válidos.' + req.body });
+    }
+
     const newControl = {
         child_name: childFound.name,
         consultation_place: dataNewControl.consultation_place,
@@ -42,9 +57,10 @@ export const newControl: RequestHandler = async (req, res) => {
         id_child,
         id_mother: childFound.id_mother
     }
+
     //se almacena el control en el sistema
     const controlSaved = new Control(newControl);
-    //await controlSaved.save();
+    await controlSaved.save();
 
     return res.status(201).send({ success: true, data: { _id: controlSaved._id }, message: 'Control agregado con éxito al sistema.' });
 }
