@@ -37,14 +37,17 @@ export const newChild: RequestHandler = async (req, res) => {
         use_of_pacifier, post_discharge_feeding, last_weight_control }, id_mother: _idMother
     }
 
+    const ChildFound = await Child.findOne({ name });
+
+    if(ChildFound){
+        return res.status(301).send({ success: false, data:{}, message:'ERROR: El lactante ya está registrado en el sistema.' });
+    }
+
     //validacion de los parametros
-    if( !name || !newChild.gestacion_data.diseases_during_pregnancy || !newChild.gestacion_data.nutritional_status_mother ||
-        !newChild.gestacion_data.planned_pregnancy || !newChild.gestacion_data.assisted_fertilization || !newChild.gestacion_data.previous_lactaction ||
-        newChild.gestacion_data.duration_of_past_lactaction_in_months <= 0 ||  !newChild.gestacion_data.breastfeeding_education || 
-        !newChild.birth_data.birthplace || !newChild.birth_data.type_of_birth || !newChild.birth_data.birthday || newChild.birth_data.gestional_age < 0 ||
-        !newChild.birth_data.gender || newChild.birth_data.birth_weight < 0 || !newChild.birth_data.skin_to_skin_contact || !newChild.birth_data.breastfeeding_b4_2hours ||
-        !newChild.birth_data.has_suplement || !newChild.birth_data.why_recived_suplement || !newChild.birth_data.joint_accommodation || 
-        !newChild.birth_data.use_of_pacifier || newChild.birth_data.post_discharge_feeding || newChild.birth_data.last_weight_control < 0 ){
+    if( !newChild.name || !newChild.gestacion_data.diseases_during_pregnancy || !newChild.gestacion_data.nutritional_status_mother || 
+        !newChild.gestacion_data.previous_lactaction || !newChild.birth_data.birthday || !newChild.birth_data.type_of_birth || 
+        !newChild.birth_data.birthday || !newChild.birth_data.gender || newChild.birth_data.birth_weight < 0 || 
+        !newChild.birth_data.why_recived_suplement || !newChild.birth_data.why_recived_suplement || newChild.birth_data.last_weight_control < 0 ){
         return res.status(400).send({ success: false, data:{}, message:'Error: Datos inválidos' + req.body });
     }
 
