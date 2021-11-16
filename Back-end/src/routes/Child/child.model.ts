@@ -6,11 +6,6 @@ const childSchema = new Schema({
     type: String,
     trim: true
   },
-  controls:{
-    required: true,
-    type: [Schema.Types.Mixed],
-    trim: true
-  },
   gestacion_data:{
     diseases_during_pregnancy:{ required:true, type: [String] } ,
     nutritional_status_mother: { required:true, type: String },

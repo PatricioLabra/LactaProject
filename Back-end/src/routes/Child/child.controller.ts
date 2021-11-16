@@ -13,6 +13,18 @@ import Child from './child.model';
 export const newChild: RequestHandler = async (req, res) => {
     const _idMother = req.params.idMother;
     const newChildInfo = req.body;
+
+    //se valida el id de la madre
+    if ( !Types.ObjectId.isValid(_idMother) )
+    return res.status(400).send({ success: false, data:{}, message: 'Error: El id ingresado no es válido.' });
+
+    if( !newChildInfo.name || !newChildInfo.diseases_during_pregnancy || !newChildInfo.nutritional_status_mother ||
+        !newChildInfo.previous_lactaction || newChildInfo.duration_of_past_lactaction_in_months <= 0 || !newChildInfo.birthplace ||
+        !newChildInfo.type_of_birth || !newChildInfo.birthday || newChildInfo.gestional_age < 0 || !newChildInfo.gender ||
+        newChildInfo.birth_weight < 0 || !newChildInfo.why_recived_suplement || !newChildInfo.post_discharge_feeding ||
+        newChildInfo.last_weight_control < 0 ){
+        return res.status(400).send({ success: false, data:{}, message: 'Error: datos inválidos'+ req.body }); 
+    }
 }
 
 /**
