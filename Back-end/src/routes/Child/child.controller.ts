@@ -18,12 +18,23 @@ export const newChild: RequestHandler = async (req, res) => {
     if ( !Types.ObjectId.isValid(_idMother) )
     return res.status(400).send({ success: false, data:{}, message: 'Error: El id ingresado no es válido.' });
 
+    const motherFound = await Mother.findById(_idMother);
+
+    //se valida la existencia de la madre
+    if( !motherFound ){
+        return res.status(404).send({ success: false, data:{}, message: 'ERROR: La madre ingresada no existe en el sistema.' });
+    }
+
     if( !newChildInfo.name || !newChildInfo.diseases_during_pregnancy || !newChildInfo.nutritional_status_mother ||
         !newChildInfo.previous_lactaction || newChildInfo.duration_of_past_lactaction_in_months <= 0 || !newChildInfo.birthplace ||
         !newChildInfo.type_of_birth || !newChildInfo.birthday || newChildInfo.gestional_age < 0 || !newChildInfo.gender ||
         newChildInfo.birth_weight < 0 || !newChildInfo.why_recived_suplement || !newChildInfo.post_discharge_feeding ||
         newChildInfo.last_weight_control < 0 ){
         return res.status(400).send({ success: false, data:{}, message: 'Error: datos inválidos'+ req.body }); 
+    }
+
+    const newChild = {
+
     }
 }
 
