@@ -36,7 +36,7 @@ const childSchema = new Schema({
     post_discharge_feeding:{ required:true, type: String },
     last_weight_control:{ required:true, type: Number }
   },
-  id_mother:{ required:true, type: Schema.Types.ObjectId }
+  id_mother:{ required:true, type: String }
 },{
     versionKey: false,
     timestamps: true
