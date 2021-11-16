@@ -64,6 +64,12 @@ export const newControl: RequestHandler = async (req, res) => {
     return res.status(201).send({ success: true, data: { _id: controlSaved._id }, message: 'Control agregado con éxito al sistema.' });
 }
 
+/**
+ * Función que maneja la petición de editar un control al sistema.
+ * @route Put /control/:idControl
+ * @param req Request de la petición, se espera que tenga la información del control editado
+ * @param res Response, retorna un un object con success:true, data:{} y un message: "String" del control editado si todo sale bien
+ */
 export const editControl: RequestHandler = async (req, res) => {
 
 }
