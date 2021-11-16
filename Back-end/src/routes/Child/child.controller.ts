@@ -25,9 +25,16 @@ export const newChild: RequestHandler = async (req, res) => {
 
     const motherFound = await Mother.findById(_idMother);
 
-    //se valida la existencia de la madre
+    //se valida la existencia de la madre en el sistema
     if( !motherFound ){
         return res.status(404).send({ success: false, data:{}, message: 'ERROR: La madre ingresada no existe en el sistema.' });
+    }
+
+    const ChildFound = await Child.findOne({ name });
+
+    //se valida si existe el lactante en el sistema
+    if(ChildFound){
+        return res.status(301).send({ success: false, data:{}, message:'ERROR: El lactante ya está registrado en el sistema.' });
     }
 
     const newChild = {
@@ -35,12 +42,6 @@ export const newChild: RequestHandler = async (req, res) => {
         duration_of_past_lactaction_in_months, breastfeeding_education }, birth_data:{ birthplace, type_of_birth, birthday, gestional_age, gender,
         birth_weight, skin_to_skin_contact, breastfeeding_b4_2hours, has_suplement, why_recived_suplement, joint_accommodation,
         use_of_pacifier, post_discharge_feeding, last_weight_control }, id_mother: _idMother
-    }
-
-    const ChildFound = await Child.findOne({ name });
-
-    if(ChildFound){
-        return res.status(301).send({ success: false, data:{}, message:'ERROR: El lactante ya está registrado en el sistema.' });
     }
 
     //validacion de los parametros
