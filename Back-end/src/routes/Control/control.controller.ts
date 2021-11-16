@@ -19,7 +19,7 @@ export const newControl: RequestHandler = async (req, res) => {
         return res.status(400).send({ success: false, data:{}, message: 'ERROR: El id ingresado no es válido.' });
 
     const childFound = await Child.findById(id_child);
-    console.log (childFound);
+
     //se valida la existencia del Child
     if ( !childFound )
         return res.status(404).send({ success: false, data:{}, message: 'ERROR: El lactante ingresado no existe en el sistema.' });
@@ -45,9 +45,9 @@ export const newControl: RequestHandler = async (req, res) => {
 
     //se almacena el control en el sistema
     const controlSaved = new Control(newControl);
-    //await controlSaved.save();
+    await controlSaved.save();
 
-    return res.status(201).send({ newControl });
+    return res.status(201).send({ success: true, data: { _id: controlSaved._id }, message: 'Control agregado con éxito al sistema.' });
 }
 
 export const editControl: RequestHandler = async (req, res) => {

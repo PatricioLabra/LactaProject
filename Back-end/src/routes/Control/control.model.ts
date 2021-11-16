@@ -49,12 +49,12 @@ const controlSchema = new Schema({
     },
     id_child:{
         required: true,
-        type: Schema.Types.ObjectId,
+        type: String,
         trim: true
     },
     id_mother:{
         required: true,
-        type: Schema.Types.ObjectId,
+        type: String,
         trim: true
     }
 },{
