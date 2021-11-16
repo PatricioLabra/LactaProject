@@ -24,7 +24,7 @@ export const newControl: RequestHandler = async (req, res) => {
     if ( !childFound )
         return res.status(404).send({ success: false, data:{}, message: 'ERROR: El lactante ingresado no existe en el sistema.' });
 
-    //se validan los campos required del control
+    //se validan los campos required del proximo control
     if ( !dataNewControl.consultation_place || !dataNewControl.monitoring_medium || !dataNewControl.date_control )
         return res.status(400).send({ success: false, data:{}, message: 'ERROR: Los datos del control no son válidos.' + req.body });
         
@@ -45,7 +45,6 @@ export const newControl: RequestHandler = async (req, res) => {
     //se almacena el control en el sistema
     const controlSaved = new Control(newControl);
     //await controlSaved.save();
-    console.log(controlSaved);
 
     return res.status(201).send({ success: true, data: { _id: controlSaved._id }, message: 'Control agregado con éxito al sistema.' });
 }
