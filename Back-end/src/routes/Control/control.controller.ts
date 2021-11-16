@@ -48,9 +48,6 @@ export const newControl: RequestHandler = async (req, res) => {
     //await controlSaved.save();
 
     return res.status(201).send({ newControl });
-
-
-
 }
 
 export const editControl: RequestHandler = async (req, res) => {
