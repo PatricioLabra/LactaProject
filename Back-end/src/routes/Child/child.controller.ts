@@ -18,6 +18,14 @@ export const newChild: RequestHandler = async (req, res) => {
     if ( !Types.ObjectId.isValid(_idMother) )
     return res.status(400).send({ success: false, data:{}, message: 'Error: El id ingresado no es válido.' });
 
+    const { name, gestacion_data:{ diseases_during_pregnancy, nutritional_status_mother, planned_pregnancy, assisted_fertilization, previous_lactaction,
+        duration_of_past_lactaction_in_months, breastfeeding_education }, birth_data:{ birthplace, type_of_birth, birthday,
+        gestional_age, gender, birth_weight, skin_to_skin_contact, breastfeeding_b4_2hours, has_suplement, why_recived_suplement,
+        joint_accommodation, use_of_pacifier, post_discharge_feeding, last_weight_control }} = req.body;
+
+    console.log(req.body);    
+    //validacion de los parametros
+
     const motherFound = await Mother.findById(_idMother);
 
     //se valida la existencia de la madre
@@ -25,15 +33,14 @@ export const newChild: RequestHandler = async (req, res) => {
         return res.status(404).send({ success: false, data:{}, message: 'ERROR: La madre ingresada no existe en el sistema.' });
     }
 
-    const { name, gestacion_data:{ diseases_during_pregnancy, nutritional_status_mother, planned_pregnancy, assisted_fertilization, previous_lactaction,
-            duration_of_past_lactaction_in_months, breastfeeding_education }, birth_data:{ birthplace, type_of_birth, birthday,
-            gestional_age, gender, birth_weight, skin_to_skin_contact, breastfeeding_b4_2hours, has_suplement, why_recived_suplement,
-            joint_accommodation, use_of_pacifier, post_discharge_feeding, last_weight_control }} = req.body;
-    
-    //se validan los datos
+    const newChild = {
+        name, gestacion_data: { diseases_during_pregnancy, nutritional_status_mother, planned_pregnancy, assisted_fertilization, previous_lactaction,
+        duration_of_past_lactaction_in_months, breastfeeding_education }, birth_data:{ birthplace, type_of_birth, birthday, gestional_age, gender,
+        birth_weight, skin_to_skin_contact, breastfeeding_b4_2hours, has_suplement, why_recived_suplement, joint_accommodation,
+        use_of_pacifier, post_discharge_feeding, last_weight_control }, id_mother: _idMother
+    }
 
-    
-
+    console.log(newChild)
     //Se guarda el nuevo lactante con sus datos
     const childSaved = new Child(newChild);
     await childSaved.save();
