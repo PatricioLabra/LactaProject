@@ -13,7 +13,7 @@ import Child from './child.model';
 export const newChild: RequestHandler = async (req, res) => {
     const _idMother = req.params.idMother;
     const newChildInfo = req.body;
-
+    console.log(req.body);
     //se valida el id de la madre
     if ( !Types.ObjectId.isValid(_idMother) )
     return res.status(400).send({ success: false, data:{}, message: 'Error: El id ingresado no es válido.' });
@@ -25,39 +25,14 @@ export const newChild: RequestHandler = async (req, res) => {
         return res.status(404).send({ success: false, data:{}, message: 'ERROR: La madre ingresada no existe en el sistema.' });
     }
 
-    if( !newChildInfo.name || !newChildInfo.diseases_during_pregnancy || !newChildInfo.nutritional_status_mother ||
-        !newChildInfo.previous_lactaction || newChildInfo.duration_of_past_lactaction_in_months <= 0 || !newChildInfo.birthplace ||
-        !newChildInfo.type_of_birth || !newChildInfo.birthday || newChildInfo.gestional_age < 0 || !newChildInfo.gender ||
-        newChildInfo.birth_weight < 0 || !newChildInfo.why_recived_suplement || !newChildInfo.post_discharge_feeding ||
-        newChildInfo.last_weight_control < 0 ){
-        return res.status(400).send({ success: false, data:{}, message: 'Error: datos inválidos'+ req.body }); 
-    }
+    const { name, gestacion_data:{ diseases_during_pregnancy, nutritional_status_mother, planned_pregnancy, assisted_fertilization, previous_lactaction,
+            duration_of_past_lactaction_in_months, breastfeeding_education }, birth_data:{ birthplace, type_of_birth, birthday,
+            gestional_age, gender, birth_weight, skin_to_skin_contact, breastfeeding_b4_2hours, has_suplement, why_recived_suplement,
+            joint_accommodation, use_of_pacifier, post_discharge_feeding, last_weight_control }} = req.body;
+    
+    //se validan los datos
 
-    const newChild = {
-        name: newChildInfo.name,
-        diseases_during_pregnancy: newChildInfo.diseases_during_pregnancy,
-        nutritional_status_mother: newChildInfo.nutritional_status_mother,
-        planned_pregnancy: newChildInfo.planned_pregnancy,
-        assisted_fertilization: newChildInfo.assisted_fertilization,
-        previous_lactaction: newChildInfo.previous_lactaction,
-        duration_of_past_lactaction_in_months: newChildInfo.duration_of_past_lactaction_in_months,
-        breastfeeding_education: newChildInfo.breastfeeding_education,
-        birthplace: newChildInfo.birthplace,
-        type_of_birth: newChildInfo.type_of_birth,
-        birthday: newChildInfo.birthday,
-        gestional_age: newChildInfo.gestional_age,
-        gender: newChildInfo.gender,
-        birth_weight: newChildInfo.birth_weight,
-        skin_to_skin_contact: newChildInfo.skin_to_skin_contact,
-        breastfeeding_b4_2hours: newChildInfo.breastfeeding_b4_2hours,
-        has_suplement: newChildInfo.has_suplement,
-        why_recived_suplement: newChildInfo.why_recived_suplement,
-        joint_accommodation: newChildInfo.joint_accommodation,
-        use_of_pacifier: newChildInfo.use_of_pacifier,
-        post_discharge_feeding: newChildInfo.post_discharge_feeding,
-        last_weight_control: newChildInfo.last_weight_control,
-        id_mother: _idMother
-    }
+    
 
     //Se guarda el nuevo lactante con sus datos
     const childSaved = new Child(newChild);
