@@ -6,9 +6,8 @@ import { MotherFormComponent } from './pages/mother-form/mother-form.component';
 import { MotherDataComponent } from './components/mother-data/mother-data.component';
 import { MothersListComponent } from './components/mothers-list/mothers-list.component';
 import { SharedModule } from '@shared/shared.module';
-import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { MothersRoutingModule } from './mothers-routing.module';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 
 
 @NgModule({
@@ -22,10 +21,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     SharedModule,
-    MDBBootstrapModule,
     MothersRoutingModule,
-    FormsModule,
-    ReactiveFormsModule
   ],
   exports: [
     MothersViewComponent, 
