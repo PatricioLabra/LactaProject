@@ -14,7 +14,7 @@ export const newChild: RequestHandler = async (req, res) => {
  * @param res Response, returna true, el nuevo usuario y un mensaje de confirmacion
  */
 export const editChild: RequestHandler = async (req, res) => {
-    const _id = req.params.id;
+    const _id = req.params.idLactante;
     const updatedChild = req.body;
 
     //se valida el _id del lactante ingresado
