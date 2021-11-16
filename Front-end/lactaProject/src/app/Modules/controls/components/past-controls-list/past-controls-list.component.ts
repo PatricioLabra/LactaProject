@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-past-controls-list',
@@ -7,6 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PastControlsListComponent implements OnInit {
 
+  @ViewChild('content', { static: true }) public contentModal;
+
+  name:string;
   elements: any = [];
   headElements = ['Nombre Lactante', 'Fecha',""];
 
@@ -17,4 +20,11 @@ export class PastControlsListComponent implements OnInit {
       });
     }
   }
+
+  show(value:string){
+    this.name = value;
+    this.contentModal.show();
+}
+
+  
 }
