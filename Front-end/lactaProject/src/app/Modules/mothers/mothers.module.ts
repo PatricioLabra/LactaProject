@@ -20,6 +20,8 @@ import { ControlsListComponent } from './components/controls-list/controls-list.
     MotherFormComponent, 
     MotherDataComponent, 
     MothersListComponent,
+    ChildsListComponent,
+    ControlsListComponent
   ],
   imports: [
     CommonModule,
@@ -28,9 +30,6 @@ import { ControlsListComponent } from './components/controls-list/controls-list.
     MothersRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-
-    ChildsListComponent,
-    ControlsListComponent
   ],
   imports: [
     CommonModule,
