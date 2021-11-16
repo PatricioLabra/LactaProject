@@ -1,6 +1,5 @@
 import { RequestHandler } from "express";
 import { Types } from "mongoose";
-import Mother from '../Mother/mother.model';
 import Control from './control.model';
 import Child from '../Child/child.model';
 
