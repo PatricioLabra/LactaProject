@@ -9,7 +9,7 @@ export class PastControlsListComponent implements OnInit {
 
   @ViewChild('content', { static: true }) public contentModal;
 
-  name:string;
+  fechaPopUp:string;
   elements: any = [];
   headElements = ['Nombre Lactante', 'Fecha',""];
 
@@ -22,7 +22,7 @@ export class PastControlsListComponent implements OnInit {
   }
 
   show(value:string){
-    this.name = value;
+    this.fechaPopUp = value;
     this.contentModal.show();
 }
 
