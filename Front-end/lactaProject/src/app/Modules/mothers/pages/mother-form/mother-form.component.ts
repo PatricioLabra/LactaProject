@@ -15,7 +15,7 @@ export class MotherFormComponent implements OnInit {
       name: ['', Validators.required],
       rut: ['', Validators.required],
       rut_vc: ['', Validators.required],
-      comune: ['', Validators.required],
+      commune: ['', Validators.required],
       phone_number: ['', Validators.required],
       mail: ['', [Validators.email, Validators.required] ],
       birth: ['', Validators.required],
@@ -39,7 +39,7 @@ export class MotherFormComponent implements OnInit {
     this.createList();
     console.log(this.form.get("name")?.value);
     console.log(this.form.get("rut")?.value + "-" + this.form.get("rut_vc")?.value);
-    console.log(this.form.get("comune")?.value);
+    console.log(this.form.get("commune")?.value);
     console.log(this.form.get("phone_number")?.value);
     console.log(this.form.get("mail")?.value);
     console.log(this.form.get("birth")?.value);

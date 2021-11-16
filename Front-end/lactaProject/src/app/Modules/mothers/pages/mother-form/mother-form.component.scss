@@ -1,9 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@600&display=swap');
+@import "/src/styles/palette.scss";
 
 body{
+    background-image: none;
     width: 100%;
     min-height: 100vh;
-    background-color: #FEC9BB;
+    background-color: $pink;
     display: flex;
     justify-content: center;
     align-items: center;
