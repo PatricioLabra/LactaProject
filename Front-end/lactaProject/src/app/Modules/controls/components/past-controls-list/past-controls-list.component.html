@@ -1,0 +1,19 @@
+
+<div class="container">
+
+    <table mdbTable mdbTableScroll scrollY="true" maxHeight="500" bordered="true">
+        <thead>
+          <tr>
+            <th *ngFor="let head of headElements; let i = index" scope="col">{{head}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let el of elements; let i = index">
+            <th scope="row">{{el.name}}</th>
+            <td>{{el.fecha}}</td>
+            <td><mdb-icon far icon="eye" size="2x"></mdb-icon></td>
+          </tr>
+        </tbody>
+    </table>
+
+</div>

@@ -8,16 +8,17 @@ import { AddControlComponent } from './components/add-control/add-control.compon
 import { ControlsListComponent } from './components/controls-list/controls-list.component';
 import { ControlsRoutingModule } from './controls-routing.module';
 import { PopUpPrintControlComponent } from './components/pop-up-print-control/pop-up-print-control.component';
-import { MDBBootstrapModule } from 'angular-bootstrap-md';
+import { SharedModule } from '@shared/shared.module';
+import { PastControlsListComponent } from './components/past-controls-list/past-controls-list.component';
 
 
 
 @NgModule({
-  declarations: [PastControlsComponent, InprocessControlComponent, MotherIncomingcontrolsListComponent, ControlDataComponent, AddControlComponent, ControlsListComponent, PopUpPrintControlComponent],
+  declarations: [PastControlsComponent, InprocessControlComponent, MotherIncomingcontrolsListComponent, ControlDataComponent, AddControlComponent, ControlsListComponent, PopUpPrintControlComponent, PastControlsListComponent],
   imports: [
     CommonModule,
     ControlsRoutingModule,
-    MDBBootstrapModule
+    SharedModule
   ],
   exports:[PastControlsComponent, InprocessControlComponent, MotherIncomingcontrolsListComponent, ControlDataComponent, AddControlComponent, ControlsListComponent]
 })
