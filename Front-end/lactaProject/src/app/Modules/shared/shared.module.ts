@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 
 
@@ -10,11 +10,13 @@ import { MDBBootstrapModule } from 'angular-bootstrap-md';
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    MDBBootstrapModule
+    MDBBootstrapModule,
+    FormsModule
   ],
   exports: [
     ReactiveFormsModule,
-    MDBBootstrapModule
+    MDBBootstrapModule,
+    FormsModule
   ]
 })
 export class SharedModule { }
