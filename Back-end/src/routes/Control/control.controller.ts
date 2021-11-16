@@ -71,11 +71,11 @@ export const newControl: RequestHandler = async (req, res) => {
  * @param res Response, retorna un un object con success:true, data:{} y un message: "String" del control editado si todo sale bien
  */
 export const editControl: RequestHandler = async (req, res) => {
-    const _id = req.params.id;
+    const _id = req.params.idControl;
     const updatedControl = req.body;
 
     //se valida el _id de la madre ingresada
-    if ( !Types.ObjectId.isValid(_id) )
+    if ( !Types.ObjectId.isValid( _id) )
         return res.status(400).send({ success: false, data:{}, message: 'ERROR: El id ingresado no es válido.' });
 
     const controlFound = await Control.findById( _id );
