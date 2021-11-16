@@ -14,7 +14,25 @@ export const newChild: RequestHandler = async (req, res) => {
  * @param res Response, returna true, el nuevo usuario y un mensaje de confirmacion
  */
 export const editChild: RequestHandler = async (req, res) => {
-    
+    const _id = req.params.id;
+    const updatedChild = req.body;
+
+    //se valida el _id del lactante ingresado
+    if ( !Types.ObjectId.isValid(_id) ){
+        return res.status(400).send({ success: false, data:{}, message: 'Error: El id ingresado no es válido.' });
+    }
+
+    const childFound = await Child.findById( _id );
+
+    //se valida la existencia del lactante
+    if ( !childFound ){
+        return res.status(404).send({ success: false, data:{}, message: 'Error: La madre ingresada no existe en el sistema.' });
+    }
+
+    //se actualiza el lactante
+    await Child.findByIdAndUpdate( _id, updatedChild );
+
+    return res.status(200).send({ success: true, data:{}, messagge: 'Lactante editado exitosamente' });
 }
 
 export const deleteChild: RequestHandler = async (req, res) => {
