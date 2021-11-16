@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { typeControl } from '@interfaces/control';
 
 @Component({
   selector: 'app-controls-list',
@@ -6,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./controls-list.component.scss']
 })
 export class ControlsListComponent implements OnInit {
+
+  public controls: typeControl | null = null;
 
   constructor() { }
 
