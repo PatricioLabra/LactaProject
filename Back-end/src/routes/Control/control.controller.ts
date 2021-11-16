@@ -29,7 +29,7 @@ export const newControl: RequestHandler = async (req, res) => {
         return res.status(400).send({ success: false, data:{}, message: 'ERROR: Los datos del control no son válidos.' + req.body });
         
     const newControl = {
-        child_name: childFound.child_name,
+        child_name: childFound.name,
         consultation_place: dataNewControl.consultation_place,
         monitoring_medium: dataNewControl.monitoring_medium,
         date_control: dataNewControl.date_control,
@@ -42,10 +42,10 @@ export const newControl: RequestHandler = async (req, res) => {
         id_child,
         id_mother: childFound.id_mother
     }
-
     //se almacena el control en el sistema
     const controlSaved = new Control(newControl);
-    await controlSaved.save();
+    //await controlSaved.save();
+    console.log(controlSaved);
 
     return res.status(201).send({ success: true, data: { _id: controlSaved._id }, message: 'Control agregado con éxito al sistema.' });
 }
