@@ -6,24 +6,31 @@ import { MotherFormComponent } from './pages/mother-form/mother-form.component';
 import { MotherDataComponent } from './components/mother-data/mother-data.component';
 import { MothersListComponent } from './components/mothers-list/mothers-list.component';
 import { SharedModule } from '@shared/shared.module';
+import { MothersRoutingModule } from './mothers-routing.module';
+import { ChildsListComponent } from './components/childs-list/childs-list.component';
+import { ControlsListComponent } from './components/controls-list/controls-list.component';
 
 
 @NgModule({
   declarations: [
     MothersViewComponent, 
     MotherProfileComponent, 
-    MotherFormComponent, 
+    MotherFormComponent,
     MotherDataComponent, 
-    MothersListComponent
+    MothersListComponent,
+    ChildsListComponent,
+    ControlsListComponent
   ],
   imports: [
-    CommonModule, SharedModule
+    CommonModule,
+    SharedModule,
+    MothersRoutingModule
   ],
-  exports: [
-    MothersViewComponent, 
-    MotherProfileComponent, 
-    MotherFormComponent, 
-    MotherDataComponent, 
+  exports:[
+    MothersViewComponent,
+    MotherProfileComponent,
+    MotherFormComponent,
+    MotherDataComponent,
     MothersListComponent
   ]
 })
