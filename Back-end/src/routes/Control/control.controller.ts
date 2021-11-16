@@ -94,6 +94,12 @@ export const deleteControl: RequestHandler = async (req, res) => {
 
 }
 
+/**
+ * Función que maneja la petición de obtener una lista de los controles proximos
+ * @route Get /control/:idMother
+ * @param req Request de la petición, se espera que tenga el id de la madre
+ * @param res Response, retorna un un object con success:true, data:{ controls: [{},{}] } y un message: "String" de la lista de controles si todo sale bien
+ */
 export const getNextControls: RequestHandler = async (req, res) => {
 
 }
