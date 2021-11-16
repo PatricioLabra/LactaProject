@@ -27,9 +27,9 @@ export const newControl: RequestHandler = async (req, res) => {
     //se validan los campos required del control
     if ( !dataNewControl.consultation_place || !dataNewControl.monitoring_medium || !dataNewControl.date_control )
         return res.status(400).send({ success: false, data:{}, message: 'ERROR: Los datos del control no son válidos.' + req.body });
-
+        
     const newControl = {
-        child_name: childFound.name,
+        child_name: childFound.child_name,
         consultation_place: dataNewControl.consultation_place,
         monitoring_medium: dataNewControl.monitoring_medium,
         date_control: dataNewControl.date_control,
