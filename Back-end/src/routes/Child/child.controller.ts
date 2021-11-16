@@ -19,20 +19,20 @@ export const editChild: RequestHandler = async (req, res) => {
 
     //se valida el _id del lactante ingresado
     if ( !Types.ObjectId.isValid(_id) ){
-        return res.status(400).send({ success: false, data:{}, message: 'Error: El id ingresado no es válido.' });
+        return res.status(400).send({ success: false, data:{}, message: 'ERROR: El id ingresado no es válido.' });
     }
 
     const childFound = await Child.findById( _id );
 
     //se valida la existencia del lactante
     if ( !childFound ){
-        return res.status(404).send({ success: false, data:{}, message: 'Error: La madre ingresada no existe en el sistema.' });
+        return res.status(404).send({ success: false, data:{}, message: 'ERROR: El lactante ingresado no existe en el sistema.' });
     }
 
     //se actualiza el lactante
     await Child.findByIdAndUpdate( _id, updatedChild );
 
-    return res.status(200).send({ success: true, data:{}, messagge: 'Lactante editado exitosamente' });
+    return res.status(200).send({ success: true, data:{ updatedChild }, messagge: 'Lactante editado exitosamente' });
 }
 
 export const deleteChild: RequestHandler = async (req, res) => {
