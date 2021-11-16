@@ -1,0 +1,14 @@
+<!--Controls list card-->
+<div *ngIf="controls" class="controls-list-card">
+    <h3>Próximas Citas</h3>
+
+    <!--Control card-->
+    <div *ngFor="let control of controls" class="control-card">
+        <button>Ir</button>
+        <p>{{ control.consultation_place }}</p>
+        <p>{{ control.monitoring_medium }}</p>
+        <p>{{ control.date_control }}</p>
+    </div>
+    <!--Control card-->
+</div>
+<!--Controls list card-->

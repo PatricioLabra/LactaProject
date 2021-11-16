@@ -1,0 +1,13 @@
+<!--Childs list card-->
+<div *ngIf="childs" class="child-list-card">
+
+    <!--Child card-->
+    <div *ngFor="let child of childs">
+        <p>{{ child.name }}</p>
+        <p>{{ child.birth }}</p>
+        <button class="btn-add-control">Agregar Cita</button>
+    </div>
+    <!--Child card-->
+
+</div>
+<!--Childs list card-->
