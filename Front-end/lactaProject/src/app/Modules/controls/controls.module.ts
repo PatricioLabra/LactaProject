@@ -9,11 +9,12 @@ import { ControlsListComponent } from './components/controls-list/controls-list.
 import { ControlsRoutingModule } from './controls-routing.module';
 import { PopUpPrintControlComponent } from './components/pop-up-print-control/pop-up-print-control.component';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
+import { PopupScheduleControlComponent } from './components/popup-schedule-control/popup-schedule-control.component';
 
 
 
 @NgModule({
-  declarations: [PastControlsComponent, InprocessControlComponent, MotherIncomingcontrolsListComponent, ControlDataComponent, AddControlComponent, ControlsListComponent, PopUpPrintControlComponent],
+  declarations: [PastControlsComponent, InprocessControlComponent, MotherIncomingcontrolsListComponent, ControlDataComponent, AddControlComponent, ControlsListComponent, PopUpPrintControlComponent, PopupScheduleControlComponent],
   imports: [
     CommonModule,
     ControlsRoutingModule,
