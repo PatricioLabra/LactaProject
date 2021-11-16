@@ -15,7 +15,7 @@ import { ControlsListComponent } from './components/controls-list/controls-list.
   declarations: [
     MothersViewComponent, 
     MotherProfileComponent, 
-    MotherFormComponent, 
+    MotherFormComponent,
     MotherDataComponent, 
     MothersListComponent,
     ChildsListComponent,
@@ -24,9 +24,7 @@ import { ControlsListComponent } from './components/controls-list/controls-list.
   imports: [
     CommonModule,
     SharedModule,
-    MothersRoutingModule,
-    ChildsListComponent,
-    ControlsListComponent
+    MothersRoutingModule
   ],
   exports:[
     MothersViewComponent,
