@@ -11,7 +11,8 @@ import Child from './child.model';
  * @param res Response, retornará object con success true, data: { _id: ObjectId() } y un mensaje de confirmacion de creacion
  */
 export const newChild: RequestHandler = async (req, res) => {
-    
+    const _idMother = req.params.idMother;
+    const newChildInfo = req.body;
 }
 
 /**
