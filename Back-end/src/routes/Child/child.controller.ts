@@ -34,8 +34,36 @@ export const newChild: RequestHandler = async (req, res) => {
     }
 
     const newChild = {
-
+        name: newChildInfo.name,
+        diseases_during_pregnancy: newChildInfo.diseases_during_pregnancy,
+        nutritional_status_mother: newChildInfo.nutritional_status_mother,
+        planned_pregnancy: newChildInfo.planned_pregnancy,
+        assisted_fertilization: newChildInfo.assisted_fertilization,
+        previous_lactaction: newChildInfo.previous_lactaction,
+        duration_of_past_lactaction_in_months: newChildInfo.duration_of_past_lactaction_in_months,
+        breastfeeding_education: newChildInfo.breastfeeding_education,
+        birthplace: newChildInfo.birthplace,
+        type_of_birth: newChildInfo.type_of_birth,
+        birthday: newChildInfo.birthday,
+        gestional_age: newChildInfo.gestional_age,
+        gender: newChildInfo.gender,
+        birth_weight: newChildInfo.birth_weight,
+        skin_to_skin_contact: newChildInfo.skin_to_skin_contact,
+        breastfeeding_b4_2hours: newChildInfo.breastfeeding_b4_2hours,
+        has_suplement: newChildInfo.has_suplement,
+        why_recived_suplement: newChildInfo.why_recived_suplement,
+        joint_accommodation: newChildInfo.joint_accommodation,
+        use_of_pacifier: newChildInfo.use_of_pacifier,
+        post_discharge_feeding: newChildInfo.post_discharge_feeding,
+        last_weight_control: newChildInfo.last_weight_control,
+        id_mother: _idMother
     }
+
+    //Se guarda el nuevo lactante con sus datos
+    const childSaved = new Child(newChild);
+    await childSaved.save();
+
+    return res.status(201).send({ success: true, data: { _id: childSaved._id }, message: 'Lactante agregado con éxito al sistema.' });
 }
 
 /**
