@@ -21,4 +21,9 @@ export class ApiGetService extends ApiClass {
     const url: string = this.makeUrl(['mother', idMother]);
     return this.http.get<ApiResponse>(url);
   }
+
+  public getChildsList(idMother: string): Observable<ApiResponse> {
+    const url: string = this.makeUrl(['child', idMother]);
+    return this.http.get<ApiResponse>(url);
+  }
 }
