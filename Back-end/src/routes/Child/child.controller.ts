@@ -3,6 +3,13 @@ import { Types } from 'mongoose';
 import Mother from '../Mother/mother.model';
 import Child from './child.model';
 
+
+/**
+ * Funcion que maneja la peticion de agregar un nuevo usuario al sistema
+ * @route Post '/child/:idMother'
+ * @param req req Request, Se espera que contengar el id de la madre 
+ * @param res Response, retornará object con success true, data: { _id: ObjectId() } y un mensaje de confirmacion de creacion
+ */
 export const newChild: RequestHandler = async (req, res) => {
     
 }
