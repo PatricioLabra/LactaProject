@@ -1,11 +1,7 @@
 import { Schema, model } from "mongoose";
 
 const controlSchema = new Schema({
-    child_name:{
-        required: true,
-        type: String,
-        trim: true
-    },
+
     consultation_place:{
         required: true,
         type: String,
