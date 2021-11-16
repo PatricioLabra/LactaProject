@@ -94,7 +94,7 @@ export const deleteControl: RequestHandler = async (req, res) => {
 
 }
 
-export const getnextControls: RequestHandler = async (req, res) => {
+export const getnNextControls: RequestHandler = async (req, res) => {
 
 }
 
