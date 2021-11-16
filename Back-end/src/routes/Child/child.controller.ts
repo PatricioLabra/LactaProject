@@ -1,11 +1,18 @@
 import { RequestHandler } from "express";
 import Child from './child.model';
 import { Types } from 'mongoose';
+import Mother from '../Mother/mother.model';
 
 export const newChild: RequestHandler = async (req, res) => {
     
 }
 
+/**
+ * Funcion que maneja la peticion de editar el lactante
+ * @route Put /child/:idLactante
+ * @param req Request, se espera que tenga archivo json con el usuario editado
+ * @param res Response, returna true, el nuevo usuario y un mensaje de confirmacion
+ */
 export const editChild: RequestHandler = async (req, res) => {
     
 }
@@ -20,7 +27,7 @@ export const getResumeChild: RequestHandler = async (req, res) => {
 
 /**
  * Funcion que maneja la peticion de toda la informacion de un lactante en especifico del sistema
- * @route Get /user/profile/:idLactante
+ * @route Get /child/profile/:idLactante
  * @param req Request, se espera que tenga el id del usuario
  * @param res Response, returna true, informacion del usuario y un mensaje de confirmacion
  */
