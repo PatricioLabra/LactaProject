@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
+import { FormGroup, FormBuilder, Validators } from '@angular/forms'
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login-view',
@@ -8,9 +9,9 @@ import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
 })
 export class LoginViewComponent implements OnInit {
 
-  login:FormGroup;
+  public login: FormGroup;
 
-  constructor(private fb:FormBuilder) { 
+  constructor(private fb: FormBuilder, private router: Router) { 
     this.login=this.fb.group({
       rut:['',Validators.required],
       password:['',Validators.required]
@@ -22,5 +23,6 @@ export class LoginViewComponent implements OnInit {
 
   log_in(){
     console.log("Hola");
+    this.router.navigate(['control-panel']);
   }
 }
