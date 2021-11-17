@@ -12,7 +12,7 @@ const childSchema = new Schema({
     planned_pregnancy: { required:true, type: Boolean },
     assisted_fertilization: { required: true, type: Boolean },
     previous_lactaction: { required: true, type: String },
-    duration_of_past_lactaction_in_months: { required: true, type: Number },
+    duration_of_past_lactaction_in_months: { required: true, type: Number, min: 0 },
     breastfeeding_education: { required: true, type: Boolean }
   },
   birth_data:{
