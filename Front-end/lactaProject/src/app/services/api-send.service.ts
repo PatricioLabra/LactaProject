@@ -7,6 +7,7 @@ import { ApiResponse } from '@interfaces/api_response';
 import { typeMother } from '@interfaces/mother';
 import { typeChild } from '@interfaces/child';
 import { typeControl } from '@interfaces/control';
+import { typeUser } from '@interfaces/user';
 
 @Injectable({
   providedIn: CoreModule
@@ -96,6 +97,33 @@ export class ApiSendService extends ApiClass {
    */
   public deleteControl(idControl: string): Observable<ApiResponse> {
     const url: string = this.makeUrl(['control', idControl]);
+    return this.http.delete<ApiResponse>(url);
+  }
+
+  /**
+   * Agrega un nuevo usuario al sistema
+   * @param userInfo Informacion del usuario a agregar
+   */
+  public addUser(userInfo: typeUser): Observable<ApiResponse> {
+    const url: string = this.makeUrl(['user', 'signUp']);
+    return this.http.post<ApiResponse>(url, userInfo);
+  }
+
+  /**
+   * Actualiza la informacion de un usuario
+   * @param userInfo Nueva informacion del usuario
+   */
+  public editUser(userInfo: typeUser): Observable<ApiResponse> {
+    const url: string = this.makeUrl(['user', userInfo._id]);
+    return this.http.put<ApiResponse>(url, userInfo);
+  }
+
+  /**
+   * Elimina un usuario del sistema usando su id
+   * @param idUser Id del usuario a eliminar
+   */
+  public deleteUser(idUser: string): Observable<ApiResponse> {
+    const url: string = this.makeUrl(['user', idUser]);
     return this.http.delete<ApiResponse>(url);
   }
 
