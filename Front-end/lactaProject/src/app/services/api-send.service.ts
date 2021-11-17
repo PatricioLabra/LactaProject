@@ -34,6 +34,15 @@ export class ApiSendService extends ApiClass {
   }
 
   /**
+   * Elimina una asesorada del sistema
+   * @param idMother Id de la asesorada a eliminar
+   */
+  public deleteMother(idMother: string): Observable<ApiResponse> {
+    const url: string = this.makeUrl(['mother', idMother]);
+    return this.http.delete<ApiResponse>(url);
+  }
+
+  /**
    * Inicia sesion
    * @param user Usuario que va a iniciar sesion
    * @param pass Contraseña del usuario que va a iniciar sesion
