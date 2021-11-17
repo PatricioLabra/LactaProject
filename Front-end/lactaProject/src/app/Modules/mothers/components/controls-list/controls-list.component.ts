@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { ApiResponse } from '@interfaces/api_response';
 import { typeControl } from '@interfaces/control';
+import { ApiGetService } from 'src/app/services/api-get.service';
 
 @Component({
   selector: 'app-controls-list',
@@ -8,11 +10,19 @@ import { typeControl } from '@interfaces/control';
 })
 export class ControlsListComponent implements OnInit {
 
+  @Input()
+  private idMother: string;
   public controls: typeControl | null = null;
 
-  constructor() { }
+  constructor(private apiGet: ApiGetService) { }
 
   ngOnInit(): void {
+    this.apiGet.getNextControls(this.idMother).subscribe((response: ApiResponse) => {
+      console.log(response);
+      if (response.success) {
+        this.controls = response.data.nextControlsFiltered;
+      }
+    });
   }
 
 }
