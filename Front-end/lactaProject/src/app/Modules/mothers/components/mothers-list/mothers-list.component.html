@@ -31,7 +31,7 @@
             </tr>
             </thead>
             <tbody #row>
-            <tr mdbTableCol (rowCreated)="onRowCreate($event)" (rowRemoved)="onRowRemove($event)" *ngFor="let el of elements; let i = index">
+            <tr mdbTableCol (rowCreated)="onRowCreate($event)" (rowRemoved)="onRowRemove($event)" *ngFor="let el of elements; let i = index" (click)="openMotherProfile(el._id)">
               <!--  CUANDO LLEGUE EL OBJETO ESTE LISTO HAY CAMBIAR LOS PARAMETROS DE ABAJO POR "el.(varableDelObjeto)" EJ: "el.names"-->
               <th *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex" >{{el.name}}</th>
               <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex" >{{el.rut}}</td>
