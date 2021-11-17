@@ -97,7 +97,17 @@ export const editControl: RequestHandler = async (req, res) => {
  * @param res Response, retorna un un object con success:true, data:{} y un message: "String" del control editado si todo sale bien
  */
 export const deleteControl: RequestHandler = async (req, res) => {
+    const _id = req.params.idControl;
 
+    //se valida el id del control
+    if( !Types.ObjectId.isValid(_id) ){
+        return res.status(400).send({ success: false, data:{}, message: 'ERROR: El id ingresado no es válido.' });
+    }
+
+    //Se busca el control y se elimina
+    await Control.findByIdAndDelete(_id);
+
+    return res.status(200).send({ success: true, data:{}, message: 'Control eliminado de manera correcta.' });
 }
 
 export const getControl: RequestHandler = async (req, res) => {
