@@ -10,7 +10,7 @@ router.post('/control', controlCtrl.newControl);
 router.put('/control/:idControl', controlCtrl.editControl);
 
 //eliminar control
-router.delete('/contro/:idControl', controlCtrl.deleteControl);
+router.delete('/control/:idControl', controlCtrl.deleteControl);
 
 //obtener lista controles pendientes resumidos por madre(id)
 router.get('/control/:idMother', controlCtrl.getControl);
