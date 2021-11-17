@@ -3,13 +3,18 @@
 <div mdbModal #modalpop="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
+            <div>
+                <button type="button" class="close pull-right" aria-label="Close" (click)="modalpop.hide()">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <h3 class="modal-title">Agendar Cita</h3>
+            </div>
             <div class="modal-body">
-                <h3>Agendar Cita</h3>
 
                 <!--Select Lactante-->
-                <div> 
-                    <label>Nombre Lactante:</label>
-                    <select class="browser-default custom-select">
+                <div class="row"> 
+                    <label class="col">Nombre Lactante:</label>
+                    <select class="col browser-default custom-select">
                         <option value="ninguna">Ninguna</option>
                         <option value="basica">Slash</option>
                         <option value="media">Angus Young</option>
@@ -18,9 +23,9 @@
                 </div>
                 <!--Select Lactante-->
                 <!--Select Lugar de consulta-->
-                <div> 
-                    <label>Lugar de consulta:</label>
-                    <select class="browser-default custom-select">
+                <div class="row"> 
+                    <label class="col">Lugar de consulta:</label>
+                    <select class="col browser-default custom-select">
                         <option value="ninguna">Ninguna</option>
                         <option value="basica">Slash</option>
                         <option value="media">Angus Young</option>
@@ -29,9 +34,9 @@
                 </div>
                 <!--Select Lugar de consulta-->
                 <!--Select Via seguimiento-->
-                <div> 
-                    <label>Vía de seguimiento:</label>
-                    <select class="browser-default custom-select">
+                <div class="row"> 
+                    <label class="col">Vía de seguimiento:</label>
+                    <select class="col browser-default custom-select">
                         <option value="ninguna">Ninguna</option>
                         <option value="basica">Slash</option>
                         <option value="media">Angus Young</option>
@@ -40,10 +45,13 @@
                 </div>
                 <!--Select Via seguimiento-->
                 <!--Date Fecha-->
+                <div class="row">
+                    <label class="col">Fecha:</label>
+                    <input class="col" type="date">
+                </div>
                 <!--Date Fecha-->
             </div>
         </div>
-
     </div>
 </div>
 <!--Form agendar cita-->
