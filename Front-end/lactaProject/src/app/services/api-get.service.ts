@@ -49,11 +49,22 @@ export class ApiGetService extends ApiClass {
   }
 
   /**
-   * Obtiene una lista de los lactantes asociados una asesorada en particular, dependiendo del id ingresado
+   * Obtiene una lista de los con informacion resumida de los controles pendientes
+   * asociados a una asesorada en particular, dependiendo del id ingresado
    * @param idMother Id de la asesorada a obtener los datos
    */
   public getNextControls(idMother: string): Observable<ApiResponse> {
     const url: string = this.makeUrl(['control', idMother]);
+    return this.http.get<ApiResponse>(url);
+  }
+
+  /**
+   * Obtiene una lista de los con informacion resumida de los controles pasados
+   * asociados a una asesorada en particular, dependiendo del id ingresado
+   * @param idMother Id de la asesorada a obtener los datos
+   */
+  public getPastControls(idMother: string): Observable<ApiResponse> {
+    const url: string = this.makeUrl(['control', 'past', idMother]);
     return this.http.get<ApiResponse>(url);
   }
 }
