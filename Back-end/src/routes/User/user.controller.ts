@@ -139,10 +139,6 @@ export const signIn: RequestHandler = async (req, res) => {
     return res.status(200).send({ success: true, data:{ token }, message: 'Se ingreso correctamente.' });
 }
 
-export const searchUser: RequestHandler = async (req, res) => {
-
-}
-
 export const getPass: RequestHandler = async (req, res) => {
 
 }
