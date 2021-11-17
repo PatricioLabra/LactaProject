@@ -8,6 +8,7 @@ import { ControlsListComponent } from './components/controls-list/controls-list.
 import { ControlsRoutingModule } from './controls-routing.module';
 import { PopUpPrintControlComponent } from './components/pop-up-print-control/pop-up-print-control.component';
 import { PopupScheduleControlComponent } from './components/popup-schedule-control/popup-schedule-control.component';
+import { PastControlsListComponent } from './components/past-controls-list/past-controls-list.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { PopupScheduleControlComponent } from './components/popup-schedule-contr
     ControlDataComponent,
     ControlsListComponent,
     PopUpPrintControlComponent,
-    PopupScheduleControlComponent
+    PopupScheduleControlComponent,
+    PastControlsListComponent
   ],
   imports: [
     ControlsRoutingModule,
