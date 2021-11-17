@@ -10,6 +10,9 @@ import { ControlsRoutingModule } from './controls-routing.module';
 import { PopUpPrintControlComponent } from './components/pop-up-print-control/pop-up-print-control.component';
 import { PopupScheduleControlComponent } from './components/popup-schedule-control/popup-schedule-control.component';
 import { PastControlsListComponent } from './components/past-controls-list/past-controls-list.component';
+import { FirstControlFormComponent } from './pages/first-control-form/first-control-form.component';
+import { ControlFormComponent } from './pages/control-form/control-form.component';
+
 
 @NgModule({
   declarations: [
@@ -20,7 +23,9 @@ import { PastControlsListComponent } from './components/past-controls-list/past-
     ControlsListComponent,
     PopUpPrintControlComponent,
     PopupScheduleControlComponent,
-    PastControlsListComponent
+    PastControlsListComponent,
+    FirstControlFormComponent, 
+    ControlFormComponent
   ],
   imports: [
     ControlsRoutingModule,
@@ -33,7 +38,9 @@ import { PastControlsListComponent } from './components/past-controls-list/past-
     MotherIncomingcontrolsListComponent,
     PopupScheduleControlComponent,
     ControlDataComponent,
-    ControlsListComponent
+    ControlsListComponent,
+    FirstControlFormComponent, 
+    ControlFormComponent
   ]
 })
 export class ControlsModule { }
