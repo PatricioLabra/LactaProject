@@ -1,5 +1,7 @@
 import { Component, OnInit, ElementRef, HostListener, AfterViewInit, ViewChild, ChangeDetectorRef} from '@angular/core';
+import { ApiResponse } from '@interfaces/api_response';
 import { MdbTableDirective , MdbTablePaginationComponent} from 'angular-bootstrap-md';
+import { ApiGetService } from 'src/app/services/api-get.service';
 
 
 @Component({
@@ -15,28 +17,34 @@ export class MothersListComponent implements OnInit, AfterViewInit {
   @ViewChild('row', { static: true }) row: ElementRef;
 
   elements: any = [];
-  headElements = ['id', 'first', 'last', 'handle'];
+  headElements = ['name', 'rut', 'last', 'handle'];
 
   searchText: string = '';
   previous: string;
 
   maxVisibleItems: number = 4;
 
-  constructor(private cdRef: ChangeDetectorRef) {}
 
   @HostListener('input') oninput() {
     this.mdbTablePagination.searchText = this.searchText;
   }
 
   ngOnInit() {
-    for (let i = 1; i <= 25; i++) {
-      this.elements.push({id: i, first: 'Wpis ' + i, last: 'Last ' + i, handle: 'Handle ' + i});
-    }
+    this.apiGet.getMothers().subscribe((response: ApiResponse) => {
+      console.log(response);
+      if (response.success) {
+        this.elements=response.data.list_of_mothers;
+        console.log(this.elements)
 
-    this.mdbTable.setDataSource(this.elements);
-    this.elements = this.mdbTable.getDataSource();
-    this.previous = this.mdbTable.getDataSource();
+        this.mdbTable.setDataSource(this.elements);
+        this.elements = this.mdbTable.getDataSource();
+        this.previous = this.mdbTable.getDataSource();
+      }
+    });
+
   }
+  constructor(private cdRef: ChangeDetectorRef, private apiGet: ApiGetService) {}
+
 
   ngAfterViewInit() {
     this.mdbTablePagination.setMaxVisibleItemsNumberTo(this.maxVisibleItems);
