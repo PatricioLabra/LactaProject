@@ -6,6 +6,22 @@
                 <div class="title-container">
                     <p class="title-text">Formulario Ingreso de Lactante</p>
                 </div>
+                <!-- Nombre -->
+                <div class="input-label-container"> 
+                    <label class="label-text">Nombre:</label>
+                    <div class="name-container">
+                        <input type="text" class="form-control" formControlName="name" placeholder="Nombre" maxlength="30"
+                        [ngClass]="{ 'is-invalid': form.controls['name'].invalid && (form.controls['name'].dirty || form.controls['name'].touched),
+                        'is-valid': form.controls['name'].valid && (form.controls['name'].dirty || form.controls['name'].touched)  }">
+                    </div>
+                    <div *ngIf="form.controls['name'].invalid && (form.controls['name'].dirty || form.controls['name'].touched)">
+                        <div *ngIf="form.controls['name']?.hasError('required')" > 
+                            <div class="invalid-text">
+                                Debe rellenar el campo
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <!-- INFORMACION DE GESTACIÓN/PARTO/LACTANCIA -->
                 <div class="sub-title-container"><p>Gestación/Parto/Lactancia</p></div>
                  <!-- Enfermedades Crónicas -->
