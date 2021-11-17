@@ -16,7 +16,7 @@ export const newChild: RequestHandler = async (req, res) => {
 
     //se valida el id de la madre
     if ( !Types.ObjectId.isValid(_idMother) )
-    return res.status(400).send({ success: false, data:{}, message: 'Error: El id ingresado no es válido.' });
+    return res.status(400).send({ success: false, data:{}, message: 'ERROR: El id ingresado no es válido.' });
 
     const { name, gestacion_data:{ diseases_during_pregnancy, nutritional_status_mother, planned_pregnancy, assisted_fertilization, previous_lactaction,
         duration_of_past_lactaction_in_months, breastfeeding_education }, birth_data:{ birthplace, type_of_birth, birthday,
@@ -98,25 +98,28 @@ export const editChild: RequestHandler = async (req, res) => {
  * @param res Response, returna true, un data vacio y un mensaje de confirmacion
  */
  export const deleteChild: RequestHandler = async (req, res) => {
-    const _id = req.params.idLactante;
+    const id_child = req.params.idLactante;
 
     //se valida el id
-    if ( !Types.ObjectId.isValid(_id) ){
-        return res.status(400).send({ success: false, data:{}, message: 'Error: el id ingresado no es valido.' });
+    if ( !Types.ObjectId.isValid(id_child) ){
+        return res.status(400).send({ success: false, data:{}, message: 'ERROR: el id ingresado no es valido.' });
     }
 
-    //se valida si existe el lactante
-    const childFound = await Child.findById(_id);
+    const childFound = await Child.findById(id_child);
+    const controlsFound = await Control.find({ id_child });
 
-    if( !childFound ){
+    //Se valida la existencia del lactante
+    if ( !childFound ){
         return res.status(404).send({ success: false, data:{}, message: 'ERROR: El lactante ingresado no existe en el sistema.' });
     }
 
-    //Se busca el lactante y se elimina
-    await Child.findByIdAndDelete(_id);
-    
-    //Se elimina el o los de los lactantes lactante
-    await Control.findOneAndDelete({ idChild: _id });
+    //Se verifica si el lactante tiene controles, y se eliminan
+    if ( controlsFound ){
+        await Control.deleteMany({ id_child });
+    }
+
+    //Se elimina el lactante del sistema
+    await Child.findByIdAndDelete(id_child);
 
     return res.status(200).send({ success: true, data:{}, message: 'Se elimino exitosamente el lactante.' });
 }
@@ -132,6 +135,13 @@ export const getResumeChild: RequestHandler = async (req, res) => {
     
     if (!Types.ObjectId.isValid(_idMother))
         return res.status(400).send({ success: false, data: {}, message: 'ERROR: La madre ingresada no existe en el sistema.'});
+
+    const motherFound = await Mother.findById(_idMother);
+
+    //se valida la existencia de la madre en el sistema
+    if( !motherFound ){
+        return res.status(404).send({ success: false, data:{}, message: 'ERROR: La madre ingresada no existe en el sistema.' });
+    }
 
     const listChilds = await Child.find({ id_mother: _idMother });
     const childsFiltered = listChilds.map(child => { return { _id: child.id, name: child.name, birth: child.birth_data.birthday }});
@@ -156,7 +166,7 @@ export const getChild: RequestHandler = async (req, res) => {
 
     //Se valida el lactante ingresado por su id
     if( !childFound ){
-        return res.status(404).send({ success: false, data:{}, message:'Error: El lactante solicitado no existe en el sistema.' });
+        return res.status(404).send({ success: false, data:{}, message:'ERROR: El lactante solicitado no existe en el sistema.' });
     }
 
     //Se guardan solo los atributos que se van a mostrar en el found
@@ -170,6 +180,11 @@ export const getChild: RequestHandler = async (req, res) => {
     });
 }
 
+/**
+ * Extrae los atributos publicos del control obtenido desde la base de datos
+ * @param childFound control extraido de la base de datos
+ * @returns Object con los atributos del control a enviar al front
+ */
 function destructureChild( childFound: any ){
     const childFiltered ={
         _id: childFound._id,
