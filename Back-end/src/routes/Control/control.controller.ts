@@ -120,7 +120,7 @@ export const getDetailedPassControl: RequestHandler = async (req, res) => {
 
     //Se valida que el control ingresado para mostrar existe
     if( !controlFound ){
-        return res.status(404).send({ success: false, data:{}, message:'Error: El lactante solicitado no existe en el sistema.' });
+        return res.status(404).send({ success: false, data:{}, message:'Error: El control solicitado no existe en el sistema.' });
     }
 
     //Se guardan solo los parametros que se van a mostrar en el front
