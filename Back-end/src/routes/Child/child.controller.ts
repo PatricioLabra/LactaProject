@@ -98,7 +98,7 @@ export const editChild: RequestHandler = async (req, res) => {
  * @param res Response, returna true, un data vacio y un mensaje de confirmacion
  */
  export const deleteChild: RequestHandler = async (req, res) => {
-    const _id = req.params.id;
+    const _id = req.params.idLactante;
 
     //se valida el id
     if ( !Types.ObjectId.isValid(_id) ){
