@@ -47,4 +47,13 @@ export class ApiGetService extends ApiClass {
     const url: string = this.makeUrl(['child', 'profile', idChild]);
     return this.http.get<ApiResponse>(url);
   }
+
+  /**
+   * Obtiene una lista de los lactantes asociados una asesorada en particular, dependiendo del id ingresado
+   * @param idMother Id de la asesorada a obtener los datos
+   */
+  public getNextControls(idMother: string): Observable<ApiResponse> {
+    const url: string = this.makeUrl(['control', idMother]);
+    return this.http.get<ApiResponse>(url);
+  }
 }
