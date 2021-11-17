@@ -139,11 +139,8 @@ export const getNextControls: RequestHandler = async (req, res) => {
     //obtenemos la fecha actual
     const date = new Date();
     
-    //se setean la hora, minuto, seg y miliseg
-    date.setUTCHours(3);
-    date.setUTCMinutes(0);
-    date.setUTCSeconds(0);
-    date.setUTCMilliseconds(0);
+    //se setea la hora 
+    dateInitializer(date);
 
     const dateFormat = DateToFormattedString(date);
 
@@ -184,11 +181,8 @@ export const getPassControls: RequestHandler = async (req, res) => {
     //obtenemos la fecha actual
     const date = new Date();
     
-    //se setean la hora, minuto, seg y miliseg
-    date.setUTCHours(3);
-    date.setUTCMinutes(0);
-    date.setUTCSeconds(0);
-    date.setUTCMilliseconds(0);
+    //se setea la hora 
+    dateInitializer(date);
 
     const dateFormat = DateToFormattedString(date);
 
@@ -269,11 +263,13 @@ export const getSeach: RequestHandler = async (req, res) => {
     dateInitializer(date);
 
     const lastControl = await Control.findOne( { "id_mother": _id, "date_control": {"$lt": date}} ).sort({date_control: -1});
+    const nextControl = await Control.findOne( { "id_mother": _id, "date_control": {"$gte": date}} ).sort({date_control: 1});
+    
+    //se cambia el formato de la fecha por string yyyy/mm/dd
+    const last_control = DateToFormattedString(lastControl.date_control);
+    const next_control = DateToFormattedString(nextControl.date_control);
 
-    //Se guarda el nombre del usuario ingresado
-    const controlInfo = DateToFormattedString(lastControl.date_control);
-
-    return res.status(200).send({ success: true, data:{ controlInfo }, message: 'Se muestra el ultimo control exitosamente.' });
+    return res.status(200).send({ success: true, data:{ "last_control": lastControl, "next_control": next_control }, message: 'Se muestra el ultimo control exitosamente.' });
 }
 
 /**
