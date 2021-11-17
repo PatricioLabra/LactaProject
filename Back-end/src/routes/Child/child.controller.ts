@@ -2,6 +2,7 @@ import { RequestHandler } from "express";
 import { Types } from 'mongoose';
 import Mother from '../Mother/mother.model';
 import Child from './child.model';
+import Control from '../Control/control.model';
 
 
 /**
@@ -90,8 +91,27 @@ export const editChild: RequestHandler = async (req, res) => {
     return res.status(200).send({ success: true, data:{ updatedChild }, messagge: 'Lactante editado exitosamente' });
 }
 
-export const deleteChild: RequestHandler = async (req, res) => {
+/**
+ * Funcion que maneja la eliminacion de un lactante en el sistema
+ * @route Delete /child/:idLactante
+ * @param req Request, se espera que tenga el id del lactante a eliminar
+ * @param res Response, returna true, un data vacio y un mensaje de confirmacion
+ */
+ export const deleteChild: RequestHandler = async (req, res) => {
+    const _id = req.params.id;
+
+    //se valida el id
+    if ( !Types.ObjectId.isValid(_id) ){
+        return res.status(400).send({ success: false, data:{}, message: 'Error: el id ingresado no es valido.' });
+    }
+
+    //Se busca el lactante y se elimina
+    await Child.findByIdAndDelete(_id);
     
+    //Se elimina el control asosiado al lactante
+    await Control.findOneAndDelete({ idChild: _id });
+
+    return res.status(200).send({ success: true, data:{}, message: 'Se elimino exitosamente el lactante.' });
 }
 
 /**
