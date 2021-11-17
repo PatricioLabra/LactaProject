@@ -139,11 +139,8 @@ export const getNextControls: RequestHandler = async (req, res) => {
     //obtenemos la fecha actual
     const date = new Date();
     
-    //se setean la hora, minuto, seg y miliseg
-    date.setUTCHours(3);
-    date.setUTCMinutes(0);
-    date.setUTCSeconds(0);
-    date.setUTCMilliseconds(0);
+    //se setea la hora 
+    dateInitializer(date);
 
     const dateFormat = DateToFormattedString(date);
 
@@ -162,8 +159,46 @@ export const getNextControls: RequestHandler = async (req, res) => {
     return res.status(200).send({ success: true, data:{ nextControlsFiltered }, message: 'Lista de controles obtenida de manera correcta' });
 }
 
+/**
+ * Función que maneja la petición de obtener una lista de los controles pasados
+ * @route Get /control/:idMother
+ * @param req Request de la petición, se espera que tenga el id de la madre
+ * @param res Response, retorna un un object con success:true, data:{ controls: [{},{}] } y un message: "String" de la lista de controles si todo sale bien
+ */
 export const getPassControls: RequestHandler = async (req, res) => {
+    const idMother = req.params.idMother;
 
+    //se valida el _id de la madre ingresada
+    if ( !Types.ObjectId.isValid( idMother ))
+        return res.status(400).send({ success: false, data:{}, message: 'ERROR: El id ingresado no es válido.' });
+
+    const mother = await Mother.findById( idMother );
+
+    //se valida la existencia de la madre en el sistema
+    if ( !mother )
+        return res.status(404).send({ success: false, data:{}, message: 'ERROR: La madre ingresada no existe en el sistema.' });
+
+    //obtenemos la fecha actual
+    const date = new Date();
+    
+    //se setea la hora 
+    dateInitializer(date);
+
+    const dateFormat = DateToFormattedString(date);
+
+    //se obtiene la lista de controles proximos, ordenados del más reciente al último
+    const passControls = await Control.find( { "id_mother": idMother, "date_control": {"$lt": date}} ).sort({date_control: -1}); 
+
+    //se filtran los datos a enviar al front
+    const passControlsFiltered = passControls.map( control => { return {
+         _id: control.id,  
+         child_name: control.child_name, 
+         consultation_place: control.consultation_place,
+         monitoring_medium: control.monitoring_medium,
+         date_control: DateToFormattedString(control.date_control)
+        }});
+
+    return res.status(200).send({ success: true, data:{ passControlsFiltered }, message: 'Lista de controles obtenida de manera correcta' });
 }
 
 /**
@@ -202,12 +237,39 @@ export const getSeach: RequestHandler = async (req, res) => {
 
 }
 
-export const getLastControl: RequestHandler = async (req, res) => {
+/**
+ * Función que maneja la petición de mostrar el ultimo y proximo control de una madre
+ * @route Get /control/lastAndNext/:idMother
+ * @param req Request de la petición, se espera que tenga el id de la madre 
+ * @param res Response, retorna un un object con success:true, data:{} con la fecha y un message: "String" de confirmacion
+ */
+ export const getLastAndNextControl: RequestHandler = async (req, res) => {
+    const _id = req.params.idMother;
 
-}
+    //se valida el _id de la madre ingresada
+    if ( !Types.ObjectId.isValid( _id) )
+    return res.status(400).send({ success: false, data:{}, message: 'ERROR: El id ingresado no es válido.' });
 
-export const getNextControl: RequestHandler = async (req, res) => {
+    const motherFound = await Mother.findById(_id);
 
+    if ( !motherFound ){
+        return res.status(404).send({ success: false, data:{}, message: 'ERROR: La madre ingresada no existe en el sistema.' });
+    }
+
+    //se obtiene la fecha actual
+    const date = new Date();
+
+    //se setea la hora 
+    dateInitializer(date);
+
+    const lastControl = await Control.findOne( { "id_mother": _id, "date_control": {"$lt": date}} ).sort({date_control: -1});
+    const nextControl = await Control.findOne( { "id_mother": _id, "date_control": {"$gte": date}} ).sort({date_control: 1});
+    
+    //se cambia el formato de la fecha por string yyyy/mm/dd
+    const last_control = DateToFormattedString(lastControl.date_control);
+    const next_control = DateToFormattedString(nextControl.date_control);
+
+    return res.status(200).send({ success: true, data:{ "last_control": last_control, "next_control": next_control }, message: 'Se muestran el ultimo y proximo control exitosamente.' });
 }
 
 /**
@@ -245,4 +307,15 @@ function destructureControl ( controlFound: any ){
     }
 
     return controlFiltered;
+}
+
+/**
+ * Fija la hora en las 0:00:00.000+00:00
+ * @param date fecha en formato UTC
+ */
+function dateInitializer (date: any){
+    date.setUTCHours(3);
+    date.setUTCMinutes(0);
+    date.setUTCSeconds(0);
+    date.setUTCMilliseconds(0);
 }

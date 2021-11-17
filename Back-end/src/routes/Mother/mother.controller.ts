@@ -1,6 +1,8 @@
 import { RequestHandler } from "express";
 import Mother from './mother.model';
 import { Types } from "mongoose";
+import Child from '../Child/child.model';
+import Control from '../Control/control.model';
 
 
 /**
@@ -13,7 +15,7 @@ export const newMother: RequestHandler = async (req, res) => {
     const {
         name, rut, commune, phone_number, mail, birth, 
         ocupation, studies, marital_status, forecast,
-        chronic_diseases, number_of_living_children, childs
+        chronic_diseases, number_of_living_children
     } = req.body;
 
     //se valida si alguno de los atributos required no son válidos
@@ -30,7 +32,7 @@ export const newMother: RequestHandler = async (req, res) => {
     const newMother = {
         name, rut, commune, phone_number, mail, birth, 
         ocupation, studies, marital_status, forecast,
-        chronic_diseases, number_of_living_children, childs : [] 
+        chronic_diseases, number_of_living_children
     }
 
     //se almacena la madre en el sistema
@@ -66,8 +68,39 @@ export const editMother: RequestHandler = async (req, res) => {
     return res.status(200).send({ success: true, data:{}, message: 'Madre editada de manera correcta.' });
 }
 
-export const deleteMother: RequestHandler = async (req, res) => {
+/**
+ * Función que maneja la petición de eliminar a una madre del sistema
+ * @route Delete /mother/:id
+ * @param req Request de la petición, se espera que tenga el id de la madre
+ * @param res Response, retorna un un object con success:true, data:{ } y un message: "String" de la madre eliminada si todo sale bien
+ */
+ export const deleteMother: RequestHandler = async (req, res) => {
+    const id_mother = req.params.id;
+
+    //se valida el _id de la madre ingresada
+    if ( !Types.ObjectId.isValid(id_mother)) 
+        return res.status(400).send({ success: false, data:{}, message: 'ERROR: El id ingresado no es válido.' });
     
+    const motherFound = await Mother.findById( id_mother );
+    const childsFound = await Child.find( {id_mother} );
+    const controlsFound = await Control.find( {id_mother} );
+
+    //se valida la existencia de la madre en el sistema
+    if ( !motherFound ) 
+        return res.status(404).send({ success: false, data:{}, message: 'ERROR: La madre ingresada no existe en el sistema.' });
+
+    //se eliminan los controles
+    if ( controlsFound )
+        await Control.deleteMany( {id_mother} );
+
+    //se eliminan los hijos
+    if ( childsFound )
+        await Child.deleteMany( {id_mother} );
+
+    //se elimina la madre del sistema
+    await Mother.findByIdAndRemove ( id_mother );
+
+    return res.status(200).send({ success: true, data:{}, message: 'Madre eliminada de manera correcta.' });
 }
 
 /**
@@ -112,10 +145,6 @@ export const getMothers: RequestHandler = async (req, res) => {
     const listMothers = mothersFound.map( mother => { return { _id: mother.id,  name: mother.name, rut: mother.rut }});
 
     return res.status(200).send({ success: true, data:{ list_of_mothers: listMothers }, message: "Se obtuvieron a todas las madres del sistema de manera exitosoa." });
-}
-
-export const getSearch: RequestHandler = async (req, res) => {
-    
 }
 
 /**

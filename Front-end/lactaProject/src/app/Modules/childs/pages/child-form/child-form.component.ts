@@ -12,6 +12,7 @@ export class ChildFormComponent implements OnInit {
   form:FormGroup;
   constructor(private fb:FormBuilder) {
     this.form=this.fb.group({
+      name: ['', Validators.required],
       sintoma_parto_prematuro: [''],
       preeclampsia: [''],
       eclampsia: [''],

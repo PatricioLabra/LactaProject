@@ -60,11 +60,6 @@ const motherSchema = new Schema({
         required: false,
         type: Number,
         trim: true
-    },
-    childs:{
-        type: [Schema.Types.Mixed],
-        required: false,
-        trim: true
     }
 },{
     versionKey: false,

@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { typeMother } from '@interfaces/mother';
+import { ApiResponse } from '@interfaces/api_response';
+import { ApiSendService } from 'src/app/services/api-send.service';
 
 @Component({
   selector: 'app-mother-form',
@@ -10,7 +13,7 @@ export class MotherFormComponent implements OnInit {
   chronic_diseases:Array<string>=[];
   other_diseases:Array<string>=[];
   form:FormGroup;
-  constructor(private fb:FormBuilder) {
+  constructor(private fb:FormBuilder, private apiSend: ApiSendService) {
     this.form=this.fb.group({
       name: ['', Validators.required],
       rut: ['', Validators.required],
@@ -37,21 +40,28 @@ export class MotherFormComponent implements OnInit {
   // Funcion que ACTUALMENTE solo se encarga de imprimir por consola los valores obtenidos en el formulario
   sendMotherData(){
     this.createList();
-    console.log(this.form.get("name")?.value);
-    console.log(this.form.get("rut")?.value + "-" + this.form.get("rut_vc")?.value);
-    console.log(this.form.get("commune")?.value);
-    console.log(this.form.get("phone_number")?.value);
-    console.log(this.form.get("mail")?.value);
-    console.log(this.form.get("birth")?.value);
-    console.log(this.form.get("ocupation")?.value);
-    console.log(this.form.get("studies")?.value);
-    console.log(this.form.get("marital_status")?.value);
-    console.log(this.form.get("forecast")?.value);
-    console.log(this.form.get("number_of_children")?.value);
-    console.log(this.chronic_diseases);
+    let motherData:typeMother={
+      _id: "",
+      name: this.form.get("name")?.value,
+      rut: this.form.get("rut")?.value,
+      commune: this.form.get("commune")?.value,
+      phone_number: this.form.get("phone_number")?.value,
+      mail: this.form.get("mail")?.value,
+      birth: this.form.get("birth")?.value,
+      ocupation: this.form.get("ocupation")?.value,
+      studies: this.form.get("studies")?.value,
+      marital_status: this.form.get("marital_status")?.value,
+      forecast: this.form.get("forecast")?.value,
+      chronic_diseases: this.chronic_diseases,
+      number_of_living_children: this.form.get("number_of_children")?.value,
+    };
+    this.apiSend.addMother(motherData).subscribe((response: ApiResponse) => {
+      console.log(response);
+    });
   }
+  
   // Funcion que se encarga de crear enfermedades que no esten en la lista principal
- otherDiseaseFunction(){
+  otherDiseaseFunction(){
     if(this.form.get("other")?.value != ""){
       this.chronic_diseases.push(this.form.get("other")?.value);
       this.other_diseases.push(this.form.get("other")?.value);

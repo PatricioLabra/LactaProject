@@ -18,7 +18,7 @@ export const signUp: RequestHandler = async (req, res) => {
         return res.status(400).send({ success: false, data:{}, message: 'Error: datos inválidos'+ req.body });
     }
 
-    const userFound = await User.findOne({ name });
+    const userFound = await User.findOne({ rut });
 
     //Se valida la existencia de algun usuario con el nombre ingresado
     if( userFound ){
@@ -137,10 +137,6 @@ export const signIn: RequestHandler = async (req, res) => {
     const token = signToken(user._id);
 
     return res.status(200).send({ success: true, data:{ token }, message: 'Se ingreso correctamente.' });
-}
-
-export const searchUser: RequestHandler = async (req, res) => {
-
 }
 
 export const getPass: RequestHandler = async (req, res) => {
