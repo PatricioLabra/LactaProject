@@ -15,7 +15,7 @@ export const newMother: RequestHandler = async (req, res) => {
     const {
         name, rut, commune, phone_number, mail, birth, 
         ocupation, studies, marital_status, forecast,
-        chronic_diseases, number_of_living_children, childs
+        chronic_diseases, number_of_living_children
     } = req.body;
 
     //se valida si alguno de los atributos required no son válidos
@@ -32,7 +32,7 @@ export const newMother: RequestHandler = async (req, res) => {
     const newMother = {
         name, rut, commune, phone_number, mail, birth, 
         ocupation, studies, marital_status, forecast,
-        chronic_diseases, number_of_living_children, childs : [] 
+        chronic_diseases, number_of_living_children
     }
 
     //se almacena la madre en el sistema
