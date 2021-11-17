@@ -159,7 +159,7 @@ export const getNextControls: RequestHandler = async (req, res) => {
          date_control: DateToFormattedString(control.date_control)
         }});
 
-    return res.status(200).send({ success: true, data:{ nextControlsFiltered }, message: 'Control editado de manera correcta.' });
+    return res.status(200).send({ success: true, data:{ nextControlsFiltered }, message: 'Lista de controles obtenida de manera correcta' });
 }
 
 export const getPassControls: RequestHandler = async (req, res) => {
