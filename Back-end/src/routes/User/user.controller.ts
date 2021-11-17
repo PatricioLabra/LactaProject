@@ -18,7 +18,7 @@ export const signUp: RequestHandler = async (req, res) => {
         return res.status(400).send({ success: false, data:{}, message: 'Error: datos inválidos'+ req.body });
     }
 
-    const userFound = await User.findOne({ name });
+    const userFound = await User.findOne({ rut });
 
     //Se valida la existencia de algun usuario con el nombre ingresado
     if( userFound ){
