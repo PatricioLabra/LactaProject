@@ -107,7 +107,7 @@ export const getResumeChild: RequestHandler = async (req, res) => {
         return res.status(400).send({ success: false, data: {}, message: 'ERROR: La madre ingresada no existe en el sistema.'});
 
     const listChilds = await Child.find({ id_mother: _idMother });
-    const childsFiltered = listChilds.map(child => { return { id: child.id, name: child.name, birth: child.birth_data.birthday }});
+    const childsFiltered = listChilds.map(child => { return { _id: child.id, name: child.name, birth: child.birth_data.birthday }});
 
     return res.status(200).send({ success: true, data: { childsFiltered }, message: 'Lista de los lactactes solicitados.'});
 }
