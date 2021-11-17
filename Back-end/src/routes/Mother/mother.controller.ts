@@ -76,39 +76,29 @@ export const editMother: RequestHandler = async (req, res) => {
  */
  export const deleteMother: RequestHandler = async (req, res) => {
     const {id_mother} = req.body;
-   // const _id =  new Types.ObjectId(id_mother);
-    console.log(id_mother);
+
     //se valida el _id de la madre ingresada
-    //if ( !Types.ObjectId.isValid(_id))
-      //  return res.status(400).send({ success: false, data:{}, message: 'ERROR: El id ingresado no es válido.' });
+    if ( !Types.ObjectId.isValid(id_mother)) 
+        return res.status(400).send({ success: false, data:{}, message: 'ERROR: El id ingresado no es válido.' });
     
-    //const motherFound = await Mother.findById( _id );
+    const motherFound = await Mother.findById( id_mother );
     const childsFound = await Child.find( {id_mother} );
     const controlsFound = await Control.find( {id_mother} );
 
-    return res.status(200).send({ childsFound, controlsFound });
-
     //se valida la existencia de la madre en el sistema
-    //if ( !motherFound ) 
-        //return res.status(404).send({ success: false, data:{}, message: 'ERROR: La madre ingresada no existe en el sistema.' });
+    if ( !motherFound ) 
+        return res.status(404).send({ success: false, data:{}, message: 'ERROR: La madre ingresada no existe en el sistema.' });
 
     //se eliminan los controles
     if ( controlsFound )
-        console.log ("elimina controls");
-        console.log (controlsFound);
-        //await Control.deleteMany( {id_mother: _id} );
+        await Control.deleteMany( {id_mother} );
 
     //se eliminan los hijos
     if ( childsFound )
-        console.log ("elimina childs");
-        console.log (childsFound);
-        //await Child.deleteMany( {id_mother: _id} );
+        await Child.deleteMany( {id_mother} );
 
-
-        console.log ("elimina madre");
-//        console.log (motherFound);
     //se elimina la madre del sistema
-    //await Mother.findByIdAndRemove ( _id );
+    await Mother.findByIdAndRemove ( id_mother );
 
     return res.status(200).send({ success: true, data:{}, message: 'Madre eliminada de manera correcta.' });
 }
