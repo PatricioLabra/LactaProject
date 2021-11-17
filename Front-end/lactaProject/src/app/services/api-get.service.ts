@@ -76,4 +76,13 @@ export class ApiGetService extends ApiClass {
     const url: string = this.makeUrl(['control', 'profile', idControl]);
     return this.http.get<ApiResponse>(url);
   }
+
+  /**
+   * Obtiene la informacion de un usuario en particular
+   * @param idUser Id del usuario
+   */
+  public getUserInfo(idUser: string): Observable<ApiResponse> {
+    const url: string = this.makeUrl(['user', idUser]);
+    return this.http.get<ApiResponse>(url);
+  }
 }
