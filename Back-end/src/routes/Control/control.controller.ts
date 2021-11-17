@@ -162,8 +162,49 @@ export const getNextControls: RequestHandler = async (req, res) => {
     return res.status(200).send({ success: true, data:{ nextControlsFiltered }, message: 'Lista de controles obtenida de manera correcta' });
 }
 
+/**
+ * Función que maneja la petición de obtener una lista de los controles pasados
+ * @route Get /control/:idMother
+ * @param req Request de la petición, se espera que tenga el id de la madre
+ * @param res Response, retorna un un object con success:true, data:{ controls: [{},{}] } y un message: "String" de la lista de controles si todo sale bien
+ */
 export const getPassControls: RequestHandler = async (req, res) => {
+    const idMother = req.params.idMother;
 
+    //se valida el _id de la madre ingresada
+    if ( !Types.ObjectId.isValid( idMother ))
+        return res.status(400).send({ success: false, data:{}, message: 'ERROR: El id ingresado no es válido.' });
+
+    const mother = await Mother.findById( idMother );
+
+    //se valida la existencia de la madre en el sistema
+    if ( !mother )
+        return res.status(404).send({ success: false, data:{}, message: 'ERROR: La madre ingresada no existe en el sistema.' });
+
+    //obtenemos la fecha actual
+    const date = new Date();
+    
+    //se setean la hora, minuto, seg y miliseg
+    date.setUTCHours(3);
+    date.setUTCMinutes(0);
+    date.setUTCSeconds(0);
+    date.setUTCMilliseconds(0);
+
+    const dateFormat = DateToFormattedString(date);
+
+    //se obtiene la lista de controles proximos, ordenados del más reciente al último
+    const nextControls = await Control.find( { "id_mother": idMother, "date_control": {"$gte": date}} ).sort({date_control: 1}); 
+
+    //se filtran los datos a enviar al front
+    const nextControlsFiltered = nextControls.map( control => { return {
+         _id: control.id,  
+         child_name: control.child_name, 
+         consultation_place: control.consultation_place,
+         monitoring_medium: control.monitoring_medium,
+         date_control: DateToFormattedString(control.date_control)
+        }});
+
+    return res.status(200).send({ success: true, data:{ nextControlsFiltered }, message: 'Lista de controles obtenida de manera correcta' });
 }
 
 /**
