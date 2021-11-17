@@ -10,7 +10,7 @@ import { ApiGetService } from 'src/app/services/api-get.service';
 })
 export class LactancyDataComponent implements OnInit {
 
-  childId="619558f6590af9c8a6ce588e" //Para conectar Solo hay q asignar este id desde la ruta
+  childId="61955ea11b759d88b0b06a1d" //Para conectar Solo hay q asignar este id desde la ruta
   childData:typeChild;
 
 
