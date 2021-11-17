@@ -2,6 +2,7 @@ import { RequestHandler } from "express";
 import { Types } from "mongoose";
 import Control from './control.model';
 import Child from '../Child/child.model';
+import Mother from '../Mother/mother.model';
 
 
 /**
@@ -116,11 +117,52 @@ export const deleteControl: RequestHandler = async (req, res) => {
     return res.status(200).send({ success: true, data:{}, message: 'Control eliminado de manera correcta.' });
 }
 
-export const getControl: RequestHandler = async (req, res) => {
+/**
+ * Función que maneja la petición de obtener una lista de los controles proximos
+ * @route Get /control/:idMother
+ * @param req Request de la petición, se espera que tenga el id de la madre
+ * @param res Response, retorna un un object con success:true, data:{ controls: [{},{}] } y un message: "String" de la lista de controles si todo sale bien
+ */
+export const getNextControls: RequestHandler = async (req, res) => {
+    const idMother = req.params.idMother;
 
+    //se valida el _id de la madre ingresada
+    if ( !Types.ObjectId.isValid( idMother ))
+        return res.status(400).send({ success: false, data:{}, message: 'ERROR: El id ingresado no es válido.' });
+
+    const mother = await Mother.findById( idMother );
+
+    //se valida la existencia de la madre en el sistema
+    if ( !mother )
+        return res.status(404).send({ success: false, data:{}, message: 'ERROR: La madre ingresada no existe en el sistema.' });
+
+    //obtenemos la fecha actual
+    const date = new Date();
+    
+    //se setean la hora, minuto, seg y miliseg
+    date.setUTCHours(3);
+    date.setUTCMinutes(0);
+    date.setUTCSeconds(0);
+    date.setUTCMilliseconds(0);
+
+    const dateFormat = DateToFormattedString(date);
+
+    //se obtiene la lista de controles proximos, ordenados del más reciente al último
+    const nextControls = await Control.find( { "id_mother": idMother, "date_control": {"$gte": date}} ).sort({date_control: 1}); 
+
+    //se filtran los datos a enviar al front
+    const nextControlsFiltered = nextControls.map( control => { return {
+         _id: control.id,  
+         child_name: control.child_name, 
+         consultation_place: control.consultation_place,
+         monitoring_medium: control.monitoring_medium,
+         date_control: DateToFormattedString(control.date_control)
+        }});
+
+    return res.status(200).send({ success: true, data:{ nextControlsFiltered }, message: 'Lista de controles obtenida de manera correcta' });
 }
 
-export const getPassControl: RequestHandler = async (req, res) => {
+export const getPassControls: RequestHandler = async (req, res) => {
 
 }
 
@@ -168,9 +210,29 @@ export const getNextControl: RequestHandler = async (req, res) => {
 
 }
 
+/**
+ * Convierte un date_control de UTC a yyyy/mm/dd (string)
+ * @param motherFound Madre extraida de la base de datos
+ * @returns Object con los atributos de la madre a enviar al front
+ */
+function DateToFormattedString(date:any) {         
+                                 
+    var yyyy = date.getFullYear().toString();                                    
+    var mm = (date.getMonth()+1).toString(); // getMonth() is zero-based         
+    var dd  = date.getDate().toString();             
+                         
+    return yyyy + '/' + (mm[1]?mm:"0"+mm[0]) + '/' + (dd[1]?dd:"0"+dd[0]);
+}  
+
+/**
+ * Extrae los atributos publicos del control obtenido desde la base de datos
+ * @param controlFound control extraido de la base de datos
+ * @returns Object con los atributos del control a enviar al front
+ */
 function destructureControl ( controlFound: any ){
     const controlFiltered ={
         _id: controlFound._id,
+        date_control: DateToFormattedString(controlFound.date_control),
         child_name: controlFound.child_name,
         consultation_place: controlFound.consultation_place,
         monitoring_medium: controlFound.monitoring_medium,
