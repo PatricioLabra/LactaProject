@@ -19,7 +19,7 @@ router.get('/control/:idMother', controlCtrl.getControl);
 router.get('/control/past/:idMother', controlCtrl.getPassControl);
 
 //obtener informacion control pasado detallado(idControlPasado_)
-router.get('/control/:idControl', controlCtrl.getDetailedPassControl);
+router.get('/control/profile/:idControl', controlCtrl.getDetailedPassControl);
 
 // Obtener barra de busqueda, keyword: name, date. 
 router.post('/control/:idMother/:keyword/:lower_limit/:upper_limit', controlCtrl.getSeach);

@@ -102,8 +102,36 @@ export const getPassControl: RequestHandler = async (req, res) => {
 
 }
 
+/**
+ * Funcion que maneja la peticion de toda la informacion de un control en especifico del sistema
+ * @route Get /control/:idControl
+ * @param req Request, se espera que tenga el id del control a mostrar
+ * @param res Response, returna true, informacion del control y un mensaje de confirmacion
+ */
 export const getDetailedPassControl: RequestHandler = async (req, res) => {
+    const _id = req.params.idControl;
+ 
+    //se valida el _id ingresado
+    if ( !Types.ObjectId.isValid(_id) ){
+        return res.status(400).send({ success: false, data:{}, message:'Error: El id ingresado no es válido.' });
+    }
 
+    const controlFound = await Control.findById(_id);
+
+    //Se valida que el control ingresado para mostrar existe
+    if( !controlFound ){
+        return res.status(404).send({ success: false, data:{}, message:'Error: El control solicitado no existe en el sistema.' });
+    }
+
+    //Se guardan solo los parametros que se van a mostrar en el front
+    const controlFiltered = destructureControl(controlFound);
+
+    //Se retorna los datos del usuario buscado
+    return res.status(200).send({
+        success:true,
+        data: controlFiltered,
+        messagge: 'Se obtuvo exitosamente la informacion del control'
+    });
 }
 
 export const getSeach: RequestHandler = async (req, res) => {
@@ -116,4 +144,21 @@ export const getLastControl: RequestHandler = async (req, res) => {
 
 export const getNextControl: RequestHandler = async (req, res) => {
 
+}
+
+function destructureControl ( controlFound: any ){
+    const controlFiltered ={
+        _id: controlFound._id,
+        child_name: controlFound.child_name,
+        consultation_place: controlFound.consultation_place,
+        monitoring_medium: controlFound.monitoring_medium,
+        weight: controlFound.weight,
+        reason_of_consultation: controlFound.reason_of_consultation,
+        accompanied_by: controlFound.accompanied_by,
+        emotional_status: controlFound.emotional_status,
+        observations: controlFound.observations,
+        indications: controlFound.indications
+    }
+
+    return controlFiltered;
 }
