@@ -193,7 +193,7 @@ export const getPassControls: RequestHandler = async (req, res) => {
     const dateFormat = DateToFormattedString(date);
 
     //se obtiene la lista de controles proximos, ordenados del más reciente al último
-    const nextControls = await Control.find( { "id_mother": idMother, "date_control": {"$gte": date}} ).sort({date_control: 1}); 
+    const nextControls = await Control.find( { "id_mother": idMother, "date_control": {"$lt": date}} ).sort({date_control: -1}); 
 
     //se filtran los datos a enviar al front
     const nextControlsFiltered = nextControls.map( control => { return {
