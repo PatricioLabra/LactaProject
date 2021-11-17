@@ -91,8 +91,30 @@ export const editControl: RequestHandler = async (req, res) => {
     return res.status(200).send({ success: true, data:{}, message: 'Control editado de manera correcta.' });
 }
 
+/**
+ * Función que maneja la petición de eliminar un control del sistema
+ * @route Delete /control/:idControl
+ * @param req Request de la petición, se espera que tenga el id del control a eliminar
+ * @param res Response, retorna un un object con success:true, data:{} y un message: "String" del control editado si todo sale bien
+ */
 export const deleteControl: RequestHandler = async (req, res) => {
+    const _id = req.params.idControl;
 
+    //se valida el id del control
+    if( !Types.ObjectId.isValid(_id) ){
+        return res.status(400).send({ success: false, data:{}, message: 'ERROR: El id ingresado no es válido.' });
+    }
+    
+    const controlFound = Control.findById(_id);
+
+    if( !controlFound ){
+        return res.status(404).send({ success: false, data:{}, message:'Error: El control solicitado no existe en el sistema.' });
+    }
+
+    //Se busca el control y se elimina
+    await Control.findByIdAndDelete(_id);
+
+    return res.status(200).send({ success: true, data:{}, message: 'Control eliminado de manera correcta.' });
 }
 
 /**
@@ -144,8 +166,36 @@ export const getPassControls: RequestHandler = async (req, res) => {
 
 }
 
+/**
+ * Funcion que maneja la peticion de toda la informacion de un control en especifico del sistema
+ * @route Get /control/:idControl
+ * @param req Request, se espera que tenga el id del control a mostrar
+ * @param res Response, returna true, informacion del control y un mensaje de confirmacion
+ */
 export const getDetailedPassControl: RequestHandler = async (req, res) => {
+    const _id = req.params.idControl;
+ 
+    //se valida el _id ingresado
+    if ( !Types.ObjectId.isValid(_id) ){
+        return res.status(400).send({ success: false, data:{}, message:'Error: El id ingresado no es válido.' });
+    }
 
+    const controlFound = await Control.findById(_id);
+
+    //Se valida que el control ingresado para mostrar existe
+    if( !controlFound ){
+        return res.status(404).send({ success: false, data:{}, message:'Error: El control solicitado no existe en el sistema.' });
+    }
+
+    //Se guardan solo los parametros que se van a mostrar en el front
+    const controlFiltered = destructureControl(controlFound);
+
+    //Se retorna los datos del usuario buscado
+    return res.status(200).send({
+        success:true,
+        data: controlFiltered,
+        messagge: 'Se obtuvo exitosamente la informacion del control'
+    });
 }
 
 export const getSeach: RequestHandler = async (req, res) => {
@@ -173,3 +223,26 @@ function DateToFormattedString(date:any) {
                          
     return yyyy + '/' + (mm[1]?mm:"0"+mm[0]) + '/' + (dd[1]?dd:"0"+dd[0]);
 }  
+
+/**
+ * Extrae los atributos publicos del control obtenido desde la base de datos
+ * @param controlFound control extraido de la base de datos
+ * @returns Object con los atributos del control a enviar al front
+ */
+function destructureControl ( controlFound: any ){
+    const controlFiltered ={
+        _id: controlFound._id,
+        date_control: DateToFormattedString(controlFound.date_control),
+        child_name: controlFound.child_name,
+        consultation_place: controlFound.consultation_place,
+        monitoring_medium: controlFound.monitoring_medium,
+        weight: controlFound.weight,
+        reason_of_consultation: controlFound.reason_of_consultation,
+        accompanied_by: controlFound.accompanied_by,
+        emotional_status: controlFound.emotional_status,
+        observations: controlFound.observations,
+        indications: controlFound.indications
+    }
+
+    return controlFiltered;
+}
