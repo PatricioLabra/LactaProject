@@ -3,7 +3,7 @@ import { ApiGetService } from 'src/app/services/api-get.service';
 import { ApiResponse } from '@interfaces/api_response';
 
 interface ChildResume {
-  idChild: string,
+  _id: string,
   name: string,
   birth: Date
 };
