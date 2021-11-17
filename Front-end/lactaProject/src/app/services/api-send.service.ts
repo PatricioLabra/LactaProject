@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { ApiResponse } from '@interfaces/api_response';
 import { typeMother } from '@interfaces/mother';
 import { typeChild } from '@interfaces/child';
+import { typeControl } from '@interfaces/control';
 
 @Injectable({
   providedIn: CoreModule
@@ -68,6 +69,33 @@ export class ApiSendService extends ApiClass {
    */
   public deleteChild(idChild: string): Observable<ApiResponse> {
     const url: string = this.makeUrl(['child', idChild]);
+    return this.http.delete<ApiResponse>(url);
+  }
+
+  /**
+   * Agrega un nuevo control al sistema
+   * @param controlInfo Informacion del control a agregar
+   */
+  public addControl(controlInfo: typeControl, idChild: string): Observable<ApiResponse> {
+    const url: string = this.makeUrl(['control']);
+    return this.http.post<ApiResponse>(url, { dataNewControl: controlInfo, id_child: idChild });
+  }
+
+  /**
+   * Actualiza la informacion de un control en especifico
+   * @param controlInfo Nueva informacion a actualizar del control
+   */
+  public updateControl(controlInfo: typeControl): Observable<ApiResponse> {
+    const url: string = this.makeUrl(['control', controlInfo._id]);
+    return this.http.put<ApiResponse>(url, controlInfo);
+  }
+
+  /**
+   * Elimina un control del sistema usando su id
+   * @param idControl Id del control a eliminar
+   */
+  public deleteControl(idControl: string): Observable<ApiResponse> {
+    const url: string = this.makeUrl(['control', idControl]);
     return this.http.delete<ApiResponse>(url);
   }
 
