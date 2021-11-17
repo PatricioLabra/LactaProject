@@ -10,16 +10,40 @@ import { ControlsRoutingModule } from './controls-routing.module';
 import { PopUpPrintControlComponent } from './components/pop-up-print-control/pop-up-print-control.component';
 import { SharedModule } from '@shared/shared.module';
 import { PastControlsListComponent } from './components/past-controls-list/past-controls-list.component';
+import { FirstControlFormComponent } from './pages/first-control-form/first-control-form.component';
+import { ControlFormComponent } from './pages/control-form/control-form.component';
 
 
 
 @NgModule({
-  declarations: [PastControlsComponent, InprocessControlComponent, MotherIncomingcontrolsListComponent, ControlDataComponent, AddControlComponent, ControlsListComponent, PopUpPrintControlComponent, PastControlsListComponent],
+  declarations: [
+    PastControlsComponent, 
+    InprocessControlComponent, 
+    MotherIncomingcontrolsListComponent, 
+    ControlDataComponent, 
+    AddControlComponent, 
+    ControlsListComponent, 
+    PopUpPrintControlComponent, 
+    PastControlsListComponent, 
+    FirstControlFormComponent, 
+    ControlFormComponent
+  ],
   imports: [
     CommonModule,
     ControlsRoutingModule,
     SharedModule
   ],
-  exports:[PastControlsComponent, InprocessControlComponent, MotherIncomingcontrolsListComponent, ControlDataComponent, AddControlComponent, ControlsListComponent]
+  exports:[
+    PastControlsComponent, 
+    InprocessControlComponent, 
+    MotherIncomingcontrolsListComponent, 
+    ControlDataComponent, 
+    AddControlComponent, 
+    ControlsListComponent,
+    PopUpPrintControlComponent, 
+    PastControlsListComponent, 
+    FirstControlFormComponent, 
+    ControlFormComponent
+  ]
 })
 export class ControlsModule { }
