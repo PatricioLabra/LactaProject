@@ -269,7 +269,7 @@ export const getSeach: RequestHandler = async (req, res) => {
     const last_control = DateToFormattedString(lastControl.date_control);
     const next_control = DateToFormattedString(nextControl.date_control);
 
-    return res.status(200).send({ success: true, data:{ "last_control": lastControl, "next_control": next_control }, message: 'Se muestra el ultimo control exitosamente.' });
+    return res.status(200).send({ success: true, data:{ "last_control": last_control, "next_control": next_control }, message: 'Se muestran el ultimo y proximo control exitosamente.' });
 }
 
 /**
