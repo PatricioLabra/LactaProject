@@ -18,7 +18,4 @@ router.get('/mother/:id', motherCtrl.getDetailedMother);
 //obtener todas las asesoradas
 router.get('/mother', motherCtrl.getMothers);
 
-// Obtener barra de busqueda, keyword: name, rut, last control, next control
-router.post('/mother/search/:keyword', motherCtrl.getSearch);
-
 export default router
