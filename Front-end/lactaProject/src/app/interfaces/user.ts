@@ -4,6 +4,5 @@ export interface typeUser{
     rut: string,
     mail: string,
     password: string,
-    role: String,
-    controls: string[]
+    permission_level: string
 }
