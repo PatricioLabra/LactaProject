@@ -103,6 +103,12 @@ export const deleteControl: RequestHandler = async (req, res) => {
     if( !Types.ObjectId.isValid(_id) ){
         return res.status(400).send({ success: false, data:{}, message: 'ERROR: El id ingresado no es válido.' });
     }
+    
+    const controlFound = Control.findById(_id);
+
+    if( !controlFound ){
+        return res.status(404).send({ success: false, data:{}, message:'Error: El control solicitado no existe en el sistema.' });
+    }
 
     //Se busca el control y se elimina
     await Control.findByIdAndDelete(_id);
