@@ -70,12 +70,12 @@ export const editMother: RequestHandler = async (req, res) => {
 
 /**
  * Función que maneja la petición de eliminar a una madre del sistema
- * @route Delete /mother
+ * @route Delete /mother/:id
  * @param req Request de la petición, se espera que tenga el id de la madre
  * @param res Response, retorna un un object con success:true, data:{ } y un message: "String" de la madre eliminada si todo sale bien
  */
  export const deleteMother: RequestHandler = async (req, res) => {
-    const {id_mother} = req.body;
+    const id_mother = req.params.id;
 
     //se valida el _id de la madre ingresada
     if ( !Types.ObjectId.isValid(id_mother)) 
