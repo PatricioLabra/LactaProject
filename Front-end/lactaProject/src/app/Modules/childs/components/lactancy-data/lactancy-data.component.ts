@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiResponse } from '@interfaces/api_response';
+import { typeChild } from '@interfaces/child';
+import { ApiGetService } from 'src/app/services/api-get.service';
 
 @Component({
   selector: 'app-lactancy-data',
@@ -7,9 +10,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LactancyDataComponent implements OnInit {
 
-  constructor() { }
+  childId="619558f6590af9c8a6ce588e" //Para conectar Solo hay q asignar este id desde la ruta
+  childData:typeChild;
 
-  ngOnInit(): void {
+
+  ngOnInit() {
+    this.apiGet.getChild(this.childId).subscribe((response: ApiResponse) => {
+      console.log(response);
+      if (response.success) {
+        this.childData=response.data
+        console.log(this.childData.gestacion_data)
+      }
+    });
+
   }
+  constructor( private apiGet: ApiGetService) {}
 
 }

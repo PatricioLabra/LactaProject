@@ -2,7 +2,7 @@ export interface typeChild{
     _id:string,
     name:string,
     controls:string[],
-    gestation_data:gestationData,
+    gestacion_data:gestationData,
     birth_data:birthData
 }
 interface gestationData{
