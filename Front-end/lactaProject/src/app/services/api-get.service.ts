@@ -38,4 +38,13 @@ export class ApiGetService extends ApiClass {
     const url: string = this.makeUrl(['mother']);
     return this.http.get<ApiResponse>(url);
   }
+
+  /**
+   * Obtiene la informacion de una asesorada en particular, dependiendo del id ingresado
+   * @param idMother Id de la asesorada a obtener los datos
+   */
+  public getChild(idChild: string): Observable<ApiResponse> {
+    const url: string = this.makeUrl(['child', 'profile', idChild]);
+    return this.http.get<ApiResponse>(url);
+  }
 }
