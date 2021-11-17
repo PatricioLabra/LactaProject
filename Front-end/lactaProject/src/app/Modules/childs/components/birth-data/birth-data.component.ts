@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiResponse } from '@interfaces/api_response';
+import { typeChild } from '@interfaces/child';
+import { ApiGetService } from 'src/app/services/api-get.service';
 
 @Component({
   selector: 'app-birth-data',
@@ -7,9 +10,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BirthDataComponent implements OnInit {
 
-  constructor() { }
+  childId="61955ea11b759d88b0b06a1d" //Para conectar Solo hay q asignar este id desde la ruta
+  childData:typeChild;
 
-  ngOnInit(): void {
+
+  ngOnInit() {
+    this.apiGet.getChild(this.childId).subscribe((response: ApiResponse) => {
+      console.log(response);
+      if (response.success) {
+        this.childData=response.data
+      }
+    });
+
   }
-
+  constructor( private apiGet: ApiGetService) {}
 }

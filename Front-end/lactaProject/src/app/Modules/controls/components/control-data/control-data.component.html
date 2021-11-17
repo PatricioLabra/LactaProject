@@ -1,6 +1,6 @@
 <div class="container">
 
-    <div class="fluid-container">
+    <div *ngIf="controlData!=0" class="fluid-container">
 
         <div class="row">
             <ul>
@@ -8,7 +8,7 @@
                     Nombre Lactante:
                 </li>
                 <li class="item">
-
+                    {{controlData.child_name}}
                 </li>
             </ul>
 
@@ -21,6 +21,7 @@
                     Lugar de consulta:
                 </li>
                 <li class="item">
+                    {{controlData.consultation_place}}
 
                 </li>
             </ul>
@@ -34,6 +35,7 @@
                     Via de seguimiento:
                 </li>
                 <li class="item">
+                    {{controlData.monitoring_medium}}
 
                 </li>
             </ul>
@@ -47,6 +49,7 @@
                     Peso(gramos):
                 </li>
                 <li class="item">
+                    {{controlData.weight}} gr
 
                 </li>
             </ul>
@@ -60,6 +63,7 @@
                     Motivo consulta:
                 </li>
                 <li class="item">
+                    {{controlData.reason_of_consultation}}
 
                 </li>
             </ul>
@@ -73,6 +77,7 @@
                     Acompañada por:
                 </li>
                 <li class="item">
+                    {{controlData.accompanied_by}}
 
                 </li>
             </ul>
@@ -86,6 +91,7 @@
                    Estado emocional de la madre:
                 </li>
                 <li class="item">
+                    {{controlData.emotional_status}}
 
                 </li>
             </ul>
@@ -99,6 +105,7 @@
                     Observaciones:
                 </li>
                 <li class="item">
+                    {{controlData.observations}}
 
                 </li>
             </ul>
@@ -112,6 +119,7 @@
                     Indicaciones:
                 </li>
                 <li class="item">
+                    {{controlData.indications}}
 
                 </li>
             </ul>
