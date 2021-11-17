@@ -9,12 +9,12 @@
                 </button>
                 <h3 class="modal-title">Agendar Cita</h3>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" [formGroup]="controlForm">
 
                 <!--Select Lactante-->
                 <div class="row"> 
                     <label class="col">Nombre Lactante:</label>
-                    <select class="col browser-default custom-select">
+                    <select class="col browser-default custom-select" formControlName="name_child">
                         <option value="ninguna">Ninguna</option>
                         <option value="basica">Slash</option>
                         <option value="media">Angus Young</option>
@@ -25,7 +25,7 @@
                 <!--Select Lugar de consulta-->
                 <div class="row"> 
                     <label class="col">Lugar de consulta:</label>
-                    <select class="col browser-default custom-select">
+                    <select class="col browser-default custom-select" formControlName="consultation_place">
                         <option value="ninguna">Ninguna</option>
                         <option value="basica">Slash</option>
                         <option value="media">Angus Young</option>
@@ -36,7 +36,7 @@
                 <!--Select Via seguimiento-->
                 <div class="row"> 
                     <label class="col">Vía de seguimiento:</label>
-                    <select class="col browser-default custom-select">
+                    <select class="col browser-default custom-select" formControlName="monitoring_medium">
                         <option value="ninguna">Ninguna</option>
                         <option value="basica">Slash</option>
                         <option value="media">Angus Young</option>
@@ -47,7 +47,7 @@
                 <!--Date Fecha-->
                 <div class="row">
                     <label class="col">Fecha:</label>
-                    <input class="col" type="date">
+                    <input class="col" type="date" formControlName="date_control">
                 </div>
                 <!--Date Fecha-->
             </div>
