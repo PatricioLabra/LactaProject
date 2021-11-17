@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { SharedModule } from '@shared/shared.module';
 import { PastControlsComponent } from './pages/past-controls/past-controls.component';
 import { InprocessControlComponent } from './pages/inprocess-control/inprocess-control.component';
@@ -23,6 +24,7 @@ import { PastControlsListComponent } from './components/past-controls-list/past-
   ],
   imports: [
     ControlsRoutingModule,
+    CommonModule,
     SharedModule
   ],
   exports:[
