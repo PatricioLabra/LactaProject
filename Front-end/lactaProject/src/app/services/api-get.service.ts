@@ -22,8 +22,20 @@ export class ApiGetService extends ApiClass {
     return this.http.get<ApiResponse>(url);
   }
 
+  /**
+   * Obtiene una lista de los lactantes asociados una asesorada en particular, dependiendo del id ingresado
+   * @param idMother Id de la asesorada a obtener los datos
+   */
   public getChildsList(idMother: string): Observable<ApiResponse> {
     const url: string = this.makeUrl(['child', idMother]);
+    return this.http.get<ApiResponse>(url);
+  }
+
+  /**
+   * Obtiene una lista con informacion resumida de las asesoradas
+   */
+  public getMothers(): Observable<ApiResponse> {
+    const url: string = this.makeUrl(['mother']);
     return this.http.get<ApiResponse>(url);
   }
 }
