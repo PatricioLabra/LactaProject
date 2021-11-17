@@ -90,6 +90,12 @@ export const editControl: RequestHandler = async (req, res) => {
     return res.status(200).send({ success: true, data:{}, message: 'Control editado de manera correcta.' });
 }
 
+/**
+ * Función que maneja la petición de eliminar un control del sistema
+ * @route Delete /control/:idControl
+ * @param req Request de la petición, se espera que tenga el id del control a eliminar
+ * @param res Response, retorna un un object con success:true, data:{} y un message: "String" del control editado si todo sale bien
+ */
 export const deleteControl: RequestHandler = async (req, res) => {
 
 }
