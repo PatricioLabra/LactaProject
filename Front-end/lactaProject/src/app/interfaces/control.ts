@@ -1,11 +1,12 @@
 export interface typeControl{
     _id: string,
-    consultation_place: String,
-    monitoring_medium: String,
+    child_name: string,
+    consultation_place: string,
+    monitoring_medium: string,
     date_control: Date,
-    weight: Number,
-    reason_of_consultation: String,
-    accompanied_by: String,
-    emotional_status: String,
-    indications: String
+    weight: number,
+    reason_of_consultation: string,
+    accompanied_by: string,
+    emotional_status: string,
+    indications: string
 }
