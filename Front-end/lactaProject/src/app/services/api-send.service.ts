@@ -23,4 +23,13 @@ export class ApiSendService extends ApiClass {
     const url: string = this.makeUrl(['mother']);
     return this.http.post<ApiResponse>(url, motherInfo);
   }
+
+  /**
+   * Modifica la informacion de una asesorada a partir de su id
+   * @param idMother Id de la asesorada a modificar sus datos
+   */
+  public updateMother(motherInfo: typeMother): Observable<ApiResponse> {
+    const url: string = this.makeUrl(['mother', motherInfo._id]);
+    return this.http.put<ApiResponse>(url, motherInfo);
+  }
 }
