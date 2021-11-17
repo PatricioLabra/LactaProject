@@ -266,10 +266,7 @@ export const getSeach: RequestHandler = async (req, res) => {
     const date = new Date();
 
     //se setea la hora 
-    date.setUTCHours(3);
-    date.setUTCMinutes(0);
-    date.setUTCSeconds(0);
-    date.setUTCMilliseconds(0);
+    dateInitializer(date);
 
     const lastControl = await Control.findOne( { "id_mother": _id, "date_control": {"$lt": date}} ).sort({date_control: -1});
 
@@ -314,4 +311,15 @@ function destructureControl ( controlFound: any ){
     }
 
     return controlFiltered;
+}
+
+/**
+ * Fija la hora en las 0:00:00.000+00:00
+ * @param date fecha en formato UTC
+ */
+function dateInitializer (date: any){
+    date.setUTCHours(3);
+    date.setUTCMinutes(0);
+    date.setUTCSeconds(0);
+    date.setUTCMilliseconds(0);
 }
