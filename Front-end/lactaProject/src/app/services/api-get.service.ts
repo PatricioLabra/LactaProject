@@ -67,4 +67,13 @@ export class ApiGetService extends ApiClass {
     const url: string = this.makeUrl(['control', 'past', idMother]);
     return this.http.get<ApiResponse>(url);
   }
+
+  /**
+   * Obtiene la informacion detallada de un control pasado de una asesorada
+   * @param idControl Id del control a obtener su informacion
+   */
+  public getControl(idControl: string): Observable<ApiResponse> {
+    const url: string = this.makeUrl(['control', 'profile', idControl]);
+    return this.http.get<ApiResponse>(url);
+  }
 }
