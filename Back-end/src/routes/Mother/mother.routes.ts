@@ -10,7 +10,7 @@ router.post('/mother', motherCtrl.newMother);
 router.put('/mother/:id', motherCtrl.editMother);
 
 //eliminar una asesorada
-router.delete('/mother', motherCtrl.deleteMother);
+router.delete('/mother/:id', motherCtrl.deleteMother);
 
 //obtener asesorada detallada (panel completo)
 router.get('/mother/:id', motherCtrl.getDetailedMother);
