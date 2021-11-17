@@ -5,6 +5,7 @@ import { ApiClass } from './api.class';
 import { Observable } from 'rxjs';
 import { ApiResponse } from '@interfaces/api_response';
 import { typeMother } from '@interfaces/mother';
+import { typeChild } from '@interfaces/child';
 
 @Injectable({
   providedIn: CoreModule
@@ -39,6 +40,34 @@ export class ApiSendService extends ApiClass {
    */
   public deleteMother(idMother: string): Observable<ApiResponse> {
     const url: string = this.makeUrl(['mother', idMother]);
+    return this.http.delete<ApiResponse>(url);
+  }
+
+  /**
+   * Agrega un nuevo lactante al sistema
+   * @param childInfo Informacion del nuevo lactance a agregar
+   * @param idMother Id de la asesorada asociada al lactance
+   */
+  public addChild(childInfo: typeChild, idMother: string): Observable<ApiResponse> {
+    const url: string = this.makeUrl(['child', idMother]);
+    return this.http.post<ApiResponse>(url, childInfo);
+  }
+
+  /**
+   * Modifica la informacion de una asesorada a partir de su id
+   * @param idMother Id de la asesorada a modificar sus datos
+   */
+  public updateChild(childInfo: typeChild): Observable<ApiResponse> {
+    const url: string = this.makeUrl(['child', childInfo._id]);
+    return this.http.put<ApiResponse>(url, childInfo);
+  }
+
+  /**
+   * Elimina un lactante del sistema
+   * @param idChild Id del lactante a eliminar
+   */
+  public deleteChild(idChild: string): Observable<ApiResponse> {
+    const url: string = this.makeUrl(['child', idChild]);
     return this.http.delete<ApiResponse>(url);
   }
 
