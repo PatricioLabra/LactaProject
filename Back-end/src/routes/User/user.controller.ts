@@ -102,6 +102,12 @@ export const deleteUser: RequestHandler = async (req, res) => {
         return res.status(400).send({ success: false, data:{}, message: 'Error: el id ingresado no es valido.' });
     }
 
+    const userFound = User.findById(_id);
+
+    if( !userFound ){
+        return res.status(404).send({ success: false, data:{}, message:'Error: El usuario solicitado no existe en el sistema.' });
+    }
+
     //Se busca el usuario y se elimina
     await User.findByIdAndDelete(_id);
 
