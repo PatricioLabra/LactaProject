@@ -105,10 +105,17 @@ export const editChild: RequestHandler = async (req, res) => {
         return res.status(400).send({ success: false, data:{}, message: 'Error: el id ingresado no es valido.' });
     }
 
+    //se valida si existe el lactante
+    const childFound = await Child.findById(_id);
+
+    if( !childFound ){
+        return res.status(404).send({ success: false, data:{}, message: 'ERROR: El lactante ingresado no existe en el sistema.' });
+    }
+
     //Se busca el lactante y se elimina
     await Child.findByIdAndDelete(_id);
     
-    //Se elimina el control asosiado al lactante
+    //Se elimina el o los de los lactantes lactante
     await Control.findOneAndDelete({ idChild: _id });
 
     return res.status(200).send({ success: true, data:{}, message: 'Se elimino exitosamente el lactante.' });
