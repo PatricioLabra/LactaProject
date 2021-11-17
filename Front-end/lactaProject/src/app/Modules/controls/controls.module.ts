@@ -28,8 +28,8 @@ import { ControlFormComponent } from './pages/control-form/control-form.componen
     ControlFormComponent
   ],
   imports: [
-    CommonModule,
     ControlsRoutingModule,
+    CommonModule,
     SharedModule
   ],
   exports:[

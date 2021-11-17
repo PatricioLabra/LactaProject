@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 
 export class ApiClass {
 
-  protected readonly API_URL: string = environment.API_URL;
+  private readonly API_URL: string = environment.API_URL;
 
   constructor(protected http: HttpClient) { }
 

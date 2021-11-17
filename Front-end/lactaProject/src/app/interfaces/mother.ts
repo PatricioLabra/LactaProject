@@ -1,5 +1,5 @@
 export interface typeMother{
-    id: string,
+    _id: string,
     name: string,
     rut: string,
     commune: string,

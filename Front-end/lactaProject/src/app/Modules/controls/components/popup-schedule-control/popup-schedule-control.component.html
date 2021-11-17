@@ -1,0 +1,60 @@
+<button mdbBtn color="primary" class="relative waves-light" (click)="modalpop.show()" mdbWavesEffect>Abrir</button>
+<!--Form agendar cita-->
+<div mdbModal #modalpop="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close pull-right" aria-label="Close" (click)="modalpop.hide()">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <h3 class="modal-title">Agendar Cita</h3>
+            </div>
+            <div class="modal-body" [formGroup]="controlForm">
+
+                <!--Select Lactante-->
+                <div class="row"> 
+                    <label class="col">Nombre Lactante:</label>
+                    <select class="col browser-default custom-select" formControlName="name_child">
+                        <option value="ninguna">Ninguna</option>
+                        <option value="basica">Slash</option>
+                        <option value="media">Angus Young</option>
+                        <option value="tecnica">Van Halen</option>
+                    </select>
+                </div>
+                <!--Select Lactante-->
+                <!--Select Lugar de consulta-->
+                <div class="row"> 
+                    <label class="col">Lugar de consulta:</label>
+                    <select class="col browser-default custom-select" formControlName="consultation_place">
+                        <option value="ninguna">Ninguna</option>
+                        <option value="basica">Slash</option>
+                        <option value="media">Angus Young</option>
+                        <option value="tecnica">Van Halen</option>
+                    </select>
+                </div>
+                <!--Select Lugar de consulta-->
+                <!--Select Via seguimiento-->
+                <div class="row"> 
+                    <label class="col">Vía de seguimiento:</label>
+                    <select class="col browser-default custom-select" formControlName="monitoring_medium">
+                        <option value="ninguna">Ninguna</option>
+                        <option value="basica">Slash</option>
+                        <option value="media">Angus Young</option>
+                        <option value="tecnica">Van Halen</option>
+                    </select>
+                </div>
+                <!--Select Via seguimiento-->
+                <!--Date Fecha-->
+                <div class="row">
+                    <label class="col">Fecha:</label>
+                    <input class="col" type="date" formControlName="date_control">
+                </div>
+                <!--Date Fecha-->
+            </div>
+            <div class="modal-footer">
+                <button type="button" mdbBtn color="primary" class="relative waves-light" mdbWavesEffect>Agregar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Form agendar cita-->

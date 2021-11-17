@@ -6,18 +6,13 @@ const childSchema = new Schema({
     type: String,
     trim: true
   },
-  controls:{
-    required: true,
-    type: [Schema.Types.Mixed],
-    trim: true
-  },
   gestacion_data:{
     diseases_during_pregnancy:{ required:true, type: [String] } ,
     nutritional_status_mother: { required:true, type: String },
     planned_pregnancy: { required:true, type: Boolean },
     assisted_fertilization: { required: true, type: Boolean },
     previous_lactaction: { required: true, type: String },
-    duration_of_past_lactaction_in_months: { required: true, type: Number },
+    duration_of_past_lactaction_in_months: { required: true, type: Number, min: 0 },
     breastfeeding_education: { required: true, type: Boolean }
   },
   birth_data:{

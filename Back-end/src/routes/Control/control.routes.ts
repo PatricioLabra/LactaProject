@@ -10,16 +10,16 @@ router.post('/control', controlCtrl.newControl);
 router.put('/control/:idControl', controlCtrl.editControl);
 
 //eliminar control
-router.delete('/contro/:idControl', controlCtrl.deleteControl);
+router.delete('/control/:idControl', controlCtrl.deleteControl);
 
 //obtener lista controles pendientes resumidos por madre(id)
-router.get('/control/:idMother', controlCtrl.getControl);
+router.get('/control/:idMother', controlCtrl.getNextControls);
 
 //obtener controles pasados resumido por madre(id)
-router.get('/control/past/:idMother', controlCtrl.getPassControl);
+router.get('/control/past/:idMother', controlCtrl.getPassControls);
 
 //obtener informacion control pasado detallado(idControlPasado_)
-router.get('/control/:idControl', controlCtrl.getDetailedPassControl);
+router.get('/control/profile/:idControl', controlCtrl.getDetailedPassControl);
 
 // Obtener barra de busqueda, keyword: name, date. 
 router.post('/control/:idMother/:keyword/:lower_limit/:upper_limit', controlCtrl.getSeach);
