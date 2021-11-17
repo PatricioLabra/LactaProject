@@ -32,4 +32,14 @@ export class ApiSendService extends ApiClass {
     const url: string = this.makeUrl(['mother', motherInfo._id]);
     return this.http.put<ApiResponse>(url, motherInfo);
   }
+
+  /**
+   * Inicia sesion
+   * @param user Usuario que va a iniciar sesion
+   * @param pass Contraseña del usuario que va a iniciar sesion
+   */
+  public signIn(user: string, pass: string): Observable<ApiResponse> {
+    const url: string = this.makeUrl(['user', 'signin']);
+    return this.http.post<ApiResponse>(url, { rut: user, password: pass });
+  }
 }
