@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MotherProfileComponent implements OnInit {
 
-  private idMother: string = '61955c8bc61cbdf297a7c191';
+  public idMother: string = '61955c8bc61cbdf297a7c191';
 
   constructor() { }
 
