@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
-import { PopUpPrintControlComponent } from './components/pop-up-print-control/pop-up-print-control.component';
+import { PastControlsComponent } from './pages/past-controls/past-controls.component';
 
 
 
 const routes: Routes=[
-  {path:"prueba",component:PopUpPrintControlComponent}
+  {path:"prueba",component:PastControlsComponent}
 ];
 
 @NgModule({

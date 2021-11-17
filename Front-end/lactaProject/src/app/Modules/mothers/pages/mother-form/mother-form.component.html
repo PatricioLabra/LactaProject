@@ -50,12 +50,12 @@
                 <div class="input-label-container"> 
                     <label class="label-text">Comuna:</label>
                     <div class="comune-container">
-                        <input type="text" class="form-control" formControlName="comune" placeholder="Comuna"
-                        [ngClass]="{ 'is-invalid': form.controls['comune'].invalid && (form.controls['comune'].dirty || form.controls['comune'].touched),
-                        'is-valid': form.controls['comune'].valid && (form.controls['comune'].dirty || form.controls['comune'].touched)  }">
+                        <input type="text" class="form-control" formControlName="commune" placeholder="Comuna"
+                        [ngClass]="{ 'is-invalid': form.controls['commune'].invalid && (form.controls['commune'].dirty || form.controls['comune'].touched),
+                        'is-valid': form.controls['commune'].valid && (form.controls['commune'].dirty || form.controls['commune'].touched)  }">
                     </div>
-                    <div *ngIf="form.controls['comune'].invalid && (form.controls['comune'].dirty || form.controls['comune'].touched)">
-                        <div *ngIf="form.controls['comune']?.hasError('required')" > 
+                    <div *ngIf="form.controls['commune'].invalid && (form.controls['commune'].dirty || form.controls['commune'].touched)">
+                        <div *ngIf="form.controls['commune']?.hasError('required')" > 
                             <div class="invalid-text">
                                 Debe rellenar el campo
                             </div>

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { MdbModalRef } from 'mdb-angular-ui-kit/modal';
 
 @Component({
   selector: 'app-popup-schedule-control',

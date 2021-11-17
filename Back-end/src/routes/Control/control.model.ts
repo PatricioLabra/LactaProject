@@ -1,8 +1,9 @@
 import { Schema, model } from "mongoose";
 
 const controlSchema = new Schema({
+
     child_name:{
-        required: true,
+        required:true,
         type: String,
         trim: true
     },
@@ -22,43 +23,43 @@ const controlSchema = new Schema({
         trim: true
     },
     weight:{
-        required: true,
+        required: false,
         type: Number,
         trim: true
     },
     reason_of_consultation:{
-        required: true,
+        required: false,
         type: String,
         trim: true
     },
     accompanied_by:{
-        required: true,
+        required: false,
         type: String,
         trim: true
     },
     emotional_status:{
-        required: true,
+        required: false,
         type: String,
         trim: true
     },
     observations:{
-        required: true,
+        required: false,
         type: String,
         trim: true
     },
     indications:{
-        required: true,
+        required: false,
         type: [String],
         trim: true
     },
     id_child:{
         required: true,
-        type: Schema.Types.ObjectId,
+        type: String,
         trim: true
     },
     id_mother:{
         required: true,
-        type: Schema.Types.ObjectId,
+        type: String,
         trim: true
     }
 },{
