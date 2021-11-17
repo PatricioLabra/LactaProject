@@ -24,12 +24,8 @@ router.get('/control/profile/:idControl', controlCtrl.getDetailedPassControl);
 // Obtener barra de busqueda, keyword: name, date. 
 router.post('/control/:idMother/:keyword/:lower_limit/:upper_limit', controlCtrl.getSeach);
 
-//Obtener ultimo control asociado a una madre
-router.get('/control/last-control/:idMother', controlCtrl.getLastControl);
-
-//obtener proximo control asociado a una madre
-router.get('/control/next-control/:idMother', controlCtrl.getNextControl);
+//Obtener el ultimo y próximo control asociado a una madre
+router.get('/control/lastAndNext/:idMother', controlCtrl.getLastAndNextControl);
 
 
-
-export default router
+export default router;
