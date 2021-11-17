@@ -4,11 +4,8 @@
 body{
     background-image: none;
     width: 100%;
-    min-height: 100vh;
+    min-height: 130vh;
     background-color: $pink;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 form{
@@ -19,9 +16,20 @@ form{
     color: red;
     padding-left: 10px;
 }
+.top-bar{
+    width: 100%;
+    .backButton{
+        width: 77px;
+        height: 39px;
+        background:white;
+        color: grey;
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        border-radius: 30px;
+    }
+}
 
 .container{
-    margin-top: 10vh;
+    margin-top: 2vh;
     margin-bottom: 10vh;
     width: 60%;
     min-width: 450px;

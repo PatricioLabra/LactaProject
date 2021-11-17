@@ -1,4 +1,9 @@
 <body>
+    <div class="top-bar">
+        <a href="#" mdbBtn color="" class="backButton" mdbWavesEffect>
+            <i class="fas fa-long-arrow-alt-left"></i>
+        </a>
+    </div>
     <div class="container">
         <div class="form-container">
             <form [formGroup]="form" (ngSubmit)="sendMotherData()" autocomplete="off">
@@ -51,7 +56,7 @@
                     <label class="label-text">Comuna:</label>
                     <div class="comune-container">
                         <input type="text" class="form-control" formControlName="commune" placeholder="Comuna"
-                        [ngClass]="{ 'is-invalid': form.controls['commune'].invalid && (form.controls['commune'].dirty || form.controls['comune'].touched),
+                        [ngClass]="{ 'is-invalid': form.controls['commune'].invalid && (form.controls['commune'].dirty || form.controls['commune'].touched),
                         'is-valid': form.controls['commune'].valid && (form.controls['commune'].dirty || form.controls['commune'].touched)  }">
                     </div>
                     <div *ngIf="form.controls['commune'].invalid && (form.controls['commune'].dirty || form.controls['commune'].touched)">
