@@ -110,12 +110,13 @@ export const getPassControl: RequestHandler = async (req, res) => {
  */
 export const getDetailedPassControl: RequestHandler = async (req, res) => {
     const _id = req.params.idControl;
-
+ 
     //se valida el _id ingresado
-    if ( !Types.ObjectId.isValid(_id) )
-    return res.status(400).send({ success: false, data:{}, message:'Error: El id ingresado no es válido.' });
+    if ( !Types.ObjectId.isValid(_id) ){
+        return res.status(400).send({ success: false, data:{}, message:'Error: El id ingresado no es válido.' });
+    }
 
-    const controlFound = await Control.findById(_id)
+    const controlFound = await Control.findById(_id);
 
     //Se valida que el control ingresado para mostrar existe
     if( !controlFound ){
@@ -124,6 +125,13 @@ export const getDetailedPassControl: RequestHandler = async (req, res) => {
 
     //Se guardan solo los parametros que se van a mostrar en el front
     const controlFiltered = destructureControl(controlFound);
+
+    //Se retorna los datos del usuario buscado
+    return res.status(200).send({
+        success:true,
+        data: controlFiltered,
+        messagge: 'Se obtuvo exitosamente la informacion del control'
+    });
 }
 
 export const getSeach: RequestHandler = async (req, res) => {
