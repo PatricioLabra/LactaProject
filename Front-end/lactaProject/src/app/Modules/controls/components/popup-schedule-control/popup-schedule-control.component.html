@@ -3,7 +3,7 @@
 <div mdbModal #modalpop="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <div>
+            <div class="modal-header">
                 <button type="button" class="close pull-right" aria-label="Close" (click)="modalpop.hide()">
                     <span aria-hidden="true">×</span>
                 </button>
@@ -50,6 +50,9 @@
                     <input class="col" type="date">
                 </div>
                 <!--Date Fecha-->
+            </div>
+            <div class="modal-footer">
+                <button type="button" mdbBtn color="primary" class="relative waves-light" mdbWavesEffect>Agregar</button>
             </div>
         </div>
     </div>
