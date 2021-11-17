@@ -85,4 +85,12 @@ export class ApiGetService extends ApiClass {
     const url: string = this.makeUrl(['user', idUser]);
     return this.http.get<ApiResponse>(url);
   }
+
+  /**
+   * Obtiene una lista con informacion resumida de los usuarios registrados en el sistema
+   */
+  public getUsersList(): Observable<ApiResponse> {
+    const url: string = this.makeUrl(['user']);
+    return this.http.get<ApiResponse>(url);
+  }
 }
