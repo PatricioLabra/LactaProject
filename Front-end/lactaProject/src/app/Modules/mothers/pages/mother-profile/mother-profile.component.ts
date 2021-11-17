@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-mother-profile',
@@ -7,11 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MotherProfileComponent implements OnInit {
 
-  public idMother: string = '61955c8bc61cbdf297a7c191';
+  public idMother: string | null = null;
 
-  constructor() { }
+  constructor(private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.idMother = this.activatedRoute.snapshot.params.id;
   }
-
 }

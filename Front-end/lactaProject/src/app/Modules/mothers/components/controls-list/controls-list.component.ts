@@ -18,7 +18,6 @@ export class ControlsListComponent implements OnInit {
 
   ngOnInit(): void {
     this.apiGet.getNextControls(this.idMother).subscribe((response: ApiResponse) => {
-      console.log(response);
       if (response.success) {
         this.controls = response.data.nextControlsFiltered;
       }
