@@ -23,6 +23,6 @@ export class LoginViewComponent implements OnInit {
 
   log_in(){
     console.log("Hola");
-    this.router.navigate(['control-panel']);
+    this.router.navigate(['postlogin']);
   }
 }
