@@ -8,7 +8,49 @@
         <p>{{ control.consultation_place }}</p>
         <p>{{ control.monitoring_medium }}</p>
         <p>{{ control.date_control }}</p>
+
+        <div class="btn-group" mdbDropdown>
+            <a mdbDropdownToggle type="button" mdbBtn color="primary" class="sortButton dropdown-toggle waves-light"
+              mdbWavesEffect>
+            </a>
+          
+            <div class="dropdown-menu dropdown-primary">
+              <a class="dropdown-item" href="#">Editar Cita</a>
+              <a class="dropdown-item" (click)="show(control._id)">Eliminar Cita</a>
+            </div>
+    
+        </div>
+
     </div>
     <!--Control card-->
 </div>
 <!--Controls list card-->
+
+
+<!--POP UP DE CONFIRMACION -->
+<div mdbModal #frame="mdbModal" class="modal fade top" id="frameModalTop" tabindex="-1" role="dialog"
+  aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm modal-notify modal-danger" role="document">
+    <!--Content-->
+    <div class="modal-content text-center">
+      <!--Header-->
+      <div class="modal-header d-flex justify-content-center">
+        <p class="heading">Confirma la eliminación de la cita?</p>
+      </div>
+
+      <!--Body-->
+      <div class="modal-body">
+        <mdb-icon fas icon="times" size="4x" class="animated rotateIn"></mdb-icon>
+      </div>
+
+      <!--Footer-->
+      <div class="modal-footer justify-content-center">
+        <a (click)="eliminarCita(actualControlId)" mdbBtn color="danger" outline="true" class="waves-effect"
+          mdbWavesEffect>Si</a>
+        <a type="button" mdbBtn color="danger" class="waves-effect" mdbWavesEffect data-dismiss="modal" (click)="frame.hide()">No</a>
+      </div>
+    </div>
+    <!--/.Content-->
+  </div>
+</div>
+
