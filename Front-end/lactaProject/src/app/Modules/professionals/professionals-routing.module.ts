@@ -8,7 +8,7 @@ import { ProfessionalFormComponent } from './pages/professional-form/professiona
 
 const routes: Routes=[
   {path:"profesionales",component:ProfessionalsViewComponent},
-  {path:"profesionales/agregar",component:ProfessionalFormComponent}
+  {path:"profesionales/agregar/:id",component:ProfessionalFormComponent}
 ];
 
 @NgModule({

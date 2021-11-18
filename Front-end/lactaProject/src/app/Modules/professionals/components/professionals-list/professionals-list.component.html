@@ -34,7 +34,7 @@
               <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
 
                 <mdb-icon fas icon="trash" (click)="show(el.id)" size="lg"></mdb-icon>
-                <mdb-icon fas icon="edit" size="lg"></mdb-icon>
+                <mdb-icon fas icon="edit"  (click)="openProfessionalForm(el.id)" size="lg"></mdb-icon>
 
               </td>
             </tr>
