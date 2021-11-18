@@ -26,13 +26,13 @@ export const newControl: RequestHandler = async (req, res) => {
 
 
     //se obtienen la cantidad de controles del child
-    const controls = await Control.count(id_child);
+    const controls = await Control.find( {id_child} ).count();
 
     if ( controls == 0 ) {
 
         //se validan los campos required de la primera cita (todos)
         if ( !dataNewControl.consultation_place || !dataNewControl.monitoring_medium || !dataNewControl.date_control 
-            || !dataNewControl.weights || !dataNewControl.reason_of_consultation || !dataNewControl.accompanied_by
+            || !dataNewControl.weight || !dataNewControl.reason_of_consultation || !dataNewControl.accompanied_by
             || !dataNewControl.emotional_status || !dataNewControl.observations || !dataNewControl.indications )
             return res.status(400).send({ success: false, data:{}, message: 'ERROR: Los datos del control no son válidos.' + req.body });
     
@@ -270,6 +270,36 @@ export const getSeach: RequestHandler = async (req, res) => {
     const next_control = DateToFormattedString(nextControl.date_control);
 
     return res.status(200).send({ success: true, data:{ "last_control": last_control, "next_control": next_control }, message: 'Se muestran el ultimo y proximo control exitosamente.' });
+}
+
+/**
+ * Función que maneja la petición de obtener la cantidad de controles asociados a un lactante
+ * @route Get /control/quantity/:idChild
+ * @param req Request de la petición, se espera que tenga el id del lactante
+ * @param res Response, retorna un un object con success:true, data:{"string":Bool} con la fecha y un message: "String" de confirmacion
+ */
+ export const getQuantityControl: RequestHandler = async (req, res) => {
+    const id_child = req.params.idChild;
+
+    //se valida el _id de la madre ingresada
+    if ( !Types.ObjectId.isValid( id_child) )
+        return res.status(400).send({ success: false, data:{}, message: 'ERROR: El id ingresado no es válido.' });
+
+    const childFound = await Child.findById(id_child);
+
+    //se valida la existencia del lactante
+    if ( !childFound )
+        return res.status(404).send({ success: false, data:{}, message: 'ERROR: No existe un lactante asociado al id ingresado.'});
+
+
+    const quantityControl = await Control.find( {id_child} ).count();
+
+    //se verifica la cantidad de controles encontrados
+    if ( quantityControl == 0 ){
+        return res.status(200).send({ success: false, data:{"moreControls": false }, message: 'Es el primer control del lactante.'} )
+    } 
+
+    return res.status(200).send({ success: false, data:{"moreControls": true }, message: 'Ya existe un primer control registrado.'} )
 }
 
 /**

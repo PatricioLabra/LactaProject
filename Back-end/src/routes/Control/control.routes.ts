@@ -27,5 +27,7 @@ router.post('/control/:idMother/:keyword/:lower_limit/:upper_limit', controlCtrl
 //Obtener el ultimo y próximo control asociado a una madre
 router.get('/control/lastAndNext/:idMother', controlCtrl.getLastAndNextControl);
 
+//Obtener cantidad controles de 1 lactante
+router.get('/control/quantity/:idChild',controlCtrl.getQuantityControl);
 
 export default router;
