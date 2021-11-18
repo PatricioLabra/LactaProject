@@ -88,7 +88,7 @@ export const editChild: RequestHandler = async (req, res) => {
     const childControls = await Control.find({id_child: _id}).count();
 
     //se valida la existencia de controles asociados al child
-    if ( childControls != 0){
+    if ( childControls != 0 ){
         await Control.updateMany( {id_child: _id}, { child_name: updatedChild.name } )
     }
 
