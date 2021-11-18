@@ -41,9 +41,8 @@ export class MotherFormComponent implements OnInit {
   sendMotherData(){
     this.createList();
     let motherData:typeMother={
-      _id: "",
       name: this.form.get("name")?.value,
-      rut: this.form.get("rut")?.value,
+      rut: this.form.get("rut")?.value + "-" + this.form.get("rut_vc")?.value,
       commune: this.form.get("commune")?.value,
       phone_number: this.form.get("phone_number")?.value,
       mail: this.form.get("mail")?.value,

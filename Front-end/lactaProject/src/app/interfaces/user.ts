@@ -1,5 +1,5 @@
 export interface typeUser{
-    _id: string,
+    _id?: string,
     name: string,
     rut: string,
     mail: string,

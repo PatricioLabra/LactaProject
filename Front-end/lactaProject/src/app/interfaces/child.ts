@@ -1,5 +1,5 @@
 export interface typeChild{
-    _id:string,
+    _id?:string,
     name:string,
     controls:string[],
     gestacion_data:gestationData,
