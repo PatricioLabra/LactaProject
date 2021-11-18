@@ -26,13 +26,13 @@ export const newControl: RequestHandler = async (req, res) => {
 
 
     //se obtienen la cantidad de controles del child
-    const controls = await Control.count(id_child);
+    const controls = await Control.find( {id_child} ).count();
 
     if ( controls == 0 ) {
 
         //se validan los campos required de la primera cita (todos)
         if ( !dataNewControl.consultation_place || !dataNewControl.monitoring_medium || !dataNewControl.date_control 
-            || !dataNewControl.weights || !dataNewControl.reason_of_consultation || !dataNewControl.accompanied_by
+            || !dataNewControl.weight || !dataNewControl.reason_of_consultation || !dataNewControl.accompanied_by
             || !dataNewControl.emotional_status || !dataNewControl.observations || !dataNewControl.indications )
             return res.status(400).send({ success: false, data:{}, message: 'ERROR: Los datos del control no son válidos.' + req.body });
     
