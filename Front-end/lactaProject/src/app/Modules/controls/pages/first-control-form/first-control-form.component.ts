@@ -5,7 +5,6 @@ import { ApiGetService } from 'src/app/services/api-get.service';
 import { ApiSendService } from 'src/app/services/api-send.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { typeControl } from '@interfaces/control';
-import { Route } from '@angular/compiler/src/core';
 
 @Component({
   selector: 'app-first-control-form',
@@ -58,11 +57,21 @@ export class FirstControlFormComponent implements OnInit {
         emotional_status: this.form.get("emotional_status")?.value,
         observations: this.form.get("observations")?.value,
         indications: this.indications,
-      
+
     }
     console.log(this.indications);
     this.apiSend.addControl(controlData,this.idChild).subscribe((response:ApiResponse)=>{
       console.log(response);
+      if(this.form.get("next_control")?.value == 'true'){
+        let nextControlData:typeControl={
+          consultation_place: this.form.get("consultation_place2")?.value,
+          monitoring_medium: this.form.get("monitoring_medium2")?.value,
+          date_control: this.form.get("date_control2")?.value,
+        }
+        this.apiSend.addControl(nextControlData,this.idChild).subscribe((response:ApiResponse)=>{
+          console.log(response);
+        }); 
+      }
       this.goToMotherView();
     });
   }
