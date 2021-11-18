@@ -26,7 +26,7 @@ export class LoginViewComponent implements OnInit {
   }
 
   log_in(){
-    if(this.login.get("rut").value!=this.usuario && this.login.get("password").value){
+    if(this.login.get("rut").value!=this.usuario && this.login.get("password").value!=this.contraseña){
       this.frameModal.show();
       this.login.get("rut").setValue("");
       this.login.get("password").setValue("");
