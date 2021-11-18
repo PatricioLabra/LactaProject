@@ -2,8 +2,8 @@
 <div *ngIf="childs" class="child-list-card">
 
     <!--Child card-->
-    <div *ngFor="let child of childs">
-        <p>{{ child.name }}</p>
+    <div *ngFor="let child of childs" class="child-card">
+        <a [href]="'/asesoradas/' + idMother + '/child/' + child._id">{{ child.name }}</a>
         <p>{{ child.birth }}</p>
         <button class="btn-add-control">Agregar Cita</button>
     </div>

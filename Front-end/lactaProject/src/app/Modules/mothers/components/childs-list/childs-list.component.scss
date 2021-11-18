@@ -4,7 +4,11 @@
     background-color: $white;
     width: 60%;
 
-    .btn-add-control {
-        background-color: $light-blue
+    .child-list-card {
+        border-color: $black;
+
+        .btn-add-control {
+            background-color: $light-blue
+        }
     }
 }
