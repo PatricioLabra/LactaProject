@@ -91,7 +91,7 @@ export const editChild: RequestHandler = async (req, res) => {
     //se actualiza el lactante
     await Child.findByIdAndUpdate( _id, updatedChild );
 
-    return res.status(200).send({ success: true, data:{ updatedChild }, messagge: 'Lactante editado exitosamente' });
+    return res.status(200).send({ success: true, data:{}, messagge: 'Lactante editado exitosamente' });
 }
 
 /**
