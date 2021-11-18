@@ -8,8 +8,11 @@
         <div class="form-container">
             <form [formGroup]="form" (ngSubmit)="sendMotherData()" autocomplete="off">
                 <!-- Titulo -->
-                <div class="title-container">
+                <div class="title-container" *ngIf="id == '0'">
                     <p class="title-text">Formulario Ingreso de Asesorada</p>
+                </div>
+                <div class="title-container" *ngIf="id != '0'">
+                    <p class="title-text">Editar Asesorada</p>
                 </div>
                 <!-- Nombre -->
                 <div class="input-label-container"> 
@@ -213,7 +216,7 @@
                 <div class="button-container" *ngIf="id == '0'">
                     <button type="submit" class="send-button">AGREGAR</button>
                 </div>
-                <!-- Boton Agregar -->
+                <!-- Boton Editar -->
                 <div class="button-container" *ngIf="id != '0'">
                     <button type="button" (click)="editMotherData()">EDITAR</button>
                 </div>

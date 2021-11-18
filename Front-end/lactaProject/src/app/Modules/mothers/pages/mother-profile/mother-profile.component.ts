@@ -13,7 +13,7 @@ export class MotherProfileComponent implements OnInit {
   public idMother: string | null = null;
   @ViewChild('frame', { static: true }) public frameModal;
 
-  constructor(private activatedRoute: ActivatedRoute , private apiSend:ApiSendService , private route:Router) { }
+  constructor(private activatedRoute: ActivatedRoute , private apiSend:ApiSendService, private router:Router , private route:Router) { }
 
   ngOnInit(): void {
     this.idMother = this.activatedRoute.snapshot.params.id;
@@ -36,5 +36,15 @@ export class MotherProfileComponent implements OnInit {
 
     this.route.navigate(["asesoradas"])
 
+  }
+
+  goToEditMother(idMother:string){
+    const url:string = 'asesoradas/agregar/' + idMother;
+    this.router.navigate([url]);
+  }
+
+  goToAddChild(idMother:string){
+    const url:string = 'asesoradas/' + idMother + '/agregar-lactante/0';
+    this.router.navigate([url]);
   }
 }

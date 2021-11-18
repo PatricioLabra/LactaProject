@@ -3,8 +3,11 @@
         <div class="form-container">
             <form [formGroup]="form" (ngSubmit)="sendProfessionalData()" autocomplete="off">
                 <!-- Titulo -->
-                <div class="title-container">
+                <div class="title-container" *ngIf="id == '0'">
                     <p class="title-text">Formulario Ingreso de Profesional</p>
+                </div>
+                <div class="title-container" *ngIf="id != '0'">
+                    <p class="title-text">Editar Profesional</p>
                 </div>
                 <!-- Nombre -->
                 <div class="input-label-container"> 
@@ -88,7 +91,11 @@
                 </div>
                 <!-- Boton Agregar -->
                 <div class="button-container">
-                    <button type="submit" class="send-button">AGREGAR</button>
+                    <button type="submit" class="send-button" *ngIf="id == '0'">AGREGAR</button>
+                </div>
+                <!-- Boton Editar -->
+                <div class="button-container" *ngIf="id != '0'">
+                    <button type="button" (click)="editProfessionalData()" class="send-button">EDITAR</button>
                 </div>
             </form>
         </div>

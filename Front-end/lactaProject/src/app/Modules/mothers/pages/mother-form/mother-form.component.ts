@@ -18,7 +18,7 @@ export class MotherFormComponent implements OnInit {
   other_diseases:Array<string>=[];
   form:FormGroup;
   id="";
-  constructor(private fb:FormBuilder, private apiSend: ApiSendService, private apiGet: ApiGetService, private route: ActivatedRoute) {
+  constructor(private fb:FormBuilder, private apiSend: ApiSendService, private apiGet: ApiGetService, private router:Router, private route: ActivatedRoute) {
     this.id=this.route.snapshot.paramMap.get('id') as string;
     console.log(this.id);
     // Form controls del form
@@ -117,6 +117,7 @@ export class MotherFormComponent implements OnInit {
       };
       this.apiSend.addMother(motherData).subscribe((response: ApiResponse) => {
       console.log(response);
+      this.goLastPage();
       });
     
   }
@@ -138,12 +139,16 @@ export class MotherFormComponent implements OnInit {
     chronic_diseases: this.chronic_diseases,
     number_of_living_children: this.form.get("number_of_children")?.value,
     };
-    console.log(motherData1);
     this.apiSend.updateMother(motherData1).subscribe((response: ApiResponse) => {
     console.log(response);
+    this.goLastPage();
     });
   }
-
+  // Funcion que re dirige hacia la ruta de /asesoradas
+  goLastPage() {
+    const url: string = 'asesoradas';
+    this.router.navigate([url]);
+  }
   // Funcion que se encarga de crear enfermedades que no esten en la lista principal
   otherDiseaseFunction(){
     if(this.form.get("other")?.value != ""){

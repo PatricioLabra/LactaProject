@@ -49,4 +49,9 @@ export class ChildProfileComponent implements OnInit {
   show(){
     this.frameModal.show();
   }
+
+  goToEditChild(idMother:string,ChildId:string){
+    const url:string = 'asesoradas/' + idMother + '/agregar-lactante/' + ChildId;
+    this.router.navigate([url]); 
+  }
 }

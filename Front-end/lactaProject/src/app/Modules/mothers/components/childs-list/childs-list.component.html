@@ -5,7 +5,7 @@
     <div *ngFor="let child of childs" class="child-card">
         <a [href]="'/asesoradas/' + idMother + '/child/' + child._id">{{ child.name }}</a>
         <p>{{ child.birth }}</p>
-        <button class="btn-add-control">Agregar Cita</button>
+        <button class="btn-add-control" type="button" (click)="goToAddControl(child._id)">Agregar Cita</button>
     </div>
     <!--Child card-->
 

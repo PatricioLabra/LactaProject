@@ -1,10 +1,14 @@
 <body>
     <div class="container">
         <div class="form-container">
-            <form [formGroup]="form" (ngSubmit)="sendProfessionalData()" autocomplete="off">
+            <form [formGroup]="form" (ngSubmit)="sendChildData()" autocomplete="off">
                 <!-- Titulo -->
-                <div class="title-container">
+                <div class="title-container" *ngIf="id == '0'">
                     <p class="title-text">Formulario Ingreso de Lactante</p>
+                </div>
+                <!-- Titulo -->
+                <div class="title-container" *ngIf="id != '0'">
+                    <p class="title-text">Editar Lactante</p>
                 </div>
                 <!-- Nombre -->
                 <div class="input-label-container"> 
@@ -145,7 +149,7 @@
                         </div>
                         <!-- Tipo de Nacimiento -->
                         <div class="input-label-container"> 
-                            <label class="label-text">Lugar de nacimiento:</label>
+                            <label class="label-text">Tipo de nacimiento:</label>
                             <div>
                                 <select class="browser-default custom-select" formControlName="type_of_birth">
                                     <option value="parto">Parto</option>
@@ -309,10 +313,11 @@
                 </div>
                 <!-- Boton Agregar -->
                 <div class="button-container">
-                    <button type="submit" class="send-button" [disabled]="form.invalid">AGREGAR</button>
-                    <div *ngIf="form.invalid" class="disabled-button-text">
-                        <p>Porfavor rellene los campos del formulario, para que este pueda ser enviado</p>
-                    </div>
+                    <button type="submit" class="send-button" [disabled]="form.invalid" *ngIf="id == '0'">AGREGAR</button>
+                </div>
+                <!-- Boton Editar -->
+                <div class="button-container">
+                    <button type="submit" (click)="editChildData()" class="send-button" *ngIf="id != '0'">EDITAR</button>
                 </div>
             </form>
         </div>

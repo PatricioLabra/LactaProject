@@ -1,9 +1,9 @@
 export interface typeChild{
     _id?:string,
     name:string,
-    controls:string[],
     gestacion_data:gestationData,
-    birth_data:birthData
+    birth_data:birthData,
+    _motherId?:string,
 }
 interface gestationData{
     diseases_during_pregnancy: string[],
@@ -11,7 +11,7 @@ interface gestationData{
     planned_pregnancy: boolean,
     assisted_fertilization: boolean,
     previous_lactaction: string,
-    duration_of_past_lactaction_in_months: number,
+    duration_of_past_lactaction_in_months?: number,
     breastfeeding_education: boolean
 }
 interface birthData{
@@ -24,9 +24,9 @@ interface birthData{
     skin_to_skin_contact: boolean,
     breastfeeding_b4_2hours: boolean,
     has_suplement: boolean,
-    why_recived_suplement: string,
+    why_recived_suplement?: string,
     joint_accommodation: boolean,
     use_of_pacifier: boolean,
     post_discharge_feeding: string,
-    last_weight_control: Date
+    last_weight_control: number
 }
