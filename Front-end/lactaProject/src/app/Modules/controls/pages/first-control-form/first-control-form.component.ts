@@ -1,5 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { ApiResponse } from '@interfaces/api_response';
+import { ApiGetService } from 'src/app/services/api-get.service';
+import { ApiSendService } from 'src/app/services/api-send.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { typeControl } from '@interfaces/control';
+import { Route } from '@angular/compiler/src/core';
 
 @Component({
   selector: 'app-first-control-form',
@@ -7,9 +13,12 @@ import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
   styleUrls: ['./first-control-form.component.scss']
 })
 export class FirstControlFormComponent implements OnInit {
+  idChild="";
   indications:Array<string>=[];
   form:FormGroup;
-  constructor(private fb:FormBuilder) {
+  constructor(private fb:FormBuilder, private apiSend:ApiSendService, private apiGet:ApiGetService, private router:Router, private route:ActivatedRoute) {
+    this.idChild = this.route.snapshot.paramMap.get('idChild')as string;
+    console.log(this.idChild);
     this.form=this.fb.group({
       consultation_place: ['domicilio'],
       monitoring_medium: ['whatsapp'],
@@ -38,24 +47,29 @@ export class FirstControlFormComponent implements OnInit {
   // Funcion que imprime por consola los form control value
   sendControlData(){
     this.createList;
-    console.log(this.form.get("consultation_place")?.value);
-    console.log(this.form.get("monitoring_medium")?.value);
-    console.log(this.form.get("date_control")?.value);
-    console.log(this.form.get("age")?.value);
-    console.log(this.form.get("weight")?.value);
-    console.log(this.form.get("reason_of_consultation")?.value);
-    console.log(this.form.get("other_consultation")?.value);
-    console.log(this.form.get("accompanied_by")?.value);
-    console.log(this.form.get("other_companion")?.value);
-    console.log(this.form.get("emotional_status")?.value);
-    console.log(this.form.get("observations")?.value);
-    console.log(this.indications);
-    console.log(this.form.get("next_control")?.value);
-    console.log(this.form.get("consultation_place2")?.value);
-    console.log(this.form.get("monitoring_medium2")?.value);
-    console.log(this.form.get("date_control2")?.value);
+    let controlData:typeControl={
+      dataNewControl: {
+        consultation_place: this.form.get("consultation_place")?.value,
+        monitoring_medium: this.form.get("monitoring_medium")?.value,
+        date_control: this.form.get("date_control")?.value,
+        weight: this.form.get("weight")?.value,
+        reason_of_consultation: this.form.get("reason_of_consultation")?.value,
+        accompanied_by: this.form.get("accompanied_by")?.value,
+        emotional_status: this.form.get("emotional_status")?.value,
+        observations: this.form.get("observations")?.value,
+        indications: this.indications,
+      }
+    }
+    this.apiSend.addControl(controlData,this.idChild).subscribe((response:ApiResponse)=>{
+      console.log(response);
+      this.goToMotherView();
+    });
   }
 
+  goToMotherView(){
+    const url:string = 'asesoradas/';
+    this.router.navigate([url]);
+  }
   // Funcion que crea una lista de enfermedades cronicas
   createList(){
     if(this.form.get("mejorar_acople")?.value == true){
