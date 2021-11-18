@@ -149,7 +149,8 @@ export class ChildFormComponent implements OnInit {
         use_of_pacifier: this.form.get("use_of_pacifier")?.value,
         post_discharge_feeding: this.form.get("post_discharge_feeding")?.value,
         last_weight_control: this.form.get("last_weight_control")?.value
-      }
+      },
+      _motherId: this.motherId,
     }
     console.log(childData);
     this.apiSend.addChild(childData,this.motherId).subscribe((response:ApiResponse)=>{

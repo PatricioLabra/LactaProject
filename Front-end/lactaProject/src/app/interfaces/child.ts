@@ -2,7 +2,8 @@ export interface typeChild{
     _id?:string,
     name:string,
     gestacion_data:gestationData,
-    birth_data:birthData
+    birth_data:birthData,
+    _motherId?:string,
 }
 interface gestationData{
     diseases_during_pregnancy: string[],

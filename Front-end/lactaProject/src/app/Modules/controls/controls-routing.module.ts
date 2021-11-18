@@ -7,7 +7,7 @@ import { ControlFormComponent } from './pages/control-form/control-form.componen
 
 const routes: Routes=[
   { path: "controls/past/:id", component: PastControlsComponent },
-  { path: "prueba2", component:FirstControlFormComponent},
+  { path: "controls/agregar-control/:idChild/primer-control", component:FirstControlFormComponent},
   { path: "prueba3", component:ControlFormComponent}
 ];
 
