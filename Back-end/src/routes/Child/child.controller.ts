@@ -89,7 +89,7 @@ export const editChild: RequestHandler = async (req, res) => {
 
     //se valida la existencia de controles asociados al child
     if ( childControls != 0 ){
-        await Control.updateMany( {id_child: _id}, { child_name: updatedChild.name } )
+        await Control.updateMany( { id_child: _id }, { child_name: updatedChild.name } );
     }
 
     //se actualiza el lactante
