@@ -2,6 +2,7 @@ import { Component, OnInit, ElementRef, HostListener, AfterViewInit, ViewChild, 
 import { ApiResponse } from '@interfaces/api_response';
 import { MdbTableDirective , MdbTablePaginationComponent} from 'angular-bootstrap-md';
 import { ApiGetService } from 'src/app/services/api-get.service';
+import { ApiSendService } from 'src/app/services/api-send.service';
 
 @Component({
   selector: 'app-professionals-list',
@@ -13,12 +14,14 @@ export class ProfessionalsListComponent implements OnInit , AfterViewInit{
   @ViewChild(MdbTableDirective, { static: true }) mdbTable: MdbTableDirective;
   @ViewChild(MdbTablePaginationComponent, { static: true }) mdbTablePagination: MdbTablePaginationComponent;
   @ViewChild('row', { static: true }) row: ElementRef;
+  @ViewChild('frame', { static: true }) public frameModal;
 
   elements: any = [];
   headElements = ['name', 'rut', ''];
 
   searchText: string = '';
   previous: string;
+  profesionalSeleccionado:string;
 
   maxVisibleItems: number = 4;
 
@@ -42,7 +45,7 @@ export class ProfessionalsListComponent implements OnInit , AfterViewInit{
     });
 
   }
-  constructor(private cdRef: ChangeDetectorRef, private apiGet: ApiGetService) {}
+  constructor(private cdRef: ChangeDetectorRef, private apiGet: ApiGetService , private apiSend: ApiSendService) {}
 
   
   ngAfterViewInit() {
@@ -116,5 +119,21 @@ export class ProfessionalsListComponent implements OnInit , AfterViewInit{
       this.mdbTablePagination.calculateFirstItemIndex();
       this.mdbTablePagination.calculateLastItemIndex();
     });
+  }
+
+  show(value:string){
+    this.profesionalSeleccionado=value;
+    this.frameModal.show();
+  }
+  eliminarProfesional(idProf:string){
+    this.apiSend.deleteUser(idProf).subscribe( (response:ApiResponse) =>{
+      if(response.success){
+        console.log("profesional eliminado");
+      }
+
+    })
+
+    this.frameModal.hide();
+  
   }
 }

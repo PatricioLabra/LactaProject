@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { ApiSendService } from 'src/app/services/api-send.service';
+import { typeUser } from '@interfaces/user';
+import { ApiResponse } from '@interfaces/api_response';
 
 @Component({
   selector: 'app-professional-form',
@@ -8,7 +11,7 @@ import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
 })
 export class ProfessionalFormComponent implements OnInit {
   form:FormGroup;
-  constructor(private fb:FormBuilder) {
+  constructor(private fb:FormBuilder, private apiSend:ApiSendService) {
     this.form=this.fb.group({
       name: ['', Validators.required],
       rut: ['', Validators.required],
@@ -21,12 +24,17 @@ export class ProfessionalFormComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  // Funcion que ACTUALMENTE solo se encarga de imprimir por consola los valores obtenidos en el formulario
+  // Funcion que envia los datos recopilados del formulario hacia la base de datos
   sendProfessionalData(){
-    console.log(this.form.get("name")?.value);
-    console.log(this.form.get("rut")?.value + "-" + this.form.get("rut_vc")?.value);
-    console.log(this.form.get("password")?.value);
-    console.log(this.form.get("mail")?.value);
-    console.log(this.form.get("permission_level")?.value);
+    let userData:typeUser={
+      name: this.form.get("name")?.value,
+      rut: this.form.get("rut")?.value + "-" + this.form.get("rut_vc")?.value,
+      mail: this.form.get("mail")?.value,
+      password: this.form.get("password")?.value,
+      permission_level: this.form.get("permission_level")?.value,
+    }
+    this.apiSend.addUser(userData).subscribe((response: ApiResponse) => {
+      console.log(response);
+    });
   }
 }
