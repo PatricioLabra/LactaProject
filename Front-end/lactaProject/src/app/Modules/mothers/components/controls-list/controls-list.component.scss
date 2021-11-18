@@ -1,0 +1,13 @@
+@import 'src/styles/palette';
+
+.controls-list-card {
+    background-color: $white;
+
+    h3 {
+        background-color: $light_blue;
+    }
+
+    .control-card {
+        border-color: $pink;
+    }
+}

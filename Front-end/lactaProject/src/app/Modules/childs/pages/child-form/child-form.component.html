@@ -1,1 +1,326 @@
-<p>child-form works!</p>
+<body>
+    <a [href]="'/asesoradas/profile/' + motherId">Volver</a>
+    <div class="container">
+        <div class="form-container">
+            <form [formGroup]="form" (ngSubmit)="sendChildData()" autocomplete="off">
+                <!-- Titulo -->
+                <div class="title-container" *ngIf="id == '0'">
+                    <p class="title-text">Formulario Ingreso de Lactante</p>
+                </div>
+                <!-- Titulo -->
+                <div class="title-container" *ngIf="id != '0'">
+                    <p class="title-text">Editar Lactante</p>
+                </div>
+                <!-- Nombre -->
+                <div class="input-label-container"> 
+                    <label class="label-text">Nombre:</label>
+                    <div class="name-container">
+                        <input type="text" class="form-control" formControlName="name" placeholder="Nombre" maxlength="30"
+                        [ngClass]="{ 'is-invalid': form.controls['name'].invalid && (form.controls['name'].dirty || form.controls['name'].touched),
+                        'is-valid': form.controls['name'].valid && (form.controls['name'].dirty || form.controls['name'].touched)  }">
+                    </div>
+                    <div *ngIf="form.controls['name'].invalid && (form.controls['name'].dirty || form.controls['name'].touched)">
+                        <div *ngIf="form.controls['name']?.hasError('required')" > 
+                            <div class="invalid-text">
+                                Debe rellenar el campo
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- INFORMACION DE GESTACIÓN/PARTO/LACTANCIA -->
+                <div class="sub-title-container"><p>Gestación/Parto/Lactancia</p></div>
+                 <!-- Enfermedades Crónicas -->
+                 <div class="input-label-container">
+                    <label class="label-text">Enfermedades durante la gestación:</label>
+                    <div class="chronic-diseases-container">
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" formControlName="sintoma_parto_prematuro">
+                            <label class="form-check-label">Síntoma de parto prematuro</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" formControlName="preeclampsia">
+                            <label class="form-check-label">Preeclampsia</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" formControlName="eclampsia">
+                            <label class="form-check-label">Eclampsia</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" formControlName="diabetes_gestacional">
+                            <label class="form-check-label">Diabetes gestacional</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" formControlName="hipotiroidismo">
+                            <label class="form-check-label">hipotiroidismo</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" formControlName="hipertiroidismo">
+                            <label class="form-check-label">hipertiroidismo</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" formControlName="e_autoinmune">
+                            <label class="form-check-label">Enfermedad autoinmune</label>
+                        </div>
+                        <div *ngFor="let disease of other_diseases" class="disease-container">
+                            {{ disease }}
+                        </div>
+                        <div class="other-disease-container">
+                            <input type="text" formControlName="other" class="form-control">
+                            <button type="button" (click)="otherDiseaseFunction()" class="new-disease-button">+</button>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- Estado nutricional -->
+                <div class="input-label-container"> 
+                    <label class="label-text">Estado nutricional (madre):</label>
+                    <div>
+                        <select class="browser-default custom-select" formControlName="nutritional_status_mother">
+                            <option value="desnutricion">Desnutrición</option>
+                            <option value="normal">Normal</option>
+                            <option value="sobrepeso">Sobrepeso</option>
+                            <option value="obesidad">Obesidad</option>
+                        </select>
+                    </div>
+                </div>
+                <!-- Embarazo planificado -->
+                <div class="input-label-container"> 
+                    <label class="label-text">Embarazo planificado:</label>
+                    <div>
+                        <select class="browser-default custom-select" formControlName="planned_pregnancy">
+                            <option value="true">Si</option>
+                            <option value="false">No</option>
+                        </select>
+                    </div>
+                </div>
+                <!-- Fertilización asistida -->
+                <div class="input-label-container"> 
+                    <label class="label-text">Fertilización asistida:</label>
+                    <div>
+                        <select class="browser-default custom-select" formControlName="assisted_fertilization">
+                            <option value="true">Si</option>
+                            <option value="false">No</option>
+                        </select>
+                    </div>
+                </div>
+                <!-- Lactancia anterior -->
+                <div class="input-label-container"> 
+                    <label class="label-text">Lactancia anterior:</label>
+                    <div>
+                        <select class="browser-default custom-select" formControlName="previous_lactaction">
+                            <option value="ninguna">Ninguna</option>
+                            <option value="mala">Mala</option>
+                            <option value="regular">Regular</option>
+                            <option value="buena">Buena</option>
+                        </select>
+                    </div>
+                </div>
+                <!-- Duración de Lactancia anterior -->
+                <div class="input-label-container" *ngIf="form.controls['previous_lactaction']?.value != 'ninguna'"> 
+                    <label class="label-text">Duración de Lactancia anterior (meses):</label>
+                    <div class="number-container">
+                        <input type="number" class="form-control" formControlName="duration_of_past_lactaction_in_months">
+                    </div>
+                </div>
+                <!-- Educación en Lactancia -->
+                <div class="input-label-container"> 
+                    <label class="label-text">Educación en Lactancia:</label>
+                    <div>
+                        <select class="browser-default custom-select" formControlName="breastfeeding_education">
+                            <option value="true">Si</option>
+                            <option value="false">No</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- INFORMACION DE NACIMIENTO -->
+                <div class="sub-title-container"><p>Gestación/Parto/Lactancia</p></div>
+                <div class="birth-data-container">
+                    <div class="birth-sub-container">
+                        <!-- Lugar de nacimiento -->
+                        <div class="input-label-container"> 
+                            <label class="label-text">Lugar de nacimiento:</label>
+                            <div>
+                                <select class="browser-default custom-select" formControlName="birthplace">
+                                    <option value="publico">Público</option>
+                                    <option value="privado">Privado</option>
+                                    <option value="domicilio">Domicilio</option>
+                                </select>
+                            </div>
+                        </div>
+                        <!-- Tipo de Nacimiento -->
+                        <div class="input-label-container"> 
+                            <label class="label-text">Tipo de nacimiento:</label>
+                            <div>
+                                <select class="browser-default custom-select" formControlName="type_of_birth">
+                                    <option value="parto">Parto</option>
+                                    <option value="forceps">Forceps</option>
+                                    <option value="cesarea">Cesárea</option>
+                                </select>
+                            </div>
+                        </div>
+                        <!-- Fecha de Nacimiento -->
+                        <div class="input-label-container"> 
+                            <label class="label-text">Fecha de Nacimiento:</label>
+                            <div class="birth-container">
+                                <input type="date" class="form-control" formControlName="birth"
+                                [ngClass]="{ 'is-invalid': form.controls['birth'].invalid && (form.controls['birth'].dirty || form.controls['birth'].touched),
+                                'is-valid': form.controls['birth'].valid && (form.controls['birth'].dirty || form.controls['birth'].touched)  }">
+                            </div>
+                            <div *ngIf="form.controls['birth'].invalid && (form.controls['birth'].dirty || form.controls['birth'].touched)">
+                                <div *ngIf="form.controls['birth']?.hasError('required')" > 
+                                    <div class="invalid-text">
+                                        Debe rellenar el campo
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Edad gestacional (semanas) -->
+                        <div class="input-label-container"> 
+                            <label class="label-text">Edad gestacional (semanas):</label>
+                            <div class="number-container">
+                                <input type="number" class="form-control" formControlName="gestional_age"
+                                [ngClass]="{ 'is-invalid': form.controls['gestional_age'].invalid && (form.controls['gestional_age'].dirty || form.controls['gestional_age'].touched),
+                                'is-valid': form.controls['gestional_age'].valid && (form.controls['gestional_age'].dirty || form.controls['gestional_age'].touched)  }">
+                            </div>
+                        </div>
+                        <div *ngIf="form.controls['gestional_age'].invalid && (form.controls['gestional_age'].dirty || form.controls['gestional_age'].touched)">
+                            <div *ngIf="form.controls['gestional_age']?.hasError('required')" > 
+                                <div class="invalid-text">
+                                    Debe rellenar el campo
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Sexo del lactante -->
+                        <div class="input-label-container"> 
+                            <label class="label-text">Sexo:</label>
+                            <div>
+                                <select class="browser-default custom-select" formControlName="gender">
+                                    <option value="femenino">Femenino</option>
+                                    <option value="masculino">Masculino</option>
+                                    <option value="indefinido">Indefinido</option>
+                                </select>
+                            </div>
+                        </div>
+                        <!-- Peso de Nacimiento (gramos) -->
+                        <div class="input-label-container"> 
+                            <label class="label-text">Peso de Nacimiento (gramos):</label>
+                            <div class="number-container">
+                                <input type="number" class="form-control" formControlName="birth_weight"
+                                [ngClass]="{ 'is-invalid': form.controls['birth_weight'].invalid && (form.controls['birth_weight'].dirty || form.controls['birth_weight'].touched),
+                                'is-valid': form.controls['birth_weight'].valid && (form.controls['birth_weight'].dirty || form.controls['birth_weight'].touched)  }">
+                            </div>
+                        </div>
+                        <div *ngIf="form.controls['birth_weight'].invalid && (form.controls['birth_weight'].dirty || form.controls['birth_weight'].touched)">
+                            <div *ngIf="form.controls['birth_weight']?.hasError('required')" > 
+                                <div class="invalid-text">
+                                    Debe rellenar el campo
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Suplemento de leche en la hospitalización -->
+                        <div class="input-label-container"> 
+                            <label class="label-text">Suplemento de leche en la hospitalización:</label>
+                            <div>
+                                <select class="browser-default custom-select" formControlName="has_suplement">
+                                    <option value="true">Si</option>
+                                    <option value="false">No</option>
+                                </select>
+                            </div>
+                        </div>
+                        <!-- Motivo del suplemento -->
+                        <div class="input-label-container" *ngIf="form.controls['has_suplement']?.value == 'true'"> 
+                            <label class="label-text">Motivo del suplemento:</label>
+                            <div>
+                                <select class="browser-default custom-select" formControlName="why_recived_suplement">
+                                    <option value="solicitud materna">Solicitud materna</option>
+                                    <option value="hambre">Hambre</option>
+                                    <option value="hipoglicemia">Hipoglicemia</option>
+                                    <option value="sugerencia de algún profesional">Sugerencia de algún profesional</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="birth-sub-container">
+                        <!-- Alojamiento conjunto -->
+                        <div class="input-label-container"> 
+                            <label class="label-text">Alojamiento conjunto:</label>
+                            <div>
+                                <select class="browser-default custom-select" formControlName="joint_accommodation">
+                                    <option value="true">Si</option>
+                                    <option value="false">No</option>
+                                </select>
+                            </div>
+                        </div>
+                        <!-- Uso de chupetes en hospitalización -->
+                        <div class="input-label-container"> 
+                            <label class="label-text">Uso de chupetes en hospitalización:</label>
+                            <div>
+                                <select class="browser-default custom-select" formControlName="use_of_pacifier">
+                                    <option value="true">Si</option>
+                                    <option value="false">No</option>
+                                </select>
+                            </div>
+                        </div>
+                        <!-- Lactancia ante de las 2hrs de vida -->
+                        <div class="input-label-container"> 
+                            <label class="label-text">Lactancia ante de las 2hrs de vida:</label>
+                            <div>
+                                <select class="browser-default custom-select" formControlName="breastfeeding_b4_2hours">
+                                    <option value="true">Si</option>
+                                    <option value="false">No</option>
+                                </select>
+                            </div>
+                        </div>
+                        <!-- Alimentación al alta -->
+                        <div class="input-label-container"> 
+                            <label class="label-text">Alimentación al alta:</label>
+                            <div>
+                                <select class="browser-default custom-select" formControlName="post_discharge_feeding">
+                                    <option value="lme">LME</option>
+                                    <option value="mixta">Mixta</option>
+                                    <option value="sucedaneo">Sucedáneo</option>
+                                </select>
+                            </div>
+                        </div>
+                        <!-- Contacto piel a piel -->
+                        <div class="input-label-container"> 
+                            <label class="label-text">Contacto piel a piel:</label>
+                            <div>
+                                <select class="browser-default custom-select" formControlName="skin_to_skin_contact">
+                                    <option value="true">Si</option>
+                                    <option value="false">No</option>
+                                </select>
+                            </div>
+                        </div>
+                        <!-- Ultimo control de peso (gramos) -->
+                        <div class="input-label-container"> 
+                            <label class="label-text">Ultimo control de peso (gramos):</label>
+                            <div class="number-container">
+                                <input type="number" class="form-control" formControlName="last_weight_control"
+                                [ngClass]="{ 'is-invalid': form.controls['last_weight_control'].invalid && (form.controls['last_weight_control'].dirty || form.controls['last_weight_control'].touched),
+                                'is-valid': form.controls['last_weight_control'].valid && (form.controls['last_weight_control'].dirty || form.controls['last_weight_control'].touched)  }">
+                            </div>
+                        </div>
+                        <div *ngIf="form.controls['last_weight_control'].invalid && (form.controls['last_weight_control'].dirty || form.controls['last_weight_control'].touched)">
+                            <div *ngIf="form.controls['last_weight_control']?.hasError('required')" > 
+                                <div class="invalid-text">
+                                    Debe rellenar el campo
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Boton Agregar -->
+                <div class="button-container">
+                    <button type="submit" class="send-button" [disabled]="form.invalid" *ngIf="id == '0'">AGREGAR</button>
+                </div>
+                <!-- Boton Editar -->
+                <div class="button-container">
+                    <button type="submit" (click)="editChildData()" class="send-button" *ngIf="id != '0'">EDITAR</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>

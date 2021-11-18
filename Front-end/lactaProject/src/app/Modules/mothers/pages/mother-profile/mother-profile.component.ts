@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ApiResponse } from '@interfaces/api_response';
+import { ApiSendService } from 'src/app/services/api-send.service';
 
 @Component({
   selector: 'app-mother-profile',
@@ -7,9 +10,41 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MotherProfileComponent implements OnInit {
 
-  constructor() { }
+  public idMother: string | null = null;
+  @ViewChild('frame', { static: true }) public frameModal;
+
+  constructor(private activatedRoute: ActivatedRoute , private apiSend:ApiSendService, private router:Router , private route:Router) { }
 
   ngOnInit(): void {
+    this.idMother = this.activatedRoute.snapshot.params.id;
   }
 
+  show(){
+
+    this.frameModal.show();
+
+  }
+  eliminarAsesorada(value:string){
+
+    this.apiSend.deleteMother(value).subscribe( (response:ApiResponse) =>{
+      if(response.success){
+        console.log("asesorada eliminada");
+      }
+      this.frameModal.hide();
+      this.route.navigate(["asesoradas"])
+      
+    })
+
+
+  }
+
+  goToEditMother(idMother:string){
+    const url:string = 'asesoradas/agregar/' + idMother;
+    this.router.navigate([url]);
+  }
+
+  goToAddChild(idMother:string){
+    const url:string = 'asesoradas/' + idMother + '/agregar-lactante/0';
+    this.router.navigate([url]);
+  }
 }

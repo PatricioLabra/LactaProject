@@ -3,13 +3,15 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { CoreModule } from './Modules/core/core.module';
-import { LoginModule } from './Modules/login/login.module';
-import { SharedModule } from './Modules/shared/shared.module';
-import { MothersModule } from './Modules/mothers/mothers.module';
-import { ChildsModule } from './Modules/childs/childs.module';
-import { ProfessionalsModule } from './Modules/professionals/professionals.module';
-import { ControlsModule } from './Modules/controls/controls.module';
+import { CoreModule } from '@core/core.module';
+import { LoginModule } from '@login/login.module';
+import { SharedModule } from '@shared/shared.module';
+import { MothersModule } from '@mothers/mothers.module';
+import { ChildsModule } from '@childs/childs.module';
+import { ProfessionalsModule } from '@professionals/professionals.module';
+import { ControlsModule } from '@controls/controls.module';
+import { MDBBootstrapModule } from 'angular-bootstrap-md';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,9 @@ import { ControlsModule } from './Modules/controls/controls.module';
     MothersModule,
     ChildsModule,
     ProfessionalsModule,
-    ControlsModule
+    ControlsModule,
+    MDBBootstrapModule.forRoot(),
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

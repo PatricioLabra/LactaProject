@@ -1,1 +1,261 @@
-<p>birth-data works!</p>
+<div class="dataBg">
+
+    <div class="topTitle">
+
+        <div class="titleBg">
+            <h3>Datos de Nacimiento</h3>
+        </div>
+
+    </div>
+
+    <div class="container-fluid" *ngIf="childData!=null">
+
+        <div class="row">
+
+            <div class="col">
+
+                <ul>
+                    <li>
+                        Lugar de nacimiento:
+                    </li>
+                    
+                    <li class="item">
+                        {{childData.birth_data.birthplace}}
+                    </li>
+                </ul>
+
+            </div>
+
+            <div class="col">
+
+                <ul>
+                    <li>
+                        Nacimiento: 
+         
+                    </li>
+                    
+                    <li class="item">
+                        {{childData.birth_data.type_of_birth}}
+    
+                    </li>
+                </ul>
+
+
+            </div>
+
+        </div>
+
+        <div class="row">
+
+            <div class="col">
+
+                <ul>
+                    <li>
+                        Fecha de nacimiento:
+         
+                    </li>
+                    
+                    <li class="item">
+                        {{childData.birth_data.birthday}}
+    
+                    </li>
+                </ul>
+
+            </div>
+
+            <div class="col">
+
+                <ul>
+                    <li>
+                        Sexo:
+         
+                    </li>
+                    
+                    <li class="item">
+                        {{childData.birth_data.gender}}
+    
+                    </li>
+                </ul>
+
+
+            </div>
+            
+        </div>
+
+        <div class="row">
+
+            <div class="col">
+
+                <ul>
+                    <li>
+                        Edad gestional (semanas):
+         
+                    </li>
+                    
+                    <li class="item">
+                        {{childData.birth_data.gestional_age}}
+    
+                    </li>
+                </ul>
+
+            </div>
+
+            <div class="col">
+
+                <ul>
+                    <li>
+                        Peso de nacimiento:
+         
+                    </li>
+                    
+                    <li class="item">
+                        {{childData.birth_data.birth_weight}}
+    
+                    </li>
+                </ul>
+
+            </div>
+            
+        </div>
+
+        <div class="row">
+
+            <div class="col">
+
+                <ul>
+                    <li>
+                        Contacto piel a piel al nacer:
+         
+                    </li>
+                    
+                    <li class="item">
+                        {{childData.birth_data.skin_to_skin_contact}}
+                    </li>
+                </ul>
+
+            </div>
+
+            <div class="col">
+
+                <ul>
+                    <li>
+                        Último control de peso:
+         
+                    </li>
+                    
+                    <li class="item">
+                        {{childData.birth_data.last_weight_control}}
+    
+                    </li>
+                </ul>
+
+            </div>
+            
+        </div>
+
+        <div class="row">
+
+            <div class="col">
+
+                <ul>
+                    <li>
+                        Alojamiento conjunto:
+         
+                    </li>
+                    
+                    <li class="item">
+                        {{childData.birth_data.joint_accommodation}}
+                    </li>
+                </ul>
+
+
+            </div>
+
+            <div class="col">
+
+                <ul>
+                    <li>
+                        Alimentación al alta:
+         
+                    </li>
+                    
+                    <li class="item">
+                        {{childData.birth_data.post_discharge_feeding}}
+                    </li>
+                </ul>
+
+            </div>
+            
+        </div>
+
+        <div class="row">
+
+            <div class="col">
+
+                <ul>
+                    <li>
+                        Uso de chupetes en la hospitalización:
+         
+                    </li>
+                    
+                    <li class="item">
+                        {{childData.birth_data.use_of_pacifier}}
+    
+                    </li>
+                </ul>
+
+            </div>
+
+            <div class="col">
+
+                <ul>
+                    <li>
+                        Lactancia antes de las primeras 2hrs de vida:
+         
+                    </li>
+                    
+                    <li class="item">
+                        {{childData.birth_data.breastfeeding_b4_2hours}}
+                    </li>
+                </ul>
+
+                
+            </div>
+
+            
+        </div>
+
+        <div class="row">
+
+            <div class="col">
+
+                <ul>
+                    <li>
+                        Sumplemento de leche materna durante la hospitalización:
+                    </li>
+                    
+                    <li class="item">
+                        {{childData.birth_data.has_suplement}}
+    
+                    </li>
+                </ul>
+            </div>
+
+            <div class="col">
+
+                <ul>
+                    <li>
+                        Motivo del suplemento:
+                    </li>
+                    
+                    <li class="item">
+                        {{childData.birth_data.why_recived_suplement}}
+                    </li>
+                </ul>
+            </div>
+
+
+        </div>
+
+    </div>
+</div>

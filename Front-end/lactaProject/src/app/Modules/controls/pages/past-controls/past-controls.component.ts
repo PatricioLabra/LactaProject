@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-past-controls',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PastControlsComponent implements OnInit {
 
-  constructor() { }
+  public idMother: string;
+
+  constructor(private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.idMother = this.activatedRoute.snapshot.params.id;
   }
 
 }

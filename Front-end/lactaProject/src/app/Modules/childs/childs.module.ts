@@ -5,6 +5,8 @@ import { ChildsListComponent } from './components/childs-list/childs-list.compon
 import { LactancyDataComponent } from './components/lactancy-data/lactancy-data.component';
 import { ChildFormComponent } from './pages/child-form/child-form.component';
 import { ChildProfileComponent } from './pages/child-profile/child-profile.component';
+import { ChildsRoutingModule } from './childs-routing.module';
+import { SharedModule } from '@shared/shared.module';
 
 
 
@@ -14,10 +16,19 @@ import { ChildProfileComponent } from './pages/child-profile/child-profile.compo
     ChildsListComponent,
     LactancyDataComponent,
     ChildFormComponent,
-    ChildProfileComponent
+    ChildProfileComponent,
   ],
   imports: [
     CommonModule,
+    ChildsRoutingModule,
+    SharedModule
+  ],
+  exports:[
+    BirthDataComponent,
+    ChildsListComponent,
+    LactancyDataComponent,
+    ChildFormComponent,
+    ChildProfileComponent
   ]
 })
 export class ChildsModule { }

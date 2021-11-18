@@ -15,6 +15,17 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    // Path Mapping para Modulos
+    "paths":{
+      "@childs/*": ["src/app/Modules/childs/*"],
+      "@controls/*": ["src/app/Modules/controls/*"],
+      "@core/*": ["src/app/Modules/core/*"],
+      "@login/*": ["src/app/Modules/login/*"],
+      "@mothers/*":["src/app/Modules/mothers/*"],
+      "@professionals/*":["src/app/Modules/professionals/*"],
+      "@shared/*":["src/app/Modules/shared/*"],
+      "@interfaces/*": ["src/app/interfaces/*"]
+    }
   }
 }

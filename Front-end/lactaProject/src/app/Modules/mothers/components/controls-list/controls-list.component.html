@@ -1,0 +1,110 @@
+<!--Controls list card-->
+<div *ngIf="controls" class="controls-list-card">
+    <h3>Próximas Citas</h3>
+
+    <!--Control card-->
+    <div *ngFor="let control of controls" class="control-card">
+        <button>Ir</button>
+        <p>{{ control.consultation_place }}</p>
+        <p>{{ control.monitoring_medium }}</p>
+        <p>{{ control.date_control }}</p>
+
+        <div class="btn-group" mdbDropdown>
+            <a mdbDropdownToggle type="button" mdbBtn color="primary" class="sortButton dropdown-toggle waves-light"
+              mdbWavesEffect>
+            </a>
+          
+            <div class="dropdown-menu dropdown-primary">
+              <a class="dropdown-item" (click)="show2(control._id)">Editar Cita</a>
+              <a class="dropdown-item" (click)="show(control._id)">Eliminar Cita</a>
+            </div>
+    
+        </div>
+
+    </div>
+    <!--Control card-->
+</div>
+<!--Controls list card-->
+
+
+<!--POP UP DE CONFIRMACION -->
+<div mdbModal #frame="mdbModal" class="modal fade top" id="frameModalTop" tabindex="-1" role="dialog"
+  aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm modal-notify modal-danger" role="document">
+    <!--Content-->
+    <div class="modal-content text-center">
+      <!--Header-->
+      <div class="modal-header d-flex justify-content-center">
+        <p class="heading">Confirma la eliminación de la cita?</p>
+      </div>
+
+      <!--Body-->
+      <div class="modal-body">
+        <mdb-icon fas icon="times" size="4x" class="animated rotateIn"></mdb-icon>
+      </div>
+
+      <!--Footer-->
+      <div class="modal-footer justify-content-center">
+        <a (click)="eliminarCita(actualControlId)" mdbBtn color="danger" outline="true" class="waves-effect"
+          mdbWavesEffect>Si</a>
+        <a type="button" mdbBtn color="danger" class="waves-effect" mdbWavesEffect data-dismiss="modal" (click)="frame.hide()">No</a>
+      </div>
+    </div>
+    <!--/.Content-->
+  </div>
+</div>
+
+<!--Form editar cita-->
+<div mdbModal #frame2="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+              <button type="button" class="close pull-right" aria-label="Close" (click)="frame2.hide()">
+                  <span aria-hidden="true">×</span>
+              </button>
+              <h3 class="modal-title">Editar Cita</h3>
+          </div>
+          <div class="modal-body" [formGroup]="controlForm">
+
+              <!--Select Lactante-->
+              <div class="row"> 
+                  <label class="col">Nombre Lactante:</label>
+                  <input type="text" formControlName="name_child" readonly>
+              </div>
+              <!--Select Lactante-->
+              <!--Select Lugar de consulta-->
+              <div class="row"> 
+                  <label class="col">Lugar de consulta:</label>
+                  <select class="col browser-default custom-select" formControlName="consultation_place">
+                    <option value="domicilio">Domicilio</option>
+                    <option value="consulta">Consulta</option>
+                    <option value="online">Online</option>
+                  </select>
+              </div>
+              <!--Select Lugar de consulta-->
+              <!--Select Via seguimiento-->
+              <div class="row"> 
+                  <label class="col">Vía de seguimiento:</label>
+                  <select class="col browser-default custom-select" formControlName="monitoring_medium">
+                    <option value="whatsapp">whatsapp</option>
+                    <option value="teléfono">Teléfono</option>
+                    <option value="en consulta">En consulta</option>
+                    <option value="domicilio">Domicilio</option>
+                  </select>
+              </div>
+              <!--Select Via seguimiento-->
+              <!--Date Fecha-->
+              <div class="row">
+                  <label class="col">Fecha:</label>
+                  <input class="col" type="date" formControlName="date_control">
+              </div>
+              <!--Date Fecha-->
+          </div>
+          <div class="modal-footer">
+              <button type="button" mdbBtn color="primary" (click)="editarCita()" class="relative waves-light" mdbWavesEffect>Editar</button>
+          </div>
+      </div>
+  </div>
+</div>
+<!--Form agendar cita-->
+
