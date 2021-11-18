@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ApiResponse } from '@interfaces/api_response';
 import { typeChild } from '@interfaces/child';
 import { ApiGetService } from 'src/app/services/api-get.service';
@@ -21,7 +21,8 @@ export class ChildProfileComponent implements OnInit {
   constructor(
     private apiGet: ApiGetService,
     private apiSend:ApiSendService,
-    private activateRouter: ActivatedRoute
+    private activateRouter: ActivatedRoute,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -42,6 +43,7 @@ export class ChildProfileComponent implements OnInit {
       }
       this.frameModal.hide();
     });
+    this.router.navigate([`asesoradas/profile/${this.idMother}`])
   }
 
   show(){
