@@ -37,7 +37,7 @@ export const newChild: RequestHandler = async (req, res) => {
         newChild.gestacion_data.breastfeeding_education == null || !newChild.birth_data.birthplace || !newChild.birth_data.type_of_birth ||  
         !newChild.birth_data.birthday || newChild.birth_data.gestional_age < 0 || !newChild.birth_data.gender || newChild.birth_data.birth_weight < 0 || 
         newChild.birth_data.skin_to_skin_contact == null || newChild.birth_data.breastfeeding_b4_2hours == null || 
-        newChild.birth_data.has_suplement == null || !newChild.birth_data.why_recived_suplement || newChild.birth_data.joint_accommodation == null ||
+        newChild.birth_data.has_suplement == null  || newChild.birth_data.joint_accommodation == null ||
         newChild.birth_data.use_of_pacifier == null || !newChild.birth_data.post_discharge_feeding || newChild.birth_data.last_weight_control < 0 ){
         return res.status(400).send({ success: false, data:{}, message:'Error: Datos inválidos' + req.body });
     }
