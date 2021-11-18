@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, FormControl, Validator, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-postlogin-view',
@@ -8,7 +9,8 @@ import { FormGroup, FormBuilder, FormControl, Validator, Validators } from '@ang
 })
 export class PostloginViewComponent implements OnInit {
   postlogin:FormGroup;
-  constructor(private fb:FormBuilder) {
+
+  constructor(private fb:FormBuilder, private router: Router) {
     this.postlogin=this.fb.group({
       user_role: ['1',Validators.required],
     });
@@ -19,5 +21,6 @@ export class PostloginViewComponent implements OnInit {
 
   buenas(){
     console.log(this.postlogin.value);
+    this.router.navigate(['control-panel']);
   }
 }
