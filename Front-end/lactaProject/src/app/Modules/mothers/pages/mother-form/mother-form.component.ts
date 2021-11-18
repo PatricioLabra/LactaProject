@@ -115,6 +115,7 @@ export class MotherFormComponent implements OnInit {
       chronic_diseases: this.chronic_diseases,
       number_of_living_children: this.form.get("number_of_children")?.value,
       };
+      
       this.apiSend.addMother(motherData).subscribe((response: ApiResponse) => {
       console.log(response);
       this.goLastPage();
