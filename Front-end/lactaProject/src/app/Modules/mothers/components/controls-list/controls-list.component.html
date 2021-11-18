@@ -69,21 +69,16 @@
               <!--Select Lactante-->
               <div class="row"> 
                   <label class="col">Nombre Lactante:</label>
-                  <select class="col browser-default custom-select" formControlName="name_child">
-                    <option value="domicilio">Domicilio</option>
-                    <option value="consulta">Consulta</option>
-                    <option value="online">Online</option>
-                  </select>
+                  <input type="text" formControlName="name_child" readonly>
               </div>
               <!--Select Lactante-->
               <!--Select Lugar de consulta-->
               <div class="row"> 
                   <label class="col">Lugar de consulta:</label>
                   <select class="col browser-default custom-select" formControlName="consultation_place">
-                      <option value="ninguna">Ninguna</option>
-                      <option value="basica">Slash</option>
-                      <option value="media">Angus Young</option>
-                      <option value="tecnica">Van Halen</option>
+                    <option value="domicilio">Domicilio</option>
+                    <option value="consulta">Consulta</option>
+                    <option value="online">Online</option>
                   </select>
               </div>
               <!--Select Lugar de consulta-->
@@ -91,10 +86,10 @@
               <div class="row"> 
                   <label class="col">Vía de seguimiento:</label>
                   <select class="col browser-default custom-select" formControlName="monitoring_medium">
-                      <option value="ninguna">Ninguna</option>
-                      <option value="basica">Slash</option>
-                      <option value="media">Angus Young</option>
-                      <option value="tecnica">Van Halen</option>
+                    <option value="whatsapp">whatsapp</option>
+                    <option value="teléfono">Teléfono</option>
+                    <option value="en consulta">En consulta</option>
+                    <option value="domicilio">Domicilio</option>
                   </select>
               </div>
               <!--Select Via seguimiento-->
@@ -106,7 +101,7 @@
               <!--Date Fecha-->
           </div>
           <div class="modal-footer">
-              <button type="button" mdbBtn color="primary" class="relative waves-light" mdbWavesEffect>Agregar</button>
+              <button type="button" mdbBtn color="primary" (click)="editarCita()" class="relative waves-light" mdbWavesEffect>Editar</button>
           </div>
       </div>
   </div>
