@@ -31,10 +31,10 @@ export class MotherProfileComponent implements OnInit {
         console.log("asesorada eliminada");
       }
       this.frameModal.hide();
+      this.route.navigate(["asesoradas"])
       
     })
 
-    this.route.navigate(["asesoradas"])
 
   }
 
