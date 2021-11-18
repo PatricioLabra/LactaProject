@@ -6,9 +6,9 @@ import { FirstControlFormComponent } from './pages/first-control-form/first-cont
 import { ControlFormComponent } from './pages/control-form/control-form.component';
 
 const routes: Routes=[
-  {path:"prueba",component:PastControlsComponent},
-  {path: "prueba2", component:FirstControlFormComponent},
-  {path: "prueba3", component:ControlFormComponent}
+  { path: "controls/past/:id", component: PastControlsComponent },
+  { path: "prueba2", component:FirstControlFormComponent},
+  { path: "prueba3", component:ControlFormComponent}
 ];
 
 @NgModule({
