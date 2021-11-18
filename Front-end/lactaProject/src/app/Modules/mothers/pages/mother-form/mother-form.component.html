@@ -210,8 +210,12 @@
                     </div>
                 </div>
                 <!-- Boton Agregar -->
-                <div class="button-container">
+                <div class="button-container" *ngIf="id == '0'">
                     <button type="submit" class="send-button">AGREGAR</button>
+                </div>
+                <!-- Boton Agregar -->
+                <div class="button-container" *ngIf="id != '0'">
+                    <button type="button" (click)="editMotherData()">EDITAR</button>
                 </div>
             </form>
         </div>

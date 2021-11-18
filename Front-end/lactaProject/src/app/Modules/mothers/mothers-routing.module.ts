@@ -8,7 +8,7 @@ import { MotherFormComponent } from './pages/mother-form/mother-form.component';
 const routes: Routes=[
   { path: "asesoradas", component: MothersViewComponent },
   { path: "asesoradas/profile/:id", component: MotherProfileComponent},
-  { path:"asesoradas/agregar", component: MotherFormComponent}
+  { path:"asesoradas/agregar/:id", component: MotherFormComponent},
 ];
 
 @NgModule({
