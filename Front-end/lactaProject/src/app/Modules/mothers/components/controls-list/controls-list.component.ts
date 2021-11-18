@@ -15,7 +15,7 @@ export class ControlsListComponent implements OnInit {
   @Input()
   private idMother: string;
   actualControlId:string;
-  public controls: typeControl | null = null;
+  public controls: typeControl[] | null = null;
 
   constructor(private apiGet: ApiGetService , private apiSend:ApiSendService, private router:Router) { }
 
@@ -42,7 +42,7 @@ export class ControlsListComponent implements OnInit {
       this.frameModal.hide();
     })
 
-    this.router.navigate(["asesoradas"])
+    this.controls=this.controls.filter((controls)=>controls._id!=value);
 
   }
 
