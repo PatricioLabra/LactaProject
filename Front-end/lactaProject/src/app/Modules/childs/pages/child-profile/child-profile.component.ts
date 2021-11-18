@@ -26,4 +26,8 @@ export class ChildProfileComponent implements OnInit {
   }
   constructor( private apiGet: ApiGetService) {}
 
+  eliminarLactante(){
+    console.log("XD")
+  }
+
 }
