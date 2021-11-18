@@ -38,7 +38,7 @@ export class ChildFormComponent implements OnInit {
       planned_pregnancy: ['false', Validators.required],
       assisted_fertilization: ['false', Validators.required],
       previous_lactaction: ['ninguna', Validators.required],
-      duration_of_past_lactaction_in_months: [''],
+      duration_of_past_lactaction_in_months: ['0'],
       breastfeeding_education: ['false', Validators.required],
       birthplace: ['publico', Validators.required],
       type_of_birth: ['parto', Validators.required],
@@ -150,7 +150,6 @@ export class ChildFormComponent implements OnInit {
         post_discharge_feeding: this.form.get("post_discharge_feeding")?.value,
         last_weight_control: this.form.get("last_weight_control")?.value
       },
-      _motherId: this.motherId,
     }
     console.log(childData);
     this.apiSend.addChild(childData,this.motherId).subscribe((response:ApiResponse)=>{
