@@ -2,11 +2,13 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 import { ProfessionalsViewComponent } from './pages/professionals-view/professionals-view.component';
+import { ProfessionalFormComponent } from './pages/professional-form/professional-form.component';
 
 
 
 const routes: Routes=[
-  {path:"profesionales",component:ProfessionalsViewComponent}
+  {path:"profesionales",component:ProfessionalsViewComponent},
+  {path:"profesionales/agregar",component:ProfessionalFormComponent}
 ];
 
 @NgModule({

@@ -1,5 +1,5 @@
 export interface typeControl{
-    _id: string,
+    _id?: string,
     child_name: string,
     consultation_place: string,
     monitoring_medium: string,
