@@ -42,8 +42,8 @@ export class ChildProfileComponent implements OnInit {
         console.log("lactante eliminado");
       }
       this.frameModal.hide();
+      this.router.navigate([`asesoradas/profile/${this.idMother}`])
     });
-    this.router.navigate([`asesoradas/profile/${this.idMother}`])
   }
 
   show(){
