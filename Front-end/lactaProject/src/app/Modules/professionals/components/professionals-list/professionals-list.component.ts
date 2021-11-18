@@ -4,6 +4,7 @@ import { MdbTableDirective , MdbTablePaginationComponent} from 'angular-bootstra
 import { ApiGetService } from 'src/app/services/api-get.service';
 import { ApiSendService } from 'src/app/services/api-send.service';
 
+
 @Component({
   selector: 'app-professionals-list',
   templateUrl: './professionals-list.component.html',
@@ -134,6 +135,7 @@ export class ProfessionalsListComponent implements OnInit , AfterViewInit{
     })
 
     this.frameModal.hide();
+    this.elements=this.elements.filter((lista)=>lista.id!=idProf);
   
   }
 }
