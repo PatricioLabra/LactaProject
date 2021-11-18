@@ -287,12 +287,14 @@ export const getSeach: RequestHandler = async (req, res) => {
 
     const childFound = await Child.findById(id_child);
 
+    //se valida la existencia del lactante
     if ( !childFound )
         return res.status(404).send({ success: false, data:{}, message: 'ERROR: No existe un lactante asociado al id ingresado.'});
 
 
     const quantityControl = await Control.find( {id_child} ).count();
 
+    //se verifica la cantidad de controles encontrados
     if ( quantityControl == 0 ){
         return res.status(200).send({ success: false, data:{"moreControls": false }, message: 'Es el primer control del lactante.'} )
     } 
