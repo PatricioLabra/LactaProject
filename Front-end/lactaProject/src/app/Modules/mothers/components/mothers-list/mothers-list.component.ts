@@ -125,7 +125,7 @@ export class MothersListComponent implements OnInit, AfterViewInit {
   }
 
   openMotherProfile(idMother: string) {
-    const url: string = 'asesoradas/' + idMother;
+    const url: string = 'asesoradas/profile/' + idMother;
     this.router.navigate([url]);
   }
 }
