@@ -29,7 +29,7 @@
     <div class="row">
 
         <div class="rectangle1">
-            <app-lactancy-data></app-lactancy-data>
+            <app-lactancy-data *ngIf="childId" [childId]="childId"></app-lactancy-data>
         </div>
 
     </div>
@@ -37,7 +37,7 @@
     <div class="row">
 
         <div class="rectangle2">
-            <app-birth-data></app-birth-data>
+            <app-birth-data *ngIf="childId" [childId]="childId"></app-birth-data>
         </div>
 
     </div>
