@@ -1,5 +1,4 @@
 import { Component, OnInit, ElementRef, HostListener, AfterViewInit, ViewChild, ChangeDetectorRef} from '@angular/core';
-import { Router } from '@angular/router';
 import { ApiResponse } from '@interfaces/api_response';
 import { MdbTableDirective , MdbTablePaginationComponent} from 'angular-bootstrap-md';
 import { ApiGetService } from 'src/app/services/api-get.service';
@@ -47,7 +46,7 @@ export class ProfessionalsListComponent implements OnInit , AfterViewInit{
     });
 
   }
-  constructor(private cdRef: ChangeDetectorRef, private apiGet: ApiGetService , private apiSend: ApiSendService , private router:Router) {}
+  constructor(private cdRef: ChangeDetectorRef, private apiGet: ApiGetService , private apiSend: ApiSendService) {}
 
   
   ngAfterViewInit() {
