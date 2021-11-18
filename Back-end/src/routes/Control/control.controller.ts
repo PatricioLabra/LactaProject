@@ -273,6 +273,34 @@ export const getSeach: RequestHandler = async (req, res) => {
 }
 
 /**
+ * Función que maneja la petición de obtener la cantidad de controles asociados a un lactante
+ * @route Get /control/quantity/:idChild
+ * @param req Request de la petición, se espera que tenga el id del lactante
+ * @param res Response, retorna un un object con success:true, data:{"string":Bool} con la fecha y un message: "String" de confirmacion
+ */
+ export const getQuantityControl: RequestHandler = async (req, res) => {
+    const id_child = req.params.idChild;
+
+    //se valida el _id de la madre ingresada
+    if ( !Types.ObjectId.isValid( id_child) )
+        return res.status(400).send({ success: false, data:{}, message: 'ERROR: El id ingresado no es válido.' });
+
+    const childFound = await Child.findById(id_child);
+
+    if ( !childFound )
+        return res.status(404).send({ success: false, data:{}, message: 'ERROR: No existe un lactante asociado al id ingresado.'});
+
+
+    const quantityControl = await Control.find( {id_child} ).count();
+
+    if ( quantityControl == 0 ){
+        return res.status(200).send({ success: false, data:{"moreControls": false }, message: 'Es el primer control del lactante.'} )
+    } 
+
+    return res.status(200).send({ success: false, data:{"moreControls": true }, message: 'Ya existe un primer control registrado.'} )
+}
+
+/**
  * Convierte un date_control de UTC a yyyy/mm/dd (string)
  * @param motherFound Madre extraida de la base de datos
  * @returns Object con los atributos de la madre a enviar al front
