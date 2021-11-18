@@ -31,7 +31,7 @@ export const newChild: RequestHandler = async (req, res) => {
     }
     
     //validacion de los parametros
-    if( !newChild.name || !newChild.gestacion_data.diseases_during_pregnancy || !newChild.gestacion_data.nutritional_status_mother ||
+    /*if( !newChild.name || !newChild.gestacion_data.diseases_during_pregnancy || !newChild.gestacion_data.nutritional_status_mother ||
         newChild.gestacion_data.planned_pregnancy == null || newChild.gestacion_data.assisted_fertilization == null || 
         !newChild.gestacion_data.previous_lactaction || newChild.gestacion_data.duration_of_past_lactaction_in_months < 0 || 
         newChild.gestacion_data.breastfeeding_education == null || !newChild.birth_data.birthplace || !newChild.birth_data.type_of_birth ||  
@@ -40,7 +40,7 @@ export const newChild: RequestHandler = async (req, res) => {
         newChild.birth_data.has_suplement == null  || newChild.birth_data.joint_accommodation == null ||
         newChild.birth_data.use_of_pacifier == null || !newChild.birth_data.post_discharge_feeding || newChild.birth_data.last_weight_control < 0 ){
         return res.status(400).send({ success: false, data:{}, message:'Error: Datos inválidos' + req.body });
-    }
+    }*/
 
     const motherFound = await Mother.findById(_idMother);
 
