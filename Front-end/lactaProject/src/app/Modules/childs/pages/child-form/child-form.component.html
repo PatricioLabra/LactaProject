@@ -1,7 +1,7 @@
 <body>
     <div class="container">
         <div class="form-container">
-            <form [formGroup]="form" (ngSubmit)="sendProfessionalData()" autocomplete="off">
+            <form [formGroup]="form" (ngSubmit)="sendChildData()" autocomplete="off">
                 <!-- Titulo -->
                 <div class="title-container">
                     <p class="title-text">Formulario Ingreso de Lactante</p>
@@ -145,7 +145,7 @@
                         </div>
                         <!-- Tipo de Nacimiento -->
                         <div class="input-label-container"> 
-                            <label class="label-text">Lugar de nacimiento:</label>
+                            <label class="label-text">Tipo de nacimiento:</label>
                             <div>
                                 <select class="browser-default custom-select" formControlName="type_of_birth">
                                     <option value="parto">Parto</option>

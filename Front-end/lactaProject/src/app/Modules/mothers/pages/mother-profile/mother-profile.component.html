@@ -16,6 +16,9 @@
 
 
 <app-mother-data *ngIf="idMother" [idMother]="idMother"></app-mother-data>
+<div >
+  <button type="button" (click)="goToAddChild(idMother)">Agregar Lactante</button>
+</div>
 <app-childs-list *ngIf="idMother" [idMother]="idMother"></app-childs-list>
 <a [href]="'/controls/past/' + idMother">Ver citas anteriores</a>
 <app-controls-list *ngIf="idMother" [idMother]="idMother"></app-controls-list>
