@@ -51,6 +51,10 @@ body{
     display: flex;
     width:50%;
     min-width: 150px;
+
+    .form-check-input {
+        margin-right: 25%;
+    }
 }
 
 .button-container{
