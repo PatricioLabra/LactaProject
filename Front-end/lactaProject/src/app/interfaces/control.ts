@@ -1,8 +1,5 @@
 export interface typeControl{
     _id?: string,
-    dataNewControl?: controlData;
-}
-interface controlData{
     consultation_place: string,
     monitoring_medium: string,
     date_control: Date,

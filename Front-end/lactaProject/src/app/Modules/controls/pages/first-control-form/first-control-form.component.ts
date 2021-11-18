@@ -46,9 +46,9 @@ export class FirstControlFormComponent implements OnInit {
   }
   // Funcion que imprime por consola los form control value
   sendControlData(){
-    this.createList;
+    this.createList();
     let controlData:typeControl={
-      dataNewControl: {
+      
         consultation_place: this.form.get("consultation_place")?.value,
         monitoring_medium: this.form.get("monitoring_medium")?.value,
         date_control: this.form.get("date_control")?.value,
@@ -58,8 +58,9 @@ export class FirstControlFormComponent implements OnInit {
         emotional_status: this.form.get("emotional_status")?.value,
         observations: this.form.get("observations")?.value,
         indications: this.indications,
-      }
+      
     }
+    console.log(this.indications);
     this.apiSend.addControl(controlData,this.idChild).subscribe((response:ApiResponse)=>{
       console.log(response);
       this.goToMotherView();
