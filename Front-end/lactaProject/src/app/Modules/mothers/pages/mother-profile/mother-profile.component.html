@@ -1,6 +1,6 @@
-<button>Back</button>
+<a href="/asesoradas">Volver</a>
 <button>Options</button>
 <app-mother-data *ngIf="idMother" [idMother]="idMother"></app-mother-data>
 <app-childs-list *ngIf="idMother" [idMother]="idMother"></app-childs-list>
-<button>Ver Citas Anteriores</button>
+<a [href]="'/controls/past/' + idMother">Ver citas anteriores</a>
 <app-controls-list *ngIf="idMother" [idMother]="idMother"></app-controls-list>

@@ -7,7 +7,7 @@ import { MotherFormComponent } from './pages/mother-form/mother-form.component';
 
 const routes: Routes=[
   { path: "asesoradas", component: MothersViewComponent },
-  { path: "asesoradas/:id", component: MotherProfileComponent},
+  { path: "asesoradas/profile/:id", component: MotherProfileComponent},
   { path:"asesoradas/agregar", component: MotherFormComponent}
 ];
 
