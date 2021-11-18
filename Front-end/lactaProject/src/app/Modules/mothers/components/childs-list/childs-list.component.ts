@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ApiGetService } from 'src/app/services/api-get.service';
 import { ApiResponse } from '@interfaces/api_response';
 
@@ -15,14 +15,15 @@ interface ChildResume {
 })
 export class ChildsListComponent implements OnInit {
 
+  @Input()
+  public idMother: string;
   public childs: Array<ChildResume> | null = null;
 
   constructor(private apiGet: ApiGetService) { }
 
   ngOnInit(): void {
-    this.apiGet.getChildsList('61908b5341fc603acb35a84f').subscribe((response: ApiResponse) => {
+    this.apiGet.getChildsList(this.idMother).subscribe((response: ApiResponse) => {
       this.childs = response.data.childsFiltered;
-      console.log(this.childs);
     });
   }
 }
