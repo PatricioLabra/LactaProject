@@ -85,8 +85,12 @@ export const editChild: RequestHandler = async (req, res) => {
         return res.status(404).send({ success: false, data:{}, message: 'ERROR: El lactante ingresado no existe en el sistema.' });
     }
 
-    //se actualiza el nombre en sus controles
-    await Control.updateMany( {id_child: _id}, { child_name: updatedChild.name } )
+    const childControls = await Control.find({id_child: _id})
+
+    //se valida la existencia de controles asociados al child
+    if ( childControls ){
+        await Control.updateMany( {id_child: _id}, { child_name: updatedChild.name } )
+    }
 
     //se actualiza el lactante
     await Child.findByIdAndUpdate( _id, updatedChild );
