@@ -24,13 +24,13 @@
 }
 .container-fluid{
     margin-top: 20px;
-    height: 70vh;
+    height: 70%;
     padding-top: 70px;
+    width: min(90%,70.5rem);
     .component{
         height: 100%;
-        width: 60vw;
         margin: auto;
-        text-align: center;
     }
     
 }
+
