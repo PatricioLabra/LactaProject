@@ -10,8 +10,9 @@
     }
     
     .sortButton{
+        position: relative;
         background:white;
-        margin-right: 20vw;
+        margin-right: 25vw;
         border-radius: 30px;
     }
     .backButton{
@@ -40,14 +41,12 @@
 .container-fluid{
     margin-top: 20px;
     height: 60%;
+
     .row{
         height: 50%;
         width: 70vw;
+        padding-bottom: 10px;
         margin: auto;
         text-align: center;
     }
-    .rectangle1{
-        padding-bottom: 3%;
-    }
-    
 }
