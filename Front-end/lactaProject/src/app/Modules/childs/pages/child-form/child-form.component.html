@@ -4,12 +4,24 @@
         <div class="form-container">
             <form [formGroup]="form" (ngSubmit)="sendChildData()" autocomplete="off">
                 <!-- Titulo -->
-                <div class="title-container" *ngIf="id == '0'">
-                    <p class="title-text">Formulario Ingreso de Lactante</p>
-                </div>
-                <!-- Titulo -->
-                <div class="title-container" *ngIf="id != '0'">
-                    <p class="title-text">Editar Lactante</p>
+                <div class="title-row">
+                    <div class="row">
+                      <div class="col">
+                        <div class="title-image"></div>
+                      </div>
+                      <div class="col-6">
+                        <div class="title-container" *ngIf="id == '0'">
+                            <p class="title-text">Formulario Ingreso de Lactante</p>
+                        </div>
+                        <!-- Titulo -->
+                        <div class="title-container" *ngIf="id != '0'">
+                            <p class="title-text">Editar Lactante</p>
+                        </div>
+                      </div>
+                      <div class="col ">
+                            <div class="title-image2"></div>
+                      </div>
+                    </div>
                 </div>
                 <!-- Nombre -->
                 <div class="input-label-container"> 
@@ -134,7 +146,7 @@
                 </div>
 
                 <!-- INFORMACION DE NACIMIENTO -->
-                <div class="sub-title-container"><p>Gestación/Parto/Lactancia</p></div>
+                <div class="sub-title-container"><p>Nacimiento</p></div>
                 <div class="birth-data-container">
                     <div class="birth-sub-container">
                         <!-- Lugar de nacimiento -->
