@@ -2,6 +2,7 @@
 @import "/src/styles/palette.scss";
 
 body{
+    min-width: 480px;
     background-image: none;
     width: 100%;
     min-height: 100vh;
@@ -34,8 +35,9 @@ form{
 
 .form-container{
     width: 100%;
-    min-width: 300px;
+    min-width: 250px;
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
 }
@@ -123,11 +125,11 @@ form{
 .birth-data-container{
     display: flex;
     flex-wrap: wrap;
+    .birth-sub-container{
+        min-width: 50%;
+    }
 }
-.birth-sub-container{
-    max-width: 50%;
-    min-width: 37vh;
-}
+
 // Diseases Styles
 .chronic-diseases-container{
     width: 100%;
