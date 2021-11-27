@@ -233,6 +233,12 @@ export const getDetailedPassControl: RequestHandler = async (req, res) => {
     });
 }
 
+/**
+ * Función que maneja la petición de obtener una lista de controles asociados al nombre de un lactante y a un rango de fechas
+ * @route Get /control/:child_name/:lower_limit/:upper_limit
+ * @param req Request de la petición, se espera que tenga el child_name, la fecha como limite inferior y la fecha de limite superior
+ * @param res Response, retorna un un object con success:true, data:{} con la lista y un message: "String" de confirmacion
+ */
 export const getSeach: RequestHandler = async (req, res) => {
 
 }
