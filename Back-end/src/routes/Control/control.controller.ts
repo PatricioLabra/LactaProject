@@ -239,7 +239,7 @@ export const getDetailedPassControl: RequestHandler = async (req, res) => {
  * @param req Request de la petición, se espera que tenga el child_name, la fecha como limite inferior y la fecha de limite superior
  * @param res Response, retorna un un object con success:true, data:{} con la lista y un message: "String" de confirmacion
  */
-export const getSeach: RequestHandler = async (req, res) => {
+export const etSearchPassControls: RequestHandler = async (req, res) => {
 
 }
 
