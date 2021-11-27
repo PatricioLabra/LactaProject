@@ -21,7 +21,7 @@ router.get('/control/past/:idMother', controlCtrl.getPassControls);
 //obtener informacion control pasado detallado(idControlPasado_)
 router.get('/control/profile/:idControl', controlCtrl.getDetailedPassControl);
 
-// Obtener barra de busqueda, keyword: name, date. 
+// Obtener barra de busqueda
 router.post('/control/:child_name/:lower_limit/:upper_limit', controlCtrl.getSeach);
 
 //Obtener el ultimo y próximo control asociado a una madre
