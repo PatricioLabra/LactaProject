@@ -22,7 +22,7 @@ router.get('/control/past/:idMother', controlCtrl.getPassControls);
 router.get('/control/profile/:idControl', controlCtrl.getDetailedPassControl);
 
 // Obtener lista controles filtrada por nombre y fechas
-router.get('/controlsFiltered', controlCtrl.getSearchControl);
+router.get('/controlsFiltered', controlCtrl.getSearchControlFiltered);
 
 //Obtener el ultimo y próximo control asociado a una madre
 router.get('/control/lastAndNext/:idMother', controlCtrl.getLastAndNextControl);
