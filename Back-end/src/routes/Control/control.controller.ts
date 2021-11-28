@@ -239,44 +239,48 @@ export const getDetailedPassControl: RequestHandler = async (req, res) => {
  * @param req Request de la petición, se espera que tenga el child_name, la fecha como limite inferior y la fecha de limite superior
  * @param res Response, retorna un un object con success:true, data:{} con la lista y un message: "String" de confirmacion
  */
-export const getSearchPassControls: RequestHandler = async (req, res) => {
+export const getSearchControl: RequestHandler = async (req, res) => {
     const { id_mother, child_name, init_date, end_date } = req.body;
     let list_controls;
-
-    if ( !child_name && !init_date && !end_date ){
-        //se retorna sin hacer nada
+    console.log ("entró");
+    //se valida que se ingresaron parámetros
+    if ( !child_name && !init_date && !end_date ) {
         return res.status(400).send({ success: false, data:{}, message: 'ERROR: No se ingresaron parámetros para filtrar.' })
-    } 
-
-    if ( !child_name && !init_date ){
-        //se busca hasta end_date con el id_mother
-        list_controls = await Control.find({ "id_mother": id_mother, "date_control":{"$lte":end_date }}).sort({date_control: -1});
-    }
-
-    if ( !child_name && !end_date ){
-        //se busca desde init_date con el id_mother
-        list_controls = await Control.find({ "id_mother": id_mother, "date_control":{"$gte": init_date}}).sort({date_control: -1});
-    }
-
-    if ( !init_date ){
-        //se busca con child_name y hasta end_date
-        list_controls = await Control.find({ "child_name": child_name, "date_control":{"$lte":end_date }}).sort({date_control: -1});
-    }
-
-    if ( !end_date ){
-        //se busca con child_name y desde init_date
-        list_controls = await Control.find({ "child_name": child_name, "date_control":{"$gte": init_date}}).sort({date_control: -1});
-    }
-
-    if ( child_name && init_date && end_date ){
-    //se busca con el child_name y el margen de busqueda (init & end)
-        list_controls = await Control.find({ "child_name": child_name, "date_control":{"$gte": init_date,"$lte":end_date }}).sort({date_control: -1});
+    } else {
+        //se valida que al menos venga end_date con valor
+        if ( !child_name && !init_date && end_date) {
+            list_controls = await Control.find({ "id_mother": id_mother, "date_control":{"$lte": end_date }}).sort({date_control: -1});
+        } else {
+            //se valida que al menos venga init_date con valor
+            if ( !child_name && init_date && !end_date) {
+                list_controls = await Control.find({ "id_mother": id_mother, "date_control":{"$gte": init_date}}).sort({date_control: -1});
+            } else {
+                //se valida que child y end tengan valor
+                if ( child_name && !init_date && end_date ){
+                    list_controls = await Control.find({ "child_name": child_name, "date_control":{"$lte":end_date }}).sort({date_control: -1});
+                } else {
+                    //se valida que child y init tengan valor
+                    if ( child_name && init_date && !end_date ){
+                        list_controls = await Control.find({ "child_name": child_name, "date_control":{"$gte": init_date}}).sort({date_control: -1});
+                    } else {
+                        //todos vienen con un valor
+                        list_controls = await Control.find({ "child_name": child_name, "date_control":{"$gte": init_date,"$lte":end_date }}).sort({date_control: -1});
+                    }
+                }
+            }
+        }
     }
 
     //se filtran los datos a retornar
-    
-    //se retorna la lista
-    return res.status(200).send({ success: true, data:{list_controls},messagge: 'controles encontrados'} );
+    const list_controls_filtered = list_controls.map( control => { return {
+        _id : control._id,
+        id_mother: control.id_mother,
+        id_child: control.id_child,
+        child_name: control.child_name,
+        date_control: control.date_control
+       }});
+
+    return res.status(200).send({ success: true, data:{ list_controls_filtered }, message: 'controles encontrados'} );
 }
 
 /**
