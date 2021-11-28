@@ -265,7 +265,7 @@ export const getSearchPassControls: RequestHandler = async (req, res) => {
 
     if ( !end_date ){
         //se busca con child_name y desde init_date
-        list_controls = await Control.find({ "child_name": child_name, "date_control":{"$gte": init_date}).sort({date_control: -1});
+        list_controls = await Control.find({ "child_name": child_name, "date_control":{"$gte": init_date}}).sort({date_control: -1});
     }
 
     if ( child_name && init_date && end_date ){
@@ -274,7 +274,7 @@ export const getSearchPassControls: RequestHandler = async (req, res) => {
     }
 
     //se filtran los datos a retornar
-
+    
     //se retorna la lista
     return res.status(200).send({ success: true, data:{list_controls},messagge: 'controles encontrados'} );
 }
