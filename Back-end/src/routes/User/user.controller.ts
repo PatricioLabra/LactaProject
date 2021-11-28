@@ -130,18 +130,17 @@ export const deleteUser: RequestHandler = async (req, res) => {
  * @param res Response, returna true, el token del usuario y un mensaje de confirmacion
  */
 export const signIn: RequestHandler = async (req, res) => {
-    const { rut } = req.body.rut;
-    const user = await User.findOne({ rut });
+    const userFound = await User.findOne({ rut: req.body.rut });
 
     //Se valida si existe el usuario
-    if( !user ){
+    if( !userFound ){
         return res.status(404).send({ success: false, data:{}, message: 'Error: el usuario ingresado no existe en el sistema.' });
-    }   
+    }
 
-    const correctPassword: boolean = await user.validatePassword(req.body.password);
+    const correctPassword: boolean = await userFound.validatePassword(req.body.password);
     if(!correctPassword) return res.status(400).send({ success: false, data:{}, message: 'Error: clave invalida.' });
 
-    const token = signToken(user._id);
+    const token = signToken(userFound._id);
 
     return res.status(200).send({ success: true, data:{ token }, message: 'Se ingreso correctamente.' });
 }
