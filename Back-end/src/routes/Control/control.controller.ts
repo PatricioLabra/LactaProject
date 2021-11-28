@@ -242,29 +242,39 @@ export const getDetailedPassControl: RequestHandler = async (req, res) => {
 export const getSearchControl: RequestHandler = async (req, res) => {
     const { id_mother, child_name, init_date, end_date } = req.body;
     let list_controls;
-    console.log ("entró");
+    
     //se valida que se ingresaron parámetros
     if ( !child_name && !init_date && !end_date ) {
         return res.status(400).send({ success: false, data:{}, message: 'ERROR: No se ingresaron parámetros para filtrar.' })
     } else {
-        //se valida que al menos venga end_date con valor
+        //se valida que end_date venga con valor
         if ( !child_name && !init_date && end_date) {
             list_controls = await Control.find({ "id_mother": id_mother, "date_control":{"$lte": end_date }}).sort({date_control: -1});
         } else {
-            //se valida que al menos venga init_date con valor
+            //se valida que init_date venga con valor
             if ( !child_name && init_date && !end_date) {
                 list_controls = await Control.find({ "id_mother": id_mother, "date_control":{"$gte": init_date}}).sort({date_control: -1});
             } else {
-                //se valida que child y end tengan valor
-                if ( child_name && !init_date && end_date ){
-                    list_controls = await Control.find({ "child_name": child_name, "date_control":{"$lte":end_date }}).sort({date_control: -1});
+                //se valida que child_name venga con valor
+                if ( child_name && !init_date && !end_date ) {
+                    list_controls = await Control.find({ "child_name": child_name}).sort({date_control: -1});
                 } else {
-                    //se valida que child y init tengan valor
-                    if ( child_name && init_date && !end_date ){
-                        list_controls = await Control.find({ "child_name": child_name, "date_control":{"$gte": init_date}}).sort({date_control: -1});
+                    //se valida que child y end tengan valor
+                    if ( child_name && !init_date && end_date ){
+                        list_controls = await Control.find({ "child_name": child_name, "date_control":{"$lte":end_date }}).sort({date_control: -1});
                     } else {
-                        //todos vienen con un valor
-                        list_controls = await Control.find({ "child_name": child_name, "date_control":{"$gte": init_date,"$lte":end_date }}).sort({date_control: -1});
+                        //se valida que child y init tengan valor
+                        if ( child_name && init_date && !end_date ){
+                            list_controls = await Control.find({ "child_name": child_name, "date_control":{"$gte": init_date}}).sort({date_control: -1});
+                        } else {
+                            //se valida que init y end vengan con valor
+                            if ( !child_name && init_date && end_date){
+                                list_controls = await Control.find({ "id_mother": id_mother, "date_control":{"$gte": init_date,"$lte":end_date }}).sort({date_control: -1});
+                            } else {
+                                //todos vienen con un valor
+                                list_controls = await Control.find({ "child_name": child_name, "date_control":{"$gte": init_date,"$lte":end_date }}).sort({date_control: -1});
+                            }
+                        }
                     }
                 }
             }
