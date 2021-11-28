@@ -236,12 +236,17 @@ export const getDetailedPassControl: RequestHandler = async (req, res) => {
 /**
  * Función que maneja la petición de obtener una lista de controles asociados al nombre de un lactante y a un rango de fechas
  * @route Get /controlsFiltered
- * @param req Request de la petición, se espera que tengaun JSON con los filtros
+ * @param req Request de la petición, se espera que tenga un JSON con los filtros
  * @param res Response, retorna un un object con success:true, data:{} con la lista y un message: "String" de confirmacion
  */
 export const getSearchControlFiltered: RequestHandler = async (req, res) => {
     const { id_mother, child_name, init_date, end_date } = req.body;
     let list_controls;
+
+    //se valida el id_mother ingresado
+    if ( !Types.ObjectId.isValid(id_mother) ){
+        return res.status(400).send({ success: false, data:{}, message:'Error: El id_mother ingresado no es válido.' });
+    }
 
     //se valida que se ingresaron parámetros
     if ( !child_name && !init_date && !end_date ) {
