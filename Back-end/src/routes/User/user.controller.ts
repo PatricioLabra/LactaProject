@@ -1,6 +1,6 @@
 import { RequestHandler } from "express";
 import { createHmac } from "crypto";
-import User from './user.model';
+import User, { IUser } from './user.model';
 import { signToken } from "../jwt";
 import { Types } from "mongoose";
 
@@ -25,11 +25,20 @@ export const signUp: RequestHandler = async (req, res) => {
         return res.status(301).send({ success: false, data:{}, message: 'Error: el usuario ingresado ya existe en el sistema.' });
     }
 
-    //Se guarda
-    const newUser = new User(req.body);
-    await newUser.save();
+    // Saving a new User
 
-    const token = signToken(newUser._id);
+    const newUser: IUser = new User({
+        name: req.body.name,
+        rut: req.body.rut,
+        password: req.body.password,
+        mail: req.body.mail,
+        permission_level: req.body.permission_level
+    });
+    
+    newUser.password = await newUser.encrypPassword(newUser.password);
+    const savedUser = await newUser.save();
+
+    const token = signToken(savedUser._id);
 
     return res.status(201).send({ success: true, data: { token }, message: 'Se ha creado correctamente el nuevo usuario.' });
 }
@@ -121,18 +130,16 @@ export const deleteUser: RequestHandler = async (req, res) => {
  * @param res Response, returna true, el token del usuario y un mensaje de confirmacion
  */
 export const signIn: RequestHandler = async (req, res) => {
-    const { rut, password } = req.body;
+    const { rut } = req.body.rut;
     const user = await User.findOne({ rut });
-    
+
     //Se valida si existe el usuario
     if( !user ){
         return res.status(404).send({ success: false, data:{}, message: 'Error: el usuario ingresado no existe en el sistema.' });
-    }
+    }   
 
-    //Se comparan las password
-    if ( user.password !== password ){
-        return res.status(400).send({ success:false, data:{}, message: 'Error: la password ingresada no es válida.' });
-    }
+    const correctPassword: boolean = await user.validatePassword(req.body.password);
+    if(!correctPassword) return res.status(400).send({ success: false, data:{}, message: 'Error: clave invalida.' });
 
     const token = signToken(user._id);
 
