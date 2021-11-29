@@ -191,7 +191,8 @@ export const getPassControls: RequestHandler = async (req, res) => {
          child_name: control.child_name, 
          consultation_place: control.consultation_place,
          monitoring_medium: control.monitoring_medium,
-         date_control: control.date_control.toISOString().substring(0,10)
+         date_control: control.date_control.toISOString().substring(0,10),
+         completed: isCompleted(control.weight)
         }});
 
     return res.status(200).send({ success: true, data:{ passControlsFiltered }, message: 'Lista de controles obtenida de manera correcta' });
@@ -258,7 +259,9 @@ export const getSearchControlFiltered: RequestHandler = async (req, res) => {
             } else {
                 //se busca por child_name
                 if ( child_name && !init_date && !end_date ) {
-                    list_controls = await Control.find({ "child_name": child_name}).sort({date_control: -1});
+                    const date_now = new Date();
+                    dateInitializer(date_now);
+                    list_controls = await Control.find({ "child_name": child_name, "date_control":{"$lte":date_now }}).sort({date_control: -1});
                 } else {
                     //se busca por child_name y end_date
                     if ( child_name && !init_date && end_date ){
@@ -292,7 +295,8 @@ export const getSearchControlFiltered: RequestHandler = async (req, res) => {
         child_name: control.child_name, 
         consultation_place: control.consultation_place,
         monitoring_medium: control.monitoring_medium,
-        date_control: control.date_control.toISOString().substring(0,10)
+        date_control: control.date_control.toISOString().substring(0,10),
+        completed: isCompleted(control.weight)
        }});
 
     return res.status(200).send({ success: true, data:{ list_controls_filtered }, message: 'Controles encontrados'} );
@@ -395,4 +399,17 @@ function dateInitializer (date: any){
     date.setUTCMinutes(0);
     date.setUTCSeconds(0);
     date.setUTCMilliseconds(0);
+}
+
+/**
+ * Retorna true o false en caso de que sea haya completado o no el control
+ * @param weightChild peso del lactante, se usa como parametro de validación.
+ * @returns True or False, True = se completó el control, False: no se completó el control.
+ */
+ function isCompleted (weightChild:any ){
+    if ( weightChild == null ){
+        return false;
+    }
+
+    return true;
 }
