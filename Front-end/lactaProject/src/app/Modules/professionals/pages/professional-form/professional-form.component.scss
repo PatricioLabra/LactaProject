@@ -2,14 +2,11 @@
 @import "/src/styles/palette.scss";
 
 body{
-    min-width: 480px;
+    min-width: 320px;
     background-image: none;
     width: 100%;
     min-height: 100vh;
     background-color: $light-blue;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 form{
@@ -21,12 +18,24 @@ form{
     padding-left: 10px;
 }
 
+.top-bar{
+    width: 100%;
+    .backButton{
+        width: 77px;
+        height: 39px;
+        background:white;
+        color: grey;
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        border-radius: 30px;
+    }
+}
+
 .container{
     margin-top: 10vh;
     margin-bottom: 10vh;
     width: 60%;
-    min-width: 450px;
-    padding: 50px 50px;
+    min-width: 300px;
+    padding: 5% 5%;
     border-radius: 10px;
     display: flex;
     flex-wrap: wrap;
@@ -35,7 +44,7 @@ form{
 
 .form-container{
     width: 100%;
-    min-width: 300px;
+    min-width: 260px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -83,19 +92,37 @@ form{
     font-size: 3vh;
     color: white;
 }
+.title-image{
+    height: 100%;
+    max-width: 13vh;
+    min-height: 13vh;
+    background-image: url(../../../../../assets/professional-form-1.png);
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
+.title-image2{
+    width: 100%;
+    float: right;
+    height: 100%;
+    max-width: 13vh;
+    min-height: 13vh;
+    background-image: url(../../../../../assets/professional-form-1.png);
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
 // Name Styles
 .name-container{
     width: 60%;
-    min-width: 300px;
+    min-width: 240px;
 }
 // Rut Styles
 .full-rut-container{
     width: 60%;
-    min-width: 300px;
+    min-width: 240px;
     display: flex;
 }
 .rut-container{
-    min-width: 230px;
+    min-width: 130px;
 }
 .rut-vc-container{
     width: 10vh;
