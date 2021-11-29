@@ -160,7 +160,7 @@ function destructureMother(motherFound: any) {
         commune: motherFound.commune,
         phone_number: motherFound.phone_number,
         mail: motherFound.mail,
-        birth : motherFound.birth,
+        birth : motherFound.birth.toISOString().substring(0,10),
         ocupation: motherFound.ocupation,
         studies: motherFound.studies,
         marital_status: motherFound.marital_status,
