@@ -4,7 +4,7 @@ const motherSchema = new Schema({
     name: {
         required: true,
         type: String,
-        trim: true,
+        trim: true
     },
     rut: {
         required: true,
