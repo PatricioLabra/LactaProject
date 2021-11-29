@@ -288,10 +288,10 @@ export const getSearchControlFiltered: RequestHandler = async (req, res) => {
 
     //se filtran los datos a retornar
     const list_controls_filtered = list_controls.map( control => { return {
-        _id : control._id,
-        id_mother: control.id_mother,
-        id_child: control.id_child,
-        child_name: control.child_name,
+        _id: control.id,  
+        child_name: control.child_name, 
+        consultation_place: control.consultation_place,
+        monitoring_medium: control.monitoring_medium,
         date_control: control.date_control.toISOString().substring(0,10)
        }});
 
