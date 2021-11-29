@@ -1,4 +1,4 @@
-import { Schema, model, SchemaTypes } from "mongoose";
+import { Schema, model } from "mongoose";
 
 const graphicSchema = new Schema({
     name_data: {
