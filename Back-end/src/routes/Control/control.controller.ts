@@ -142,8 +142,6 @@ export const getNextControls: RequestHandler = async (req, res) => {
     //se setea la hora 
     dateInitializer(date);
 
-    const dateFormat = DateToFormattedString(date);
-
     //se obtiene la lista de controles proximos, ordenados del más reciente al último
     const nextControls = await Control.find( { "id_mother": idMother, "date_control": {"$gte": date}} ).sort({date_control: 1}); 
 
@@ -153,7 +151,7 @@ export const getNextControls: RequestHandler = async (req, res) => {
          child_name: control.child_name, 
          consultation_place: control.consultation_place,
          monitoring_medium: control.monitoring_medium,
-         date_control: DateToFormattedString(control.date_control)
+         date_control: control.date_control.toISOString().substring(0,10)
         }});
 
     return res.status(200).send({ success: true, data:{ nextControlsFiltered }, message: 'Lista de controles obtenida de manera correcta' });
@@ -184,8 +182,6 @@ export const getPassControls: RequestHandler = async (req, res) => {
     //se setea la hora 
     dateInitializer(date);
 
-    const dateFormat = DateToFormattedString(date);
-
     //se obtiene la lista de controles proximos, ordenados del más reciente al último
     const passControls = await Control.find( { "id_mother": idMother, "date_control": {"$lt": date}} ).sort({date_control: -1}); 
 
@@ -195,7 +191,7 @@ export const getPassControls: RequestHandler = async (req, res) => {
          child_name: control.child_name, 
          consultation_place: control.consultation_place,
          monitoring_medium: control.monitoring_medium,
-         date_control: DateToFormattedString(control.date_control)
+         date_control: control.date_control.toISOString().substring(0,10)
         }});
 
     return res.status(200).send({ success: true, data:{ passControlsFiltered }, message: 'Lista de controles obtenida de manera correcta' });
@@ -233,8 +229,73 @@ export const getDetailedPassControl: RequestHandler = async (req, res) => {
     });
 }
 
-export const getSeach: RequestHandler = async (req, res) => {
+/**
+ * Función que maneja la petición de obtener una lista de controles asociados al nombre de un lactante y a un rango de fechas
+ * @route Get /controlsFiltered
+ * @param req Request de la petición, se espera que tenga un JSON con los filtros
+ * @param res Response, retorna un un object con success:true, data:{} con la lista y un message: "String" de confirmacion
+ */
+export const getSearchControlFiltered: RequestHandler = async (req, res) => {
+    const { id_mother, child_name, init_date, end_date } = req.body;
+    let list_controls;
 
+    //se valida el id_mother ingresado
+    if ( !Types.ObjectId.isValid(id_mother) ){
+        return res.status(400).send({ success: false, data:{}, message:'Error: El id_mother ingresado no es válido.' });
+    }
+
+    //se valida que se ingresaron parámetros
+    if ( !child_name && !init_date && !end_date ) {
+        return res.status(400).send({ success: false, data:{}, message: 'ERROR: No se ingresaron parámetros para filtrar.' })
+    } else {
+        //se busca por end_date
+        if ( !child_name && !init_date && end_date) {
+            list_controls = await Control.find({ "id_mother": id_mother, "date_control":{"$lte": end_date }}).sort({date_control: -1});
+        } else {
+            //se busca por init_date
+            if ( !child_name && init_date && !end_date) {
+                list_controls = await Control.find({ "id_mother": id_mother, "date_control":{"$gte": init_date}}).sort({date_control: -1});
+            } else {
+                //se busca por child_name
+                if ( child_name && !init_date && !end_date ) {
+                    list_controls = await Control.find({ "child_name": child_name}).sort({date_control: -1});
+                } else {
+                    //se busca por child_name y end_date
+                    if ( child_name && !init_date && end_date ){
+                        list_controls = await Control.find({ "child_name": child_name, "date_control":{"$lte":end_date }}).sort({date_control: -1});
+                    } else {
+                        //se busca por child_name y init_date
+                        if ( child_name && init_date && !end_date ){
+                            list_controls = await Control.find({ "child_name": child_name, "date_control":{"$gte": init_date}}).sort({date_control: -1});
+                        } else {
+                            //se valida que init no sea mayor que end
+                            if ( init_date > end_date )
+                                return res.status(400).send({ success: true, data:{}, message: 'ERROR: las fechas son inválidas.'});
+                            
+                            //se busca por el rango de fechas solamente
+                            if ( !child_name && init_date && end_date ){
+                                list_controls = await Control.find({ "id_mother": id_mother, "date_control":{"$gte": init_date,"$lte":end_date }}).sort({date_control: -1});
+                            } else {
+                                //se busca con todos los filtros
+                                list_controls = await Control.find({ "child_name": child_name, "date_control":{"$gte": init_date,"$lte":end_date }}).sort({date_control: -1});
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    //se filtran los datos a retornar
+    const list_controls_filtered = list_controls.map( control => { return {
+        _id: control.id,  
+        child_name: control.child_name, 
+        consultation_place: control.consultation_place,
+        monitoring_medium: control.monitoring_medium,
+        date_control: control.date_control.toISOString().substring(0,10)
+       }});
+
+    return res.status(200).send({ success: true, data:{ list_controls_filtered }, message: 'Controles encontrados'} );
 }
 
 /**
@@ -265,9 +326,9 @@ export const getSeach: RequestHandler = async (req, res) => {
     const lastControl = await Control.findOne( { "id_mother": _id, "date_control": {"$lt": date}} ).sort({date_control: -1});
     const nextControl = await Control.findOne( { "id_mother": _id, "date_control": {"$gte": date}} ).sort({date_control: 1});
     
-    //se cambia el formato de la fecha por string yyyy/mm/dd
-    const last_control = DateToFormattedString(lastControl.date_control);
-    const next_control = DateToFormattedString(nextControl.date_control);
+    //se cambia el formato de la fecha por string yyyy-mm-dd
+    const last_control = lastControl.date_control.toISOString().substring(0,10);
+    const next_control = nextControl.date_control.toISOString().substring(0,10);
 
     return res.status(200).send({ success: true, data:{ "last_control": last_control, "next_control": next_control }, message: 'Se muestran el ultimo y proximo control exitosamente.' });
 }
@@ -278,7 +339,7 @@ export const getSeach: RequestHandler = async (req, res) => {
  * @param req Request de la petición, se espera que tenga el id del lactante
  * @param res Response, retorna un un object con success:true, data:{"string":Bool} con la fecha y un message: "String" de confirmacion
  */
- export const getQuantityControl: RequestHandler = async (req, res) => {
+ export const getFirstControl: RequestHandler = async (req, res) => {
     const id_child = req.params.idChild;
 
     //se valida el _id de la madre ingresada
@@ -303,20 +364,6 @@ export const getSeach: RequestHandler = async (req, res) => {
 }
 
 /**
- * Convierte un date_control de UTC a yyyy/mm/dd (string)
- * @param motherFound Madre extraida de la base de datos
- * @returns Object con los atributos de la madre a enviar al front
- */
-function DateToFormattedString(date:any) {         
-                                 
-    var yyyy = date.getFullYear().toString();                                    
-    var mm = (date.getMonth()+1).toString(); // getMonth() is zero-based         
-    var dd  = date.getDate().toString();             
-                         
-    return yyyy + '/' + (mm[1]?mm:"0"+mm[0]) + '/' + (dd[1]?dd:"0"+dd[0]);
-}  
-
-/**
  * Extrae los atributos publicos del control obtenido desde la base de datos
  * @param controlFound control extraido de la base de datos
  * @returns Object con los atributos del control a enviar al front
@@ -324,7 +371,7 @@ function DateToFormattedString(date:any) {
 function destructureControl ( controlFound: any ){
     const controlFiltered ={
         _id: controlFound._id,
-        date_control: DateToFormattedString(controlFound.date_control),
+        date_control: controlFound.date_control.toISOString().substring(0,10),
         child_name: controlFound.child_name,
         consultation_place: controlFound.consultation_place,
         monitoring_medium: controlFound.monitoring_medium,
