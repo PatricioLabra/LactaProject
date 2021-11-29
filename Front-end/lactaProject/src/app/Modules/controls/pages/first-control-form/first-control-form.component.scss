@@ -107,6 +107,24 @@ form{
     font-size: 3vh;
     color: white;
 }
+.title-image{
+    height: 100%;
+    max-width: 13vh;
+    min-height: 13vh;
+    background-image: url(../../../../../assets/control-form-1.png);
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
+.title-image2{
+    width: 100%;
+    float: right;
+    height: 100%;
+    max-width: 13vh;
+    min-height: 13vh;
+    background-image: url(../../../../../assets/control-form-1.png);
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
 // Number Styles
 .number-container{
     min-width: 20vh;

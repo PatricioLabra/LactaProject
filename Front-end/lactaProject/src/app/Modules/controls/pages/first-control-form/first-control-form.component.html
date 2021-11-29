@@ -3,8 +3,20 @@
         <div class="form-container">
             <form [formGroup]="form" (ngSubmit)="sendControlData()" autocomplete="off">
                 <!-- Titulo -->
-                <div class="title-container">
-                    <p class="title-text">Primera Cita</p>
+                <div class="title-row">
+                    <div class="row">
+                        <div class="col">
+                            <div class="title-image"></div>
+                        </div>
+                        <div class="col-6">
+                            <div class="title-container">
+                                <p class="title-text">Primera Cita</p>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="title-image2"></div>
+                        </div>
+                    </div>
                 </div>
                 <!-- Lugar de consulta -->
                 <div class="input-label-container"> 
