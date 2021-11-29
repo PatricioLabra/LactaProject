@@ -326,7 +326,7 @@ export const getSearchControlFiltered: RequestHandler = async (req, res) => {
     const lastControl = await Control.findOne( { "id_mother": _id, "date_control": {"$lt": date}} ).sort({date_control: -1});
     const nextControl = await Control.findOne( { "id_mother": _id, "date_control": {"$gte": date}} ).sort({date_control: 1});
     
-    //se cambia el formato de la fecha por string yyyy/mm/dd
+    //se cambia el formato de la fecha por string yyyy-mm-dd
     const last_control = lastControl.date_control.toISOString().substring(0,10);
     const next_control = nextControl.date_control.toISOString().substring(0,10);
 
