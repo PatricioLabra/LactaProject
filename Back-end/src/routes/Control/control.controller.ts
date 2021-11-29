@@ -248,31 +248,35 @@ export const getSearchControlFiltered: RequestHandler = async (req, res) => {
     if ( !child_name && !init_date && !end_date ) {
         return res.status(400).send({ success: false, data:{}, message: 'ERROR: No se ingresaron parámetros para filtrar.' })
     } else {
-        //se valida que end_date venga con valor
+        //se busca por end_date
         if ( !child_name && !init_date && end_date) {
             list_controls = await Control.find({ "id_mother": id_mother, "date_control":{"$lte": end_date }}).sort({date_control: -1});
         } else {
-            //se valida que init_date venga con valor
+            //se busca por init_date
             if ( !child_name && init_date && !end_date) {
                 list_controls = await Control.find({ "id_mother": id_mother, "date_control":{"$gte": init_date}}).sort({date_control: -1});
             } else {
-                //se valida que child_name venga con valor
+                //se busca por child_name
                 if ( child_name && !init_date && !end_date ) {
                     list_controls = await Control.find({ "child_name": child_name}).sort({date_control: -1});
                 } else {
-                    //se valida que child y end tengan valor
+                    //se busca por child_name y end_date
                     if ( child_name && !init_date && end_date ){
                         list_controls = await Control.find({ "child_name": child_name, "date_control":{"$lte":end_date }}).sort({date_control: -1});
                     } else {
-                        //se valida que child y init tengan valor
+                        //se busca por child_name y init_date
                         if ( child_name && init_date && !end_date ){
                             list_controls = await Control.find({ "child_name": child_name, "date_control":{"$gte": init_date}}).sort({date_control: -1});
                         } else {
-                            //se valida que init y end vengan con valor
-                            if ( !child_name && init_date && end_date){
+                            //se valida que init no sea mayor que end
+                            if ( init_date > end_date )
+                                return res.status(400).send({ success: true, data:{}, message: 'ERROR: las fechas son inválidas.'});
+                            
+                            //se busca por el rango de fechas solamente
+                            if ( !child_name && init_date && end_date ){
                                 list_controls = await Control.find({ "id_mother": id_mother, "date_control":{"$gte": init_date,"$lte":end_date }}).sort({date_control: -1});
                             } else {
-                                //todos vienen con un valor
+                                //se busca con todos los filtros
                                 list_controls = await Control.find({ "child_name": child_name, "date_control":{"$gte": init_date,"$lte":end_date }}).sort({date_control: -1});
                             }
                         }
@@ -291,7 +295,7 @@ export const getSearchControlFiltered: RequestHandler = async (req, res) => {
         date_control: control.date_control.toISOString().substring(0,10)
        }});
 
-    return res.status(200).send({ success: true, data:{ list_controls_filtered }, message: 'controles encontrados'} );
+    return res.status(200).send({ success: true, data:{ list_controls_filtered }, message: 'Controles encontrados'} );
 }
 
 /**
