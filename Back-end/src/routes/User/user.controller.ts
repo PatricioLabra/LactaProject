@@ -173,6 +173,36 @@ export const getUsers: RequestHandler = async (req, res) => {
 	});
 }
 
+/**
+ * Funcion que maneja la peticion de cambiar la password actual del usuario
+ * @route Put user/change/pass/:id
+ * @param req Request, el id del usuario a modificar la password
+ * @param res Response, returna true, el token del usuario y un mensaje de confirmacion
+ */
 export const changePass: RequestHandler = async (req, res) => {
+    const id = req.params.id;
+    const userFound = await User.findById(id);
+    const new_password = req.body.new_password;
 
+    //se valida el id
+    if ( !Types.ObjectId.isValid(id) ){
+         return res.status(400).send({ success: false, data:{}, message: 'Error: el id ingresado no es valido.' });
+    }
+
+    //Se valida si existe el usuario
+    if( !userFound ){
+        return res.status(404).send({ success: false, data:{}, message: 'Error: el usuario ingresado no existe en el sistema.' });
+    }
+
+    const correctPassword: boolean = await userFound.validatePassword(req.body.password);
+    if(!correctPassword) return res.status(400).send({ success: false, data:{}, message: 'Error: clave invalida.' });
+
+    userFound.password = await userFound.encrypPassword(new_password);
+
+    //Se realiza el cambio
+    await User.findByIdAndUpdate(req.params.id, userFound);
+
+    const token = signToken(req.params.id);
+
+    return res.status(200).send({ success: true, data:{ token    }, message: 'Se modifico la password correctamente.' });
 }

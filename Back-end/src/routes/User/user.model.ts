@@ -42,11 +42,21 @@ const userSchema = new Schema({
   timestamps: true
 });
 
+/**
+ * Funcion que se encarga de encriptar la password
+ * @param password contrasenha del usuario
+ * @returns la password del usuario encriptada
+ */
 userSchema.methods.encrypPassword = async (password: string): Promise<string> => {
   const salt = await bcrypt.genSalt(10);
   return bcrypt.hash(password, salt);
 };
 
+/**
+ * Compara la password ingresada por el usuario y la valida
+ * @param password password del usuario
+ * @returns devuelve un true/false de la comparacion entre passwords
+ */
 userSchema.methods.validatePassword = async function (password: string): Promise<boolean> {
     return await bcrypt.compare(password, this.password);
 };

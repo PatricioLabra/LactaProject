@@ -25,6 +25,6 @@ router.get('/user/pass/:rut', userCtrl.getPass);
 router.get('/user', userCtrl.getUsers);
 
 //Cambiar password
-router.put('/user/pass/:id', userCtrl.changePass);
+router.put('/user/change/pass/:id', userCtrl.changePass);
 
 export default router;
