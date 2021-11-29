@@ -23,7 +23,6 @@ const graphicSchema = new Schema({
 },{
     versionKey: false,
     timestamps: true
-
 });
 
 export default model('Graphic', graphicSchema);
