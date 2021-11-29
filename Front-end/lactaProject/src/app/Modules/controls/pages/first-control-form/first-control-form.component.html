@@ -1,4 +1,9 @@
 <body>
+    <div class="top-bar">
+        <a (click)="goToMotherView()" mdbBtn color="" class="backButton" mdbWavesEffect>
+            <i class="fas fa-long-arrow-alt-left"></i>
+        </a>
+    </div>
     <div class="container">
         <div class="form-container">
             <form [formGroup]="form" (ngSubmit)="sendControlData()" autocomplete="off">

@@ -1,5 +1,9 @@
 <body>
-    <a [href]="'/asesoradas/profile/' + motherId">Volver</a>
+    <div class="top-bar">
+        <a (click)="goToMotherProfile(motherId)" mdbBtn color="" class="backButton" mdbWavesEffect>
+            <i class="fas fa-long-arrow-alt-left"></i>
+        </a>
+    </div>
     <div class="container">
         <div class="form-container">
             <form [formGroup]="form" (ngSubmit)="sendChildData()" autocomplete="off">
