@@ -1,6 +1,6 @@
 import { RequestHandler } from "express";
 import { createHmac } from "crypto";
-import User from './user.model';
+import User, { IUser } from './user.model';
 import { signToken } from "../jwt";
 import { Types } from "mongoose";
 
@@ -25,11 +25,20 @@ export const signUp: RequestHandler = async (req, res) => {
         return res.status(301).send({ success: false, data:{}, message: 'Error: el usuario ingresado ya existe en el sistema.' });
     }
 
-    //Se guarda
-    const newUser = new User(req.body);
-    await newUser.save();
+    // Saving a new User
 
-    const token = signToken(newUser._id);
+    const newUser: IUser = new User({
+        name: req.body.name,
+        rut: req.body.rut,
+        password: req.body.password,
+        mail: req.body.mail,
+        permission_level: req.body.permission_level
+    });
+    
+    newUser.password = await newUser.encrypPassword(newUser.password);
+    const savedUser = await newUser.save();
+
+    const token = signToken(savedUser._id);
 
     return res.status(201).send({ success: true, data: { token }, message: 'Se ha creado correctamente el nuevo usuario.' });
 }
@@ -121,20 +130,17 @@ export const deleteUser: RequestHandler = async (req, res) => {
  * @param res Response, returna true, el token del usuario y un mensaje de confirmacion
  */
 export const signIn: RequestHandler = async (req, res) => {
-    const { rut, password } = req.body;
-    const user = await User.findOne({ rut });
-    
+    const userFound = await User.findOne({ rut: req.body.rut });
+
     //Se valida si existe el usuario
-    if( !user ){
+    if( !userFound ){
         return res.status(404).send({ success: false, data:{}, message: 'Error: el usuario ingresado no existe en el sistema.' });
     }
 
-    //Se comparan las password
-    if ( user.password !== password ){
-        return res.status(400).send({ success:false, data:{}, message: 'Error: la password ingresada no es válida.' });
-    }
+    const correctPassword: boolean = await userFound.validatePassword(req.body.password);
+    if(!correctPassword) return res.status(400).send({ success: false, data:{}, message: 'Error: clave invalida.' });
 
-    const token = signToken(user._id);
+    const token = signToken(userFound._id);
 
     return res.status(200).send({ success: true, data:{ token }, message: 'Se ingreso correctamente.' });
 }
@@ -167,6 +173,36 @@ export const getUsers: RequestHandler = async (req, res) => {
 	});
 }
 
+/**
+ * Funcion que maneja la peticion de cambiar la password actual del usuario
+ * @route Put user/change/pass/:id
+ * @param req Request, el id del usuario a modificar la password
+ * @param res Response, returna true, el token del usuario y un mensaje de confirmacion
+ */
 export const changePass: RequestHandler = async (req, res) => {
+    const id = req.params.id;
+    const userFound = await User.findById(id);
+    const new_password = req.body.new_password;
 
+    //se valida el id
+    if ( !Types.ObjectId.isValid(id) ){
+         return res.status(400).send({ success: false, data:{}, message: 'Error: el id ingresado no es valido.' });
+    }
+
+    //Se valida si existe el usuario
+    if( !userFound ){
+        return res.status(404).send({ success: false, data:{}, message: 'Error: el usuario ingresado no existe en el sistema.' });
+    }
+
+    const correctPassword: boolean = await userFound.validatePassword(req.body.password);
+    if(!correctPassword) return res.status(400).send({ success: false, data:{}, message: 'Error: clave invalida.' });
+
+    userFound.password = await userFound.encrypPassword(new_password);
+
+    //Se realiza el cambio
+    await User.findByIdAndUpdate(req.params.id, userFound);
+
+    const token = signToken(req.params.id);
+
+    return res.status(200).send({ success: true, data:{ token    }, message: 'Se modifico la password correctamente.' });
 }
