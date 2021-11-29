@@ -151,7 +151,7 @@ export const getResumeChild: RequestHandler = async (req, res) => {
     }
 
     const listChilds = await Child.find({ id_mother: _idMother });
-    const childsFiltered = listChilds.map(child => { return { _id: child.id, name: child.name, birth: child.birth_data.birthday }});
+    const childsFiltered = listChilds.map(child => { return { _id: child.id, name: child.name, birth: child.birth_data.birthday.toISOString().substring(0,10) }});
 
     return res.status(200).send({ success: true, data: { childsFiltered }, message: 'Lista de los lactactes solicitados.'});
 }
@@ -197,7 +197,7 @@ function destructureChild( childFound: any ){
         _id: childFound._id,
         name: childFound.name,
         gestacion_data: childFound.gestacion_data,
-        birth_data: childFound.birth_data
+        birth_data: childFound.birth_data.toISOString().substring(0,10)
     };
 
     return childFiltered;
