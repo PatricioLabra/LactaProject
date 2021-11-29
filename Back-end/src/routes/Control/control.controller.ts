@@ -142,8 +142,6 @@ export const getNextControls: RequestHandler = async (req, res) => {
     //se setea la hora 
     dateInitializer(date);
 
-    const dateFormat = DateToFormattedString(date);
-
     //se obtiene la lista de controles proximos, ordenados del más reciente al último
     const nextControls = await Control.find( { "id_mother": idMother, "date_control": {"$gte": date}} ).sort({date_control: 1}); 
 
@@ -292,7 +290,7 @@ export const getSearchControlFiltered: RequestHandler = async (req, res) => {
         id_mother: control.id_mother,
         id_child: control.id_child,
         child_name: control.child_name,
-        date_control: control.date_control
+        date_control: DateToFormattedString(control.date_control)
        }});
 
     return res.status(200).send({ success: true, data:{ list_controls_filtered }, message: 'controles encontrados'} );
@@ -339,7 +337,7 @@ export const getSearchControlFiltered: RequestHandler = async (req, res) => {
  * @param req Request de la petición, se espera que tenga el id del lactante
  * @param res Response, retorna un un object con success:true, data:{"string":Bool} con la fecha y un message: "String" de confirmacion
  */
- export const getQuantityControl: RequestHandler = async (req, res) => {
+ export const getFirstControl: RequestHandler = async (req, res) => {
     const id_child = req.params.idChild;
 
     //se valida el _id de la madre ingresada
@@ -364,7 +362,7 @@ export const getSearchControlFiltered: RequestHandler = async (req, res) => {
 }
 
 /**
- * Convierte un date_control de UTC a yyyy/mm/dd (string)
+ * Convierte un date_control de UTC a yyyy-mm-dd (string)
  * @param motherFound Madre extraida de la base de datos
  * @returns Object con los atributos de la madre a enviar al front
  */
@@ -374,7 +372,7 @@ function DateToFormattedString(date:any) {
     var mm = (date.getMonth()+1).toString(); // getMonth() is zero-based         
     var dd  = date.getDate().toString();             
                          
-    return yyyy + '/' + (mm[1]?mm:"0"+mm[0]) + '/' + (dd[1]?dd:"0"+dd[0]);
+    return yyyy + '-' + (mm[1]?mm:"0"+mm[0]) + '-' + (dd[1]?dd:"0"+dd[0]);
 }  
 
 /**

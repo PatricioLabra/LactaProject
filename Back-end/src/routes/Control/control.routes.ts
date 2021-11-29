@@ -28,6 +28,6 @@ router.get('/controlsFiltered', controlCtrl.getSearchControlFiltered);
 router.get('/control/lastAndNext/:idMother', controlCtrl.getLastAndNextControl);
 
 //Obtener cantidad controles de 1 lactante
-router.get('/control/quantity/:idChild',controlCtrl.getQuantityControl);
+router.get('/control/quantity/:idChild',controlCtrl.getFirstControl);
 
 export default router;
