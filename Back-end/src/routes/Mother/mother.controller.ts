@@ -3,6 +3,7 @@ import Mother from './mother.model';
 import { Types } from "mongoose";
 import Child from '../Child/child.model';
 import Control from '../Control/control.model';
+import Graphic from "../Graphic/graphic.model";
 
 
 /**
@@ -37,7 +38,12 @@ export const newMother: RequestHandler = async (req, res) => {
 
     //se almacena la madre en el sistema
     const motherSaved = new Mother(newMother);
-    await motherSaved.save();
+
+    //se almacenan los datos a graficar de la madre en el sistema
+    addMotherGraphic(motherSaved);
+
+    //se almacena la madre
+    /*await motherSaved.save();*/
 
     return res.status(201).send({ success: true, data: { _id: motherSaved._id }, message: 'Madre agregada con éxito al sistema.' });
 }
@@ -171,3 +177,54 @@ function destructureMother(motherFound: any) {
 
     return motherFiltered;
 }
+
+function addMotherGraphic( motherSaved: any ) {
+    addDataMotherGraphic("commune",motherSaved.commune);
+    addDataMotherGraphic("birth", motherSaved.birth);
+    addDataMotherGraphic("studies", motherSaved.studies);
+    addDataMotherGraphic("marital_status", motherSaved.marital_status);
+    addDataMotherGraphic("forecast", motherSaved.forecast);
+    //addDataMotherGraphic("chronic_diseases", motherSaved.chronic_diseases);
+    addDataMotherGraphic("number_of_living_children", motherSaved.number_of_living_children);
+}
+
+async function addDataMotherGraphic( name_data:any , name:any , ){
+
+    const query = {"name_data": name_data};
+
+    //se obtiene el dato desde la collection
+    let dataFound = await Graphic.findOne(query);
+
+    //si no existe
+    if( !dataFound ){
+        let options:any = [];
+
+        if (Array.isArray(name)){
+            for (let i = 0; i < name.length; i++){
+                options[i] = {"name": name[i], "value": 1};
+            } 
+
+        }else{
+            options[0] = {"name": name, "value": 1};
+        }
+  
+        //se crea
+        const newData = {
+            "name_data": query.name_data,
+            "options": options
+        }
+
+       ///se guarda en la bd
+        const dataSaved = new Graphic(newData);
+        await dataSaved.save();
+
+    //si existe
+    } else {
+        //se busca la opción en el arreglo
+        console.log(name);
+        //const option = dataFound.options.find( (element: { name: any; }) => element.name == name);
+        
+  
+    }
+}
+
