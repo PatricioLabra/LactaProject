@@ -189,5 +189,9 @@ function addMotherGraphic( motherSaved: any ) {
     addDataGraphic("marital_status", motherSaved.marital_status);
     addDataGraphic("forecast", motherSaved.forecast);
     addDataGraphic("number_of_living_children", motherSaved.number_of_living_children.toString());
-    addDataGraphic("chronic_diseases", motherSaved.chronic_diseases);
+
+    //se valida que el arreglo no venga vacío
+    if ( motherSaved.chronic_diseases.length > 0 ){
+        addDataGraphic("chronic_diseases", motherSaved.chronic_diseases);
+    }
 }
