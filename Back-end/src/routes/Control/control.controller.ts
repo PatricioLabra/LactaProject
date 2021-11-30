@@ -257,11 +257,11 @@ export const getSearchControlFiltered: RequestHandler = async (req, res) => {
             if ( !child_name && init_date && !end_date) {
                 list_controls = await Control.find({ "id_mother": id_mother, "date_control":{"$gte": init_date}}).sort({date_control: -1});
             } else {
-                //se busca por child_name
+                //se busca por child_name y la fecha actual
                 if ( child_name && !init_date && !end_date ) {
                     const date_now = new Date();
                     dateInitializer(date_now);
-                    list_controls = await Control.find({ "child_name": child_name, "date_control":{"$lte":date_now }}).sort({date_control: -1});
+                    list_controls = await Control.find({ "child_name": child_name, "date_control":{"$lt":date_now }}).sort({date_control: -1});
                 } else {
                     //se busca por child_name y end_date
                     if ( child_name && !init_date && end_date ){
