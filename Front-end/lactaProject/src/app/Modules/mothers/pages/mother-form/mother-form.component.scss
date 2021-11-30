@@ -4,7 +4,7 @@
 body{
     background-image: none;
     width: 100%;
-    min-height: 130vh;
+    min-width: 320px;
     background-color: $pink;
 }
 
@@ -32,8 +32,8 @@ form{
     margin-top: 2vh;
     margin-bottom: 10vh;
     width: 60%;
-    min-width: 450px;
-    padding: 50px 50px;
+    min-width: 300px;
+    padding: 5% 5%;
     border-radius: 10px;
     display: flex;
     flex-wrap: wrap;
@@ -42,7 +42,7 @@ form{
 
 .form-container{
     width: 100%;
-    min-width: 300px;
+    min-width: 260px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -104,22 +104,41 @@ form{
     font-size: 3vh;
     color: white;
 }
+.title-image{
+    height: 100%;
+    max-width: 13vh;
+    min-height: 13vh;
+    background-image: url(../../../../../assets/mother-form-1.png);
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
+.title-image2{
+    width: 100%;
+    float: right;
+    height: 100%;
+    max-width: 13vh;
+    min-height: 13vh;
+    background-image: url(../../../../../assets/mother-form-1.png);
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
 // Name Styles
 .name-container{
     width: 60%;
-    min-width: 300px;
+    min-width: 240px;
 }
 // Rut Styles
 .full-rut-container{
     width: 60%;
-    min-width: 300px;
+    min-width: 240px;
     display: flex;
 }
 .rut-container{
-    min-width: 230px;
+    min-width: 130px;
 }
 .rut-vc-container{
-    min-width: 20px;
+    width: 10vh;
+    min-width: 5vh;
 }
 .guion-container{
     margin: 0px 3px 0px 3px;

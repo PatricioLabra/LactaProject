@@ -2,13 +2,11 @@
 @import "/src/styles/palette.scss";
 
 body{
+    min-width: 320px;
     background-image: none;
     width: 100%;
     min-height: 100vh;
     background-color: $pink;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 form{
@@ -20,12 +18,24 @@ form{
     padding-left: 10px;
 }
 
+.top-bar{
+    width: 100%;
+    .backButton{
+        width: 77px;
+        height: 39px;
+        background:white;
+        color: grey;
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        border-radius: 30px;
+    }
+}
+
 .container{
     margin-top: 10vh;
     margin-bottom: 10vh;
     width: 80%;
-    min-width: 450px;
-    padding: 50px 50px;
+    min-width: 300px;
+    padding: 5% 5%;
     border-radius: 10px;
     display: flex;
     flex-wrap: wrap;
@@ -34,7 +44,7 @@ form{
 
 .form-container{
     width: 100%;
-    min-width: 300px;
+    min-width: 260px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -81,10 +91,11 @@ form{
     align-items: center;
     justify-content: center;
     background-color: white;
-    height: 30px;
+    min-height: 30px;
     color: black;
     border-radius: 20px;
     border: white;
+    min-width: fit-content;
     .form-check-label{
         padding-right: 20px;
     }
@@ -105,6 +116,24 @@ form{
     font-family: 'Quicksand', sans-serif;
     font-size: 3vh;
     color: white;
+}
+.title-image{
+    height: 100%;
+    max-width: 13vh;
+    min-height: 13vh;
+    background-image: url(../../../../../assets/control-form-1.png);
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
+.title-image2{
+    width: 100%;
+    float: right;
+    height: 100%;
+    max-width: 13vh;
+    min-height: 13vh;
+    background-image: url(../../../../../assets/control-form-1.png);
+    background-size: 100%;
+    background-repeat: no-repeat;
 }
 // Number Styles
 .number-container{

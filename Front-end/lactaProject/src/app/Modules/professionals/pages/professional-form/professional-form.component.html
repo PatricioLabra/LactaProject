@@ -1,14 +1,32 @@
 <body>
+    <div class="top-bar">
+        <a href="profesionales" mdbBtn color="" class="backButton" mdbWavesEffect>
+            <i class="fas fa-long-arrow-alt-left"></i>
+        </a>
+    </div>
     <div class="container">
         <div class="form-container">
             <form [formGroup]="form" (ngSubmit)="sendProfessionalData()" autocomplete="off">
                 <!-- Titulo -->
-                <div class="title-container" *ngIf="id == '0'">
-                    <p class="title-text">Formulario Ingreso de Profesional</p>
+                <div class="title-row">
+                    <div class="row">
+                        <div class="col">
+                            <div class="title-image"></div>
+                        </div>
+                        <div class="col-6">
+                            <div class="title-container" *ngIf="id == '0'">
+                                <p class="title-text">Formulario Ingreso de Profesional</p>
+                            </div>
+                            <div class="title-container" *ngIf="id != '0'">
+                                <p class="title-text">Editar Profesional</p>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="title-image2"></div>
+                        </div>
+                    </div>
                 </div>
-                <div class="title-container" *ngIf="id != '0'">
-                    <p class="title-text">Editar Profesional</p>
-                </div>
+
                 <!-- Nombre -->
                 <div class="input-label-container"> 
                     <label class="label-text">Nombre:</label>
