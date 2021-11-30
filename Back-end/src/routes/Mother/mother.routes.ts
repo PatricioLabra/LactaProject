@@ -18,4 +18,4 @@ router.get('/mother/:id', motherCtrl.getDetailedMother);
 //obtener todas las asesoradas
 router.get('/mother', motherCtrl.getMothers);
 
-export default router
+export default router;
