@@ -13,7 +13,7 @@ const graphicSchema = new Schema({
                 type: String,
                 trim: true
             }, 
-            quantity: {
+            value: {
                 required: true,
                 type: Number,
                 trim: true
