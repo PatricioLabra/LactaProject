@@ -4,7 +4,7 @@ import userRoutes from './User/user.routes'
 import childRoutes from './Child/child.routes';
 import controlRoutes from './Control/control.routes';
 import motherRoutes from './Mother/mother.routes';
-import graficRoutes from './Graphic/graphic.routes';
+import graphicRoutes from './Graphic/graphic.routes';
 
 const router = Router();
 
