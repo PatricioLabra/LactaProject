@@ -43,7 +43,7 @@ export const newMother: RequestHandler = async (req, res) => {
     addMotherGraphic(motherSaved);
 
     //se almacena la madre
-    /*await motherSaved.save();*/
+    await motherSaved.save();
 
     return res.status(201).send({ success: true, data: { _id: motherSaved._id }, message: 'Madre agregada con éxito al sistema.' });
 }
