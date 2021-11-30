@@ -180,15 +180,15 @@ function destructureMother(motherFound: any) {
 
 function addMotherGraphic( motherSaved: any ) {
     addDataMotherGraphic("commune",motherSaved.commune);
-    addDataMotherGraphic("birth", motherSaved.birth);
+    addDataMotherGraphic("birth", motherSaved.birth.toISOString().substring(0,10));
     addDataMotherGraphic("studies", motherSaved.studies);
     addDataMotherGraphic("marital_status", motherSaved.marital_status);
     addDataMotherGraphic("forecast", motherSaved.forecast);
-    //addDataMotherGraphic("chronic_diseases", motherSaved.chronic_diseases);
-    addDataMotherGraphic("number_of_living_children", motherSaved.number_of_living_children);
+    addDataMotherGraphic("number_of_living_children", motherSaved.number_of_living_children.toString());
+    addDataMotherGraphic("chronic_diseases", motherSaved.chronic_diseases);
 }
 
-async function addDataMotherGraphic( name_data:any , name:any , ){
+async function addDataMotherGraphic( name_data:any , name: string  ){
 
     const query = {"name_data": name_data};
 
@@ -207,7 +207,7 @@ async function addDataMotherGraphic( name_data:any , name:any , ){
         }else{
             options[0] = {"name": name, "value": 1};
         }
-  
+
         //se crea
         const newData = {
             "name_data": query.name_data,
@@ -218,13 +218,51 @@ async function addDataMotherGraphic( name_data:any , name:any , ){
         const dataSaved = new Graphic(newData);
         await dataSaved.save();
 
+
     //si existe
     } else {
-        //se busca la opción en el arreglo
-        console.log(name);
-        //const option = dataFound.options.find( (element: { name: any; }) => element.name == name);
+        let option;
         
-  
+        //trabajamos con múltiples options
+        if ( Array.isArray(name) ){
+            for ( let i = 0; i < name.length; i++ ){
+                option = dataFound.options.find((object: { name: string; }) => object.name === name[i]);
+
+                insertDataInOptions(option,name[i],dataFound);
+            } 
+
+        //se trabaja con 1 solo option
+        }else{
+            option = dataFound.options.find((object: { name: string; }) => object.name === name);
+            
+            insertDataInOptions(option,name,dataFound);
+        }
+    }
+}
+
+
+async function insertDataInOptions( option: any, name: string, dataFound: any ) {
+    //si el dato está, se le suma 1 al value
+    if ( option ){
+        var position: number = dataFound.options.findIndex((object: { name: string; }) => object.name === name);
+
+        console.log(name, position)
+        //se edita el value
+        dataFound.options[position].value = dataFound.options[position].value + 1;
+
+        //se actualiza en la BD
+        await Graphic.findByIdAndUpdate(dataFound._id, dataFound);
+    
+    //si no existe
+    } else {
+        //se crea
+        const newOption = {"name": name, "value": 1}
+        
+        //se inserta en el arreglo
+        dataFound.options.push(newOption);
+
+        //se actualiza en la BD
+        await Graphic.findByIdAndUpdate(dataFound._id, dataFound);
     }
 }
 
