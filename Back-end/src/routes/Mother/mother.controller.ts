@@ -3,6 +3,7 @@ import Mother from './mother.model';
 import { Types } from "mongoose";
 import Child from '../Child/child.model';
 import Control from '../Control/control.model';
+import { addDataGraphic } from "../Graphic/generate.graphics";
 
 
 /**
@@ -37,6 +38,11 @@ export const newMother: RequestHandler = async (req, res) => {
 
     //se almacena la madre en el sistema
     const motherSaved = new Mother(newMother);
+
+    //se almacenan los datos a graficar de la madre en el sistema
+    addMotherGraphic(motherSaved);
+
+    //se almacena la madre
     await motherSaved.save();
 
     return res.status(201).send({ success: true, data: { _id: motherSaved._id }, message: 'Madre agregada con éxito al sistema.' });
@@ -170,4 +176,22 @@ function destructureMother(motherFound: any) {
     };
 
     return motherFiltered;
+}
+
+/**
+ * Esta encargada de mantener un llamado a la función auxiliar de todos los datos a almacenar en la colección Graphics
+ * @param motherSaved Madre con todos los datos a guardar en la BD
+ */
+function addMotherGraphic( motherSaved: any ) {
+    addDataGraphic("commune",motherSaved.commune);
+    addDataGraphic("birth", motherSaved.birth.toISOString().substring(0,10));
+    addDataGraphic("studies", motherSaved.studies);
+    addDataGraphic("marital_status", motherSaved.marital_status);
+    addDataGraphic("forecast", motherSaved.forecast);
+    addDataGraphic("number_of_living_children", motherSaved.number_of_living_children.toString());
+
+    //se valida que el arreglo no venga vacío
+    if ( motherSaved.chronic_diseases.length > 0 ){
+        addDataGraphic("chronic_diseases", motherSaved.chronic_diseases);
+    }
 }
