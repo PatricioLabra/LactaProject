@@ -91,3 +91,11 @@ async function insertDataInOptions( option: any, name: string, dataFound: any ) 
         await Graphic.findByIdAndUpdate(dataFound._id, dataFound);
     }
 }
+
+export async function deleteDataGraphic( name_data:any , name: string  ){
+
+}
+
+async function deleteDataInOptions( option: any, name: string, dataFound: any ) {
+    
+}
