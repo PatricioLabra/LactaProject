@@ -3,7 +3,7 @@ import Mother from './mother.model';
 import { Types } from "mongoose";
 import Child from '../Child/child.model';
 import Control from '../Control/control.model';
-import Graphic from "../Graphic/graphic.model";
+import { addDataGraphic } from "../Graphic/generate.graphics";
 
 
 /**
@@ -183,104 +183,11 @@ function destructureMother(motherFound: any) {
  * @param motherSaved Madre con todos los datos a guardar en la BD
  */
 function addMotherGraphic( motherSaved: any ) {
-    addDataMotherGraphic("commune",motherSaved.commune);
-    addDataMotherGraphic("birth", motherSaved.birth.toISOString().substring(0,10));
-    addDataMotherGraphic("studies", motherSaved.studies);
-    addDataMotherGraphic("marital_status", motherSaved.marital_status);
-    addDataMotherGraphic("forecast", motherSaved.forecast);
-    addDataMotherGraphic("number_of_living_children", motherSaved.number_of_living_children.toString());
-    addDataMotherGraphic("chronic_diseases", motherSaved.chronic_diseases);
-}
-
-/**
- * Encargada de verificar si existe algun dato guardado anteriormente en la colección Graphics.
- * Si no encuentrta un dato, lo crea y lo inicializa con value = 1
- * Si encuentra un dato, busca las opciones que coincidan. Si hay coincidencias, el value aumenta en 1. En caso contrario, 
- * crea la nueva option y la inserta en el array de options, iniciandola en value = 1.
- * Esta función se apoya de la función auxiliar "insertDataInOptions"
- * @param name_data Nombre del dato a almacenar en la colección.
- * @param name Nombre de las Options, este puede ser un 1 string o un array de strings.
- */
-async function addDataMotherGraphic( name_data:any , name: string  ){
-
-    const query = {"name_data": name_data};
-
-    //se obtiene el dato desde la collection
-    let dataFound = await Graphic.findOne(query);
-
-    //si no existe
-    if( !dataFound ){
-        let options:any = [];
-
-        if (Array.isArray(name)){
-            for (let i = 0; i < name.length; i++){
-                options[i] = {"name": name[i], "value": 1};
-            } 
-
-        }else{
-            options[0] = {"name": name, "value": 1};
-        }
-
-        //se crea
-        const newData = {
-            "name_data": query.name_data,
-            "options": options
-        }
-
-       ///se guarda en la bd
-        const dataSaved = new Graphic(newData);
-        await dataSaved.save();
-
-
-    //si existe
-    } else {
-        let option;
-        
-        //trabajamos con múltiples options
-        if ( Array.isArray(name) ){
-            for ( let i = 0; i < name.length; i++ ){
-                option = dataFound.options.find((object: { name: string; }) => object.name === name[i]);
-
-                insertDataInOptions(option,name[i],dataFound);
-            } 
-
-        //se trabaja con 1 solo option
-        }else{
-            option = dataFound.options.find((object: { name: string; }) => object.name === name);
-            
-            insertDataInOptions(option,name,dataFound);
-        }
-    }
-}
-
-/**
- * Función auxiliar que apoya a "addDataMotherGraphic". Se encarga de aumentar el value cuando la option 
- * ya exista en la base de datos. En caso contrario, se encarga de crear una nueva y inicializarla en value = 1.
- * @param option variable option a aumentarle el value.
- * @param name Nombre de 1 option.
- * @param dataFound dato actual a editar obtenido desde la BD, el cual se planea reeingresar a la BD ya actualizado.
- */
-async function insertDataInOptions( option: any, name: string, dataFound: any ) {
-    //si el dato está, se le suma 1 al value
-    if ( option ){
-        var position: number = dataFound.options.findIndex((object: { name: string; }) => object.name === name);
-
-        console.log(name, position)
-        //se edita el value
-        dataFound.options[position].value = dataFound.options[position].value + 1;
-
-        //se actualiza en la BD
-        await Graphic.findByIdAndUpdate(dataFound._id, dataFound);
-    
-    //si no existe
-    } else {
-        //se crea
-        const newOption = {"name": name, "value": 1}
-        
-        //se inserta en el arreglo
-        dataFound.options.push(newOption);
-
-        //se actualiza en la BD
-        await Graphic.findByIdAndUpdate(dataFound._id, dataFound);
-    }
+    addDataGraphic("commune",motherSaved.commune);
+    addDataGraphic("birth", motherSaved.birth.toISOString().substring(0,10));
+    addDataGraphic("studies", motherSaved.studies);
+    addDataGraphic("marital_status", motherSaved.marital_status);
+    addDataGraphic("forecast", motherSaved.forecast);
+    addDataGraphic("number_of_living_children", motherSaved.number_of_living_children.toString());
+    addDataGraphic("chronic_diseases", motherSaved.chronic_diseases);
 }
