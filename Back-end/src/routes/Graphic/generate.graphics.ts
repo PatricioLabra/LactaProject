@@ -2,7 +2,7 @@ import Graphic from "./graphic.model";
 
 /**
  * Encargada de verificar si existe algun dato guardado anteriormente en la colección Graphics.
- * Si no encuentrta un dato, lo crea y lo inicializa con value = 1
+ * Si no encuentra un dato, lo crea y lo inicializa con value = 1
  * Si encuentra un dato, busca las opciones que coincidan. Si hay coincidencias, el value aumenta en 1. En caso contrario, 
  * crea la nueva option y la inserta en el array de options, iniciandola en value = 1.
  * Esta función se apoya de la función auxiliar "insertDataInOptions"
@@ -62,7 +62,7 @@ import Graphic from "./graphic.model";
 }
 
 /**
- * Función auxiliar que apoya a "addDataMotherGraphic". Se encarga de aumentar el value cuando la option 
+ * Función auxiliar que apoya a "addDataGraphic". Se encarga de aumentar el value cuando la option 
  * ya exista en la base de datos. En caso contrario, se encarga de crear una nueva y inicializarla en value = 1.
  * @param option variable option a aumentarle el value.
  * @param name Nombre de 1 option.
