@@ -178,6 +178,10 @@ function destructureMother(motherFound: any) {
     return motherFiltered;
 }
 
+/**
+ * Esta encargada de mantener un llamado a la función auxiliar de todos los datos a almacenar en la colección Graphics
+ * @param motherSaved Madre con todos los datos a guardar en la BD
+ */
 function addMotherGraphic( motherSaved: any ) {
     addDataMotherGraphic("commune",motherSaved.commune);
     addDataMotherGraphic("birth", motherSaved.birth.toISOString().substring(0,10));
@@ -188,6 +192,15 @@ function addMotherGraphic( motherSaved: any ) {
     addDataMotherGraphic("chronic_diseases", motherSaved.chronic_diseases);
 }
 
+/**
+ * Encargada de verificar si existe algun dato guardado anteriormente en la colección Graphics.
+ * Si no encuentrta un dato, lo crea y lo inicializa con value = 1
+ * Si encuentra un dato, busca las opciones que coincidan. Si hay coincidencias, el value aumenta en 1. En caso contrario, 
+ * crea la nueva option y la inserta en el array de options, iniciandola en value = 1.
+ * Esta función se apoya de la función auxiliar "insertDataInOptions"
+ * @param name_data Nombre del dato a almacenar en la colección.
+ * @param name Nombre de las Options, este puede ser un 1 string o un array de strings.
+ */
 async function addDataMotherGraphic( name_data:any , name: string  ){
 
     const query = {"name_data": name_data};
@@ -240,7 +253,13 @@ async function addDataMotherGraphic( name_data:any , name: string  ){
     }
 }
 
-
+/**
+ * Función auxiliar que apoya a "addDataMotherGraphic". Se encarga de aumentar el value cuando la option 
+ * ya exista en la base de datos. En caso contrario, se encarga de crear una nueva y inicializarla en value = 1.
+ * @param option variable option a aumentarle el value.
+ * @param name Nombre de 1 option.
+ * @param dataFound dato actual a editar obtenido desde la BD, el cual se planea reeingresar a la BD ya actualizado.
+ */
 async function insertDataInOptions( option: any, name: string, dataFound: any ) {
     //si el dato está, se le suma 1 al value
     if ( option ){
@@ -265,4 +284,3 @@ async function insertDataInOptions( option: any, name: string, dataFound: any ) 
         await Graphic.findByIdAndUpdate(dataFound._id, dataFound);
     }
 }
-
