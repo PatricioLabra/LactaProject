@@ -7,7 +7,7 @@ import Graphic from "./graphic.model";
  * crea la nueva option y la inserta en el array de options, iniciandola en value = 1.
  * Esta función se apoya de la función auxiliar "insertDataInOptions"
  * @param name_data Nombre del dato a almacenar en la colección.
- * @param name Nombre de las Options, este puede ser un 1 string o un array de strings.
+ * @param name Nombre de las Options, este puede ser un string o un array de strings.
  */
  export async function addDataGraphic( name_data:any , name: string  ){
 
