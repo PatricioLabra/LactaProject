@@ -193,12 +193,28 @@ export const getChild: RequestHandler = async (req, res) => {
  * @returns Object con los atributos del control a enviar al front
  */
 function destructureChild( childFound: any ){
+    console.log(childFound);
     const childFiltered ={
         _id: childFound._id,
         name: childFound.name,
         gestacion_data: childFound.gestacion_data,
-        birth_data: childFound.birth_data.toISOString().substring(0,10)
+        birth_data: {
+            birthplace: childFound.birth_data.birthplace,
+            type_of_birth: childFound.birth_data.type_of_birth,
+            birthday: childFound.birth_data.birthday.toISOString().substring(0,10),
+            gestional_age: childFound.birth_data.gestional_age,
+            gender: childFound.birth_data.gender,
+            birth_weight: childFound.birth_data.birth_weight,
+            skin_to_skin_contact: childFound.birth_data.skin_to_skin_contact,
+            breastfeeding_b4_2hours: childFound.birth_data.breastfeeding_b4_2hours,
+            has_suplement: childFound.birth_data.has_suplement,
+            why_recived_suplement: childFound.birth_data.why_recived_suplement,
+            joint_accommodation: childFound.birth_data.joint_accommodation,
+            use_of_pacifier: childFound.birth_data.use_of_pacifier,
+            post_discharge_feeding: childFound.birth_data.post_discharge_feeding,
+            last_weight_control: childFound.birth_data.last_weight_control
+        }
     };
-
+    console.log(childFiltered);
     return childFiltered;
 }
