@@ -1,5 +1,6 @@
 import {Router} from 'express';
 import * as motherCtrl from './mother.controller';
+import { verifyToken } from '../jwt';
 
 const router = Router();
 

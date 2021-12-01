@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import * as userCtrl from './user.controller';
+import { verifyToken } from '../jwt';
 
 const router = Router();
 

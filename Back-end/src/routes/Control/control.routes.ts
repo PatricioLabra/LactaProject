@@ -1,5 +1,6 @@
 import {Router} from 'express';
 import * as controlCtrl from './control.controller';
+import { verifyToken } from '../jwt';
 
 const router = Router();
 
