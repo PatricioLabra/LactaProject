@@ -17,7 +17,6 @@ import { typeUser } from '@interfaces/user';
 export class ApiSendService extends ApiClass {
 
   private isLoggedIn = new BehaviorSubject<boolean>(false);
-  private user = new BehaviorSubject<string>('');
   private helper = new JwtHelperService();
 
   constructor(http: HttpClient) {
@@ -139,21 +138,20 @@ export class ApiSendService extends ApiClass {
    * @param user Usuario que va a iniciar sesion
    * @param pass Contraseña del usuario que va a iniciar sesion
    */
-
   public signIn(user: string, pass: string): Observable<ApiResponse> {
     const url: string = this.makeUrl(['user', 'signin']);
     return this.http.post<ApiResponse>(url, { rut: user, password: pass }).pipe(map(res => {
       this.isLoggedIn.next(true);
       this.saveData(res);
-      this.user.next(sessionStorage.getItem('nombre') || '')
       return res;
     }));
   }
 
-   // verifica si hay un token en el sessionStorage
-   private checkToken():void {
+  /**
+   * Se encarga de verificar si hay un token valido en el session Storage
+   */
+  private checkToken():void {
     const token : string | null= sessionStorage.getItem('token');
-
     if (token?.length != 0 && token != null && !this.helper.isTokenExpired(token)) {
       this.isLoggedIn.next(true);
     } else {
@@ -162,11 +160,24 @@ export class ApiSendService extends ApiClass {
     }
   }
 
+  /**
+   * Verifica si hay una sesion activa
+   */
+  get isLogged():Observable<boolean> {
+    return this.isLoggedIn.asObservable();
+  }
+
+  /**
+   * Cierra la sesion
+   */
   public logout(){
     sessionStorage.clear();
     this.isLoggedIn.next(false);
   }
 
+  /**
+   * Guarda el token en el session storage
+   */
   private saveData(data:any) {
     sessionStorage.setItem('token', data.data.token);
   }

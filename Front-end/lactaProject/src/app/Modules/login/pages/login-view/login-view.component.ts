@@ -23,6 +23,9 @@ export class LoginViewComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.apiSend.isLogged.subscribe(response =>{
+      console.log(response);
+    });
   }
 
   log_in(){
