@@ -91,9 +91,17 @@ export const editControl: RequestHandler = async (req, res) => {
     //se valida la existencia del control en el sistema
     if ( !controlFound )
         return res.status(404).send({ success: false, data:{}, message: 'ERROR: El control ingresado no existe en el sistema.' });
-
+    
     //se actualiza el control en el sistema
     await Control.findByIdAndUpdate( _id, updatedControl );
+
+    const current_date = new Date();
+
+    /*se valida que el control sea de la fecha actual (planilla seguimiento) y que tenga al menos uno de los datos obligatorios rellenados
+    * esto con el fin de solo almacenar plantillas de seguimiento y no proximos controles*/
+    if ( controlFound.date_control.toISOString().substring(0,10) == current_date.toISOString().substring(0,10) && updatedControl.reason_of_consultation != null ){
+        addControlGraphic( updatedControl );
+    }
 
     return res.status(200).send({ success: true, data:{}, message: 'Control editado de manera correcta.' });
 }
@@ -428,15 +436,15 @@ function dateInitializer (date: any){
  * Esta encargada de mantener un llamado a la función auxiliar de todos los datos a almacenar en la colección Graphics
  * @param ControlSaved Control con todos los datos a guardar en la BD
  */
- function addControlGraphic( controlSaved: any ) {
-    addDataGraphic("consultation_place",controlSaved.consultation_place);
-    addDataGraphic("monitoring_medium", controlSaved.monitoring_medium);
-    addDataGraphic("reason_of_consultation", controlSaved.reason_of_consultation);
-    addDataGraphic("accompanied_by", controlSaved.accompanied_by);
+ function addControlGraphic( control: any ) {
+    addDataGraphic("consultation_place",control.consultation_place);
+    addDataGraphic("monitoring_medium", control.monitoring_medium);
+    addDataGraphic("reason_of_consultation", control.reason_of_consultation);
+    addDataGraphic("accompanied_by", control.accompanied_by);
 
     //se valida que el arreglo no venga vacío
-    if ( controlSaved.indications.length > 0 ){
-        addDataGraphic("indications", controlSaved.indications);
+    if ( control.indications.length > 0 ){
+        addDataGraphic("indications", control.indications);
     }
 }
 
@@ -445,7 +453,6 @@ function dateInitializer (date: any){
  * @param control Control con todos los datos a eliminar en la BD
  */
  function deleteControlGraphic( control: any ) {
-     console.log(control);
     deleteDataGraphic("consultation_place",control.consultation_place.toString());
     deleteDataGraphic("monitoring_medium", control.monitoring_medium.toString());
     deleteDataGraphic("reason_of_consultation", control.reason_of_consultation.toString());
@@ -453,7 +460,6 @@ function dateInitializer (date: any){
     
     //se valida que el arreglo no venga vacío
     if ( control.indications.length > 0 ){
-    console.log(control.indications);
-       addDataGraphic("indications", control.indications);
+        deleteDataGraphic("indications", control.indications);
     }
 }
