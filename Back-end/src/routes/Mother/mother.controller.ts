@@ -187,7 +187,7 @@ function destructureMother(motherFound: any) {
  */
 function addMotherGraphic( motherSaved: any ) {
     addDataGraphic("commune",motherSaved.commune);
-    addDataGraphic("birth", motherSaved.birth.toISOString().substring(0,10));
+    addDataGraphic("birth", motherSaved.birth.toISOString().substring(0,4));
     addDataGraphic("studies", motherSaved.studies);
     addDataGraphic("marital_status", motherSaved.marital_status);
     addDataGraphic("forecast", motherSaved.forecast);
@@ -201,18 +201,18 @@ function addMotherGraphic( motherSaved: any ) {
 
 /**
  * Esta encargada de mantener un llamado a la función auxiliar de todos los datos a eliminar en la colección Graphics
- * @param motherSaved Madre con todos los datos a eliminar en la BD
+ * @param mother Madre con todos los datos a eliminar en la BD
  */
- function deleteMotherGraphic( motherSaved: any ) {
-    deleteDataGraphic("commune",motherSaved.commune);
-    deleteDataGraphic("birth", motherSaved.birth.toISOString().substring(0,10));
-    deleteDataGraphic("studies", motherSaved.studies);
-    deleteDataGraphic("marital_status", motherSaved.marital_status);
-    deleteDataGraphic("forecast", motherSaved.forecast);
-    deleteDataGraphic("number_of_living_children", motherSaved.number_of_living_children.toString());
+ function deleteMotherGraphic( mother: any ) {
+    deleteDataGraphic("commune",mother.commune);
+    deleteDataGraphic("birth", mother.birth.toISOString().substring(0,4));
+    deleteDataGraphic("studies", mother.studies);
+    deleteDataGraphic("marital_status", mother.marital_status);
+    deleteDataGraphic("forecast", mother.forecast);
+    deleteDataGraphic("number_of_living_children", mother.number_of_living_children.toString());
 
     //se valida que el arreglo no venga vacío
-    if ( motherSaved.chronic_diseases.length > 0 ){
-        deleteDataGraphic("chronic_diseases", motherSaved.chronic_diseases);
+    if ( mother.chronic_diseases.length > 0 ){
+        deleteDataGraphic("chronic_diseases", mother.chronic_diseases);
     }
 }
