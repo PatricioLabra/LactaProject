@@ -7,7 +7,7 @@ import { Types } from "mongoose";
 /**
  * Funcion que maneja la peticion de agregar un nuevo usuario al sistema
  * @route Post '/user/signUp'
- * @param req req Request de la petición, se espera que tenga la información del nuevo producto
+ * @param req req Request de la petición, se espera que tenga la información del nuevo usuario
  * @param res Response, retornará el token del usuario con un mensaje de creacion correcta mas un mensaje true
  */
 export const signUp: RequestHandler = async (req, res) => {
