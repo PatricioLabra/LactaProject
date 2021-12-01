@@ -20,6 +20,16 @@ export const getDataGraphic: RequestHandler = async (req, res) => {
         return res.status(404).send({ success: false, data:{}, message: 'Error: el grafico ingresado no existe en el sistema.' });
     }
 
+    if(name_data == "has_suplement"){
+        const query = { "name_data": "why_recived_suplement" };
+        const recived_suplement = await Graphic.findOne(query);
+
+        const why_recived_suplement = destructureData(recived_suplement);
+        const has_suplement = destructureData(dataFound);
+        
+        return res.status(200).send({ success: true, data:{ has_suplement, why_recived_suplement }, message: 'Se envia exitosamente el grafico solicitado.' });
+    }
+
     const data = destructureData( dataFound );
 
     return res.status(200).send({ success: true, data, message: 'Se envia exitosamente el grafico solicitado.' });
