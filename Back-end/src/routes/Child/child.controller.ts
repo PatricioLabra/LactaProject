@@ -197,7 +197,6 @@ export const getChild: RequestHandler = async (req, res) => {
  * @returns Object con los atributos del control a enviar al front
  */
 function destructureChild( childFound: any ){
-    console.log(childFound);
     const childFiltered ={
         _id: childFound._id,
         name: childFound.name,
@@ -219,7 +218,6 @@ function destructureChild( childFound: any ){
             last_weight_control: childFound.birth_data.last_weight_control
         }
     };
-    console.log(childFiltered);
     return childFiltered;
 }
 
