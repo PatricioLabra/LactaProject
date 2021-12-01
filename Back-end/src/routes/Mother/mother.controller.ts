@@ -68,12 +68,17 @@ export const editMother: RequestHandler = async (req, res) => {
     if ( !motherFound ) 
         return res.status(404).send({ success: false, data:{}, message: 'ERROR: La madre ingresada no existe en el sistema.' });
 
-    //se editan los datos de la madre asociado a los gráficos
+    //se eliminan los datos de la madre asociados
     deleteMotherGraphic (motherFound);
-    addMotherGraphic (updatedMother);
 
     //se actualiza la madre en el sistema
     await Mother.findByIdAndUpdate( _id, updatedMother );
+
+    //se obtiene la madre y se agregan sus datos a la colección Graphics
+    const motherFoundUpdated = await Mother.findById( _id );
+
+    //Se actualizan los datos en la colección Graphics
+    addMotherGraphic(motherFoundUpdated);
 
     return res.status(200).send({ success: true, data:{}, message: 'Madre editada de manera correcta.' });
 }
