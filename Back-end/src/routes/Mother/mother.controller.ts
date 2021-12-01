@@ -3,7 +3,7 @@ import Mother from './mother.model';
 import { Types } from "mongoose";
 import Child from '../Child/child.model';
 import Control from '../Control/control.model';
-import { addDataGraphic } from "../Graphic/generate.graphics";
+import { addDataGraphic , deleteDataGraphic } from "../Graphic/generate.graphics";
 
 
 /**
@@ -103,6 +103,9 @@ export const editMother: RequestHandler = async (req, res) => {
     if ( childsFound )
         await Child.deleteMany( {id_mother} );
 
+    //se eliminan los datos de la madre asociados a los graphic
+    deleteMotherGraphic(motherFound);
+
     //se elimina la madre del sistema
     await Mother.findByIdAndRemove ( id_mother );
 
@@ -184,7 +187,7 @@ function destructureMother(motherFound: any) {
  */
 function addMotherGraphic( motherSaved: any ) {
     addDataGraphic("commune",motherSaved.commune);
-    addDataGraphic("birth", motherSaved.birth.toISOString().substring(0,10));
+    addDataGraphic("birth", motherSaved.birth.toISOString().substring(0,4));
     addDataGraphic("studies", motherSaved.studies);
     addDataGraphic("marital_status", motherSaved.marital_status);
     addDataGraphic("forecast", motherSaved.forecast);
@@ -193,5 +196,23 @@ function addMotherGraphic( motherSaved: any ) {
     //se valida que el arreglo no venga vacío
     if ( motherSaved.chronic_diseases.length > 0 ){
         addDataGraphic("chronic_diseases", motherSaved.chronic_diseases);
+    }
+}
+
+/**
+ * Esta encargada de mantener un llamado a la función auxiliar de todos los datos a eliminar en la colección Graphics
+ * @param mother Madre con todos los datos a eliminar en la BD
+ */
+ function deleteMotherGraphic( mother: any ) {
+    deleteDataGraphic("commune",mother.commune);
+    deleteDataGraphic("birth", mother.birth.toISOString().substring(0,4));
+    deleteDataGraphic("studies", mother.studies);
+    deleteDataGraphic("marital_status", mother.marital_status);
+    deleteDataGraphic("forecast", mother.forecast);
+    deleteDataGraphic("number_of_living_children", mother.number_of_living_children.toString());
+
+    //se valida que el arreglo no venga vacío
+    if ( mother.chronic_diseases.length > 0 ){
+        deleteDataGraphic("chronic_diseases", mother.chronic_diseases);
     }
 }
