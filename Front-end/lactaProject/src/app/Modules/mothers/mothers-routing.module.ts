@@ -4,11 +4,12 @@ import { Routes, RouterModule } from '@angular/router';
 import { MothersViewComponent } from './pages/mothers-view/mothers-view.component';
 import { MotherProfileComponent } from './pages/mother-profile/mother-profile.component';
 import { MotherFormComponent } from './pages/mother-form/mother-form.component';
+import { CanActivateService } from 'src/app/services/can-activate.service';
 
 const routes: Routes=[
-  { path: "asesoradas", component: MothersViewComponent },
-  { path: "asesoradas/profile/:id", component: MotherProfileComponent},
-  { path:"asesoradas/agregar/:id", component: MotherFormComponent},
+  { path: "asesoradas", component: MothersViewComponent , canActivate:[CanActivateService]},
+  { path: "asesoradas/profile/:id", component: MotherProfileComponent , canActivate:[CanActivateService]},
+  { path:"asesoradas/agregar/:id", component: MotherFormComponent , canActivate:[CanActivateService]},
 ];
 
 @NgModule({
