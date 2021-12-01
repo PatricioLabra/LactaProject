@@ -6,12 +6,14 @@ import { CoreRoutingModule } from './core-routing.module';
 import { ControlPanelComponent } from './pages/control-panel/control-panel.component';
 import { HttpClientModule } from '@angular/common/http';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
+import { StadisticsPanelComponent } from './pages/stadistics-panel/stadistics-panel.component';
 
 @NgModule({
   declarations: [
     HeaderComponent,
     FooterComponent,
-    ControlPanelComponent
+    ControlPanelComponent,
+    StadisticsPanelComponent
   ],
   imports: [
     CommonModule,
