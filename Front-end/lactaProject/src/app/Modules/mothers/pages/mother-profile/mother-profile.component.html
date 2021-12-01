@@ -15,14 +15,30 @@
 
 
 
+<div class="container">
+  <div class="row">
 
-<app-mother-data *ngIf="idMother" [idMother]="idMother"></app-mother-data>
-<div >
-  <button type="button" (click)="goToAddChild(idMother)">Agregar Lactante</button>
+    <div class="col">
+      <app-mother-data *ngIf="idMother" [idMother]="idMother"></app-mother-data>
+
+    </div>
+
+    <div class="col">
+      <app-childs-list *ngIf="idMother" [idMother]="idMother"></app-childs-list>
+    </div>
+
+  </div>
+  <div class="row">
+    
+    <a [href]="'/controls/past/' + idMother">Ver citas anteriores</a>
+    <app-controls-list *ngIf="idMother" [idMother]="idMother"></app-controls-list>
+
+  </div>
+
+
+
 </div>
-<app-childs-list *ngIf="idMother" [idMother]="idMother"></app-childs-list>
-<a [href]="'/controls/past/' + idMother">Ver citas anteriores</a>
-<app-controls-list *ngIf="idMother" [idMother]="idMother"></app-controls-list>
+
 
 
 

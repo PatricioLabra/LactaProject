@@ -1,14 +1,45 @@
 @import 'src/styles/palette';
 
 .child-list-card {
-    background-color: $white;
-    width: 60%;
+    width: 100%;
+    padding: 20px;
+    border-radius: 30px;
+    background-color:whitesmoke;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 
-    .child-list-card {
-        border-color: $black;
 
-        .btn-add-control {
-            background-color: $light-blue
+    .child-card{
+        background-color: white;
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        border-radius: 10px;
+        margin-bottom: 20px;
+        padding: 10px;
+        text-align: center;
+        a{
+            color: black;
         }
     }
+}
+.head{
+    text-align: center;
+    padding-bottom: 10px;
+}
+.title{
+    width: 100%;
+    margin: auto;
+    text-align: center;
+    background-color:cyan;
+    border-radius: 30px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    margin-bottom: 10px;
+}
+button{
+    border: none;
+    background-color: cyan;
+    border-radius: 30px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    margin-bottom: 10px;
+}
+.addChildBtn{
+    background-color:pink;
 }

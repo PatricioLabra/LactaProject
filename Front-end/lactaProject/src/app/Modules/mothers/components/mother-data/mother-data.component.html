@@ -1,16 +1,145 @@
 <!--Datos asesorada-->
 <div *ngIf="motherData" class="mother-card">
-    <p>{{ motherData.name }}</p>
-    <p>{{ motherData.rut }}</p>
-    <p>{{ motherData.commune }}</p>
-    <p>{{ motherData.phone_number }}</p>
-    <p>{{ motherData.mail }}</p>
-    <p>{{ motherData.birth }}</p>
-    <p>{{ motherData.ocupation }}</p>
-    <p>{{ motherData.studies }}</p>
-    <p>{{ motherData.marital_status }}</p>
-    <p>{{ motherData.forecast }}</p>
-    <p>{{ motherData.chronic_diseases | json }}</p>
-    <p>{{ motherData.number_of_living_children }}</p>
+    <div class="motherName">
+        <p>{{ motherData.name }}</p>
+    </div>
+    <div class="motherInfo">
+        <div class=row>
+            <ul>
+                <li>
+                    Rut:
+                </li>
+                <li class="item">
+                    {{ motherData.rut }}
+                </li>
+            </ul>
+
+        </div>
+
+        <div class=row>
+            <ul>
+                <li>
+                    Comuna:
+                </li>
+                <li class="item">
+                    {{ motherData.commune }}
+                    
+                </li>
+            </ul>
+
+        </div>
+        <div class=row>
+            <ul>
+                <li>
+                    Teléfono
+                </li>
+                <li class="item">
+                    {{ motherData.phone_number }}
+                    
+                </li>
+            </ul>
+
+        </div>
+        <div class=row>
+            <ul>
+                <li>
+                    Mail:
+                </li>
+                <li class="item">
+                    {{ motherData.mail }}
+                    
+                </li>
+            </ul>
+
+        </div>
+        <div class=row>
+            <ul>
+                <li>
+                    Edad:
+                </li>
+                <li class="item">
+                    {{ motherData.birth }}
+                    
+                </li>
+            </ul>
+
+        </div>
+        <div class=row>
+            <ul>
+                <li>
+                    Ocupación:
+                </li>
+                <li class="item">
+                    {{ motherData.ocupation }}
+                    
+                </li>
+            </ul>
+
+        </div>
+        <div class=row>
+            <ul>
+                <li>
+                    Escolaridad:
+                </li>
+                <li class="item">
+                    {{ motherData.studies }}
+                    
+                </li>
+            </ul>
+
+        </div>
+        <div class=row>
+            <ul>
+                <li>
+                    Estado Civil:
+                </li>
+                <li class="item">
+                    {{ motherData.marital_status }}
+                    
+                </li>
+            </ul>
+
+        </div>
+        <div class=row>
+            <ul>
+                <li>
+                    Previsión:
+
+                </li>
+                <li class="item">
+                    {{ motherData.forecast }}
+                    
+                </li>
+            </ul>
+
+        </div>
+        <div class=row>
+            <ul>
+                <li>
+                    Numero de hijos:
+                </li>
+                <li class="item">
+                    {{ motherData.number_of_living_children }}
+                    
+                </li>
+            </ul>
+
+        </div>
+        <div class=row>
+            <ul>
+                <li>
+                    Enfermedades Crónicas:
+
+                </li>
+                <li class="item">
+                    {{ motherData.chronic_diseases}}
+                    
+                </li>
+            </ul>
+
+        </div>
+
+    </div>
+
 </div>
 <!--Datos asesorada-->

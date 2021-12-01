@@ -1,6 +1,39 @@
 @import 'src/styles/palette';
 
 .mother-card {
-    background-color: $pink;
-    width: 70%;
+    width: 100%;
+    padding: 20px;
+    border-radius: 30px;
+    background-color:whitesmoke;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    text-align: left;
+    .motherName{
+        text-align: center;
+        width: 80%;
+        margin: auto;
+        p{
+            background-color: pink;
+            border-radius: 30px;
+            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        }
+    }
+    .motherInfo{
+        padding-left: 40px;
+    }
 }
+ul {
+    list-style-type: none;
+    padding-left: 0px;
+    li {
+        float: left;
+    }
+}
+.item{
+    background-color: white;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    padding-left: 5px;
+    padding-right: 5px;
+    margin-left: 5px;
+}
+
