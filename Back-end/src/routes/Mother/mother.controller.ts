@@ -43,7 +43,7 @@ export const newMother: RequestHandler = async (req, res) => {
     addMotherGraphic(motherSaved);
 
     //se almacena la madre
-    //await motherSaved.save();
+    await motherSaved.save();
 
     return res.status(201).send({ success: true, data: { _id: motherSaved._id }, message: 'Madre agregada con éxito al sistema.' });
 }
@@ -96,18 +96,18 @@ export const editMother: RequestHandler = async (req, res) => {
         return res.status(404).send({ success: false, data:{}, message: 'ERROR: La madre ingresada no existe en el sistema.' });
 
     //se eliminan los controles
-    /*if ( controlsFound )
+    if ( controlsFound )
         await Control.deleteMany( {id_mother} );
 
     //se eliminan los hijos
     if ( childsFound )
         await Child.deleteMany( {id_mother} );
-*/
+
     //se eliminan los datos de la madre asociados a los graphic
     deleteMotherGraphic(motherFound);
 
     //se elimina la madre del sistema
-    /*await Mother.findByIdAndRemove ( id_mother );*/
+    await Mother.findByIdAndRemove ( id_mother );
 
     return res.status(200).send({ success: true, data:{}, message: 'Madre eliminada de manera correcta.' });
 }
