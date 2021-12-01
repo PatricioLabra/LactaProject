@@ -5,18 +5,18 @@ import { verifyToken } from '../jwt';
 const router = Router();
 
 //agregar nueva asesorada 
-router.post('/mother', motherCtrl.newMother);
+router.post('/mother',  verifyToken, motherCtrl.newMother);
 
 //modificar una asesorada
-router.put('/mother/:id', motherCtrl.editMother);
+router.put('/mother/:id', verifyToken, motherCtrl.editMother);
 
 //eliminar una asesorada
-router.delete('/mother/:id', motherCtrl.deleteMother);
+router.delete('/mother/:id', verifyToken, motherCtrl.deleteMother);
 
 //obtener asesorada detallada (panel completo)
-router.get('/mother/:id', motherCtrl.getDetailedMother);
+router.get('/mother/:id', verifyToken, motherCtrl.getDetailedMother);
 
 //obtener todas las asesoradas
-router.get('/mother', motherCtrl.getMothers);
+router.get('/mother', verifyToken, motherCtrl.getMothers);
 
 export default router;
