@@ -18,7 +18,7 @@ export class PostloginViewComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.apiSend.isLogged);
+
   }
 
   buenas(){
