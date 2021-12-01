@@ -62,7 +62,7 @@ export const newChild: RequestHandler = async (req, res) => {
     //se almacenan los datos a graficar del lacatnte en el sistema
     addChildGraphic(childSaved);
 
-    await childSaved.save();
+    //await childSaved.save();
 
     return res.status(201).send({ success: true, data: { _id: childSaved._id }, message: 'Lactante agregado con éxito al sistema.' });
 }
@@ -237,6 +237,7 @@ function destructureChild( childFound: any ){
     addDataGraphic("post_discharge_feeding", childSaved.birth_data.post_discharge_feeding.toString());
     addDataGraphic("joint_accommodation", isTrueOrFalse(childSaved.birth_data.joint_accommodation));
     addDataGraphic("has_suplement", isTrueOrFalse(childSaved.birth_data.has_suplement));
+    addDataGraphic("why_recived_suplement", childSaved.birth_data.why_recived_suplement);
 }
 
 /**
