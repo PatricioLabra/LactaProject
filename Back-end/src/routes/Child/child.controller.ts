@@ -3,7 +3,7 @@ import { Types } from 'mongoose';
 import Mother from '../Mother/mother.model';
 import Child from './child.model';
 import Control from '../Control/control.model';
-
+import { addDataGraphic } from "../Graphic/generate.graphics";
 
 /**
  * Funcion que maneja la peticion de agregar un nuevo usuario al sistema
@@ -58,6 +58,10 @@ export const newChild: RequestHandler = async (req, res) => {
 
     //Se guarda el nuevo lactante con sus datos
     const childSaved = new Child(newChild);
+
+    //se almacenan los datos a graficar del lacatnte en el sistema
+    addChildGraphic(childSaved);
+
     await childSaved.save();
 
     return res.status(201).send({ success: true, data: { _id: childSaved._id }, message: 'Lactante agregado con éxito al sistema.' });
@@ -217,4 +221,34 @@ function destructureChild( childFound: any ){
     };
     console.log(childFiltered);
     return childFiltered;
+}
+
+/**
+ * Esta encargada de mantener un llamado a la función auxiliar de todos los datos a almacenar en la colección Graphics
+ * @param motherSaved Madre con todos los datos a guardar en la BD
+ */
+ function addChildGraphic( childSaved: any ) {
+    addDataGraphic("birthplace", childSaved.birth_data.birthplace);
+    addDataGraphic("type_of_birth", childSaved.birth_data.type_of_birth);
+    addDataGraphic("gestional_age", childSaved.birth_data.gestional_age.toString());
+    addDataGraphic("gender", childSaved.birth_data.gender);
+    addDataGraphic("birth_weight", childSaved.birth_data.birth_weight.toString());
+    addDataGraphic("skin_to_skin_contact", isTrueOrFalse(childSaved.birth_data.skin_to_skin_contact));
+    addDataGraphic("breastfeeding_b4_2hours", isTrueOrFalse(childSaved.birth_data.breastfeeding_b4_2hours));
+    addDataGraphic("use_of_pacifier", isTrueOrFalse(childSaved.birth_data.use_of_pacifier));
+    addDataGraphic("post_discharge_feeding", childSaved.birth_data.post_discharge_feeding.toString());
+    addDataGraphic("joint_accommodation", isTrueOrFalse(childSaved.birth_data.joint_accommodation));
+    addDataGraphic("has_suplement", isTrueOrFalse(childSaved.birth_data.has_suplement));
+}
+
+/**
+ * Esta encargada de devolver el valor de un booleano pero cambiado a "si" o "no"
+ * @param option valor booleano que se va a ingresar a la condicional if
+ */
+function isTrueOrFalse(option: any){
+    if(option){
+        return "Si";
+    }else{
+        return "No";
+    }
 }
