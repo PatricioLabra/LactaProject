@@ -9,7 +9,7 @@
 <div class="container">
   <div class="row topRow">
     <div class="col backBtn">
-      <a href="/control-panel" mdbBtn color="" mdbWavesEffect>
+      <a href="/asesoradas" mdbBtn color="" mdbWavesEffect>
         <i class="fas fa-long-arrow-alt-left"></i>
     </a>
   
@@ -43,7 +43,11 @@
   </div>
   <div class="row">
     
-    <a [href]="'/controls/past/' + idMother">Ver citas anteriores</a>
+    <a class="pastCtrl" [href]="'/controls/past/' + idMother">
+      <mdb-icon far icon="eye" size="1x">
+      </mdb-icon>
+      Ver citas Anteriores
+    </a>
     <app-controls-list *ngIf="idMother" [idMother]="idMother"></app-controls-list>
 
   </div>
