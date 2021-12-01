@@ -3,7 +3,7 @@ import { Types } from "mongoose";
 import Control from './control.model';
 import Child from '../Child/child.model';
 import Mother from '../Mother/mother.model';
-import { addDataGraphic } from "../Graphic/generate.graphics";
+import { addDataGraphic, deleteDataGraphic } from "../Graphic/generate.graphics";
 
 
 /**
@@ -112,11 +112,14 @@ export const deleteControl: RequestHandler = async (req, res) => {
         return res.status(400).send({ success: false, data:{}, message: 'ERROR: El id ingresado no es válido.' });
     }
     
-    const controlFound = Control.findById(_id);
+    const controlFound = await Control.findById(_id);
 
     if( !controlFound ){
         return res.status(404).send({ success: false, data:{}, message:'Error: El control solicitado no existe en el sistema.' });
     }
+
+    //se eliminan los datos del lactante asociados a los graphic
+    deleteControlGraphic(controlFound);
 
     //Se busca el control y se elimina
     await Control.findByIdAndDelete(_id);
@@ -434,5 +437,23 @@ function dateInitializer (date: any){
     //se valida que el arreglo no venga vacío
     if ( controlSaved.indications.length > 0 ){
         addDataGraphic("indications", controlSaved.indications);
+    }
+}
+
+/**
+ * Esta encargada de mantener un llamado a la función auxiliar de todos los datos a eliminar en la colección Graphics
+ * @param control Control con todos los datos a eliminar en la BD
+ */
+ function deleteControlGraphic( control: any ) {
+     console.log(control);
+    deleteDataGraphic("consultation_place",control.consultation_place.toString());
+    deleteDataGraphic("monitoring_medium", control.monitoring_medium.toString());
+    deleteDataGraphic("reason_of_consultation", control.reason_of_consultation.toString());
+    deleteDataGraphic("accompanied_by", control.accompanied_by.toString());
+    
+    //se valida que el arreglo no venga vacío
+    if ( control.indications.length > 0 ){
+    console.log(control.indications);
+       addDataGraphic("indications", control.indications);
     }
 }
