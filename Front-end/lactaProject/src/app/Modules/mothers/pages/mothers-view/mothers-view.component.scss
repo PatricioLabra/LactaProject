@@ -31,10 +31,10 @@
     
 }
 .container-fluid{
-    margin-top: 20px;
-    height: 70%;
-    padding-top: 70px;
+    min-height: 79.5vh;
     width: min(90%,70.5rem);
+    display: flex;
+    align-items: center;
     .component{
         height: 100%;
         margin: auto;
