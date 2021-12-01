@@ -5,18 +5,18 @@ import { verifyToken } from '../jwt';
 const router = Router();
 
 //agregar nuevo lactante
-router.post('/child/:idMother', childCtrl.newChild);
+router.post('/child/:idMother', verifyToken, childCtrl.newChild);
 
-//modificar Lactantee
-router.put('/child/:idLactante', childCtrl.editChild);
+//modificar Lactante
+router.put('/child/:idLactante', verifyToken, childCtrl.editChild);
 
 //eliminar Lactante en la lista de la madre
-router.delete('/child/:idLactante', childCtrl.deleteChild);
+router.delete('/child/:idLactante', verifyToken, childCtrl.deleteChild);
 
 //obtener lista Lactante resumido(idMother)
-router.get('/child/:idMother', childCtrl.getResumeChild);
+router.get('/child/:idMother', verifyToken, childCtrl.getResumeChild);
 
 //obtener Lactante completo
-router.get('/child/profile/:idLactante', childCtrl.getChild);
+router.get('/child/profile/:idLactante', verifyToken, childCtrl.getChild);
 
 export default router
