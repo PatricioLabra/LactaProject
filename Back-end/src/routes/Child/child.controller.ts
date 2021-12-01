@@ -223,7 +223,7 @@ function destructureChild( childFound: any ){
 
 /**
  * Esta encargada de mantener un llamado a la función auxiliar de todos los datos a almacenar en la colección Graphics
- * @param motherSaved Madre con todos los datos a guardar en la BD
+ * @param childSaved Madre con todos los datos a guardar en la BD
  */
  function addChildGraphic( childSaved: any ) {
     addDataGraphic("birthplace", childSaved.birth_data.birthplace);
