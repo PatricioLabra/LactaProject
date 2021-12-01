@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
+import { ApiResponse } from '@interfaces/api_response';
+import { ApiSendService } from 'src/app/services/api-send.service';
 
 @Component({
   selector: 'app-login-view',
@@ -9,13 +11,11 @@ import { Router } from '@angular/router';
 })
 export class LoginViewComponent implements OnInit {
 
-  usuario="20111222-k"
-  contraseña="1234"
   @ViewChild('frame', { static: true }) public frameModal;
 
   public login: FormGroup;
 
-  constructor(private fb: FormBuilder, private router: Router) { 
+  constructor(private fb: FormBuilder, private router: Router, private apiSend:ApiSendService) { 
     this.login=this.fb.group({
       rut:['',Validators.required],
       password:['',Validators.required]
@@ -23,16 +23,20 @@ export class LoginViewComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.apiSend.isLogged.subscribe(response =>{
+      console.log(response);
+    });
   }
 
   log_in(){
-    if(this.login.get("rut").value!=this.usuario && this.login.get("password").value!=this.contraseña){
-      this.frameModal.show();
-      this.login.get("rut").setValue("");
-      this.login.get("password").setValue("");
-      return;
-
-    }
-    this.router.navigate(['postlogin']);
+    this.apiSend.signIn(this.login.get("rut")?.value, this.login.get("password")?.value).subscribe((
+      response: ApiResponse)=>{
+        if(response.success){
+          this.router.navigate(['postlogin']);
+        }else{
+          console.log(response.message);
+        }
+      },(error:any)=>{console.log(error);}
+    );
   }
 }
