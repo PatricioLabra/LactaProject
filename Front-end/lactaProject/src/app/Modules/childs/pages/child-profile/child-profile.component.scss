@@ -1,6 +1,8 @@
 
 .topBar{
 
+    margin-top: 10px;
+
     .btn-group{
         margin-left: 75vw;
         position: relative;
@@ -39,7 +41,7 @@
     }
 }
 .container-fluid{
-    margin-top: 20px;
+    margin-top: 10px;
     height: 60%;
     
 
@@ -50,4 +52,16 @@
         margin: auto;
         text-align: center;
     }
+}
+.drpDown{
+    text-align: right;
+    a{
+        background-color: whitesmoke;
+
+    }
+    
+}
+.dropdown-toggle{
+    color: gray !important;
+    
 }
