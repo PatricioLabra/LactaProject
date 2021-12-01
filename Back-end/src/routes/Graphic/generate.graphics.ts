@@ -49,14 +49,14 @@ import Graphic from "./graphic.model";
             for ( let i = 0; i < name.length; i++ ){
                 option = dataFound.options.find((object: { name: string; }) => object.name === name[i]);
 
-                insertDataInOptions(option,name[i],dataFound);
+                insertDataInOptions(option, name[i], dataFound);
             } 
 
         //se trabaja con 1 solo option
         }else{
             option = dataFound.options.find((object: { name: string; }) => object.name === name);
             
-            insertDataInOptions(option,name,dataFound);
+            insertDataInOptions(option, name, dataFound);
         }
     }
 }
@@ -75,10 +75,7 @@ async function insertDataInOptions( option: any, name: string, dataFound: any ) 
 
         //se edita el value
         dataFound.options[position].value = dataFound.options[position].value + 1;
-
-        //se actualiza en la BD
-        await Graphic.findByIdAndUpdate(dataFound._id, dataFound);
-    
+  
     //si no existe
     } else {
         //se crea
@@ -87,15 +84,66 @@ async function insertDataInOptions( option: any, name: string, dataFound: any ) 
         //se inserta en el arreglo
         dataFound.options.push(newOption);
 
+    }
+    
+    //se actualiza en la BD
+    await Graphic.findByIdAndUpdate(dataFound._id, dataFound);
+}
+
+/**
+ * Encargada de eliminar de la colección Graphic lo que sea solicitado e ingresado.
+ * Elimina 1 dato individual (String) o un array de String
+ * @param name_data Nombre del dato a obtener de la colección
+ * @param name Nombre de las Options a eliminar
+ */
+export async function deleteDataGraphic( name_data: string , name: string  ){
+
+    const query = {"name_data": name_data};
+
+    //se obtiene el dato de la colección
+    let dataFound = await Graphic.findOne(query);
+
+    if ( dataFound ){
+        let option;
+
+        //si es un array a eliminar
+        if ( Array.isArray(name) ){
+
+            for ( let i = 0; i < name.length; i++ ){
+                option = dataFound.options.find( (object:any) =>  object.name.toUpperCase() === name[i].toUpperCase());
+                
+                deleteDataInOptions(option, name[i], dataFound);
+            } 
+
+        //si es 1 solo dato
+        } else {
+            option = dataFound.options.find((object: { name: string; }) => object.name.toUpperCase() === name.toUpperCase());
+            
+            deleteDataInOptions(option, name, dataFound);
+        }
+
         //se actualiza en la BD
         await Graphic.findByIdAndUpdate(dataFound._id, dataFound);
     }
 }
 
-export async function deleteDataGraphic( name_data:any , name: string  ){
-
-}
-
+/**
+ * Función auxiliar que apoya a "deleteDataGraphic". Esta se encarga de eliminar (en caso de que value = 1) o descontar el value 
+ * (en caso de que sea > 1) del array options.
+ */
 async function deleteDataInOptions( option: any, name: string, dataFound: any ) {
-    
+
+    if ( option ){
+        var position: number = dataFound.options.findIndex((object: { name: string; }) => object.name === name);
+
+        //si el value es igual a 1 se elimina
+        if (option.value === 1){
+            dataFound.options.splice(-position, 1);
+        }
+        
+        //si es mayor a uno se resta
+        if (option.value > 1){
+            dataFound.options[position].value = dataFound.options[position].value - 1;
+        }
+    } 
 }
