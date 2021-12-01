@@ -3,7 +3,7 @@ import { Types } from 'mongoose';
 import Mother from '../Mother/mother.model';
 import Child from './child.model';
 import Control from '../Control/control.model';
-import { addDataGraphic } from "../Graphic/generate.graphics";
+import { addDataGraphic, deleteDataGraphic } from "../Graphic/generate.graphics";
 
 /**
  * Funcion que maneja la peticion de agregar un nuevo usuario al sistema
@@ -129,6 +129,9 @@ export const editChild: RequestHandler = async (req, res) => {
         await Control.deleteMany({ id_child });
     }
 
+    //se eliminan los datos del lactante asociados a los graphic
+    deleteChildGraphic(childFound);
+
     //Se elimina el lactante del sistema
     await Child.findByIdAndDelete(id_child);
 
@@ -238,6 +241,25 @@ function destructureChild( childFound: any ){
     addDataGraphic("joint_accommodation", isTrueOrFalse(childSaved.birth_data.joint_accommodation));
     addDataGraphic("has_suplement", isTrueOrFalse(childSaved.birth_data.has_suplement));
     addDataGraphic("why_recived_suplement", childSaved.birth_data.why_recived_suplement);
+}
+
+/**
+ * Esta encargada de mantener un llamado a la función auxiliar de todos los datos a eliminar en la colección Graphics
+ * @param child Madre con todos los datos a eliminar en la BD
+ */
+ function deleteChildGraphic( child: any ) {
+    deleteDataGraphic("birthplace",child.birth_data.birthplace);
+    deleteDataGraphic("type_of_birth", child.birth_data.type_of_birth);
+    deleteDataGraphic("gestional_age", child.birth_data.gestional_age.toString());
+    deleteDataGraphic("gender", child.birth_data.gender);
+    deleteDataGraphic("birth_weight", child.birth_data.birth_weight.toString());
+    deleteDataGraphic("skin_to_skin_contact", isTrueOrFalse(child.birth_data.skin_to_skin_contact));
+    deleteDataGraphic("breastfeeding_b4_2hours", isTrueOrFalse(child.birth_data.breastfeeding_b4_2hours));
+    deleteDataGraphic("use_of_pacifier", isTrueOrFalse(child.birth_data.use_of_pacifier));
+    deleteDataGraphic("post_discharge_feeding", child.birth_data.post_discharge_feeding.toString());
+    deleteDataGraphic("joint_accommodation", isTrueOrFalse(child.birth_data.joint_accommodation));
+    deleteDataGraphic("has_suplement", isTrueOrFalse(child.birth_data.has_suplement));
+    deleteDataGraphic("why_recived_suplement", child.birth_data.why_recived_suplement);
 }
 
 /**
