@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { CoreModule } from '@core/core.module';
 import { ApiClass } from './api.class';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -12,7 +11,7 @@ import { typeControl } from '@interfaces/control';
 import { typeUser } from '@interfaces/user';
 
 @Injectable({
-  providedIn: CoreModule
+  providedIn: 'root'
 })
 export class ApiSendService extends ApiClass {
 
