@@ -3,6 +3,7 @@ import { Types } from "mongoose";
 import Control from './control.model';
 import Child from '../Child/child.model';
 import Mother from '../Mother/mother.model';
+import { addDataGraphic } from "../Graphic/generate.graphics";
 
 
 /**
@@ -60,6 +61,12 @@ export const newControl: RequestHandler = async (req, res) => {
 
     //se almacena el control en el sistema
     const controlSaved = new Control(newControl);
+
+    if ( controls == 0 ){
+        //Se almacenan los datos a graficar de los controles en el sistema
+        addControlGraphic(controlSaved);
+    }
+
     await controlSaved.save();
 
     return res.status(201).send({ success: true, data: { _id: controlSaved._id }, message: 'Control agregado con éxito al sistema.' });
@@ -412,4 +419,20 @@ function dateInitializer (date: any){
     }
 
     return true;
+}
+
+/**
+ * Esta encargada de mantener un llamado a la función auxiliar de todos los datos a almacenar en la colección Graphics
+ * @param ControlSaved Control con todos los datos a guardar en la BD
+ */
+ function addControlGraphic( controlSaved: any ) {
+    addDataGraphic("consultation_place",controlSaved.consultation_place);
+    addDataGraphic("monitoring_medium", controlSaved.monitoring_medium);
+    addDataGraphic("reason_of_consultation", controlSaved.reason_of_consultation);
+    addDataGraphic("accompanied_by", controlSaved.accompanied_by);
+
+    //se valida que el arreglo no venga vacío
+    if ( controlSaved.indications.length > 0 ){
+        addDataGraphic("indications", controlSaved.indications);
+    }
 }
