@@ -2,7 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CoreModule } from '@core/core.module';
 import { ApiClass } from './api.class';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { JwtHelperService } from '@auth0/angular-jwt';
 import { ApiResponse } from '@interfaces/api_response';
 import { typeMother } from '@interfaces/mother';
 import { typeChild } from '@interfaces/child';
@@ -14,8 +16,13 @@ import { typeUser } from '@interfaces/user';
 })
 export class ApiSendService extends ApiClass {
 
+  private isLoggedIn = new BehaviorSubject<boolean>(false);
+  private user = new BehaviorSubject<string>('');
+  private helper = new JwtHelperService();
+
   constructor(http: HttpClient) {
     super(http);
+    this.checkToken();
   }
 
   /**
@@ -132,8 +139,35 @@ export class ApiSendService extends ApiClass {
    * @param user Usuario que va a iniciar sesion
    * @param pass Contraseña del usuario que va a iniciar sesion
    */
+
   public signIn(user: string, pass: string): Observable<ApiResponse> {
     const url: string = this.makeUrl(['user', 'signin']);
-    return this.http.post<ApiResponse>(url, { rut: user, password: pass });
+    return this.http.post<ApiResponse>(url, { rut: user, password: pass }).pipe(map(res => {
+      this.isLoggedIn.next(true);
+      this.saveData(res);
+      this.user.next(sessionStorage.getItem('nombre') || '')
+      return res;
+    }));
+  }
+
+   // verifica si hay un token en el sessionStorage
+   private checkToken():void {
+    const token : string | null= sessionStorage.getItem('token');
+
+    if (token?.length != 0 && token != null && !this.helper.isTokenExpired(token)) {
+      this.isLoggedIn.next(true);
+    } else {
+      this.logout()
+      this.isLoggedIn.next(false)
+    }
+  }
+
+  public logout(){
+    sessionStorage.clear();
+    this.isLoggedIn.next(false);
+  }
+
+  private saveData(data:any) {
+    sessionStorage.setItem('token', data.data.token);
   }
 }
