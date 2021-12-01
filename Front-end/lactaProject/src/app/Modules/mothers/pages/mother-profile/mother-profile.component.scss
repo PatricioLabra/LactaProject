@@ -1,3 +1,26 @@
 .options-button {
     margin-left: auto;
 }
+.backBtn{
+    left:0%;
+    a{
+        background-color: whitesmoke;
+        color: gray;
+    }
+}
+.drpDown{
+    text-align: right;
+    margin-bottom: 20px;
+    a{
+        background-color: whitesmoke;
+
+    }
+    
+}
+.dropdown-toggle{
+    color: gray !important;
+    
+}
+.topRow{
+    margin: 30px;
+}
