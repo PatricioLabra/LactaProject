@@ -78,6 +78,15 @@ export class ApiGetService extends ApiClass {
   }
 
   /**
+   * Comprueba si un lactante posee mas controles asociados a el
+   * @param idChild Id del lactante a comprobar sus controles
+   */
+  public hasMoreControls(idChild: string): Observable<ApiResponse> {
+    const url: string = this.makeUrl(['control', 'quantity', idChild]);
+    return this.http.get<ApiResponse>(url);
+  }
+
+  /**
    * Obtiene la informacion de un usuario en particular
    * @param idUser Id del usuario
    */
