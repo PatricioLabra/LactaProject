@@ -3,7 +3,7 @@ import { Types } from 'mongoose';
 import Mother from '../Mother/mother.model';
 import Child from './child.model';
 import Control from '../Control/control.model';
-
+import { addDataGraphic } from "../Graphic/generate.graphics";
 
 /**
  * Funcion que maneja la peticion de agregar un nuevo usuario al sistema
@@ -58,7 +58,11 @@ export const newChild: RequestHandler = async (req, res) => {
 
     //Se guarda el nuevo lactante con sus datos
     const childSaved = new Child(newChild);
-    await childSaved.save();
+
+    //se almacenan los datos a graficar del lacatnte en el sistema
+    addChildGraphic(childSaved);
+
+    //await childSaved.save();
 
     return res.status(201).send({ success: true, data: { _id: childSaved._id }, message: 'Lactante agregado con éxito al sistema.' });
 }
@@ -197,8 +201,53 @@ function destructureChild( childFound: any ){
         _id: childFound._id,
         name: childFound.name,
         gestacion_data: childFound.gestacion_data,
-        birth_data: childFound.birth_data.toISOString().substring(0,10)
+        birth_data: {
+            birthplace: childFound.birth_data.birthplace,
+            type_of_birth: childFound.birth_data.type_of_birth,
+            birthday: childFound.birth_data.birthday.toISOString().substring(0,10),
+            gestional_age: childFound.birth_data.gestional_age,
+            gender: childFound.birth_data.gender,
+            birth_weight: childFound.birth_data.birth_weight,
+            skin_to_skin_contact: childFound.birth_data.skin_to_skin_contact,
+            breastfeeding_b4_2hours: childFound.birth_data.breastfeeding_b4_2hours,
+            has_suplement: childFound.birth_data.has_suplement,
+            why_recived_suplement: childFound.birth_data.why_recived_suplement,
+            joint_accommodation: childFound.birth_data.joint_accommodation,
+            use_of_pacifier: childFound.birth_data.use_of_pacifier,
+            post_discharge_feeding: childFound.birth_data.post_discharge_feeding,
+            last_weight_control: childFound.birth_data.last_weight_control
+        }
     };
-
     return childFiltered;
+}
+
+/**
+ * Esta encargada de mantener un llamado a la función auxiliar de todos los datos a almacenar en la colección Graphics
+ * @param childSaved Lactante con todos los datos a guardar en la BD
+ */
+ function addChildGraphic( childSaved: any ) {
+    addDataGraphic("birthplace", childSaved.birth_data.birthplace);
+    addDataGraphic("type_of_birth", childSaved.birth_data.type_of_birth);
+    addDataGraphic("gestional_age", childSaved.birth_data.gestional_age.toString());
+    addDataGraphic("gender", childSaved.birth_data.gender);
+    addDataGraphic("birth_weight", childSaved.birth_data.birth_weight.toString());
+    addDataGraphic("skin_to_skin_contact", isTrueOrFalse(childSaved.birth_data.skin_to_skin_contact));
+    addDataGraphic("breastfeeding_b4_2hours", isTrueOrFalse(childSaved.birth_data.breastfeeding_b4_2hours));
+    addDataGraphic("use_of_pacifier", isTrueOrFalse(childSaved.birth_data.use_of_pacifier));
+    addDataGraphic("post_discharge_feeding", childSaved.birth_data.post_discharge_feeding.toString());
+    addDataGraphic("joint_accommodation", isTrueOrFalse(childSaved.birth_data.joint_accommodation));
+    addDataGraphic("has_suplement", isTrueOrFalse(childSaved.birth_data.has_suplement));
+    addDataGraphic("why_recived_suplement", childSaved.birth_data.why_recived_suplement);
+}
+
+/**
+ * Esta encargada de devolver el valor de un booleano pero cambiado a "si" o "no"
+ * @param option valor booleano que se va a ingresar a la condicional if
+ */
+function isTrueOrFalse(option: any){
+    if(option){
+        return "Si";
+    }else{
+        return "No";
+    }
 }
