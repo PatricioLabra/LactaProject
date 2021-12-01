@@ -20,13 +20,16 @@ export class UserInfoService {
   }
 
   public signInUser(rut: string, password: string) {
-
+    // TODO
   }
 
   public signOutUser() {
     this.resetUserData();
   }
 
+  /**
+   * Reestablece los datos del usuario a valores por defecto
+   */
   private resetUserData() {
     this.isLogged = false;
     this.isAdmin = false;
