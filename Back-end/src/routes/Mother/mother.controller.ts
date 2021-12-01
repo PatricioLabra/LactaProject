@@ -68,6 +68,10 @@ export const editMother: RequestHandler = async (req, res) => {
     if ( !motherFound ) 
         return res.status(404).send({ success: false, data:{}, message: 'ERROR: La madre ingresada no existe en el sistema.' });
 
+    //se editan los datos de la madre asociado a los gráficos
+    deleteMotherGraphic (motherFound);
+    addMotherGraphic (updatedMother);
+
     //se actualiza la madre en el sistema
     await Mother.findByIdAndUpdate( _id, updatedMother );
 
@@ -183,19 +187,19 @@ function destructureMother(motherFound: any) {
 
 /**
  * Esta encargada de mantener un llamado a la función auxiliar de todos los datos a almacenar en la colección Graphics
- * @param motherSaved Madre con todos los datos a guardar en la BD
+ * @param mother Madre con todos los datos a guardar en la BD
  */
-function addMotherGraphic( motherSaved: any ) {
-    addDataGraphic("commune",motherSaved.commune);
-    addDataGraphic("birth", motherSaved.birth.toISOString().substring(0,4));
-    addDataGraphic("studies", motherSaved.studies);
-    addDataGraphic("marital_status", motherSaved.marital_status);
-    addDataGraphic("forecast", motherSaved.forecast);
-    addDataGraphic("number_of_living_children", motherSaved.number_of_living_children.toString());
+function addMotherGraphic( mother: any ) {
+    addDataGraphic("commune",mother.commune);
+    addDataGraphic("birth", mother.birth.toISOString().substring(0,4));
+    addDataGraphic("studies", mother.studies);
+    addDataGraphic("marital_status", mother.marital_status);
+    addDataGraphic("forecast", mother.forecast);
+    addDataGraphic("number_of_living_children", mother.number_of_living_children.toString());
 
     //se valida que el arreglo no venga vacío
-    if ( motherSaved.chronic_diseases.length > 0 ){
-        addDataGraphic("chronic_diseases", motherSaved.chronic_diseases);
+    if ( mother.chronic_diseases.length > 0 ){
+        addDataGraphic("chronic_diseases", mother.chronic_diseases);
     }
 }
 
