@@ -96,8 +96,15 @@ export const editChild: RequestHandler = async (req, res) => {
         await Control.updateMany( { id_child: _id }, { child_name: updatedChild.name } );
     }
 
+    //se eliminan los datos del child antigüos de la colección Graphic
+    deleteChildGraphic(childFound);
+
     //se actualiza el lactante
     await Child.findByIdAndUpdate( _id, updatedChild );
+
+    //se obtiene el child actualizado para agregar los nuevos datos a la colección Graphics
+    const childFoundUpdated = await Child.findById( _id );
+    addChildGraphic(childFoundUpdated);
 
     return res.status(200).send({ success: true, data:{}, messagge: 'Lactante editado exitosamente' });
 }
@@ -226,21 +233,21 @@ function destructureChild( childFound: any ){
 
 /**
  * Esta encargada de mantener un llamado a la función auxiliar de todos los datos a almacenar en la colección Graphics
- * @param childSaved Lactante con todos los datos a guardar en la BD
+ * @param child Lactante con todos los datos a guardar en la BD
  */
- function addChildGraphic( childSaved: any ) {
-    addDataGraphic("birthplace", childSaved.birth_data.birthplace);
-    addDataGraphic("type_of_birth", childSaved.birth_data.type_of_birth);
-    addDataGraphic("gestional_age", childSaved.birth_data.gestional_age.toString());
-    addDataGraphic("gender", childSaved.birth_data.gender);
-    addDataGraphic("birth_weight", childSaved.birth_data.birth_weight.toString());
-    addDataGraphic("skin_to_skin_contact", isTrueOrFalse(childSaved.birth_data.skin_to_skin_contact));
-    addDataGraphic("breastfeeding_b4_2hours", isTrueOrFalse(childSaved.birth_data.breastfeeding_b4_2hours));
-    addDataGraphic("use_of_pacifier", isTrueOrFalse(childSaved.birth_data.use_of_pacifier));
-    addDataGraphic("post_discharge_feeding", childSaved.birth_data.post_discharge_feeding.toString());
-    addDataGraphic("joint_accommodation", isTrueOrFalse(childSaved.birth_data.joint_accommodation));
-    addDataGraphic("has_suplement", isTrueOrFalse(childSaved.birth_data.has_suplement));
-    addDataGraphic("why_recived_suplement", childSaved.birth_data.why_recived_suplement);
+ function addChildGraphic( child: any ) {
+    addDataGraphic("birthplace", child.birth_data.birthplace);
+    addDataGraphic("type_of_birth", child.birth_data.type_of_birth);
+    addDataGraphic("gestional_age", child.birth_data.gestional_age.toString());
+    addDataGraphic("gender", child.birth_data.gender);
+    addDataGraphic("birth_weight", child.birth_data.birth_weight.toString());
+    addDataGraphic("skin_to_skin_contact", isTrueOrFalse(child.birth_data.skin_to_skin_contact));
+    addDataGraphic("breastfeeding_b4_2hours", isTrueOrFalse(child.birth_data.breastfeeding_b4_2hours));
+    addDataGraphic("use_of_pacifier", isTrueOrFalse(child.birth_data.use_of_pacifier));
+    addDataGraphic("post_discharge_feeding", child.birth_data.post_discharge_feeding.toString());
+    addDataGraphic("joint_accommodation", isTrueOrFalse(child.birth_data.joint_accommodation));
+    addDataGraphic("has_suplement", isTrueOrFalse(child.birth_data.has_suplement));
+    addDataGraphic("why_recived_suplement", child.birth_data.why_recived_suplement);
 }
 
 /**
