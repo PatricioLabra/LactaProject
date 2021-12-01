@@ -5,6 +5,6 @@ import { verifyToken } from '../jwt';
 const router = Router();
 
 //Obtener objeto con los datos a graficar
-router.get('/graphic/:keyword', graphicCtrl.getDataGraphic);
+router.get('/graphic/:keyword', verifyToken, graphicCtrl.getDataGraphic);
 
 export default router;
