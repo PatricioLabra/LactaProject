@@ -1,7 +1,11 @@
-.content{
-    min-height: 79.5vh;
+.graphContainer
+{
+    
     display: flex;
     
+}
+.content{
+    min-height: 79.5vh;
 }
 .graph{
     margin: auto;
@@ -16,8 +20,9 @@
     
 }
 .top-bar{
-    width: 80%;
+    width: 70%;
     margin: auto;
+    margin-block: 5px;
     .backButton{
         width: 77px;
         height: 39px;
