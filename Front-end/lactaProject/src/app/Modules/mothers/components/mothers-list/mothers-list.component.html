@@ -20,14 +20,6 @@
               <th [mdbTableSort]="elements" [sortBy]="headElements[1]"
                   scope="col">Rut <mdb-icon fas icon="sort"></mdb-icon>
               </th>
-
-              <th [mdbTableSort]="elements" [sortBy]="headElements[2]"
-                  scope="col">Ultima Cita<mdb-icon fas icon="sort"></mdb-icon>
-              </th>
-
-              <th [mdbTableSort]="elements" [sortBy]="headElements[3]"
-                  scope="col">Proxima Cita<mdb-icon fas icon="sort"></mdb-icon>
-              </th>
             </tr>
             </thead>
             <tbody #row>
@@ -35,13 +27,11 @@
               <!--  CUANDO LLEGUE EL OBJETO ESTE LISTO HAY CAMBIAR LOS PARAMETROS DE ABAJO POR "el.(varableDelObjeto)" EJ: "el.names"-->
               <th *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex" >{{el.name}}</th>
               <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex" >{{el.rut}}</td>
-              <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{el.last}}</td>
-              <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{el.handle}}</td>
             </tr>
             </tbody>
             <tfoot class="grey lighten-5 w-100">
             <tr>
-              <td colspan="4">
+              <td colspan="2">
                 <mdb-table-pagination [tableEl]="tableEl" paginationAlign="" [searchDataSource]="elements"></mdb-table-pagination>
               </td>
             </tr>
