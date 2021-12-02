@@ -32,7 +32,7 @@ export const getDataGraphic: RequestHandler = async (req, res) => {
 
     const data = destructureData( dataFound );
 
-    return res.status(200).send({ success: true, data:{ data }, message: 'Se envia exitosamente el grafico solicitado.' });
+    return res.status(200).send({ success: true, data, message: 'Se envia exitosamente el grafico solicitado.' });
 }
 
 /**
