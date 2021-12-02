@@ -87,6 +87,17 @@ export class UserInfoService extends ApiClass{
     this.isLoggedIn.next(false);
   }
 
+/**
+   * cambia el nivel del permiso
+   */
+ public changeRoleLevel(data:any){
+  this.userInfo.next({
+    role:data,
+    name:sessionStorage.getItem("user_name")
+    });
+  }
+
+
   /**
    * Reestablece los datos del usuario a valores por defecto
    */
