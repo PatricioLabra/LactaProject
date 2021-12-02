@@ -4,10 +4,12 @@ import { Routes, RouterModule } from '@angular/router';
 import { ControlPanelComponent } from './pages/control-panel/control-panel.component';
 import { CanActivateService } from 'src/app/services/can-activate.service';
 import { StadisticsPanelComponent } from './pages/stadistics-panel/stadistics-panel.component';
+import { GraphicViewComponent } from './pages/graphic-view/graphic-view.component';
 
 const routes: Routes=[
-  { path: "control-panel", component: ControlPanelComponent , canActivate:[CanActivateService]},
-  { path: "panel-estadisticas",component:StadisticsPanelComponent, canActivate:[CanActivateService]}
+  { path: "control-panel", component: ControlPanelComponent , canActivate: [CanActivateService] },
+  { path: "panel-estadisticas", component: StadisticsPanelComponent, canActivate: [CanActivateService] },
+  { path: "graphic/:keyword", component: GraphicViewComponent, canActivate: [CanActivateService] }
 ];
 
 @NgModule({
