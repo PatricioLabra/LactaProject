@@ -5,11 +5,13 @@ import { ControlPanelComponent } from './pages/control-panel/control-panel.compo
 import { CanActivateService } from 'src/app/services/can-activate.service';
 import { StadisticsPanelComponent } from './pages/stadistics-panel/stadistics-panel.component';
 import { GraphicViewComponent } from './pages/graphic-view/graphic-view.component';
+import { ErrorPageComponent } from './pages/error-page/error-page.component';
 
 const routes: Routes=[
+  
   { path: "control-panel", component: ControlPanelComponent , canActivate: [CanActivateService] },
   { path: "panel-estadisticas", component: StadisticsPanelComponent, canActivate: [CanActivateService] },
-  { path: "graphic/:keyword", component: GraphicViewComponent, canActivate: [CanActivateService] }
+  { path: "graphic/:keyword", component: GraphicViewComponent, canActivate: [CanActivateService] },
 ];
 
 @NgModule({

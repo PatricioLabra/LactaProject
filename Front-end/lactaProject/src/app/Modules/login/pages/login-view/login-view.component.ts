@@ -29,7 +29,12 @@ export class LoginViewComponent implements OnInit {
     this.userService.signInUser(this.login.get("rut")?.value, this.login.get("password")?.value).subscribe((
       response: ApiResponse)=>{
         if(response.success){
-          this.router.navigate(['postlogin']);
+          if(response.data.userInfo.permission_level==1){
+            this.router.navigate(['postlogin']);
+          }else{
+            this.router.navigate(['control-panel']);
+          }
+          
         }else{
           console.log(response.message);
         }

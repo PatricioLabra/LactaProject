@@ -10,8 +10,8 @@ import { UserInfoService } from 'src/app/services/user-info.service';
 export class HeaderComponent implements OnInit {
 
   logged=false
-  role="1"
-  name="pepito pepon"
+  role=""
+  name=""
   constructor(private userService:UserInfoService,private router:Router) { }
 
   ngOnInit(): void {

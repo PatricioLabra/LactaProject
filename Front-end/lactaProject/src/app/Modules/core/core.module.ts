@@ -8,6 +8,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { StadisticsPanelComponent } from './pages/stadistics-panel/stadistics-panel.component';
 import { GraphicViewComponent } from './pages/graphic-view/graphic-view.component';
+import { ErrorPageComponent } from './pages/error-page/error-page.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { GraphicViewComponent } from './pages/graphic-view/graphic-view.componen
     FooterComponent,
     ControlPanelComponent,
     StadisticsPanelComponent,
-    GraphicViewComponent
+    GraphicViewComponent,
+    ErrorPageComponent
   ],
   imports: [
     CommonModule,
