@@ -23,17 +23,23 @@ mdb-card-body{
 #card1{
     background: url("../../../../../assets/pc1.png");
     background-color: white;
-    background-size: 100%;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 #card2{
     background: url("../../../../../assets/pc2.png");
     background-color: white;
-    background-size: 100%;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 #card3{
     background: url("../../../../../assets/pc3.jpg");
     background-color: white;
-    background-size: 100%;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 .content{
     min-height: 79.5vh;

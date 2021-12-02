@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
 import { ApiResponse } from '@interfaces/api_response';
-import { ApiSendService } from 'src/app/services/api-send.service';
+import { UserInfoService } from 'src/app/services/user-info.service';
 
 @Component({
   selector: 'app-login-view',
@@ -15,7 +15,7 @@ export class LoginViewComponent implements OnInit {
 
   public login: FormGroup;
 
-  constructor(private fb: FormBuilder, private router: Router, private apiSend:ApiSendService) { 
+  constructor(private fb: FormBuilder, private router: Router, private userService:UserInfoService) { 
     this.login=this.fb.group({
       rut:['',Validators.required],
       password:['',Validators.required]
@@ -23,13 +23,13 @@ export class LoginViewComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.apiSend.isLogged.subscribe(response =>{
+    this.userService.getIsLoggedin.subscribe(response =>{
       console.log(response);
     });
   }
 
   log_in(){
-    this.apiSend.signIn(this.login.get("rut")?.value, this.login.get("password")?.value).subscribe((
+    this.userService.signInUser(this.login.get("rut")?.value, this.login.get("password")?.value).subscribe((
       response: ApiResponse)=>{
         if(response.success){
           this.router.navigate(['postlogin']);

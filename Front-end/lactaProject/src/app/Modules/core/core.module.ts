@@ -7,13 +7,15 @@ import { ControlPanelComponent } from './pages/control-panel/control-panel.compo
 import { HttpClientModule } from '@angular/common/http';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { StadisticsPanelComponent } from './pages/stadistics-panel/stadistics-panel.component';
+import { GraphicViewComponent } from './pages/graphic-view/graphic-view.component';
 
 @NgModule({
   declarations: [
     HeaderComponent,
     FooterComponent,
     ControlPanelComponent,
-    StadisticsPanelComponent
+    StadisticsPanelComponent,
+    GraphicViewComponent
   ],
   imports: [
     CommonModule,
