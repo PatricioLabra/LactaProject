@@ -102,4 +102,9 @@ export class ApiGetService extends ApiClass {
     const url: string = this.makeUrl(['user']);
     return this.http.get<ApiResponse>(url);
   }
+
+  public getGraphicData(keyword: string): Observable<ApiResponse> {
+    const url: string = this.makeUrl(['graphic', keyword]);
+    return this.http.get<ApiResponse>(url);
+  }
 }

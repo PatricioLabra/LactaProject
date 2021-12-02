@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-graphic-view',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GraphicViewComponent implements OnInit {
 
-  constructor() { }
+  public keyword: string = null;
+
+  constructor(private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.keyword = this.activatedRoute.snapshot.params.keyword;
   }
 
 }
