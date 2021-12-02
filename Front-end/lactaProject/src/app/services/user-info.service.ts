@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { typeUser } from '@interfaces/user';
 import { Observable, Subject, BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { JwtHelperService } from '@auth0/angular-jwt';
@@ -12,16 +11,20 @@ import { ApiResponse } from '@interfaces/api_response';
 })
 export class UserInfoService extends ApiClass{
 
+  private userData:any={
+    role: sessionStorage.getItem("user_role"),
+    name: sessionStorage.getItem("user_name")
+  }
+
   private isLoggedIn = new BehaviorSubject<boolean>(false);
   private helper = new JwtHelperService();
-
+  private userInfo = new BehaviorSubject<any>(this.userData);
   changeUser: Subject<{isLogged: boolean, isAdmin: boolean, nickname: string}> = new Subject();
   changesUser$ =  this.changeUser.asObservable();
 
   isLogged: boolean;
   isAdmin: boolean;
-  userInfo: typeUser;
-  token: string;
+
 
   constructor(http: HttpClient) {
     super(http);
@@ -34,6 +37,10 @@ export class UserInfoService extends ApiClass{
     return this.http.post<ApiResponse>(url, { rut: user, password: pass }).pipe(map(res => {
       this.isLoggedIn.next(true);
       this.saveData(res);
+      this.userInfo.next({
+        role:sessionStorage.getItem("user_role"),
+        name:sessionStorage.getItem("user_name")
+      });
       return res;
     }));
   }
@@ -58,12 +65,16 @@ export class UserInfoService extends ApiClass{
     return this.isLoggedIn.asObservable();
   }
 
+  get getUserInfo():Observable<any> {
+    return this.userInfo.asObservable();
+  }
+
   /**
    * Guarda el token en el session storage
    */
   private saveData(data:any) {
-    let id:any = this.helper.decodeToken(data.data.token);
-    sessionStorage.setItem('user_id', id._id);
+    sessionStorage.setItem('user_name', data.data.userInfo.name);
+    sessionStorage.setItem('user_role', data.data.userInfo.permission_level);
     sessionStorage.setItem('token', data.data.token);
   }
 
@@ -82,7 +93,5 @@ export class UserInfoService extends ApiClass{
   private resetUserData() {
     this.isLogged = false;
     this.isAdmin = false;
-    this.userInfo = null;
-    this.token = '';
   }
 }

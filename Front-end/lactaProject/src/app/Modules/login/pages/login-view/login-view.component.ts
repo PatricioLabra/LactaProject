@@ -23,9 +23,6 @@ export class LoginViewComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.userService.getIsLoggedin.subscribe(response =>{
-      console.log(response);
-    });
   }
 
   log_in(){
