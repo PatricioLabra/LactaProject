@@ -248,6 +248,17 @@ function destructureChild( childFound: any ){
     addDataGraphic("joint_accommodation", isTrueOrFalse(child.birth_data.joint_accommodation));
     addDataGraphic("has_suplement", isTrueOrFalse(child.birth_data.has_suplement));
     addDataGraphic("why_recived_suplement", child.birth_data.why_recived_suplement);
+    addDataGraphic("planned_pregnancy", isTrueOrFalse(child.gestacion_data.planned_pregnancy));
+    addDataGraphic("assisted_fertilization", isTrueOrFalse(child.gestacion_data.assisted_fertilization));
+    addDataGraphic("previous_lactaction", child.gestacion_data.previous_lactaction);
+    addDataGraphic("duration_of_past_lactaction_in_months", child.gestacion_data.duration_of_past_lactaction_in_months.toString());
+    addDataGraphic("breastfeeding_education", isTrueOrFalse(child.gestacion_data.breastfeeding_education));
+    addDataGraphic("nutritional_status_mother", child.gestacion_data.nutritional_status_mother);
+
+    //se valida que el arreglo no venga vacío
+    if ( child.gestacion_data.diseases_during_pregnancy.length > 0 ){
+        addDataGraphic("diseases_during_pregnancy", child.gestacion_data.diseases_during_pregnancy);
+    }
 }
 
 /**
@@ -267,6 +278,17 @@ function destructureChild( childFound: any ){
     deleteDataGraphic("joint_accommodation", isTrueOrFalse(child.birth_data.joint_accommodation));
     deleteDataGraphic("has_suplement", isTrueOrFalse(child.birth_data.has_suplement));
     deleteDataGraphic("why_recived_suplement", child.birth_data.why_recived_suplement);
+    deleteDataGraphic("planned_pregnancy", isTrueOrFalse(child.gestacion_data.planned_pregnancy));
+    deleteDataGraphic("assisted_fertilization", isTrueOrFalse(child.gestacion_data.assisted_fertilization));
+    deleteDataGraphic("previous_lactaction", child.gestacion_data.previous_lactaction);
+    deleteDataGraphic("duration_of_past_lactaction_in_months", child.gestacion_data.duration_of_past_lactaction_in_months.toString());
+    deleteDataGraphic("breastfeeding_education", isTrueOrFalse(child.gestacion_data.breastfeeding_education));
+    deleteDataGraphic("nutritional_status_mother", child.gestacion_data.nutritional_status_mother);
+
+    //se valida que el arreglo no venga vacío
+    if ( child.gestacion_data.diseases_during_pregnancy.length > 0 ){
+        deleteDataGraphic("diseases_during_pregnancy", child.gestacion_data.diseases_during_pregnancy);
+    }
 }
 
 /**
