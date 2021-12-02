@@ -21,7 +21,7 @@ export class GraphicViewComponent implements OnInit {
 
     this.apiGet.getGraphicData(this.keyword).subscribe((response: ApiResponse) => {
       if (response.success) {
-        this.dataGraphic = response.data;
+        this.dataGraphic = response.data.options;
       }
     });
   }
