@@ -1,1 +1,16 @@
-<p>graphic-view works!</p>
+<div class="content">
+
+    <div *ngIf="this.flag==1" style="display: block" class="graph">
+        <canvas mdbChart
+            [chartType]="chartType"
+            [datasets]="chartDatasets"
+            [labels]="chartLabels"
+            [colors]="chartColors"
+            [options]="chartOptions"
+            [legend]="true"
+            (chartHover)="chartHovered($event)"
+            (chartClick)="chartClicked($event)">
+        </canvas>
+      </div>
+
+</div>

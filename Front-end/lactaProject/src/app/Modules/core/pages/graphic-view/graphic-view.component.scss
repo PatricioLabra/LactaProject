@@ -1,0 +1,17 @@
+.content{
+    min-height: 79.5vh;
+    display: flex;
+    
+}
+.graph{
+    margin: auto;
+    width: 70%;
+    background-color: whitesmoke;
+    border-radius: 30px;
+}
+@media (max-width:800px) {
+    .graph{
+        width: 100%;
+    }
+    
+}
