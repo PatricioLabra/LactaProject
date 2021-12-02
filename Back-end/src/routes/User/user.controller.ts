@@ -142,7 +142,14 @@ export const signIn: RequestHandler = async (req, res) => {
 
     const token = signToken(userFound._id);
 
-    return res.status(200).send({ success: true, data:{ token }, message: 'Se ingreso correctamente.' });
+    const userInfo = {
+        name: userFound.name,
+        rut: userFound.rut,
+        mail: userFound.mail,
+        permission_level: userFound.permission_level
+    };
+
+    return res.status(200).send({ success: true, data:{ token, userInfo }, message: 'Se ingreso correctamente.' });
 }
 
 export const getPass: RequestHandler = async (req, res) => {
@@ -204,5 +211,5 @@ export const changePass: RequestHandler = async (req, res) => {
 
     const token = signToken(req.params.id);
 
-    return res.status(200).send({ success: true, data:{ token    }, message: 'Se modifico la password correctamente.' });
+    return res.status(200).send({ success: true, data:{ token }, message: 'Se modifico la password correctamente.' });
 }
