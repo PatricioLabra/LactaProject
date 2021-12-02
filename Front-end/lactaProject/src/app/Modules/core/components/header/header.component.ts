@@ -10,6 +10,7 @@ import { UserInfoService } from 'src/app/services/user-info.service';
 export class HeaderComponent implements OnInit {
 
   logged=false
+  role="1"
   name="pepito pepon"
   constructor(private userService:UserInfoService,private router:Router) { }
 
@@ -19,7 +20,7 @@ export class HeaderComponent implements OnInit {
     });
     this.userService.getUserInfo.subscribe((response:any)=>{
       this.name=response.name;
-      this.logged=response.role;
+      this.role=response.role;
     });
   }
 
