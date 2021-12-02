@@ -1,1 +1,26 @@
-<p>graphic-view works!</p>
+<div class="content">
+    <div class="top-bar">
+        <a href="panel-estadisticas" mdbBtn color="" class="backButton" mdbWavesEffect>
+            <i class="fas fa-long-arrow-alt-left"></i>
+        </a>
+    </div>
+    <div class="graphContainer">
+    
+    
+        <div *ngIf="this.flag==1" style="display: block" class="graph">
+            <canvas mdbChart
+                [chartType]="chartType"
+                [datasets]="chartDatasets"
+                [labels]="chartLabels"
+                [colors]="chartColors"
+                [options]="chartOptions"
+                [legend]="true"
+                (chartHover)="chartHovered($event)"
+                (chartClick)="chartClicked($event)">
+            </canvas>
+          </div>
+    
+    </div>
+
+</div>
+
