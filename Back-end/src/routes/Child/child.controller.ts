@@ -62,7 +62,7 @@ export const newChild: RequestHandler = async (req, res) => {
     //se almacenan los datos a graficar del lacatnte en el sistema
     addChildGraphic(childSaved);
 
-    //await childSaved.save();
+    await childSaved.save();
 
     return res.status(201).send({ success: true, data: { _id: childSaved._id }, message: 'Lactante agregado con éxito al sistema.' });
 }
