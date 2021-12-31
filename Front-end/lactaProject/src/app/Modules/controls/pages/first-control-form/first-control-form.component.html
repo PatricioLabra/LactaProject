@@ -1,6 +1,6 @@
 <body>
     <div class="top-bar">
-        <a (click)="goToMotherView()" mdbBtn color="" class="backButton" mdbWavesEffect>
+        <a (click)="goToMotherProfile()" mdbBtn color="" class="backButton" mdbWavesEffect>
             <i class="fas fa-long-arrow-alt-left"></i>
         </a>
     </div>
@@ -15,7 +15,7 @@
                         </div>
                         <div class="col-6">
                             <div class="title-container">
-                                <p class="title-text">Primera Cita</p>
+                                <p class="title-text">Agregar Cita</p>
                             </div>
                         </div>
                         <div class="col">
@@ -50,7 +50,7 @@
                 <div class="input-label-container"> 
                     <label class="label-text">Fecha de Control:</label>
                     <div class="birth-container">
-                        <input type="date" class="form-control" formControlName="date_control"
+                        <input type="date" class="form-control disabled" formControlName="date_control"
                         [ngClass]="{ 'is-invalid': form.controls['date_control'].invalid && (form.controls['date_control'].dirty || form.controls['date_control'].touched),
                         'is-valid': form.controls['date_control'].valid && (form.controls['date_control'].dirty || form.controls['date_control'].touched)  }">
                     </div>
@@ -188,59 +188,6 @@
                         <div class="form-check">
                             <input type="checkbox" class="form-check-input" formControlName="relactacion">
                             <label class="form-check-label">Relactación</label>
-                        </div>
-                    </div>
-                </div>
-                <!-- Agendar próxima cita -->
-                <div class="input-label-container"> 
-                    <label class="label-text">¿Agendar próxima cita?:</label>
-                    <div>
-                        <div class="form-check-card">
-                            <input type="radio" class="form-check-input" value="true" formControlName="next_control">
-                            <label class="form-check-label">Si</label>
-                        </div>
-                        <div class="form-check-card">
-                            <input type="radio" class="form-check-input" value="false" formControlName="next_control">
-                            <label class="form-check-label">No</label>
-                        </div>
-                    </div>
-                </div>
-                <!-- Informacion de sgte control -->
-                <div *ngIf="form.controls['next_control']?.value == 'true'">
-                    <div class="input-label-container">
-                        <label class="label-text">Nombre: </label>
-                        <div class="input-name">
-                            <div class="form-control">Pepito Pepon</div>
-                        </div>
-                    </div>
-                    <!-- Lugar de consulta sgte. control -->
-                    <div class="input-label-container"> 
-                        <label class="label-text">Lugar de consulta:</label>
-                        <div>
-                            <select class="browser-default custom-select" formControlName="consultation_place2">
-                                <option value="domicilio">Domicilio</option>
-                                <option value="consulta">Consulta</option>
-                                <option value="online">Online</option>
-                            </select>
-                        </div>
-                    </div>
-                    <!-- Via de seguimiento sgte. control -->
-                    <div class="input-label-container"> 
-                        <label class="label-text">Via de seguimiento:</label>
-                        <div>
-                            <select class="browser-default custom-select" formControlName="monitoring_medium2">
-                                <option value="whatsapp">whatsapp</option>
-                                <option value="teléfono">Teléfono</option>
-                                <option value="en consulta">En consulta</option>
-                                <option value="domicilio">Domicilio</option>
-                            </select>
-                        </div>
-                    </div>
-                    <!-- Fecha de sgte. control -->
-                    <div class="input-label-container"> 
-                        <label class="label-text">Fecha de Control:</label>
-                        <div class="birth-container">
-                            <input type="date" class="form-control" formControlName="date_control2">
                         </div>
                     </div>
                 </div>

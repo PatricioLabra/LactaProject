@@ -50,12 +50,22 @@
                             <input type="number" class="form-control" formControlName="rut" placeholder="Rut"
                             [ngClass]="{ 'is-invalid': form.controls['rut'].invalid && (form.controls['rut'].dirty || form.controls['rut'].touched),
                             'is-valid': form.controls['rut'].valid && (form.controls['rut'].dirty || form.controls['rut'].touched)  }">
+                            <div *ngIf="form.controls['rut']?.hasError('pattern')">
+                                <div class="invalid-text error">
+                                    Tienen que ser de 7 a 8 digitos de largo
+                                </div>
+                            </div>
                         </div>
                         <p class="guion-container">-</p>
                         <div class="rut-vc-container">
                             <input type="text" class="form-control" formControlName="rut_vc" placeholder="VC"
                             [ngClass]="{ 'is-invalid': form.controls['rut_vc'].invalid && (form.controls['rut_vc'].dirty || form.controls['rut_vc'].touched),
                             'is-valid': form.controls['rut_vc'].valid && (form.controls['rut_vc'].dirty || form.controls['rut_vc'].touched)  }">
+                            <div *ngIf="form.controls['rut_vc']?.hasError('pattern')">
+                                <div class="invalid-text error">
+                                   Tiene que ser un digito o el caracter "k"
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div *ngIf="form.controls['rut'].invalid && (form.controls['rut'].dirty || form.controls['rut'].touched)">

@@ -25,8 +25,8 @@ export class MotherFormComponent implements OnInit {
     // Form controls del form
     this.form=this.fb.group({
       name: ['', Validators.required],
-      rut: ['', Validators.required],
-      rut_vc: ['', Validators.required],
+      rut: ['', [Validators.required,Validators.pattern("^[0-9]{7,8}$")]],
+      rut_vc: ['', [Validators.required,Validators.pattern("^[0-9kK]{1}$")]],
       commune: ['', Validators.required],
       phone_number: ['', Validators.required],
       mail: ['', [Validators.email, Validators.required] ],

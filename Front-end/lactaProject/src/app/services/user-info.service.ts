@@ -35,6 +35,7 @@ export class UserInfoService extends ApiClass{
   public signInUser(user: string, pass: string): Observable<ApiResponse> {
     const url: string = this.makeUrl(['user', 'signin']);
     return this.http.post<ApiResponse>(url, { rut: user, password: pass }).pipe(map(res => {
+      console.log(res)
       this.isLoggedIn.next(true);
       this.saveData(res);
       this.userInfo.next({
@@ -73,6 +74,7 @@ export class UserInfoService extends ApiClass{
    * Guarda el token en el session storage
    */
   private saveData(data:any) {
+    console.log(data);
     sessionStorage.setItem('user_name', data.data.userInfo.name);
     sessionStorage.setItem('user_role', data.data.userInfo.permission_level);
     sessionStorage.setItem('token', data.data.token);
