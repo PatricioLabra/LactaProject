@@ -5,6 +5,7 @@ import { ApiResponse } from '@interfaces/api_response';
 import { ApiGetService } from 'src/app/services/api-get.service';
 import { ApiSendService } from 'src/app/services/api-send.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-mother-form',
@@ -18,7 +19,7 @@ export class MotherFormComponent implements OnInit {
   other_diseases:Array<string>=[];
   form:FormGroup;
   id="";
-  constructor(private fb:FormBuilder, private apiSend: ApiSendService, private apiGet: ApiGetService, private router:Router, private route: ActivatedRoute) {
+  constructor(private datePipe:DatePipe,private fb:FormBuilder, private apiSend: ApiSendService, private apiGet: ApiGetService, private router:Router, private route: ActivatedRoute) {
     this.id=this.route.snapshot.paramMap.get('id') as string;
     console.log(this.id);
     // Form controls del form
@@ -62,6 +63,11 @@ export class MotherFormComponent implements OnInit {
   // Funcion que rellena los datos de la asesorada en los form control
   fillInputs(){
     this.form.get('name')?.setValue(this.element.name);
+    //pa que se muestre Date
+    let parts=this.element.birth.split('-')
+    let newdate=new Date(parts[0], parts[1] - 1, parts[2]);
+    this.form.get('birth')?.setValue(this.datePipe.transform(newdate,"yyyy-MM-dd"));
+    //----------
     this.rut_array = this.element.rut.split('-');
     this.form.get('rut')?.setValue(this.rut_array[0]);
     this.form.get('rut_vc')?.setValue(this.rut_array[1]);

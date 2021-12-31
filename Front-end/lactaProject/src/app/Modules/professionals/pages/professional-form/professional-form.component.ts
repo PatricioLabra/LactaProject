@@ -17,7 +17,7 @@ export class ProfessionalFormComponent implements OnInit {
   id="";
   form:FormGroup;
   constructor(private fb:FormBuilder, private apiSend:ApiSendService, private apiGet:ApiGetService, private router:Router, private route: ActivatedRoute) {
-    this.id=this.route.snapshot.paramMap.get('id') as string;
+    //this.id=this.route.snapshot.paramMap.get('id') as string;
     this.form=this.fb.group({
       name: ['', Validators.required],
       rut: ['', Validators.required],
@@ -26,17 +26,19 @@ export class ProfessionalFormComponent implements OnInit {
       mail: ['', [Validators.email, Validators.required]],
       permission_level: ['0', Validators.required]
     });
+   }
+  ngOnInit(): void {
+    this.id=this.route.snapshot.paramMap.get('id') as string;
     if (this.id != '0'){
       this.apiGet.getUserInfo(this.id).subscribe((response: ApiResponse)=>{
         console.log(response);
         if(response.success){
           this.element = response.data;
+          console.log(response.data)
           this.fillInputs();
         }
       });
     }
-   }
-  ngOnInit(): void {
   }
 
   fillInputs(){

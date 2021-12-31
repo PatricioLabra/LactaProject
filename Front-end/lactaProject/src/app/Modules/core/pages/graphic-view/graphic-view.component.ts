@@ -33,9 +33,8 @@ export class GraphicViewComponent implements OnInit {
 
     this.apiGet.getGraphicData(this.keyword).subscribe((response: ApiResponse) => {
       if (response.success) {
-        
         this.dataGraphic = response.data.options;
-        this.chartDatasets[0].label=response.data.name_data + " Chart";
+        this.chartDatasets[0].label=" Cantidad x " +response.data.name_data;
         for(var i in this.dataGraphic){
           this.dataux.push(this.dataGraphic[i].value)
           this.chartLabels.push(this.dataGraphic[i].name)
@@ -78,6 +77,15 @@ export class GraphicViewComponent implements OnInit {
         ticks: {
           beginAtZero: true,
           stepSize:1,
+        },
+        scaleLabel: {
+          display: true,
+          labelString: 'Cantidad'
+        }
+      }],
+      xAxes:[{
+        scaleLabel: {
+          display: true,
         }
       }]
     }

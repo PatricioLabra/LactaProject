@@ -5,6 +5,7 @@ import { ApiGetService } from 'src/app/services/api-get.service';
 import { ApiSendService } from 'src/app/services/api-send.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { typeChild} from '@interfaces/child';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-child-form',
@@ -18,12 +19,7 @@ export class ChildFormComponent implements OnInit {
   chronic_diseases:Array<string>=[];
   other_diseases:Array<string>=[];
   form:FormGroup;
-  constructor(private fb:FormBuilder, private apiSend:ApiSendService, private apiGet:ApiGetService, private router:Router, private route:ActivatedRoute) {
-    this.id = this.route.snapshot.paramMap.get('idChild')as string;
-    console.log(this.id);
-    this.motherId = this.route.snapshot.paramMap.get('idMother')as string;
-    console.log(this.motherId);
-    // Form controls
+  constructor(private datePipe:DatePipe,private fb:FormBuilder, private apiSend:ApiSendService, private apiGet:ApiGetService, private router:Router, private route:ActivatedRoute) {
     this.form=this.fb.group({
       name: ['', Validators.required],
       sintoma_parto_prematuro: [''],
@@ -55,6 +51,13 @@ export class ChildFormComponent implements OnInit {
       skin_to_skin_contact: ['false', Validators.required],
       last_weight_control: ['', Validators.required]
     });
+   }
+  ngOnInit(): void {
+    this.id = this.route.snapshot.paramMap.get('idChild')as string;
+    console.log(this.id);
+    this.motherId = this.route.snapshot.paramMap.get('idMother')as string;
+    console.log(this.motherId);
+    // Form controls
     if(this.id != '0'){
       this.apiGet.getChild(this.id).subscribe((response:ApiResponse)=>{
         console.log(response);
@@ -65,12 +68,15 @@ export class ChildFormComponent implements OnInit {
         }
       });
     }
-   }
-  ngOnInit(): void {
   }
   // Funcion que rellena los campos de los form control, en caso de que este control se utilice para editar un lactante
   fillInputs(){
     this.descomponerList();
+    //fecha
+    let parts=this.element.birth_data.birthday.split('-')
+    let newdate=new Date(parts[0], parts[1] - 1, parts[2]);
+    this.form.get('birth')?.setValue(this.datePipe.transform(newdate,"yyyy-MM-dd"));
+    //-----
     this.form.get('name')?.setValue(this.element.name);
     this.form.get('nutritional_status_mother')?.setValue(this.element.gestacion_data.nutritional_status_mother);
     this.form.get('planned_pregnancy')?.setValue(this.element.gestacion_data.planned_pregnancy);
