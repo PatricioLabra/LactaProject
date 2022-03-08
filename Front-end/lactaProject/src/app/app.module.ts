@@ -12,6 +12,10 @@ import { ProfessionalsModule } from '@professionals/professionals.module';
 import { ControlsModule } from '@controls/controls.module';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CanActivateAdminService } from './services/can-activate-admin.service';
+import { CanActivateService } from './services/can-activate.service';
+import {DatePipe} from '@angular/common';
+
 
 @NgModule({
   declarations: [
@@ -30,7 +34,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MDBBootstrapModule.forRoot(),
     BrowserAnimationsModule
   ],
-  providers: [],
+  providers: [CanActivateAdminService,CanActivateService,DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

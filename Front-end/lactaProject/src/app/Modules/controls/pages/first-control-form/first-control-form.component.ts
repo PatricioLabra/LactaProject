@@ -5,6 +5,7 @@ import { ApiGetService } from 'src/app/services/api-get.service';
 import { ApiSendService } from 'src/app/services/api-send.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { typeControl } from '@interfaces/control';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-first-control-form',
@@ -14,14 +15,16 @@ import { typeControl } from '@interfaces/control';
 export class FirstControlFormComponent implements OnInit {
   idChild="";
   indications:Array<string>=[];
+  
   form:FormGroup;
-  constructor(private fb:FormBuilder, private apiSend:ApiSendService, private apiGet:ApiGetService, private router:Router, private route:ActivatedRoute) {
+  constructor(private location:Location , private fb:FormBuilder, private apiSend:ApiSendService, private apiGet:ApiGetService, private router:Router, private route:ActivatedRoute) {
     this.idChild = this.route.snapshot.paramMap.get('idChild')as string;
     console.log(this.idChild);
+    
     this.form=this.fb.group({
       consultation_place: ['domicilio'],
       monitoring_medium: ['whatsapp'],
-      date_control: ['', Validators.required],
+      date_control: [new Date().toISOString().split('T')[0], Validators.required],
       age: ['', Validators.required],
       weight: ['', Validators.required],
       reason_of_consultation: ['', Validators.required],
@@ -43,6 +46,8 @@ export class FirstControlFormComponent implements OnInit {
    }
   ngOnInit(): void {
   }
+
+
   // Funcion que imprime por consola los form control value
   sendControlData(){
     this.createList();
@@ -72,7 +77,7 @@ export class FirstControlFormComponent implements OnInit {
           console.log(response);
         }); 
       }
-      this.goToMotherView();
+      this.goToMotherProfile();
     });
   }
 
@@ -80,6 +85,11 @@ export class FirstControlFormComponent implements OnInit {
     const url:string = 'asesoradas/';
     this.router.navigate([url]);
   }
+
+  goToMotherProfile() {
+    this.location.back()
+  }
+
   // Funcion que crea una lista de enfermedades cronicas
   createList(){
     if(this.form.get("mejorar_acople")?.value == true){

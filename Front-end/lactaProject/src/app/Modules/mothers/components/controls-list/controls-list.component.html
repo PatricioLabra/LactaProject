@@ -1,16 +1,52 @@
 <!--Controls list card-->
+<h3>Próximas Citas</h3>
 <div *ngIf="controls" class="controls-list-card">
-    <h3>Próximas Citas</h3>
 
+
+  <div class="row headData">
+    <div class="col">
+
+    </div>
+    <div class="col">
+      Lugar:
+
+
+    </div>
+    <div class="col">
+      Via de seguimiento:
+
+    </div>
+    <div class="col">
+      Fecha:
+
+    </div>
+    <div class="col">
+
+    </div>
+  </div>
     <!--Control card-->
     <div *ngFor="let control of controls" class="control-card">
-        <button>Ir</button>
-        <p>{{ control.consultation_place }}</p>
-        <p>{{ control.monitoring_medium }}</p>
-        <p>{{ control.date_control }}</p>
 
-        <div class="btn-group" mdbDropdown>
-            <a mdbDropdownToggle type="button" mdbBtn color="primary" class="sortButton dropdown-toggle waves-light"
+      <div class="row controlData">
+        <div class="col editCtrlBtn">
+          <a (click)=irSeguimiento(control)>Ir</a>
+
+        </div>
+        <div class="col cl1">
+          <p>{{ control.consultation_place }}</p>
+          
+        </div>
+        <div class="col cl2">
+          <p>{{ control.monitoring_medium }}</p>
+          
+        </div>
+        <div class="col cl3">
+          <p>{{ control.date_control }}</p>
+          
+        </div>
+        <div class="col">
+          <div class="btn-group" mdbDropdown>
+            <a mdbDropdownToggle type="button" mdbBtn color="whitesmoke" class="sortButton dropdown-toggle waves-light"
               mdbWavesEffect>
             </a>
           
@@ -20,6 +56,13 @@
             </div>
     
         </div>
+          
+        </div>
+
+      </div>
+
+
+        
 
     </div>
     <!--Control card-->

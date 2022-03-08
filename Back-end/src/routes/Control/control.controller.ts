@@ -3,6 +3,7 @@ import { Types } from "mongoose";
 import Control from './control.model';
 import Child from '../Child/child.model';
 import Mother from '../Mother/mother.model';
+import { addDataGraphic, deleteDataGraphic } from "../Graphic/generate.graphics";
 
 
 /**
@@ -60,6 +61,12 @@ export const newControl: RequestHandler = async (req, res) => {
 
     //se almacena el control en el sistema
     const controlSaved = new Control(newControl);
+
+    if ( controls == 0 ){
+        //Se almacenan los datos a graficar de los controles en el sistema
+        addControlGraphic(controlSaved);
+    }
+
     await controlSaved.save();
 
     return res.status(201).send({ success: true, data: { _id: controlSaved._id }, message: 'Control agregado con éxito al sistema.' });
@@ -84,9 +91,17 @@ export const editControl: RequestHandler = async (req, res) => {
     //se valida la existencia del control en el sistema
     if ( !controlFound )
         return res.status(404).send({ success: false, data:{}, message: 'ERROR: El control ingresado no existe en el sistema.' });
-
+    
     //se actualiza el control en el sistema
     await Control.findByIdAndUpdate( _id, updatedControl );
+
+    const current_date = new Date();
+
+    /*se valida que el control sea de la fecha actual (planilla seguimiento) y que tenga al menos uno de los datos obligatorios rellenados
+    * esto con el fin de solo almacenar plantillas de seguimiento y no proximos controles*/
+    if ( controlFound.date_control.toISOString().substring(0,10) == current_date.toISOString().substring(0,10) && updatedControl.reason_of_consultation != null ){
+        addControlGraphic( updatedControl );
+    }
 
     return res.status(200).send({ success: true, data:{}, message: 'Control editado de manera correcta.' });
 }
@@ -105,11 +120,14 @@ export const deleteControl: RequestHandler = async (req, res) => {
         return res.status(400).send({ success: false, data:{}, message: 'ERROR: El id ingresado no es válido.' });
     }
     
-    const controlFound = Control.findById(_id);
+    const controlFound = await Control.findById(_id);
 
     if( !controlFound ){
         return res.status(404).send({ success: false, data:{}, message:'Error: El control solicitado no existe en el sistema.' });
     }
+
+    //se eliminan los datos del lactante asociados a los graphic
+    deleteControlGraphic(controlFound);
 
     //Se busca el control y se elimina
     await Control.findByIdAndDelete(_id);
@@ -142,8 +160,6 @@ export const getNextControls: RequestHandler = async (req, res) => {
     //se setea la hora 
     dateInitializer(date);
 
-    const dateFormat = DateToFormattedString(date);
-
     //se obtiene la lista de controles proximos, ordenados del más reciente al último
     const nextControls = await Control.find( { "id_mother": idMother, "date_control": {"$gte": date}} ).sort({date_control: 1}); 
 
@@ -153,7 +169,7 @@ export const getNextControls: RequestHandler = async (req, res) => {
          child_name: control.child_name, 
          consultation_place: control.consultation_place,
          monitoring_medium: control.monitoring_medium,
-         date_control: DateToFormattedString(control.date_control)
+         date_control: control.date_control.toISOString().substring(0,10)
         }});
 
     return res.status(200).send({ success: true, data:{ nextControlsFiltered }, message: 'Lista de controles obtenida de manera correcta' });
@@ -184,8 +200,6 @@ export const getPassControls: RequestHandler = async (req, res) => {
     //se setea la hora 
     dateInitializer(date);
 
-    const dateFormat = DateToFormattedString(date);
-
     //se obtiene la lista de controles proximos, ordenados del más reciente al último
     const passControls = await Control.find( { "id_mother": idMother, "date_control": {"$lt": date}} ).sort({date_control: -1}); 
 
@@ -195,7 +209,8 @@ export const getPassControls: RequestHandler = async (req, res) => {
          child_name: control.child_name, 
          consultation_place: control.consultation_place,
          monitoring_medium: control.monitoring_medium,
-         date_control: DateToFormattedString(control.date_control)
+         date_control: control.date_control.toISOString().substring(0,10),
+         completed: isCompleted(control.weight)
         }});
 
     return res.status(200).send({ success: true, data:{ passControlsFiltered }, message: 'Lista de controles obtenida de manera correcta' });
@@ -233,8 +248,76 @@ export const getDetailedPassControl: RequestHandler = async (req, res) => {
     });
 }
 
-export const getSeach: RequestHandler = async (req, res) => {
+/**
+ * Función que maneja la petición de obtener una lista de controles asociados al nombre de un lactante y a un rango de fechas
+ * @route Get /controlsFiltered
+ * @param req Request de la petición, se espera que tenga un JSON con los filtros
+ * @param res Response, retorna un un object con success:true, data:{} con la lista y un message: "String" de confirmacion
+ */
+export const getSearchControlFiltered: RequestHandler = async (req, res) => {
+    const { id_mother, child_name, init_date, end_date } = req.body;
+    let list_controls;
 
+    //se valida el id_mother ingresado
+    if ( !Types.ObjectId.isValid(id_mother) ){
+        return res.status(400).send({ success: false, data:{}, message:'Error: El id_mother ingresado no es válido.' });
+    }
+
+    //se valida que se ingresaron parámetros
+    if ( !child_name && !init_date && !end_date ) {
+        return res.status(400).send({ success: false, data:{}, message: 'ERROR: No se ingresaron parámetros para filtrar.' })
+    } else {
+        //se busca por end_date
+        if ( !child_name && !init_date && end_date) {
+            list_controls = await Control.find({ "id_mother": id_mother, "date_control":{"$lte": end_date }}).sort({date_control: -1});
+        } else {
+            //se busca por init_date
+            if ( !child_name && init_date && !end_date) {
+                list_controls = await Control.find({ "id_mother": id_mother, "date_control":{"$gte": init_date}}).sort({date_control: -1});
+            } else {
+                //se busca por child_name y la fecha actual
+                if ( child_name && !init_date && !end_date ) {
+                    const date_now = new Date();
+                    dateInitializer(date_now);
+                    list_controls = await Control.find({ "child_name": child_name, "date_control":{"$lt":date_now }}).sort({date_control: -1});
+                } else {
+                    //se busca por child_name y end_date
+                    if ( child_name && !init_date && end_date ){
+                        list_controls = await Control.find({ "child_name": child_name, "date_control":{"$lte":end_date }}).sort({date_control: -1});
+                    } else {
+                        //se busca por child_name y init_date
+                        if ( child_name && init_date && !end_date ){
+                            list_controls = await Control.find({ "child_name": child_name, "date_control":{"$gte": init_date}}).sort({date_control: -1});
+                        } else {
+                            //se valida que init no sea mayor que end
+                            if ( init_date > end_date )
+                                return res.status(400).send({ success: true, data:{}, message: 'ERROR: las fechas son inválidas.'});
+                            
+                            //se busca por el rango de fechas solamente
+                            if ( !child_name && init_date && end_date ){
+                                list_controls = await Control.find({ "id_mother": id_mother, "date_control":{"$gte": init_date,"$lte":end_date }}).sort({date_control: -1});
+                            } else {
+                                //se busca con todos los filtros
+                                list_controls = await Control.find({ "child_name": child_name, "date_control":{"$gte": init_date,"$lte":end_date }}).sort({date_control: -1});
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    //se filtran los datos a retornar
+    const list_controls_filtered = list_controls.map( control => { return {
+        _id: control.id,  
+        child_name: control.child_name, 
+        consultation_place: control.consultation_place,
+        monitoring_medium: control.monitoring_medium,
+        date_control: control.date_control.toISOString().substring(0,10),
+        completed: isCompleted(control.weight)
+       }});
+
+    return res.status(200).send({ success: true, data:{ list_controls_filtered }, message: 'Controles encontrados'} );
 }
 
 /**
@@ -265,9 +348,9 @@ export const getSeach: RequestHandler = async (req, res) => {
     const lastControl = await Control.findOne( { "id_mother": _id, "date_control": {"$lt": date}} ).sort({date_control: -1});
     const nextControl = await Control.findOne( { "id_mother": _id, "date_control": {"$gte": date}} ).sort({date_control: 1});
     
-    //se cambia el formato de la fecha por string yyyy/mm/dd
-    const last_control = DateToFormattedString(lastControl.date_control);
-    const next_control = DateToFormattedString(nextControl.date_control);
+    //se cambia el formato de la fecha por string yyyy-mm-dd
+    const last_control = lastControl.date_control.toISOString().substring(0,10);
+    const next_control = nextControl.date_control.toISOString().substring(0,10);
 
     return res.status(200).send({ success: true, data:{ "last_control": last_control, "next_control": next_control }, message: 'Se muestran el ultimo y proximo control exitosamente.' });
 }
@@ -278,7 +361,7 @@ export const getSeach: RequestHandler = async (req, res) => {
  * @param req Request de la petición, se espera que tenga el id del lactante
  * @param res Response, retorna un un object con success:true, data:{"string":Bool} con la fecha y un message: "String" de confirmacion
  */
- export const getQuantityControl: RequestHandler = async (req, res) => {
+ export const getFirstControl: RequestHandler = async (req, res) => {
     const id_child = req.params.idChild;
 
     //se valida el _id de la madre ingresada
@@ -303,20 +386,6 @@ export const getSeach: RequestHandler = async (req, res) => {
 }
 
 /**
- * Convierte un date_control de UTC a yyyy/mm/dd (string)
- * @param motherFound Madre extraida de la base de datos
- * @returns Object con los atributos de la madre a enviar al front
- */
-function DateToFormattedString(date:any) {         
-                                 
-    var yyyy = date.getFullYear().toString();                                    
-    var mm = (date.getMonth()+1).toString(); // getMonth() is zero-based         
-    var dd  = date.getDate().toString();             
-                         
-    return yyyy + '/' + (mm[1]?mm:"0"+mm[0]) + '/' + (dd[1]?dd:"0"+dd[0]);
-}  
-
-/**
  * Extrae los atributos publicos del control obtenido desde la base de datos
  * @param controlFound control extraido de la base de datos
  * @returns Object con los atributos del control a enviar al front
@@ -324,7 +393,7 @@ function DateToFormattedString(date:any) {
 function destructureControl ( controlFound: any ){
     const controlFiltered ={
         _id: controlFound._id,
-        date_control: DateToFormattedString(controlFound.date_control),
+        date_control: controlFound.date_control.toISOString().substring(0,10),
         child_name: controlFound.child_name,
         consultation_place: controlFound.consultation_place,
         monitoring_medium: controlFound.monitoring_medium,
@@ -348,4 +417,49 @@ function dateInitializer (date: any){
     date.setUTCMinutes(0);
     date.setUTCSeconds(0);
     date.setUTCMilliseconds(0);
+}
+
+/**
+ * Retorna true o false en caso de que sea haya completado o no el control
+ * @param weightChild peso del lactante, se usa como parametro de validación.
+ * @returns True or False, True = se completó el control, False: no se completó el control.
+ */
+ function isCompleted (weightChild:any ){
+    if ( weightChild == null ){
+        return false;
+    }
+
+    return true;
+}
+
+/**
+ * Esta encargada de mantener un llamado a la función auxiliar de todos los datos a almacenar en la colección Graphics
+ * @param ControlSaved Control con todos los datos a guardar en la BD
+ */
+ function addControlGraphic( control: any ) {
+    addDataGraphic("consultation_place",control.consultation_place);
+    addDataGraphic("monitoring_medium", control.monitoring_medium);
+    addDataGraphic("reason_of_consultation", control.reason_of_consultation);
+    addDataGraphic("accompanied_by", control.accompanied_by);
+
+    //se valida que el arreglo no venga vacío
+    if ( control.indications.length > 0 ){
+        addDataGraphic("indications", control.indications);
+    }
+}
+
+/**
+ * Esta encargada de mantener un llamado a la función auxiliar de todos los datos a eliminar en la colección Graphics
+ * @param control Control con todos los datos a eliminar en la BD
+ */
+ function deleteControlGraphic( control: any ) {
+    deleteDataGraphic("consultation_place",control.consultation_place.toString());
+    deleteDataGraphic("monitoring_medium", control.monitoring_medium.toString());
+    deleteDataGraphic("reason_of_consultation", control.reason_of_consultation.toString());
+    deleteDataGraphic("accompanied_by", control.accompanied_by.toString());
+    
+    //se valida que el arreglo no venga vacío
+    if ( control.indications.length > 0 ){
+        deleteDataGraphic("indications", control.indications);
+    }
 }

@@ -83,6 +83,9 @@ export class ControlsListComponent implements OnInit {
     });
   
   }
+  irSeguimiento(id:any){
+    console.log(id)
+  }
   
   // Funcion que rellena los datos de la asesorada en los form control
   fillInputs(){

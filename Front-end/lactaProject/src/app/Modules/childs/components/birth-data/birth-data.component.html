@@ -128,8 +128,7 @@
          
                     </li>
                     
-                    <li class="item">
-                        {{childData.birth_data.skin_to_skin_contact}}
+                    <li  *ngIf="childData.birth_data.skin_to_skin_contact; then yes; else no" class="item">
                     </li>
                 </ul>
 
@@ -163,8 +162,7 @@
          
                     </li>
                     
-                    <li class="item">
-                        {{childData.birth_data.joint_accommodation}}
+                    <li *ngIf="childData.birth_data.joint_accommodation; then yes; else no" class="item">
                     </li>
                 </ul>
 
@@ -198,8 +196,7 @@
          
                     </li>
                     
-                    <li class="item">
-                        {{childData.birth_data.use_of_pacifier}}
+                    <li *ngIf="childData.birth_data.use_of_pacifier; then yes; else no" class="item">
     
                     </li>
                 </ul>
@@ -214,8 +211,8 @@
          
                     </li>
                     
-                    <li class="item">
-                        {{childData.birth_data.breastfeeding_b4_2hours}}
+                    <li *ngIf="childData.birth_data.breastfeeding_b4_2hours; then yes; else no" class="item">
+                      
                     </li>
                 </ul>
 
@@ -234,8 +231,7 @@
                         Sumplemento de leche materna durante la hospitalización:
                     </li>
                     
-                    <li class="item">
-                        {{childData.birth_data.has_suplement}}
+                    <li *ngIf="childData.birth_data.has_suplement; then yes; else no" class="item">
     
                     </li>
                 </ul>
@@ -259,3 +255,15 @@
 
     </div>
 </div>
+
+<ng-template #yes>
+    <li class="item">
+      Si
+    </li>
+  </ng-template>
+  <ng-template #no>
+    <li class="item">
+      No
+    </li>
+</ng-template>
+

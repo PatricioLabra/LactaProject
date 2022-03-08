@@ -29,7 +29,12 @@ export class ChildsListComponent implements OnInit {
   }
 
   goToAddControl(childId:string){
-    const url:string = 'controls/agregar-control/' + childId + '/primer-control';
+      const url:string = 'controls/agregar-control/' + childId + '/primer-control'; 
+      this.router.navigate([url]);
+
+  }
+  goToAddChild(idMother:string){
+    const url:string = 'asesoradas/' + idMother + '/agregar-lactante/0';
     this.router.navigate([url]);
   }
 }

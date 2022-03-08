@@ -2,7 +2,7 @@
 
 
 <!--Navbar-->
-<mdb-navbar SideClass="rgba-white-light" [containerInside]="false">
+<mdb-navbar *ngIf="logged" SideClass="rgba-white-light" [containerInside]="false">
 
   <div class="container-fluid text-center text-md-left">
 
@@ -11,7 +11,7 @@
 
         <div class="col">
             <div class="icono">
-                <a class="navbar-brand" [href]="(logged==0) ? '/' : 'control-panel'">
+                <a class="navbar-brand" [href]="(logged==false) ? '/' : 'control-panel'">
                     <img src="../../../../../assets/Logo-Lacta-Planet-black.png" height="30" class="d-inline-block align-top" alt="">
                 </a>
             </div>
@@ -21,15 +21,15 @@
         <hr class="clearfix w-100 d-md-none pb-3">
 
         <div class="col-6">
-            <div *ngIf="logged==1" class="usuario">
+            <div *ngIf="logged==true" class="usuario">
                 <h2>{{name}}</h2>
             </div>
         </div>
 
-        <div class="col">
+        <div class="col cl3">
             <div class="derecha">
-                <div class="box">
-                    <button class="button button5">
+                <div class="box" *ngIf="logged==true">
+                    <button class="button button5" (click)="logOut()">
                         <p>Cerrar Sesion</p>
                     </button>
                 </div>

@@ -11,6 +11,7 @@ import { ChildsListComponent } from './components/childs-list/childs-list.compon
 import { ControlsListComponent } from './components/controls-list/controls-list.component';
 
 
+
 @NgModule({
   declarations: [
     MothersViewComponent, 

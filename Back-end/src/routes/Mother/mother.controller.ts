@@ -3,6 +3,7 @@ import Mother from './mother.model';
 import { Types } from "mongoose";
 import Child from '../Child/child.model';
 import Control from '../Control/control.model';
+import { addDataGraphic , deleteDataGraphic } from "../Graphic/generate.graphics";
 
 
 /**
@@ -37,6 +38,11 @@ export const newMother: RequestHandler = async (req, res) => {
 
     //se almacena la madre en el sistema
     const motherSaved = new Mother(newMother);
+
+    //se almacenan los datos a graficar de la madre en el sistema
+    addMotherGraphic(motherSaved);
+
+    //se almacena la madre
     await motherSaved.save();
 
     return res.status(201).send({ success: true, data: { _id: motherSaved._id }, message: 'Madre agregada con éxito al sistema.' });
@@ -62,8 +68,17 @@ export const editMother: RequestHandler = async (req, res) => {
     if ( !motherFound ) 
         return res.status(404).send({ success: false, data:{}, message: 'ERROR: La madre ingresada no existe en el sistema.' });
 
+    //se eliminan los datos de la madre asociados
+    deleteMotherGraphic (motherFound);
+
     //se actualiza la madre en el sistema
     await Mother.findByIdAndUpdate( _id, updatedMother );
+
+    //se obtiene la madre y se agregan sus datos a la colección Graphics
+    const motherFoundUpdated = await Mother.findById( _id );
+
+    //Se actualizan los datos en la colección Graphics
+    addMotherGraphic(motherFoundUpdated);
 
     return res.status(200).send({ success: true, data:{}, message: 'Madre editada de manera correcta.' });
 }
@@ -96,6 +111,9 @@ export const editMother: RequestHandler = async (req, res) => {
     //se eliminan los hijos
     if ( childsFound )
         await Child.deleteMany( {id_mother} );
+
+    //se eliminan los datos de la madre asociados a los graphic
+    deleteMotherGraphic(motherFound);
 
     //se elimina la madre del sistema
     await Mother.findByIdAndRemove ( id_mother );
@@ -160,7 +178,7 @@ function destructureMother(motherFound: any) {
         commune: motherFound.commune,
         phone_number: motherFound.phone_number,
         mail: motherFound.mail,
-        birth : motherFound.birth,
+        birth : motherFound.birth.toISOString().substring(0,10),
         ocupation: motherFound.ocupation,
         studies: motherFound.studies,
         marital_status: motherFound.marital_status,
@@ -170,4 +188,40 @@ function destructureMother(motherFound: any) {
     };
 
     return motherFiltered;
+}
+
+/**
+ * Esta encargada de mantener un llamado a la función auxiliar de todos los datos a almacenar en la colección Graphics
+ * @param mother Madre con todos los datos a guardar en la BD
+ */
+function addMotherGraphic( mother: any ) {
+    addDataGraphic("commune",mother.commune);
+    addDataGraphic("birth", mother.birth.toISOString().substring(0,4));
+    addDataGraphic("studies", mother.studies);
+    addDataGraphic("marital_status", mother.marital_status);
+    addDataGraphic("forecast", mother.forecast);
+    addDataGraphic("number_of_living_children", mother.number_of_living_children.toString());
+
+    //se valida que el arreglo no venga vacío
+    if ( mother.chronic_diseases.length > 0 ){
+        addDataGraphic("chronic_diseases", mother.chronic_diseases);
+    }
+}
+
+/**
+ * Esta encargada de mantener un llamado a la función auxiliar de todos los datos a eliminar en la colección Graphics
+ * @param mother Madre con todos los datos a eliminar en la BD
+ */
+ function deleteMotherGraphic( mother: any ) {
+    deleteDataGraphic("commune",mother.commune);
+    deleteDataGraphic("birth", mother.birth.toISOString().substring(0,4));
+    deleteDataGraphic("studies", mother.studies);
+    deleteDataGraphic("marital_status", mother.marital_status);
+    deleteDataGraphic("forecast", mother.forecast);
+    deleteDataGraphic("number_of_living_children", mother.number_of_living_children.toString());
+
+    //se valida que el arreglo no venga vacío
+    if ( mother.chronic_diseases.length > 0 ){
+        deleteDataGraphic("chronic_diseases", mother.chronic_diseases);
+    }
 }

@@ -17,26 +17,28 @@ export class ProfessionalFormComponent implements OnInit {
   id="";
   form:FormGroup;
   constructor(private fb:FormBuilder, private apiSend:ApiSendService, private apiGet:ApiGetService, private router:Router, private route: ActivatedRoute) {
-    this.id=this.route.snapshot.paramMap.get('id') as string;
+    //this.id=this.route.snapshot.paramMap.get('id') as string;
     this.form=this.fb.group({
       name: ['', Validators.required],
-      rut: ['', Validators.required],
-      rut_vc: ['', Validators.required],
-      password: ['', Validators.required],
+      rut: ['', [Validators.required,Validators.pattern("^[0-9]{7,8}$")]],
+      rut_vc: ['', [Validators.required,Validators.pattern("^[0-9kK]{1}$")]],
+      password: ['', [Validators.required,Validators.minLength(6)]],
       mail: ['', [Validators.email, Validators.required]],
       permission_level: ['0', Validators.required]
     });
+   }
+  ngOnInit(): void {
+    this.id=this.route.snapshot.paramMap.get('id') as string;
     if (this.id != '0'){
       this.apiGet.getUserInfo(this.id).subscribe((response: ApiResponse)=>{
         console.log(response);
         if(response.success){
           this.element = response.data;
+          console.log(response.data)
           this.fillInputs();
         }
       });
     }
-   }
-  ngOnInit(): void {
   }
 
   fillInputs(){
@@ -47,7 +49,7 @@ export class ProfessionalFormComponent implements OnInit {
   sendProfessionalData(){
     let userData:typeUser={
       name: this.form.get("name")?.value,
-      rut: this.form.get("rut")?.value + "-" + this.form.get("rut_vc")?.value,
+      rut: this.form.get("rut")?.value + "-" + this.form.get("rut_vc")?.value.toLowerCase(),
       mail: this.form.get("mail")?.value,
       password: this.form.get("password")?.value,
       permission_level: this.form.get("permission_level")?.value,
@@ -62,7 +64,7 @@ export class ProfessionalFormComponent implements OnInit {
     let userData1:typeUser={
       _id: this.id,
       name: this.form.get("name")?.value,
-      rut: this.form.get("rut")?.value + "-" + this.form.get("rut_vc")?.value,
+      rut: this.form.get("rut")?.value + "-" + this.form.get("rut_vc")?.value.toLowerCase(),
       mail: this.form.get("mail")?.value,
       password: this.form.get("password")?.value,
       permission_level: this.form.get("permission_level")?.value,

@@ -6,12 +6,18 @@ import { CoreRoutingModule } from './core-routing.module';
 import { ControlPanelComponent } from './pages/control-panel/control-panel.component';
 import { HttpClientModule } from '@angular/common/http';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
+import { StadisticsPanelComponent } from './pages/stadistics-panel/stadistics-panel.component';
+import { GraphicViewComponent } from './pages/graphic-view/graphic-view.component';
+import { ErrorPageComponent } from './pages/error-page/error-page.component';
 
 @NgModule({
   declarations: [
     HeaderComponent,
     FooterComponent,
-    ControlPanelComponent
+    ControlPanelComponent,
+    StadisticsPanelComponent,
+    GraphicViewComponent,
+    ErrorPageComponent
   ],
   imports: [
     CommonModule,

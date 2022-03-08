@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { UserInfoService } from 'src/app/services/user-info.service';
 
 @Component({
   selector: 'app-footer',
@@ -7,9 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FooterComponent implements OnInit {
 
-  constructor() { }
+  logged=false
+  constructor(private userService:UserInfoService,private router:Router) { }
 
   ngOnInit(): void {
+    this.userService.getIsLoggedin.subscribe((response:boolean)=>{
+      this.logged=response;
+    });
   }
-
 }
