@@ -215,7 +215,7 @@ export const changePass: RequestHandler = async (req, res) => {
 }
 
 export const getUserInfo: RequestHandler = async (req, res) => {
-    const _id = req.params.invalida;
+    const _id = req.params.id;
     const userFound = await User.findById(_id);
 
     //Se valida el _id ingresado
