@@ -27,4 +27,7 @@ router.get('/user', userCtrl.getUsers);
 //Cambiar password
 router.put('/user/change/pass/:id', userCtrl.changePass);
 
+//Obtener la informacion del Usuario (Sin password)
+router.get('/user/info/:id', userCtrl.getUserInfo);
+
 export default router;
