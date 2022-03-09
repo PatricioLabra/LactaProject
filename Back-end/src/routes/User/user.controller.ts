@@ -213,3 +213,7 @@ export const changePass: RequestHandler = async (req, res) => {
 
     return res.status(200).send({ success: true, data:{ token }, message: 'Se modifico la password correctamente.' });
 }
+
+export const getUserInfo: RequestHandler = async (req, res) => {
+    
+}
