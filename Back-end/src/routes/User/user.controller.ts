@@ -185,11 +185,11 @@ export const getUsers: RequestHandler = async (req, res) => {
  * @param res Response, retornará succes: true, data: {}, message: "String" de que el correo fué enviado para recuperar la contraseña.
  */
  export const forgotPassword: RequestHandler = async (req, res) => {
-    const email = req.body.email;
-    const userFound = await User.findOne({ email });
+    const mail = req.body.mail;
+    const userFound = await User.findOne({ mail });
 
     //se valida el email ingresado
-    if ( !email )
+    if ( !mail )
         return res.status(400).send({ success: false, data:{}, message: 'Error: no se ingresó ningún email.' });
 
     //Se valida la existencia del usuario

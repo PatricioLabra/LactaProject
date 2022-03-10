@@ -36,6 +36,10 @@ const userSchema = new Schema({
   permission_level: {
       type: Number,
       required: true
+  },
+  resetToken: {
+    type: String,
+    trim: true
   }
 }, {
   versionKey: false,

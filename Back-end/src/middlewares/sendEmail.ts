@@ -22,7 +22,7 @@ export async function sendEmailForgotPassword( user: any , token: any){
         const contentHTML = `     
         <h1>Solicitud de cambio de contraseña de la cuenta de LactaPlanet</h1>
         <p> Estimado/a ${user.name}:</p>
-        <p> Hemos recibido una solicitud para recuperar el acceso a la cuenta de LactaPlanet ${user.email}.</p>
+        <p> Hemos recibido una solicitud para recuperar el acceso a la cuenta de LactaPlanet ${user.mail}.</p>
         <p>Si la has enviado tú, puedes clickear el siguiente enlace que tiene una duración de 10 minutos, para poder generar una nueva contraseña. </p>
         <p>https://localhost:4200/user/resetPassword/${token}</p>
         <p>Gracias por su paciencia.</p>
@@ -32,7 +32,7 @@ export async function sendEmailForgotPassword( user: any , token: any){
         // send mail with defined transport object
         const info = await transporter.sendMail({
             from: '"LactaPlanet" <lactaproject@gmail.com>', // sender address
-            to: user.email, // list of receivers
+            to: user.mail, // list of receivers
             subject: "Alerta de seguridad crítica", // Subject line
             html: contentHTML, // html body
         });
@@ -54,7 +54,7 @@ export async function sendEmailForgotPassword( user: any , token: any){
         const contentHTML = `
         <h1>Solicitud de cambio de contraseña de la cuenta de LactaPlanet</h1>
         <p> Estimado/a ${user.name}:</p>
-        <p> Su contraseña asociada a su cuenta: ${user.email}, ha sido actualizada de manera exitosa.</p>
+        <p> Su contraseña asociada a su cuenta: ${user.mail}, ha sido actualizada de manera exitosa.</p>
         <p>Por favor, cuide de sus contraseñas.</p>
         <p>Gracias por su paciencia. Saludos Coordiales.</p>
         `;
@@ -62,7 +62,7 @@ export async function sendEmailForgotPassword( user: any , token: any){
         // send mail with defined transport object
         const info = await transporter.sendMail({
             from: '"LactaPlanet" <lactaproject@gmail.com>', // sender address
-            to: user.email, // list of receivers
+            to: user.mail, // list of receivers
             subject: "Actualización de contraseña", // Subject line
             html: contentHTML, // html body
         });
