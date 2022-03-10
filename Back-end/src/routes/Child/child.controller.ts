@@ -4,6 +4,7 @@ import Mother from '../Mother/mother.model';
 import Child from './child.model';
 import Control from '../Control/control.model';
 import { addDataGraphic, deleteDataGraphic } from "../Graphic/generate.graphics";
+import { deleteControlGraphic } from "../Control/control.controller";
 
 /**
  * Funcion que maneja la peticion de agregar un nuevo usuario al sistema
@@ -30,18 +31,6 @@ export const newChild: RequestHandler = async (req, res) => {
         use_of_pacifier, post_discharge_feeding, last_weight_control }, id_mother: _idMother
     }
     
-    //validacion de los parametros
-    /*if( !newChild.name || !newChild.gestacion_data.diseases_during_pregnancy || !newChild.gestacion_data.nutritional_status_mother ||
-        newChild.gestacion_data.planned_pregnancy == null || newChild.gestacion_data.assisted_fertilization == null || 
-        !newChild.gestacion_data.previous_lactaction || newChild.gestacion_data.duration_of_past_lactaction_in_months < 0 || 
-        newChild.gestacion_data.breastfeeding_education == null || !newChild.birth_data.birthplace || !newChild.birth_data.type_of_birth ||  
-        !newChild.birth_data.birthday || newChild.birth_data.gestional_age < 0 || !newChild.birth_data.gender || newChild.birth_data.birth_weight < 0 || 
-        newChild.birth_data.skin_to_skin_contact == null || newChild.birth_data.breastfeeding_b4_2hours == null || 
-        newChild.birth_data.has_suplement == null  || newChild.birth_data.joint_accommodation == null ||
-        newChild.birth_data.use_of_pacifier == null || !newChild.birth_data.post_discharge_feeding || newChild.birth_data.last_weight_control < 0 ){
-        return res.status(400).send({ success: false, data:{}, message:'Error: Datos inválidos' + req.body });
-    }*/
-
     const motherFound = await Mother.findById(_idMother);
 
     //se valida la existencia de la madre en el sistema
@@ -130,6 +119,15 @@ export const editChild: RequestHandler = async (req, res) => {
     if ( !childFound ){
         return res.status(404).send({ success: false, data:{}, message: 'ERROR: El lactante ingresado no existe en el sistema.' });
     }
+
+    //se obtienen los controles asociados al child
+    const controlsChild = await Control.find({ id_child });
+
+    for ( let i = 0; i < controlsChild.length; i++){
+        //se eliminan los datos del control
+        deleteControlGraphic(controlsChild[i]);
+    }
+
 
     //Se verifica si el lactante tiene controles, y se eliminan
     if ( controlsFound ){
@@ -265,7 +263,7 @@ function destructureChild( childFound: any ){
  * Esta encargada de mantener un llamado a la función auxiliar de todos los datos a eliminar en la colección Graphics
  * @param child Madre con todos los datos a eliminar en la BD
  */
- function deleteChildGraphic( child: any ) {
+export function deleteChildGraphic( child: any ) {
     deleteDataGraphic("birthplace",child.birth_data.birthplace);
     deleteDataGraphic("type_of_birth", child.birth_data.type_of_birth);
     deleteDataGraphic("gestional_age", child.birth_data.gestional_age.toString());

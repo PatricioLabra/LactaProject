@@ -4,7 +4,8 @@ import { Types } from "mongoose";
 import Child from '../Child/child.model';
 import Control from '../Control/control.model';
 import { addDataGraphic , deleteDataGraphic } from "../Graphic/generate.graphics";
-
+import { deleteControlGraphic } from "../Control/control.controller";
+import { deleteChildGraphic } from "../Child/child.controller";
 
 /**
  * Función que maneja la petición de agregar a una nueva madre al sistema.
@@ -99,6 +100,21 @@ export const editMother: RequestHandler = async (req, res) => {
     const motherFound = await Mother.findById( id_mother );
     const childsFound = await Child.find( {id_mother} );
     const controlsFound = await Control.find( {id_mother} );
+
+    //se eliminan los hijos asociados a la madre desde la colección gráficos
+    for ( let i = 0; i < childsFound.length ; i++ ){
+        
+        //se obtienen los controles asociados al child
+        const controlsChild = await Control.find({ "id_child": childsFound[i]._id });
+
+        for ( let j = 0; j < controlsChild.length; j++){
+            //se eliminan los datos del control
+            deleteControlGraphic(controlsChild[i]);
+        }
+
+        //se elimina los datos del child
+        deleteChildGraphic(childsFound[i]);
+    }
 
     //se valida la existencia de la madre en el sistema
     if ( !motherFound ) 
@@ -212,7 +228,7 @@ function addMotherGraphic( mother: any ) {
  * Esta encargada de mantener un llamado a la función auxiliar de todos los datos a eliminar en la colección Graphics
  * @param mother Madre con todos los datos a eliminar en la BD
  */
- function deleteMotherGraphic( mother: any ) {
+export function deleteMotherGraphic( mother: any ) {
     deleteDataGraphic("commune",mother.commune);
     deleteDataGraphic("birth", mother.birth.toISOString().substring(0,4));
     deleteDataGraphic("studies", mother.studies);

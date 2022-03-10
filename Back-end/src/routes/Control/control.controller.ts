@@ -452,7 +452,7 @@ function dateInitializer (date: any){
  * Esta encargada de mantener un llamado a la función auxiliar de todos los datos a eliminar en la colección Graphics
  * @param control Control con todos los datos a eliminar en la BD
  */
- function deleteControlGraphic( control: any ) {
+export function deleteControlGraphic( control: any ) {
     deleteDataGraphic("consultation_place",control.consultation_place.toString());
     deleteDataGraphic("monitoring_medium", control.monitoring_medium.toString());
     deleteDataGraphic("reason_of_consultation", control.reason_of_consultation.toString());
