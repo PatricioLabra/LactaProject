@@ -101,6 +101,10 @@ export const editMother: RequestHandler = async (req, res) => {
     const childsFound = await Child.find( {id_mother} );
     const controlsFound = await Control.find( {id_mother} );
 
+    //se valida la existencia de la madre en el sistema
+    if ( !motherFound ) 
+        return res.status(404).send({ success: false, data:{}, message: 'ERROR: La madre ingresada no existe en el sistema.' });
+
     //se eliminan los hijos asociados a la madre desde la colección gráficos
     for ( let i = 0; i < childsFound.length ; i++ ){
         
@@ -115,10 +119,6 @@ export const editMother: RequestHandler = async (req, res) => {
         //se elimina los datos del child
         deleteChildGraphic(childsFound[i]);
     }
-
-    //se valida la existencia de la madre en el sistema
-    if ( !motherFound ) 
-        return res.status(404).send({ success: false, data:{}, message: 'ERROR: La madre ingresada no existe en el sistema.' });
 
     //se eliminan los controles
     if ( controlsFound )

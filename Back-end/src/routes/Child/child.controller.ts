@@ -120,14 +120,10 @@ export const editChild: RequestHandler = async (req, res) => {
         return res.status(404).send({ success: false, data:{}, message: 'ERROR: El lactante ingresado no existe en el sistema.' });
     }
 
-    //se obtienen los controles asociados al child
-    const controlsChild = await Control.find({ id_child });
-
-    for ( let i = 0; i < controlsChild.length; i++){
-        //se eliminan los datos del control
-        deleteControlGraphic(controlsChild[i]);
+    //se eliminan los controles asociados al child de la colección gráficos
+    for ( let i = 0; i < controlsFound.length; i++){
+        deleteControlGraphic(controlsFound[i]);
     }
-
 
     //Se verifica si el lactante tiene controles, y se eliminan
     if ( controlsFound ){
