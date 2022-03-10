@@ -8,7 +8,7 @@ export interface IUser extends Document {
   password: string;
   mail: string;
   permission_level: number;
-  encrypPassword(password: string): Promise<string>;
+  encryptPassword(password: string): Promise<string>;
   validatePassword(password: string): Promise<boolean>;
 };
 
@@ -44,10 +44,10 @@ const userSchema = new Schema({
 
 /**
  * Funcion que se encarga de encriptar la password
- * @param password contrasenha del usuario
+ * @param password contraseña del usuario
  * @returns la password del usuario encriptada
  */
-userSchema.methods.encrypPassword = async (password: string): Promise<string> => {
+ userSchema.methods.encryptPassword = async (password: string): Promise<string> => {
   const salt = await bcrypt.genSalt(10);
   return bcrypt.hash(password, salt);
 };
@@ -55,9 +55,9 @@ userSchema.methods.encrypPassword = async (password: string): Promise<string> =>
 /**
  * Compara la password ingresada por el usuario y la valida
  * @param password password del usuario
- * @returns devuelve un true/false de la comparacion entre passwords
+ * @returns devuelve un true/false de la comparación entre passwords
  */
-userSchema.methods.validatePassword = async function (password: string): Promise<boolean> {
+userSchema.methods.comparePassword = async function (password: string): Promise<boolean> {
     return await bcrypt.compare(password, this.password);
 };
 

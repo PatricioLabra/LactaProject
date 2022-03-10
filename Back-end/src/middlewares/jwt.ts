@@ -1,6 +1,6 @@
-import { RequestHandler } from "express";
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
+import config from '../config/config';
 
 dotenv.config();
 
@@ -9,7 +9,10 @@ dotenv.config();
  * @param id Id del usuario, sobre el cual se obtendra el token
  * @returns token del usuario
  */
-export function signToken(id: any) {
-	const token = jwt.sign({ _id: id }, process.env.TOKEN_SECRET || 'secret_key');
+export function signToken(id: any, expiresIn: number) {
+	const token = jwt.sign({ _id: id }, config.jwtSecret, {
+		expiresIn: expiresIn 
+	});
+
 	return token;
 }
