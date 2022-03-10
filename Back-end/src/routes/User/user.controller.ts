@@ -154,10 +154,6 @@ export const signIn: RequestHandler = async (req, res) => {
     return res.status(200).send({ success: true, data:{ token, userInfo }, message: 'Se ingreso correctamente.' });
 }
 
-export const getPass: RequestHandler = async (req, res) => {
-
-}
-
 /**
  * Funcion que maneja la peticion de obtener todos los usuarios del sistema por su nombre y rut
  * @route Get /user

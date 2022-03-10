@@ -18,9 +18,6 @@ router.delete('/user/:id', userCtrl.deleteUser);
 // Inicia sesión
 router.post('/user/signin', userCtrl.signIn);
 
-// Recuperar password
-router.get('/user/pass/:rut', userCtrl.getPass);
-
 //Obtener lista usuarios
 router.get('/user', userCtrl.getUsers);
 
