@@ -108,6 +108,10 @@ export class UserInfoService extends ApiClass{
     this.isAdmin = false;
   }
 
+  public getToken(){
+    return sessionStorage.getItem("token");
+  }
+
   public forgotPasswordRequest(mail:string){
     let url=this.makeUrl(['user', 'forgotPassword']);
     return this.http.post<ApiResponse>(url,{mail:mail})
