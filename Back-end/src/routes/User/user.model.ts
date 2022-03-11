@@ -9,7 +9,7 @@ export interface IUser extends Document {
   mail: string;
   permission_level: number;
   encryptPassword(password: string): Promise<string>;
-  validatePassword(password: string): Promise<boolean>;
+  comparePassword(password: string): Promise<boolean>;
 };
 
 const userSchema = new Schema({

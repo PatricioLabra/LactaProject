@@ -139,7 +139,7 @@ export const signIn: RequestHandler = async (req, res) => {
         return res.status(404).send({ success: false, data:{}, message: 'Error: el usuario ingresado no existe en el sistema.' });
     }
 
-    const correctPassword: boolean = await userFound.validatePassword(req.body.password);
+    const correctPassword: boolean = await userFound.comparePassword(req.body.password);
     if(!correctPassword) return res.status(400).send({ success: false, data:{}, message: 'Error: clave invalida.' });
 
     const token = signToken(userFound._id, config.SECONDS_DAY); //24hours

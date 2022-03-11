@@ -112,4 +112,8 @@ export class UserInfoService extends ApiClass{
     let url=this.makeUrl(['user', 'forgotPassword']);
     return this.http.post<ApiResponse>(url,{mail:mail})
   }
+  public newPassword(password:any,token:any){
+    let url=this.makeUrl(['user', 'resetPassword',`${token}`])
+    return this.http.put<ApiResponse>(url,{password:password})
+  }
 }
