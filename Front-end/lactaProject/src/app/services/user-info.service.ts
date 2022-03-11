@@ -107,4 +107,9 @@ export class UserInfoService extends ApiClass{
     this.isLogged = false;
     this.isAdmin = false;
   }
+
+  public forgotPasswordRequest(mail:string){
+    let url=this.makeUrl(['user', 'forgotPassword']);
+    return this.http.post<ApiResponse>(url,{mail:mail})
+  }
 }

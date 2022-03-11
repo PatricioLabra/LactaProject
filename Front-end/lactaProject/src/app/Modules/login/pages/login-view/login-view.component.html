@@ -48,8 +48,13 @@
                     </div>
                 </div>
                 <div class="button-container">
-                    <button type="submit" [disabled]="login.invalid" class="log-in-button">INGRESAR</button>           
+                    <button type="submit" [disabled]="login.invalid" class="log-in-button">INGRESAR</button><br>
+                              
                 </div>
+                <div class="forgotPass" style="text-align: center;">
+                    <a href="forgotPassword" style="color:white;">Recuperar Contraseña</a> 
+                </div>
+               
                 <div *ngIf="showErrorMessage==0">
                     <h6 class="invalid-text error">
                         Rut o contraseña no coinciden con algun usuario registrado
