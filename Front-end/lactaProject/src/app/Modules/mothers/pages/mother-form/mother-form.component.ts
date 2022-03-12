@@ -5,7 +5,7 @@ import { ApiResponse } from '@interfaces/api_response';
 import { ApiGetService } from 'src/app/services/api-get.service';
 import { ApiSendService } from 'src/app/services/api-send.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DatePipe } from '@angular/common';
+import { DatePipe, Location } from '@angular/common';
 
 @Component({
   selector: 'app-mother-form',
@@ -19,7 +19,15 @@ export class MotherFormComponent implements OnInit {
   other_diseases:Array<string>=[];
   form:FormGroup;
   id="";
-  constructor(private datePipe:DatePipe,private fb:FormBuilder, private apiSend: ApiSendService, private apiGet: ApiGetService, private router:Router, private route: ActivatedRoute) {
+  constructor(
+    private datePipe:DatePipe,
+    private fb:FormBuilder, 
+    private apiSend: ApiSendService, 
+    private apiGet: ApiGetService, 
+    private router:Router, 
+    private route: ActivatedRoute,
+    private location: Location
+    ) {
     this.id=this.route.snapshot.paramMap.get('id') as string;
     console.log(this.id);
     // Form controls del form
@@ -153,8 +161,7 @@ export class MotherFormComponent implements OnInit {
   }
   // Funcion que re dirige hacia la ruta de /asesoradas
   goLastPage() {
-    const url: string = 'asesoradas';
-    this.router.navigate([url]);
+    this.location.back();
   }
   // Funcion que se encarga de crear enfermedades que no esten en la lista principal
   otherDiseaseFunction(){
