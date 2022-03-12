@@ -1,5 +1,7 @@
 import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { ApiResponse } from '@interfaces/api_response';
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
 import { ApiGetService } from 'src/app/services/api-get.service';
 import { ApiSendService } from 'src/app/services/api-send.service';
 
@@ -15,6 +17,7 @@ export class PastControlsListComponent implements OnInit {
   
   elements: any = [];
   elementsFiltered:any=[]
+  filterNames:any=[];
   headElements = ['Nombre Lactante', 'Fecha',""];
   citaSeleccionada:any;
 
@@ -29,6 +32,12 @@ export class PastControlsListComponent implements OnInit {
       if (response.success) {
         this.elements=response.data.passControlsFiltered;
         this.elementsFiltered=this.elements;
+        this.filterNames=this.elements.reduce((a,b)=>{
+          if(!a.find(data=>data.child_name===b.child_name)){
+            a.push(b)
+          }
+          return a
+        },[])
       }
     });
 
@@ -72,4 +81,28 @@ export class PastControlsListComponent implements OnInit {
 
     this.elements=this.elements.filter((controls)=>controls._id!=value);
   }
+
+
+  makePDF(){
+    var element = document.getElementById("makePdf");
+    /*html2canvas(element).then((canvas)=>{
+      var imgData=canvas.toDataURL('image/png')
+      var doc = new jsPDF()
+      var imgHeight= canvas.height*208/canvas.width;
+      doc.addImage(imgData,0,0,208,imgHeight);
+      doc.save("sensor.pdf")
+    })*/
+
+    html2canvas((element),{
+        onclone: function (clonedDoc) {
+      
+        }
+    }).then((canvas)=>{
+      var imgData=canvas.toDataURL('image/png')
+      var doc = new jsPDF()
+      var imgHeight= canvas.height*208/canvas.width;
+      doc.addImage(imgData,0,0,208,imgHeight);
+      doc.save("sensor.pdf")
+    })
+    }
 }

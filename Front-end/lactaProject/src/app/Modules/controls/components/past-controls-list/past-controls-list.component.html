@@ -8,7 +8,7 @@
     <div class="row">
         <select class="browser-default custom-select" (change)=filtrarLista($event.target.value)>
           <option [value]="0" selected>Ninguno</option>
-          <option *ngFor="let item of elements"
+          <option *ngFor="let item of filterNames"
           [value]="item.child_name">{{item.child_name}}</option>
         </select>
       </div>
@@ -46,17 +46,19 @@
   <div class="modal-dialog" role="document">
       <div class="modal-content">
           <div class="modal-header">
-              <h4 class="modal-title margin-auto" id="exampleModalLabel">Cita: </h4>
+              <h4 class="modal-title margin-auto" id="exampleModalLabel" >Cita: </h4>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="hide()">
                   <span aria-hidden="true"></span>
               </button>
           </div>
-          <div class="modal-body">
-              <app-control-data  *ngIf="clickeado!=0" [controlId]="controlId"></app-control-data>
+          <div class="modal-body" id="makePdf">
+              <app-control-data *ngIf="clickeado!=0" [controlId]="controlId"></app-control-data>
           </div>
           <div class="modal-footer">
-              <button type="button" mdbBtn color="pink" class="waves-light margin-auto" (click)="hide()" mdbWavesEffect>Close</button>
+              <button type="button" mdbBtn color="cyan" class="waves-light margin-auto" (click)="makePDF()" mdbWavesEffect>Descargar como PDF</button>
+              <button type="button" mdbBtn color="pink" class="waves-light margin-auto" (click)="hide()" mdbWavesEffect>Cerrar</button>
           </div>
+          
       </div>
   </div>
 </div>
