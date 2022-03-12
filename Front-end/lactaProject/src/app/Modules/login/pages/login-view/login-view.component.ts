@@ -24,6 +24,16 @@ export class LoginViewComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.userLogged();
+  }
+
+  private async userLogged() {
+    this.userService.getIsLoggedin.subscribe(response =>{
+      if(response){
+        console.log("Ya te encuentras logeado");
+        this.router.navigateByUrl("control-panel");
+      }
+    })
   }
 
   log_in(){
