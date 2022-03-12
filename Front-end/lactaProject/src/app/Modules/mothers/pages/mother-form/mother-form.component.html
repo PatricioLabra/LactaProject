@@ -30,7 +30,7 @@
                 <div class="input-label-container"> 
                     <label class="label-text">Nombre:</label>
                     <div class="name-container">
-                        <input type="text" class="form-control" formControlName="name" placeholder="Nombre" maxlength="30"
+                        <input type="text" class="form-control" formControlName="name" placeholder="Nombre" maxlength="50"
                         [ngClass]="{ 'is-invalid': form.controls['name'].invalid && (form.controls['name'].dirty || form.controls['name'].touched),
                         'is-valid': form.controls['name'].valid && (form.controls['name'].dirty || form.controls['name'].touched)  }">
                     </div>
@@ -220,11 +220,11 @@
                     </div>
                     <div class="form-check">
                         <input type="checkbox" class="form-check-input" formControlName="hipotiroidismo">
-                        <label class="form-check-label">hipotiroidismo</label>
+                        <label class="form-check-label">Hipotiroidismo</label>
                     </div>
                     <div class="form-check">
                         <input type="checkbox" class="form-check-input" formControlName="hipertiroidismo">
-                        <label class="form-check-label">hipertiroidismo</label>
+                        <label class="form-check-label">Hipertiroidismo</label>
                     </div>
                     <div *ngFor="let disease of other_diseases" class="disease-container">
                         {{ disease }}
@@ -240,7 +240,7 @@
                 </div>
                 <!-- Boton Editar -->
                 <div class="button-container" *ngIf="id != '0'">
-                    <button type="button" (click)="editMotherData()">EDITAR</button>
+                    <button type="button" class="send-button" (click)="editMotherData()">EDITAR</button>
                 </div>
             </form>
         </div>
