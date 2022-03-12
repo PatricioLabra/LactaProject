@@ -1,54 +1,58 @@
 <!--Childs list card-->
-<div *ngIf="childs" class="child-list-card">
-
-    <div class="row">
-        <div class="col">
-
-        </div>
-        <div class="col">
-            <p class="title">Lactantes</p>
-
-        </div>
-        <div class="col">
-            <button class="addChildBtn" type="button" (click)="goToAddChild(idMother)">Agregar Lactante</button>
-        </div>
-
+<div class="child-list-card">
+    <div *ngIf="!childs" class="loader-container">
+        <app-loader></app-loader>
     </div>
-
-    <!--Child card-->
-    <div class="head">
+    <div *ngIf="childs">
         <div class="row">
             <div class="col">
-                Nombre:
-            </div>
-            <div class="col">
-                Fecha nacimiento:
-                
-            </div>
-            <div class="col">
-                
-            </div>
-        </div>
-    </div>
     
-    <div *ngFor="let child of childs" class="child-card">
-        <div class="row">
-            <div class="col">
-                <a [href]="'/asesoradas/' + idMother + '/child/' + child._id">{{ child.name }}</a>
-                
             </div>
             <div class="col">
-                <p>{{child.birth}}</p>
+                <p class="title">Lactantes</p>
+    
             </div>
             <div class="col">
-                <button class="btn-add-control" type="button" (click)="goToAddControl(child._id)">Agregar Cita</button>
-                
+                <button class="addChildBtn" type="button" (click)="goToAddChild(idMother)">Agregar Lactante</button>
             </div>
-
+    
+        </div>
+    
+        <!--Child card-->
+        <div class="head">
+            <div class="row">
+                <div class="col">
+                    Nombre:
+                </div>
+                <div class="col">
+                    Fecha nacimiento:
+                    
+                </div>
+                <div class="col">
+                    
+                </div>
+            </div>
         </div>
         
+        <div *ngFor="let child of childs" class="child-card">
+            <div class="row">
+                <div class="col">
+                    <a [href]="'/asesoradas/' + idMother + '/child/' + child._id">{{ child.name }}</a>
+                    
+                </div>
+                <div class="col">
+                    <p>{{child.birth}}</p>
+                </div>
+                <div class="col">
+                    <button class="btn-add-control" type="button" (click)="goToAddControl(child._id)">Agregar Cita</button>
+                    
+                </div>
+    
+            </div>
+            
+        </div>
+        <!--Child card-->
     </div>
-    <!--Child card-->
 
 </div>
 <!--Childs list card-->
