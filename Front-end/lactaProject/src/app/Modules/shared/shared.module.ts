@@ -2,9 +2,10 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
+import { LoaderComponent } from './components/loader/loader.component';
 
 @NgModule({
-  declarations: [],
+  declarations: [LoaderComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -14,7 +15,8 @@ import { MDBBootstrapModule } from 'angular-bootstrap-md';
   exports: [
     ReactiveFormsModule,
     MDBBootstrapModule,
-    FormsModule
+    FormsModule,
+    LoaderComponent
   ]
 })
 export class SharedModule { }
