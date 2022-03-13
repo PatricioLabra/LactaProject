@@ -218,6 +218,11 @@ export const getUserInfo: RequestHandler = async (req, res) => {
     const _id = req.params.id;
     const userFound = await User.findById(_id);
 
+    //se valida el id
+    if ( !Types.ObjectId.isValid(_id) ){
+        return res.status(400).send({ success: false, data:{}, message: 'Error: el id ingresado no es valido.' });
+    }
+
     //Se valida el _id ingresado
     if( !userFound ){
         return res.status(404).send({ success: false, data:{}, message: 'Error: el usuario ingresado no existe en el sistema.' });                   
