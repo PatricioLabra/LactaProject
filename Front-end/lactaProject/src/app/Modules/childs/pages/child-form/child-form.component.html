@@ -77,13 +77,6 @@
                             <input type="checkbox" class="form-check-input" formControlName="e_autoinmune">
                             <label class="form-check-label">Enfermedad autoinmune</label>
                         </div>
-                        <div *ngFor="let disease of other_diseases" class="disease-container">
-                            {{ disease }}
-                        </div>
-                        <div class="other-disease-container">
-                            <input type="text" formControlName="other" class="form-control">
-                            <button type="button" (click)="otherDiseaseFunction()" class="new-disease-button">+</button>
-                        </div>
                     </div>
 
                 </div>
