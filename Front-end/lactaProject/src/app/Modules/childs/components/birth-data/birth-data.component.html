@@ -7,7 +7,9 @@
         </div>
 
     </div>
-
+    <div *ngIf="!childData" class="loader-container">
+        <app-loader></app-loader>
+    </div>
     <div class="container-fluid" *ngIf="childData!=null">
 
         <div class="row">

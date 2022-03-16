@@ -5,7 +5,7 @@ import { ApiGetService } from 'src/app/services/api-get.service';
 import { ApiSendService } from 'src/app/services/api-send.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { typeChild} from '@interfaces/child';
-import { DatePipe } from '@angular/common';
+import { DatePipe, Location } from '@angular/common';
 
 @Component({
   selector: 'app-child-form',
@@ -19,7 +19,15 @@ export class ChildFormComponent implements OnInit {
   chronic_diseases:Array<string>=[];
   other_diseases:Array<string>=[];
   form:FormGroup;
-  constructor(private datePipe:DatePipe,private fb:FormBuilder, private apiSend:ApiSendService, private apiGet:ApiGetService, private router:Router, private route:ActivatedRoute) {
+  constructor(
+    private datePipe:DatePipe,
+    private fb:FormBuilder, 
+    private apiSend:ApiSendService, 
+    private apiGet:ApiGetService, 
+    private router:Router, 
+    private route:ActivatedRoute,
+    private location: Location
+    ) {
     this.form=this.fb.group({
       name: ['', Validators.required],
       sintoma_parto_prematuro: [''],
@@ -160,7 +168,7 @@ export class ChildFormComponent implements OnInit {
     console.log(childData);
     this.apiSend.addChild(childData,this.motherId).subscribe((response:ApiResponse)=>{
       console.log(response);
-      this.goToMotherProfile(this.motherId);
+      this.goToMotherProfile();
     });
   }
 
@@ -199,13 +207,12 @@ export class ChildFormComponent implements OnInit {
     console.log(childData1);
     this.apiSend.updateChild(childData1).subscribe((response:ApiResponse)=>{
       console.log(response);
-      this.goToMotherProfile(this.motherId);
+      this.goToMotherProfile();
     });
   }
 
-  goToMotherProfile(idMother:string){
-    const url:string = 'asesoradas/profile/' + idMother;
-    this.router.navigate([url]);
+  goToMotherProfile(){
+    this.location.back();
   }
 
   // Funcion que se encarga de crear enfermedades que no esten en la lista principal

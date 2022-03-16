@@ -6,14 +6,11 @@
         .backButton{
             width: 50%;
             a{
-                width: 77px;
-                height: 39px;
-                background:white;
-                color: grey;
+                background-color: whitesmoke;
+                color: gray;
+                border-radius: 30px;
                 box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-                border-radius: 30px;     
             }
-  
         }
         .addMotherBtn{
             text-align: right;

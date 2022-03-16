@@ -1,6 +1,6 @@
 <body>
     <div class="top-bar">
-        <a (click)="goToMotherProfile(motherId)" mdbBtn color="" class="backButton" mdbWavesEffect>
+        <a (click)="goToMotherProfile()" mdbBtn color="" class="backButton" mdbWavesEffect>
             <i class="fas fa-long-arrow-alt-left"></i>
         </a>
     </div>
@@ -76,13 +76,6 @@
                         <div class="form-check">
                             <input type="checkbox" class="form-check-input" formControlName="e_autoinmune">
                             <label class="form-check-label">Enfermedad autoinmune</label>
-                        </div>
-                        <div *ngFor="let disease of other_diseases" class="disease-container">
-                            {{ disease }}
-                        </div>
-                        <div class="other-disease-container">
-                            <input type="text" formControlName="other" class="form-control">
-                            <button type="button" (click)="otherDiseaseFunction()" class="new-disease-button">+</button>
                         </div>
                     </div>
 
@@ -234,31 +227,6 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- Suplemento de leche en la hospitalización -->
-                        <div class="input-label-container"> 
-                            <label class="label-text">Suplemento de leche en la hospitalización:</label>
-                            <div>
-                                <select class="browser-default custom-select" formControlName="has_suplement">
-                                    <option value="true">Si</option>
-                                    <option value="false">No</option>
-                                </select>
-                            </div>
-                        </div>
-                        <!-- Motivo del suplemento -->
-                        <div class="input-label-container" *ngIf="form.controls['has_suplement']?.value == 'true'"> 
-                            <label class="label-text">Motivo del suplemento:</label>
-                            <div>
-                                <select class="browser-default custom-select" formControlName="why_recived_suplement">
-                                    <option value="solicitud materna">Solicitud materna</option>
-                                    <option value="hambre">Hambre</option>
-                                    <option value="hipoglicemia">Hipoglicemia</option>
-                                    <option value="sugerencia de algún profesional">Sugerencia de algún profesional</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="birth-sub-container">
                         <!-- Alojamiento conjunto -->
                         <div class="input-label-container"> 
                             <label class="label-text">Alojamiento conjunto:</label>
@@ -269,6 +237,9 @@
                                 </select>
                             </div>
                         </div>
+                    </div>
+
+                    <div class="birth-sub-container">
                         <!-- Uso de chupetes en hospitalización -->
                         <div class="input-label-container"> 
                             <label class="label-text">Uso de chupetes en hospitalización:</label>
@@ -324,6 +295,28 @@
                                 <div class="invalid-text">
                                     Debe rellenar el campo
                                 </div>
+                            </div>
+                        </div>
+                        <!-- Suplemento de leche en la hospitalización -->
+                        <div class="input-label-container"> 
+                            <label class="label-text">Suplemento de leche en la hospitalización:</label>
+                            <div>
+                                <select class="browser-default custom-select" formControlName="has_suplement">
+                                    <option value="true">Si</option>
+                                    <option value="false">No</option>
+                                </select>
+                            </div>
+                        </div>
+                        <!-- Motivo del suplemento -->
+                        <div class="input-label-container" *ngIf="form.controls['has_suplement']?.value == 'true'"> 
+                            <label class="label-text">Motivo del suplemento:</label>
+                            <div>
+                                <select class="browser-default custom-select" formControlName="why_recived_suplement">
+                                    <option value="solicitud materna">Solicitud materna</option>
+                                    <option value="hambre">Hambre</option>
+                                    <option value="hipoglicemia">Hipoglicemia</option>
+                                    <option value="sugerencia de algún profesional">Sugerencia de algún profesional</option>
+                                </select>
                             </div>
                         </div>
                     </div>
