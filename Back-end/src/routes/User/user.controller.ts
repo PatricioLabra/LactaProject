@@ -1,8 +1,10 @@
 import { RequestHandler } from "express";
-import { createHmac } from "crypto";
+import config from '../../config/config';
 import User, { IUser } from './user.model';
-import { signToken } from "../jwt";
+import { signToken } from "../../middlewares/jwt";
 import { Types } from "mongoose";
+import jwt from 'jsonwebtoken';
+import { sendEmailForgotPassword, sendEmailNewPassword } from "../../middlewares/sendEmail";
 
 /**
  * Funcion que maneja la peticion de agregar un nuevo usuario al sistema
@@ -35,10 +37,10 @@ export const signUp: RequestHandler = async (req, res) => {
         permission_level: req.body.permission_level
     });
     
-    newUser.password = await newUser.encrypPassword(newUser.password);
+    newUser.password = await newUser.encryptPassword(newUser.password);
     const savedUser = await newUser.save();
 
-    const token = signToken(savedUser._id);
+    const token = signToken(savedUser._id, config.SECONDS_DAY * 3); // 3 days
 
     return res.status(201).send({ success: true, data: { token }, message: 'Se ha creado correctamente el nuevo usuario.' });
 }
@@ -137,10 +139,10 @@ export const signIn: RequestHandler = async (req, res) => {
         return res.status(404).send({ success: false, data:{}, message: 'Error: el usuario ingresado no existe en el sistema.' });
     }
 
-    const correctPassword: boolean = await userFound.validatePassword(req.body.password);
+    const correctPassword: boolean = await userFound.comparePassword(req.body.password);
     if(!correctPassword) return res.status(400).send({ success: false, data:{}, message: 'Error: clave invalida.' });
 
-    const token = signToken(userFound._id);
+    const token = signToken(userFound._id, config.SECONDS_DAY); //24hours
 
     const userInfo = {
         name: userFound.name,
@@ -150,10 +152,6 @@ export const signIn: RequestHandler = async (req, res) => {
     };
 
     return res.status(200).send({ success: true, data:{ token, userInfo }, message: 'Se ingreso correctamente.' });
-}
-
-export const getPass: RequestHandler = async (req, res) => {
-
 }
 
 /**
@@ -181,35 +179,69 @@ export const getUsers: RequestHandler = async (req, res) => {
 }
 
 /**
- * Funcion que maneja la peticion de cambiar la password actual del usuario
- * @route Put user/change/pass/:id
- * @param req Request, el id del usuario a modificar la password
- * @param res Response, returna true, el token del usuario y un mensaje de confirmacion
+ * Funcion que maneja la solicitud de recuperar contraseña
+ * @route Post /user/forgotPassword
+ * @param req Request, se espera que tenga el correo del usuario
+ * @param res Response, retornará succes: true, data: {}, message: "String" de que el correo fué enviado para recuperar la contraseña.
  */
-export const changePass: RequestHandler = async (req, res) => {
-    const id = req.params.id;
-    const userFound = await User.findById(id);
-    const new_password = req.body.new_password;
+ export const forgotPassword: RequestHandler = async (req, res) => {
+    const mail = req.body.mail;
+    const userFound = await User.findOne({ mail });
 
-    //se valida el id
-    if ( !Types.ObjectId.isValid(id) ){
-         return res.status(400).send({ success: false, data:{}, message: 'Error: el id ingresado no es valido.' });
-    }
+    //se valida el email ingresado
+    if ( !mail )
+        return res.status(400).send({ success: false, data:{}, message: 'Error: no se ingresó ningún email.' });
 
-    //Se valida si existe el usuario
-    if( !userFound ){
+    //Se valida la existencia del usuario
+    if ( !userFound )
         return res.status(404).send({ success: false, data:{}, message: 'Error: el usuario ingresado no existe en el sistema.' });
-    }
 
-    const correctPassword: boolean = await userFound.validatePassword(req.body.password);
-    if(!correctPassword) return res.status(400).send({ success: false, data:{}, message: 'Error: clave invalida.' });
+    const token = signToken( userFound._id, config.SECONDS_MINUTE * 10) //10 min
 
-    userFound.password = await userFound.encrypPassword(new_password);
+    await User.findByIdAndUpdate(userFound._id, {resetToken: token});
 
-    //Se realiza el cambio
-    await User.findByIdAndUpdate(req.params.id, userFound);
+    //se envía el correo para que el usuario restablesca su cuenta
+    sendEmailForgotPassword(userFound, token);
 
-    const token = signToken(req.params.id);
+    return res.status(200).send({ success: true, data:{}, message: 'Se envió un correo al usuario de manera exitosa.' });
+}
 
-    return res.status(200).send({ success: true, data:{ token }, message: 'Se modifico la password correctamente.' });
+/**
+ * Funcion que maneja la solicitud de crear o reiniciar una contraseña
+ * @route Put /user/resetPassword/:id
+ * @param req Request, se espera el token asociado al usuario por params y la nueva contraseña via body en formato json
+ * @param res Response, retornará succes: true, data: {}, message: "String"; indicando que la contraseña fue actualizada.
+ */
+export const newPassword: RequestHandler = async (req, res) => {
+    const token = req.params.token;
+    const newPassword = req.body.password;
+
+    //se valida que el token no venga vacío
+    if ( !token )
+        return res.status(404).send({ success: false, data:{}, message: 'Error: No se a ingresado ningún token'})
+
+    //se verifica que el token sea válido
+    jwt.verify(token, config.jwtSecret, async function( err: any , decodedToken: any ){
+
+        //se valida si expiró o es defectuoso
+        if ( err )
+            return res.status(400).send({ success: false, data:{}, message:'ERROR: Token incorrecto o expirado'});
+
+        const _id = decodedToken;
+        const userFound = await User.findById(_id);
+
+         //Se valida la existencia del usuario
+        if ( !userFound )
+            return res.status(404).send({ success: false, data:{}, message: 'Error: el usuario ingresado no existe en el sistema.' });
+
+        userFound.password = await userFound.encryptPassword(newPassword);
+
+        //se actualiza la password
+        await User.findByIdAndUpdate(userFound._id, userFound );
+
+        //se envía un correo para notificar al usuario
+        sendEmailNewPassword(userFound);
+
+        return res.status(200).send({ success: true, data:{}, message: 'Contraseña actualizada con exito.' });
+    });   
 }

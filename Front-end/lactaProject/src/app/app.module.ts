@@ -15,6 +15,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CanActivateAdminService } from './services/can-activate-admin.service';
 import { CanActivateService } from './services/can-activate.service';
 import {DatePipe} from '@angular/common';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { TokenInterceptorService } from './services/token-interceptor.service';
 
 
 @NgModule({
@@ -34,7 +36,7 @@ import {DatePipe} from '@angular/common';
     MDBBootstrapModule.forRoot(),
     BrowserAnimationsModule
   ],
-  providers: [CanActivateAdminService,CanActivateService,DatePipe],
+  providers: [CanActivateAdminService,CanActivateService,DatePipe,{provide:HTTP_INTERCEPTORS,useClass:TokenInterceptorService,multi:true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
