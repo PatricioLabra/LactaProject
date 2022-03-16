@@ -94,33 +94,36 @@ async function insertDataInOptions( option: any, name: string, dataFound: any ) 
  */
 export async function deleteDataGraphic( name_data: string , name: string  ){
 
-    const query = {"name_data": name_data};
+    if ( name_data && name ){
+        const query = {"name_data": name_data};
 
-    //se obtiene el dato de la colección
-    let dataFound = await Graphic.findOne(query);
+        //se obtiene el dato de la colección
+        let dataFound = await Graphic.findOne(query);
 
-    if ( dataFound ){
-        let option;
+        if ( dataFound ){
+            let option;
 
-        //si es un array a eliminar
-        if ( Array.isArray(name) ){
+            //si es un array a eliminar
+            if ( Array.isArray(name) ){
 
-            for ( let i = 0; i < name.length; i++ ){
-                option = dataFound.options.find( (object:any) =>  object.name.toUpperCase() === name[i].toUpperCase());
+                for ( let i = 0; i < name.length; i++ ){
+                    option = dataFound.options.find( (object:any) =>  object.name.toUpperCase() === name[i].toUpperCase());
                 
-                deleteDataInOptions(option, name[i], dataFound);
-            } 
+                    deleteDataInOptions(option, name[i], dataFound);
+                } 
 
-        //si es 1 solo dato
-        } else {
-            option = dataFound.options.find( (object:any ) => object.name.toUpperCase() === name.toUpperCase());
+            //si es 1 solo dato
+            } else {
+                option = dataFound.options.find( (object:any ) => object.name.toUpperCase() === name.toUpperCase());
             
-            deleteDataInOptions(option, name, dataFound);
-        }
+                deleteDataInOptions(option, name, dataFound);
+            }
 
-        //se actualiza en la BD
-        await Graphic.findByIdAndUpdate(dataFound._id, dataFound);
+            //se actualiza en la BD
+            await Graphic.findByIdAndUpdate(dataFound._id, dataFound);
+        }
     }
+    
 }
 
 /**

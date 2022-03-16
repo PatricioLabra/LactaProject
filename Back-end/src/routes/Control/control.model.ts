@@ -23,34 +23,34 @@ const controlSchema = new Schema({
         trim: true
     },
     weight:{
-        required: false,
         type: Number,
-        trim: true
+        default: null
     },
     reason_of_consultation:{
-        required: false,
         type: String,
-        trim: true
+        trim: true,
+        default: null
     },
     accompanied_by:{
-        required: false,
         type: String,
-        trim: true
+        trim: true,
+        default: null
     },
     emotional_status:{
-        required: false,
         type: String,
-        trim: true
+        trim: true,
+        default: null
+
     },
     observations:{
-        required: false,
         type: String,
-        trim: true
+        trim: true,
+        default : null
     },
     indications:{
-        required: false,
         type: [String],
-        trim: true
+        trim: true,
+        default: null
     },
     id_child:{
         required: true,
