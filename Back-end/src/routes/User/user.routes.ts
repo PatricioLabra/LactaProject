@@ -27,4 +27,7 @@ router.post('/user/forgotPassword', userCtrl.forgotPassword );
 // Reiniciar o crear contraseña
 router.put('/user/resetPassword/:token', userCtrl.newPassword );
 
+//Obtener la informacion del Usuario (Sin password)
+router.get('/user/info/:id', userCtrl.getUserInfo);
+
 export default router;

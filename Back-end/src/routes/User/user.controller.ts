@@ -245,3 +245,38 @@ export const newPassword: RequestHandler = async (req, res) => {
         return res.status(200).send({ success: true, data:{}, message: 'Contraseña actualizada con exito.' });
     });   
 }
+
+export const getUserInfo: RequestHandler = async (req, res) => {
+    const _id = req.params.id;
+    const userFound = await User.findById(_id);
+
+    //se valida el id
+    if ( !Types.ObjectId.isValid(_id) ){
+        return res.status(400).send({ success: false, data:{}, message: 'Error: el id ingresado no es valido.' });
+    }
+
+    //Se valida el _id ingresado
+    if( !userFound ){
+        return res.status(404).send({ success: false, data:{}, message: 'Error: el usuario ingresado no existe en el sistema.' });                   
+    }
+
+    //Se guarda la informacion del usuario
+    const userInfo = destructureUser(userFound);
+
+    //se retorna el usuario
+    return res.status(200).send({
+        sucess: true,
+        data: userInfo,
+        message: 'Se obtuvo exitosamente la informacion del usuario'
+    });
+}
+
+function destructureUser(userFound: any){
+    const userFiltered = {
+        name: userFound.name,
+        rut: userFound.rut,
+        mail: userFound.mail,
+        permission_level: userFound.permission_level
+    }
+    return userFiltered;
+}
