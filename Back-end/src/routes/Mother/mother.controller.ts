@@ -3,7 +3,7 @@ import Mother from './mother.model';
 import { Types } from "mongoose";
 import Child from '../Child/child.model';
 import Control from '../Control/control.model';
-import { addDataGraphic , deleteDataGraphic } from "../Graphic/generate.graphics";
+import { addDataGraphic , deleteDataGraphic } from "../../libs/generate.graphics";
 import { deleteControlGraphic } from "../Control/control.controller";
 import { deleteChildGraphic } from "../Child/child.controller";
 

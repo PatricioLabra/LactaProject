@@ -1,4 +1,4 @@
-import Graphic from "./graphic.model";
+import Graphic from "../routes/Graphic/graphic.model";
 
 /**
  * Encargada de verificar si existe algun dato guardado anteriormente en la colección Graphics.
