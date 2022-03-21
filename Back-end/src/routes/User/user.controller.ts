@@ -265,7 +265,7 @@ export const getUserInfo: RequestHandler = async (req, res) => {
 
     //se retorna el usuario
     return res.status(200).send({
-        sucess: true,
+        success: true,
         data: userInfo,
         message: 'Se obtuvo exitosamente la informacion del usuario'
     });
