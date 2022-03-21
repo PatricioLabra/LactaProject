@@ -4,6 +4,7 @@ import Mother from '../Mother/mother.model';
 import Child from './child.model';
 import Control from '../Control/control.model';
 import { addDataGraphic, deleteDataGraphic } from "../Graphic/generate.graphics";
+import { deleteControlGraphic } from "../Control/control.controller";
 
 /**
  * Funcion que maneja la peticion de agregar un nuevo usuario al sistema
@@ -30,18 +31,6 @@ export const newChild: RequestHandler = async (req, res) => {
         use_of_pacifier, post_discharge_feeding, last_weight_control }, id_mother: _idMother
     }
     
-    //validacion de los parametros
-    /*if( !newChild.name || !newChild.gestacion_data.diseases_during_pregnancy || !newChild.gestacion_data.nutritional_status_mother ||
-        newChild.gestacion_data.planned_pregnancy == null || newChild.gestacion_data.assisted_fertilization == null || 
-        !newChild.gestacion_data.previous_lactaction || newChild.gestacion_data.duration_of_past_lactaction_in_months < 0 || 
-        newChild.gestacion_data.breastfeeding_education == null || !newChild.birth_data.birthplace || !newChild.birth_data.type_of_birth ||  
-        !newChild.birth_data.birthday || newChild.birth_data.gestional_age < 0 || !newChild.birth_data.gender || newChild.birth_data.birth_weight < 0 || 
-        newChild.birth_data.skin_to_skin_contact == null || newChild.birth_data.breastfeeding_b4_2hours == null || 
-        newChild.birth_data.has_suplement == null  || newChild.birth_data.joint_accommodation == null ||
-        newChild.birth_data.use_of_pacifier == null || !newChild.birth_data.post_discharge_feeding || newChild.birth_data.last_weight_control < 0 ){
-        return res.status(400).send({ success: false, data:{}, message:'Error: Datos inválidos' + req.body });
-    }*/
-
     const motherFound = await Mother.findById(_idMother);
 
     //se valida la existencia de la madre en el sistema
@@ -129,6 +118,11 @@ export const editChild: RequestHandler = async (req, res) => {
     //Se valida la existencia del lactante
     if ( !childFound ){
         return res.status(404).send({ success: false, data:{}, message: 'ERROR: El lactante ingresado no existe en el sistema.' });
+    }
+
+    //se eliminan los controles asociados al child de la colección gráficos
+    for ( let i = 0; i < controlsFound.length; i++){
+        deleteControlGraphic(controlsFound[i]);
     }
 
     //Se verifica si el lactante tiene controles, y se eliminan
@@ -265,25 +259,26 @@ function destructureChild( childFound: any ){
  * Esta encargada de mantener un llamado a la función auxiliar de todos los datos a eliminar en la colección Graphics
  * @param child Madre con todos los datos a eliminar en la BD
  */
- function deleteChildGraphic( child: any ) {
-    deleteDataGraphic("birthplace",child.birth_data.birthplace);
-    deleteDataGraphic("type_of_birth", child.birth_data.type_of_birth);
-    deleteDataGraphic("gestional_age", child.birth_data.gestional_age.toString());
-    deleteDataGraphic("gender", child.birth_data.gender);
-    deleteDataGraphic("birth_weight", child.birth_data.birth_weight.toString());
-    deleteDataGraphic("skin_to_skin_contact", isTrueOrFalse(child.birth_data.skin_to_skin_contact));
-    deleteDataGraphic("breastfeeding_b4_2hours", isTrueOrFalse(child.birth_data.breastfeeding_b4_2hours));
-    deleteDataGraphic("use_of_pacifier", isTrueOrFalse(child.birth_data.use_of_pacifier));
-    deleteDataGraphic("post_discharge_feeding", child.birth_data.post_discharge_feeding.toString());
-    deleteDataGraphic("joint_accommodation", isTrueOrFalse(child.birth_data.joint_accommodation));
-    deleteDataGraphic("has_suplement", isTrueOrFalse(child.birth_data.has_suplement));
-    deleteDataGraphic("why_recived_suplement", child.birth_data.why_recived_suplement);
-    deleteDataGraphic("planned_pregnancy", isTrueOrFalse(child.gestacion_data.planned_pregnancy));
-    deleteDataGraphic("assisted_fertilization", isTrueOrFalse(child.gestacion_data.assisted_fertilization));
-    deleteDataGraphic("previous_lactaction", child.gestacion_data.previous_lactaction);
-    deleteDataGraphic("duration_of_past_lactaction_in_months", child.gestacion_data.duration_of_past_lactaction_in_months.toString());
-    deleteDataGraphic("breastfeeding_education", isTrueOrFalse(child.gestacion_data.breastfeeding_education));
-    deleteDataGraphic("nutritional_status_mother", child.gestacion_data.nutritional_status_mother);
+export function deleteChildGraphic( child: any ) {
+
+    if ( child.birth_data.birthplace != null ){ deleteDataGraphic("birthplace",child.birth_data.birthplace); };
+    if ( child.birth_data.type_of_birth != null ){ deleteDataGraphic("type_of_birth", child.birth_data.type_of_birth); };
+    if ( child.birth_data.gestional_age != null ){ deleteDataGraphic("gestional_age", child.birth_data.gestional_age.toString()); };
+    if ( child.birth_data.gender != null ){ deleteDataGraphic("gender", child.birth_data.gender); };
+    if ( child.birth_data.birth_weight != null ){ deleteDataGraphic("birth_weight", child.birth_data.birth_weight.toString()); };
+    if ( child.birth_data.skin_to_skin_contact != null ){ deleteDataGraphic("skin_to_skin_contact", isTrueOrFalse(child.birth_data.skin_to_skin_contact)); };
+    if ( child.birth_data.breastfeeding_b4_2hours != null ){ deleteDataGraphic("breastfeeding_b4_2hours", isTrueOrFalse(child.birth_data.breastfeeding_b4_2hours)); };
+    if ( child.birth_data.use_of_pacifier != null ){ deleteDataGraphic("use_of_pacifier", isTrueOrFalse(child.birth_data.use_of_pacifier)); };
+    if ( child.birth_data.post_discharge_feeding != null ){ deleteDataGraphic("post_discharge_feeding", child.birth_data.post_discharge_feeding.toString()); };
+    if ( child.birth_data.joint_accommodation != null ){ deleteDataGraphic("joint_accommodation", isTrueOrFalse(child.birth_data.joint_accommodation)); };
+    if ( child.birth_data.has_suplement != null ){ deleteDataGraphic("has_suplement", isTrueOrFalse(child.birth_data.has_suplement)); };
+    if ( child.birth_data.why_recived_suplement != null ){ deleteDataGraphic("why_recived_suplement", child.birth_data.why_recived_suplement); };
+    if ( child.gestacion_data.planned_pregnancy != null ){ deleteDataGraphic("planned_pregnancy", isTrueOrFalse(child.gestacion_data.planned_pregnancy)); };
+    if ( child.gestacion_data.assisted_fertilization != null ){ deleteDataGraphic("assisted_fertilization", isTrueOrFalse(child.gestacion_data.assisted_fertilization)); };
+    if ( child.gestacion_data.previous_lactaction != null ){ deleteDataGraphic("previous_lactaction", child.gestacion_data.previous_lactaction); };
+    if ( child.gestacion_data.duration_of_past_lactaction_in_months != null ){ deleteDataGraphic("duration_of_past_lactaction_in_months", child.gestacion_data.duration_of_past_lactaction_in_months.toString()); };
+    if ( child.gestacion_data.breastfeeding_education != null ){ deleteDataGraphic("breastfeeding_education", isTrueOrFalse(child.gestacion_data.breastfeeding_education)); };
+    if ( child.gestacion_data.nutritional_status_mother != null ){ deleteDataGraphic("nutritional_status_mother", child.gestacion_data.nutritional_status_mother); };
 
     //se valida que el arreglo no venga vacío
     if ( child.gestacion_data.diseases_during_pregnancy.length > 0 ){

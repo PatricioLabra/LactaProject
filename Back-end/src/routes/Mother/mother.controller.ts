@@ -4,7 +4,8 @@ import { Types } from "mongoose";
 import Child from '../Child/child.model';
 import Control from '../Control/control.model';
 import { addDataGraphic , deleteDataGraphic } from "../Graphic/generate.graphics";
-
+import { deleteControlGraphic } from "../Control/control.controller";
+import { deleteChildGraphic } from "../Child/child.controller";
 
 /**
  * Función que maneja la petición de agregar a una nueva madre al sistema.
@@ -104,6 +105,26 @@ export const editMother: RequestHandler = async (req, res) => {
     if ( !motherFound ) 
         return res.status(404).send({ success: false, data:{}, message: 'ERROR: La madre ingresada no existe en el sistema.' });
 
+    if ( childsFound ){
+        //se eliminan los hijos asociados a la madre desde la colección gráficos
+        for ( let i = 0; i < childsFound.length ; i++ ){
+
+            //se obtienen los controles asociados al child
+            let controlsChild = await Control.find({ "id_child": childsFound[i]._id });
+            
+            if ( controlsChild ){
+                for ( let j = 0; j < controlsChild.length; j++ ){
+        
+                    //se eliminan los datos del control
+                    deleteControlGraphic(controlsChild[j]);
+                }
+            };
+
+            //se elimina los datos del child
+            deleteChildGraphic(childsFound[i]);
+        }
+    };
+
     //se eliminan los controles
     if ( controlsFound )
         await Control.deleteMany( {id_mother} );
@@ -141,7 +162,7 @@ export const getDetailedMother: RequestHandler = async (req, res) => {
         return res.status(404).send({ success: false, data:{}, message:'ERROR: La madre a obtener no existe en el sistema.' });
 
     //se seleccionan los atributos que se van a mandar al front
-        const motherFiltered = destructureMother( motherFound );
+    const motherFiltered = destructureMother( motherFound );
 
     return res.status(200).send({ success: true, data:{ mother: motherFiltered }, message:'Madre encontrada y obtenida de manera correcta.' })
 }
@@ -212,13 +233,13 @@ function addMotherGraphic( mother: any ) {
  * Esta encargada de mantener un llamado a la función auxiliar de todos los datos a eliminar en la colección Graphics
  * @param mother Madre con todos los datos a eliminar en la BD
  */
- function deleteMotherGraphic( mother: any ) {
-    deleteDataGraphic("commune",mother.commune);
-    deleteDataGraphic("birth", mother.birth.toISOString().substring(0,4));
-    deleteDataGraphic("studies", mother.studies);
-    deleteDataGraphic("marital_status", mother.marital_status);
-    deleteDataGraphic("forecast", mother.forecast);
-    deleteDataGraphic("number_of_living_children", mother.number_of_living_children.toString());
+export function deleteMotherGraphic( mother: any ) {
+    if ( mother.commune != null ){ deleteDataGraphic("commune",mother.commune); };
+    if ( mother.birth != null ){ deleteDataGraphic("birth", mother.birth.toISOString().substring(0,4)); };
+    if ( mother.studies != null ){ deleteDataGraphic("studies", mother.studies); };
+    if ( mother.marital_status != null ){ deleteDataGraphic("marital_status", mother.marital_status); };
+    if ( mother.forecast != null ){ deleteDataGraphic("forecast", mother.forecast); };
+    if ( mother.number_of_living_children != null ){ deleteDataGraphic("number_of_living_children", mother.number_of_living_children.toString()); };
 
     //se valida que el arreglo no venga vacío
     if ( mother.chronic_diseases.length > 0 ){

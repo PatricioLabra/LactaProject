@@ -20,9 +20,8 @@ export class ProfessionalFormComponent implements OnInit {
     //this.id=this.route.snapshot.paramMap.get('id') as string;
     this.form=this.fb.group({
       name: ['', Validators.required],
-      rut: ['', Validators.required],
-      rut_vc: ['', Validators.required],
-      password: ['', Validators.required],
+      rut: ['', [Validators.required,Validators.pattern("^[0-9]{7,8}$")]],
+      rut_vc: ['', [Validators.required,Validators.pattern("^[0-9kK]{1}$")]],
       mail: ['', [Validators.email, Validators.required]],
       permission_level: ['0', Validators.required]
     });
@@ -30,12 +29,17 @@ export class ProfessionalFormComponent implements OnInit {
   ngOnInit(): void {
     this.id=this.route.snapshot.paramMap.get('id') as string;
     if (this.id != '0'){
-      this.apiGet.getUserInfo(this.id).subscribe((response: ApiResponse)=>{
-        console.log(response);
+      this.apiGet.getProfessionalData(this.id).subscribe((response:ApiResponse)=>{
         if(response.success){
-          this.element = response.data;
-          console.log(response.data)
-          this.fillInputs();
+          this.form.get("name").setValue(response.data.name);
+          this.form.get("mail").setValue(response.data.mail);
+          this.form.get("permission_level").setValue(response.data.permission_level);
+          let rut=response.data.rut;
+          rut=rut.replace('-','');
+          this.form.get("rut").setValue(rut.slice(0,-1));
+          this.form.get("rut_vc").setValue(rut.slice(-1).toUpperCase());
+        }else{
+          console.log(response.message)
         }
       });
     }
@@ -49,7 +53,7 @@ export class ProfessionalFormComponent implements OnInit {
   sendProfessionalData(){
     let userData:typeUser={
       name: this.form.get("name")?.value,
-      rut: this.form.get("rut")?.value + "-" + this.form.get("rut_vc")?.value,
+      rut: this.form.get("rut")?.value + "-" + this.form.get("rut_vc")?.value.toLowerCase(),
       mail: this.form.get("mail")?.value,
       password: this.form.get("password")?.value,
       permission_level: this.form.get("permission_level")?.value,
@@ -64,7 +68,7 @@ export class ProfessionalFormComponent implements OnInit {
     let userData1:typeUser={
       _id: this.id,
       name: this.form.get("name")?.value,
-      rut: this.form.get("rut")?.value + "-" + this.form.get("rut_vc")?.value,
+      rut: this.form.get("rut")?.value + "-" + this.form.get("rut_vc")?.value.toLowerCase(),
       mail: this.form.get("mail")?.value,
       password: this.form.get("password")?.value,
       permission_level: this.form.get("permission_level")?.value,

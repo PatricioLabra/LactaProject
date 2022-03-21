@@ -12,8 +12,19 @@
                     'is-valid': login.controls['rut'].valid && (login.controls['rut'].dirty || login.controls['rut'].touched)  }">
                     <div *ngIf="login.controls['rut'].invalid && (login.controls['rut'].dirty || login.controls['rut'].touched)">
                         <div *ngIf="login.controls['rut']?.hasError('required')" > 
-                            <div class="invalid-text">
+                            <div class="invalid-text error">
                                 Debe rellenar el campo
+                            </div>
+                        </div>
+                        <div *ngIf="login.controls['rut']?.hasError('minlength') || login.controls['rut']?.hasError('maxlength')" > 
+                            <div class="invalid-text error">
+                                Rut debe contener entre 9 a 10 digitos
+                            </div>
+                        </div>
+                        <div *ngIf="login.controls['rut']?.hasError('pattern') && !login.controls['rut']?.hasError('minlength') && !login.controls['rut']?.hasError('maxlength')">
+                            <div class="invalid-text error">
+                                Formato rut invalido. <br>
+                                Ej rut valido: 19776123-k
                             </div>
                         </div>
                     </div>
@@ -26,13 +37,28 @@
                 </div>
                 <div *ngIf="login.controls['password'].invalid && (login.controls['password'].dirty || login.controls['password'].touched)">
                     <div *ngIf="login.controls['password']?.hasError('required')">
-                        <div class="invalid-text">
+                        <div class="invalid-text error">
                             Debe rellenar el campo
+                        </div>
+                    </div>
+                    <div *ngIf="login.controls['password']?.hasError('minlength')">
+                        <div class="invalid-text error">
+                            Password debe tener minimo 6 digitos
                         </div>
                     </div>
                 </div>
                 <div class="button-container">
-                    <button type="submit" [disabled]="login.invalid" class="log-in-button">INGRESAR</button>
+                    <button type="submit" [disabled]="login.invalid" class="log-in-button">INGRESAR</button><br>
+                              
+                </div>
+                <div class="forgotPass" style="text-align: center;">
+                    <a href="forgotPassword" style="color:white;">Recuperar Contraseña</a> 
+                </div>
+               
+                <div *ngIf="showErrorMessage==0">
+                    <h6 class="invalid-text error">
+                        Rut o contraseña no coinciden con algun usuario registrado
+                    </h6>
                 </div>
             </form>
         </div>

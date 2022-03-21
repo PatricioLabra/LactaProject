@@ -107,4 +107,9 @@ export class ApiGetService extends ApiClass {
     const url: string = this.makeUrl(['graphic', keyword]);
     return this.http.get<ApiResponse>(url);
   }
+
+  public getProfessionalData(id:string):Observable<ApiResponse>{
+    const url:string=this.makeUrl(['user','info',id])
+    return this.http.get<ApiResponse>(url);
+  }
 }

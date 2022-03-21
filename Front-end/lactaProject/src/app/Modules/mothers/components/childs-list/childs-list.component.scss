@@ -43,3 +43,9 @@ button{
 .addChildBtn{
     background-color:pink;
 }
+.loader-container {
+    min-height: 20vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

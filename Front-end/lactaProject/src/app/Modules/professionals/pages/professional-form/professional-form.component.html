@@ -1,4 +1,4 @@
-<body>
+<div>
     <div class="top-bar">
         <a href="profesionales" mdbBtn color="" class="backButton" mdbWavesEffect>
             <i class="fas fa-long-arrow-alt-left"></i>
@@ -51,12 +51,22 @@
                             <input type="number" class="form-control" formControlName="rut" placeholder="Rut"
                             [ngClass]="{ 'is-invalid': form.controls['rut'].invalid && (form.controls['rut'].dirty || form.controls['rut'].touched),
                             'is-valid': form.controls['rut'].valid && (form.controls['rut'].dirty || form.controls['rut'].touched)  }">
+                            <div *ngIf="form.controls['rut']?.hasError('pattern')">
+                                <div class="invalid-text error">
+                                   Tienen que ser de 7 a 8 digitos de largo
+                                </div>
+                            </div>
                         </div>
                         <p class="guion-container">-</p>
                         <div class="rut-vc-container">
                             <input type="text" class="form-control" formControlName="rut_vc" placeholder="VC"
                             [ngClass]="{ 'is-invalid': form.controls['rut_vc'].invalid && (form.controls['rut_vc'].dirty || form.controls['rut_vc'].touched),
                             'is-valid': form.controls['rut_vc'].valid && (form.controls['rut_vc'].dirty || form.controls['rut_vc'].touched)  }">
+                            <div *ngIf="form.controls['rut_vc']?.hasError('pattern')">
+                                <div class="invalid-text error">
+                                   Tiene que ser un digito o el caracter "k"
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div *ngIf="form.controls['rut'].invalid && (form.controls['rut'].dirty || form.controls['rut'].touched)">
@@ -67,22 +77,7 @@
                         </div>
                     </div>
                 </div>
-                <!-- Password -->
-                <div class="input-label-container"> 
-                    <label class="label-text">Password:</label>
-                    <div class="password-container">
-                        <input type="password" class="form-control" formControlName="password" placeholder="Contraseña" maxlength="20"
-                        [ngClass]="{ 'is-invalid': form.controls['password'].invalid && (form.controls['password'].dirty || form.controls['password'].touched),
-                        'is-valid': form.controls['password'].valid && (form.controls['password'].dirty || form.controls['password'].touched)  }">
-                    </div>
-                    <div *ngIf="form.controls['password'].invalid && (form.controls['password'].dirty || form.controls['password'].touched)">
-                        <div *ngIf="form.controls['password']?.hasError('required')" > 
-                            <div class="invalid-text">
-                                Debe rellenar el campo
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
                 <!-- Mail -->
                 <div class="input-label-container"> 
                     <label class="label-text">Mail:</label>
@@ -118,4 +113,4 @@
             </form>
         </div>
     </div>
-</body>
+</div>

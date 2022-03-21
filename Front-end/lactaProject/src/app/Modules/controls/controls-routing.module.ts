@@ -9,7 +9,7 @@ import { CanActivateService } from 'src/app/services/can-activate.service';
 const routes: Routes=[
   { path: "controls/past/:id", component: PastControlsComponent ,canActivate:[CanActivateService]},
   { path: "controls/agregar-control/:idChild/primer-control", component:FirstControlFormComponent, canActivate:[CanActivateService]},
-  { path: "prueba3", component:ControlFormComponent}//se debe borrar cuando no se use
+  { path: "controls/seguimiento/:idChild", component:ControlFormComponent}
 ];
 
 @NgModule({

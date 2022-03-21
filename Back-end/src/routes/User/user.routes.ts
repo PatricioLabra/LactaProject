@@ -18,13 +18,16 @@ router.delete('/user/:id', userCtrl.deleteUser);
 // Inicia sesión
 router.post('/user/signin', userCtrl.signIn);
 
-// Recuperar password
-router.get('/user/pass/:rut', userCtrl.getPass);
-
 //Obtener lista usuarios
 router.get('/user', userCtrl.getUsers);
 
-//Cambiar password
-router.put('/user/change/pass/:id', userCtrl.changePass);
+// Recuperar contraseña
+router.post('/user/forgotPassword', userCtrl.forgotPassword );
+
+// Reiniciar o crear contraseña
+router.put('/user/resetPassword/:token', userCtrl.newPassword );
+
+//Obtener la informacion del Usuario (Sin password)
+router.get('/user/info/:id', userCtrl.getUserInfo);
 
 export default router;

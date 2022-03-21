@@ -14,15 +14,26 @@ export class LoginViewComponent implements OnInit {
   @ViewChild('frame', { static: true }) public frameModal;
 
   public login: FormGroup;
+  showErrorMessage=1;
 
   constructor(private fb: FormBuilder, private router: Router, private userService:UserInfoService) { 
     this.login=this.fb.group({
-      rut:['',Validators.required],
-      password:['',Validators.required]
+      rut:['',[Validators.required,Validators.minLength(9),Validators.maxLength(10),Validators.pattern("^[0-9]+-[0-9kK]{1}$")]],
+      password:['',[Validators.required,Validators.minLength(6)]]
     });
   }
 
   ngOnInit(): void {
+    this.userLogged();
+  }
+
+  private async userLogged() {
+    this.userService.getIsLoggedin.subscribe(response =>{
+      if(response){
+        console.log("Ya te encuentras logeado");
+        this.router.navigateByUrl("control-panel");
+      }
+    })
   }
 
   log_in(){
@@ -34,11 +45,12 @@ export class LoginViewComponent implements OnInit {
           }else{
             this.router.navigate(['control-panel']);
           }
-          
         }else{
           console.log(response.message);
         }
-      },(error:any)=>{console.log(error);}
+      },(error:any)=>{
+        this.showErrorMessage=0;
+        console.log(error);}
     );
   }
 }

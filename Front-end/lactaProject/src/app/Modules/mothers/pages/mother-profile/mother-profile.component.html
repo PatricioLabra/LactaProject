@@ -37,18 +37,22 @@
     </div>
 
     <div class="col">
-      <app-childs-list *ngIf="idMother" [idMother]="idMother"></app-childs-list>
+      <div >
+        <app-childs-list *ngIf="idMother" [idMother]="idMother"></app-childs-list>
+      </div>
+      <div class="past-controls-bton">
+        <a class="pastCtrl" [href]="'/controls/past/' + idMother">
+          <mdb-icon far icon="eye" size="1x">
+          </mdb-icon>
+          Ver citas Completadas
+        </a>
+      </div>
     </div>
 
   </div>
   <div class="row">
     
-    <a class="pastCtrl" [href]="'/controls/past/' + idMother">
-      <mdb-icon far icon="eye" size="1x">
-      </mdb-icon>
-      Ver citas Anteriores
-    </a>
-    <app-controls-list *ngIf="idMother" [idMother]="idMother"></app-controls-list>
+
 
   </div>
 

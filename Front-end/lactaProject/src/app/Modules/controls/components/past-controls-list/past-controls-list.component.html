@@ -1,6 +1,20 @@
 
 <div class="container">
 
+  <div class=" selectContainer">
+    <div class="row">
+      <h5>Filtro:</h5>
+    </div>
+    <div class="row">
+        <select class="browser-default custom-select" (change)=filtrarLista($event.target.value)>
+          <option [value]="0" selected>Ninguno</option>
+          <option *ngFor="let item of filterNames"
+          [value]="item.child_name">{{item.child_name}}</option>
+        </select>
+      </div>
+  </div>
+
+
     <table mdbTable mdbTableScroll scrollY="true" maxHeight="500" bordered="true">
         <thead>
           <tr>
@@ -8,10 +22,19 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let el of elements; let i = index">
+          <tr *ngFor="let el of elementsFiltered; let i = index">
             <th scope="row">{{el.child_name}}</th>
             <td>{{el.date_control}}</td>
-            <td><mdb-icon (click)="show(el._id)" far icon="eye" size="2x"></mdb-icon></td>
+            <td>
+              <div class="row">
+                <div class="col-2">
+                  <mdb-icon (click)="show(el._id)" far icon="eye" size="2x"></mdb-icon>
+                </div>
+                <div class="col-2">
+                  <mdb-icon fas icon="trash" (click)="show2(el._id)" size="2x"></mdb-icon>
+                </div>
+              </div>
+            </td>
           </tr>
         </tbody>
     </table>
@@ -23,17 +46,45 @@
   <div class="modal-dialog" role="document">
       <div class="modal-content">
           <div class="modal-header">
-              <h4 class="modal-title margin-auto" id="exampleModalLabel">Cita: </h4>
+              <h4 class="modal-title margin-auto" id="exampleModalLabel" >Cita: </h4>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="hide()">
-                  <span aria-hidden="true">×</span>
+                  <span aria-hidden="true"></span>
               </button>
           </div>
-          <div class="modal-body">
-              <app-control-data  *ngIf="clickeado!=0" [controlId]="controlId"></app-control-data>
+          <div class="modal-body" id="makePdf">
+              <app-control-data *ngIf="clickeado!=0" [controlId]="controlId"></app-control-data>
           </div>
           <div class="modal-footer">
-              <button type="button" mdbBtn color="pink" class="waves-light margin-auto" (click)="hide()" mdbWavesEffect>Close</button>
+              <button type="button" mdbBtn color="cyan" class="waves-light margin-auto" (click)="makePDF()" mdbWavesEffect>Descargar como PDF</button>
+              <button type="button" mdbBtn color="pink" class="waves-light margin-auto" (click)="hide()" mdbWavesEffect>Cerrar</button>
           </div>
+          
       </div>
+  </div>
+</div>
+
+<div mdbModal #frame="mdbModal" class="modal fade top" id="frameModalTop" tabindex="-1" role="dialog"
+  aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm modal-notify modal-danger" role="document">
+    <!--Content-->
+    <div class="modal-content text-center">
+      <!--Header-->
+      <div class="modal-header d-flex justify-content-center">
+        <p class="heading">Confirma la eliminación de la cita?</p>
+      </div>
+
+      <!--Body-->
+      <div class="modal-body">
+        <mdb-icon fas icon="times" size="4x" class="animated rotateIn"></mdb-icon>
+      </div>
+
+      <!--Footer-->
+      <div class="modal-footer justify-content-center">
+        <a (click)="eliminarCita(citaSeleccionada)" mdbBtn color="danger" outline="true" class="waves-effect"
+          mdbWavesEffect>Si</a>
+        <a type="button" mdbBtn color="danger" class="waves-effect" mdbWavesEffect data-dismiss="modal" (click)="frame.hide()">No</a>
+      </div>
+    </div>
+    <!--/.Content-->
   </div>
 </div>
