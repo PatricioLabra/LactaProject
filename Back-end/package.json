@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc --build",
     "clean": "tsc --build --clean",
-    "start": "node index",
+    "start": "node index.ts",
     "serve": "npm run build && node dist/index.js",
     "dev:serve": "nodemon --watch './**/*.ts' --exec \"ts-node\" src/index.ts"
   },
@@ -15,7 +15,7 @@
     "type": "git",
     "url": "git+https://github.com/PatricioLabra/LactaProject.git"
   },
-  "author": "Dan Santos",
+  "author": "Patricio Labra",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/PatricioLabra/LactaProject/issues"
