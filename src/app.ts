@@ -33,13 +33,13 @@ app.use(cors(corsConfig));
 app.use(passport.initialize());
 passport.use(passportMiddleware);
 
-app.use('/',express.static('client',{redirect:false})) //para produccion
+app.use('/',express.static('../client',{redirect:false})) //para produccion
 
 // Routes
 app.use(indexRoutes);
 
 app.get('*',function(req,res,next){
-    return res.sendFile(path.resolve('client/index.html')); //para produccion
+    return res.sendFile(path.resolve('../client/index.html')); //para produccion
 });
 
 export default app;
