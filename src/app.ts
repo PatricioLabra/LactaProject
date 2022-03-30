@@ -5,7 +5,8 @@ import passport from 'passport';
 import passportMiddleware from './middlewares/passport'
 import dotenv from 'dotenv';
 import helmet from "helmet";
-import path from 'path';
+
+let path = require('path');
 
 // Load enviroments variables
 dotenv.config();
@@ -21,7 +22,7 @@ const corsConfig: CorsOptions = {
 };
 
 // Settings
-app.set('port', process.env.PORT || 4000);
+app.set('port', process.env.PORT || 5000);
 
 //Middlewares
 app.use(morgan('dev'));
