@@ -1,5 +1,4 @@
 import express from 'express';
-import morgan from 'morgan';
 import cors, { CorsOptions } from 'cors';
 import passport from 'passport';
 import passportMiddleware from './middlewares/passport'
@@ -25,7 +24,6 @@ const corsConfig: CorsOptions = {
 app.set('port', process.env.PORT || 5000);
 
 //Middlewares
-app.use(morgan('dev'));
 app.use(helmet());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
