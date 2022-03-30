@@ -5,6 +5,7 @@ import passport from 'passport';
 import passportMiddleware from './middlewares/passport'
 import dotenv from 'dotenv';
 import helmet from "helmet";
+import path from 'path';
 
 // Load enviroments variables
 dotenv.config();
@@ -31,8 +32,13 @@ app.use(cors(corsConfig));
 app.use(passport.initialize());
 passport.use(passportMiddleware);
 
+app.use('/',express.static('client',{redirect:false})) //para produccion
+
 // Routes
 app.use(indexRoutes);
 
-export default app;
+app.get('*',function(req,res,next){
+    return res.sendFile(path.resolve('client/index.html')); //para produccion
+});
 
+export default app;
