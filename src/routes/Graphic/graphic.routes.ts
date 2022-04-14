@@ -1,7 +1,5 @@
 import {Router} from 'express';
 import * as graphicCtrl from './graphic.controller';
-import { isAdmin , isRol } from "../../middlewares/authRoles";
-import passport from 'passport';
 
 const router = Router();
 
