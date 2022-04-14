@@ -6,6 +6,6 @@ import passport from 'passport';
 const router = Router();
 
 //Obtener objeto con los datos a graficar
-router.get('/graphic/:keyword', passport.authenticate('jwt', {session: false, failureRedirect: '/login' }), isRol, graphicCtrl.getDataGraphic);
+router.get('/graphic/:keyword', passport.authenticate('jwt', {session: false, failureRedirect: '/' }), isRol, graphicCtrl.getDataGraphic);
 
 export default router;
