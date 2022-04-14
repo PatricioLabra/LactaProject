@@ -7,7 +7,7 @@ import Graphic from './graphic.model';
  * @param req Request de la petición, se espera que tenga la la información del objeto.
  * @param res Response, retorna un un object con success:true, data:{ object:{}} y un message: "String" del objeto obtenido.
  */
-export const getDataGraphic: RequestHandler = async (req, res) => {
+export const getDataGraphic: RequestHandler = async (req:any, res:any) => {
     const name_data = req.params.keyword;
 
     if(!name_data){

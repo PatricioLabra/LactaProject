@@ -12,7 +12,7 @@ import { addDataGraphic , deleteDataGraphic } from "../../libs/generate.graphics
  * @param req Request de la petición, se espera que tenga la información del nuevo control + el id Del child
  * @param res Response, retorna un un object con success:true, data:{ _id: ObjectId() } y un message: "String" del nuevo control si todo sale bien
  */
-export const newControl: RequestHandler = async (req, res) => {
+export const newControl: RequestHandler = async (req:any, res:any) => {
     const { id_child, dataNewControl } = req.body;
 
     //se valida el Id del Child
@@ -78,7 +78,7 @@ export const newControl: RequestHandler = async (req, res) => {
  * @param req Request de la petición, se espera que tenga la información del control editado
  * @param res Response, retorna un un object con success:true, data:{} y un message: "String" del control editado si todo sale bien
  */
-export const editControl: RequestHandler = async (req, res) => {
+export const editControl: RequestHandler = async (req:any, res:any) => {
     const _id = req.params.idControl;
     const updatedControl = req.body;
 
@@ -112,7 +112,7 @@ export const editControl: RequestHandler = async (req, res) => {
  * @param req Request de la petición, se espera que tenga el id del control a eliminar
  * @param res Response, retorna un un object con success:true, data:{} y un message: "String" del control editado si todo sale bien
  */
-export const deleteControl: RequestHandler = async (req, res) => {
+export const deleteControl: RequestHandler = async (req:any, res:any) => {
     const _id = req.params.idControl;
 
     //se valida el id del control
@@ -141,7 +141,7 @@ export const deleteControl: RequestHandler = async (req, res) => {
  * @param req Request de la petición, se espera que tenga el id de la madre
  * @param res Response, retorna un un object con success:true, data:{ controls: [{},{}] } y un message: "String" de la lista de controles si todo sale bien
  */
-export const getNextControls: RequestHandler = async (req, res) => {
+export const getNextControls: RequestHandler = async (req:any, res:any) => {
     const idMother = req.params.idMother;
 
     //se valida el _id de la madre ingresada
@@ -181,7 +181,7 @@ export const getNextControls: RequestHandler = async (req, res) => {
  * @param req Request de la petición, se espera que tenga el id de la madre
  * @param res Response, retorna un un object con success:true, data:{ controls: [{},{}] } y un message: "String" de la lista de controles si todo sale bien
  */
-export const getPassControls: RequestHandler = async (req, res) => {
+export const getPassControls: RequestHandler = async (req:any, res:any) => {
     const idMother = req.params.idMother;
 
     //se valida el _id de la madre ingresada
@@ -222,7 +222,7 @@ export const getPassControls: RequestHandler = async (req, res) => {
  * @param req Request, se espera que tenga el id del control a mostrar
  * @param res Response, returna true, informacion del control y un mensaje de confirmacion
  */
-export const getDetailedPassControl: RequestHandler = async (req, res) => {
+export const getDetailedPassControl: RequestHandler = async (req:any, res:any) => {
     const _id = req.params.idControl;
  
     //se valida el _id ingresado
@@ -254,7 +254,7 @@ export const getDetailedPassControl: RequestHandler = async (req, res) => {
  * @param req Request de la petición, se espera que tenga un JSON con los filtros
  * @param res Response, retorna un un object con success:true, data:{} con la lista y un message: "String" de confirmacion
  */
-export const getSearchControlFiltered: RequestHandler = async (req, res) => {
+export const getSearchControlFiltered: RequestHandler = async (req:any, res:any) => {
     const { id_mother, child_name, init_date, end_date } = req.body;
     let list_controls;
 
@@ -326,7 +326,7 @@ export const getSearchControlFiltered: RequestHandler = async (req, res) => {
  * @param req Request de la petición, se espera que tenga el id de la madre 
  * @param res Response, retorna un un object con success:true, data:{} con la fecha y un message: "String" de confirmacion
  */
- export const getLastAndNextControl: RequestHandler = async (req, res) => {
+ export const getLastAndNextControl: RequestHandler = async (req:any, res:any) => {
     const _id = req.params.idMother;
 
     //se valida el _id de la madre ingresada
@@ -361,7 +361,7 @@ export const getSearchControlFiltered: RequestHandler = async (req, res) => {
  * @param req Request de la petición, se espera que tenga el id del lactante
  * @param res Response, retorna un un object con success:true, data:{"string":Bool} con la fecha y un message: "String" de confirmacion
  */
- export const getFirstControl: RequestHandler = async (req, res) => {
+ export const getFirstControl: RequestHandler = async (req:any, res:any) => {
     const id_child = req.params.idChild;
 
     //se valida el _id de la madre ingresada

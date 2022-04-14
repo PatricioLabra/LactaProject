@@ -12,7 +12,7 @@ import { deleteControlGraphic } from "../Control/control.controller";
  * @param req req Request, Se espera que contengar el id de la madre 
  * @param res Response, retornará object con success true, data: { _id: ObjectId() } y un mensaje de confirmacion de creacion
  */
-export const newChild: RequestHandler = async (req, res) => {
+export const newChild: RequestHandler = async (req:any, res:any) => {
     const _idMother = req.params.idMother;
 
     //se valida el id de la madre
@@ -62,7 +62,7 @@ export const newChild: RequestHandler = async (req, res) => {
  * @param req Request, se espera que tenga archivo json con el usuario editado
  * @param res Response, returna true, el nuevo usuario y un mensaje de confirmacion
  */
-export const editChild: RequestHandler = async (req, res) => {
+export const editChild: RequestHandler = async (req:any, res:any) => {
     const _id = req.params.idLactante;
     const updatedChild = req.body;
 
@@ -104,7 +104,7 @@ export const editChild: RequestHandler = async (req, res) => {
  * @param req Request, se espera que tenga el id del lactante a eliminar
  * @param res Response, returna true, un data vacio y un mensaje de confirmacion
  */
- export const deleteChild: RequestHandler = async (req, res) => {
+ export const deleteChild: RequestHandler = async (req:any, res:any) => {
     const id_child = req.params.idLactante;
 
     //se valida el id
@@ -145,7 +145,7 @@ export const editChild: RequestHandler = async (req, res) => {
  * @param req Request de la peticion
  * @param res Response, retorna un object con una lista de los lactantes relacionados a la madre con el id ingresado
  */
-export const getResumeChild: RequestHandler = async (req, res) => {
+export const getResumeChild: RequestHandler = async (req:any, res:any) => {
     const _idMother = req.params.idMother
     
     if (!Types.ObjectId.isValid(_idMother))
@@ -170,7 +170,7 @@ export const getResumeChild: RequestHandler = async (req, res) => {
  * @param req Request, se espera que tenga el id del usuario
  * @param res Response, returna true, informacion del usuario y un mensaje de confirmacion
  */
-export const getChild: RequestHandler = async (req, res) => {
+export const getChild: RequestHandler = async (req:any, res:any) => {
     const _id = req.params.idLactante;
 
     //se válida el _id ingresado

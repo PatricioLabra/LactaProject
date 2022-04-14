@@ -13,7 +13,7 @@ import { deleteChildGraphic } from "../Child/child.controller";
  * @param req Request de la petición, se espera que tenga la información de la nueva madre
  * @param res Response, retorna un un object con success:true, data:{ _id: ObjectId() } y un message: "String" de la nueva madre si todo sale bien
  */
-export const newMother: RequestHandler = async (req, res) => {
+export const newMother: RequestHandler = async (req:any, res:any) => {
     const {
         name, rut, commune, phone_number, mail, birth, 
         ocupation, studies, marital_status, forecast,
@@ -55,7 +55,7 @@ export const newMother: RequestHandler = async (req, res) => {
  * @param req Request de la petición, se espera que tenga la información editada de una madre existente
  * @param res Response, retorna un un object con success:true, data:{} y un message: "String" de la madre editada si todo sale bien
  */
-export const editMother: RequestHandler = async (req, res) => {
+export const editMother: RequestHandler = async (req:any, res:any) => {
     const _id = req.params.id;
     const updatedMother = req.body;
 
@@ -90,7 +90,7 @@ export const editMother: RequestHandler = async (req, res) => {
  * @param req Request de la petición, se espera que tenga el id de la madre
  * @param res Response, retorna un un object con success:true, data:{ } y un message: "String" de la madre eliminada si todo sale bien
  */
- export const deleteMother: RequestHandler = async (req, res) => {
+ export const deleteMother: RequestHandler = async (req:any, res:any) => {
     const id_mother = req.params.id;
 
     //se valida el _id de la madre ingresada
@@ -148,7 +148,7 @@ export const editMother: RequestHandler = async (req, res) => {
  * @param req Request de la petición, se espera que tenga la información de la madre obtenida
  * @param res Response, retorna un un object con success:true, data:{  mother:{} } y un message: "String" de la madre obtenida si todo sale bien
  */
-export const getDetailedMother: RequestHandler = async (req, res) => {
+export const getDetailedMother: RequestHandler = async (req:any, res:any) => {
     const _id = req.params.id;
 
     //se válida el _id ingresado
@@ -173,7 +173,7 @@ export const getDetailedMother: RequestHandler = async (req, res) => {
  * @param req Request de la petición, se espera que no contenga nada
  * @param res Response, retorna un un object con success:true, data:{  listMothers:[{},{},...] } y un message: "String" de las madres obtenidas si todo sale bien
  */
-export const getMothers: RequestHandler = async (req, res) => {
+export const getMothers: RequestHandler = async (req:any, res:any) => {
     const mothersFound = await Mother.find();
 
     //se valida la existencia de madres
