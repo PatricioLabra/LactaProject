@@ -9,7 +9,7 @@ import User from "../routes/User/user.model";
  * @param res Response, si algo falla con el token, retorna el mensaje de error
  * @param next Siguiente handler a cargar
  */
-export const isUser: RequestHandler = async (req, res, next) => {
+export const isUser: RequestHandler = async (req:any, res:any, next) => {
 	roleValidation(req, res, next, config.USER );
 } 
 
@@ -19,7 +19,7 @@ export const isUser: RequestHandler = async (req, res, next) => {
  * @param res Response, si algo falla con el token, retorna el mensaje de error
  * @param next Siguiente handler a cargar
  */
-export const isAdmin: RequestHandler = async (req, res, next) => {
+export const isAdmin: RequestHandler = async (req:any, res:any, next) => {
 	roleValidation(req, res, next, config.ADMIN);
 } 
 
@@ -29,7 +29,7 @@ export const isAdmin: RequestHandler = async (req, res, next) => {
  * @param res Response, si algo falla con el token, retorna el mensaje de error
  * @param next Siguiente handler a cargar
  */
- export const isRol: RequestHandler = async (req, res, next) => {
+ export const isRol: RequestHandler = async (req:any, res:any, next) => {
 
 	if ( !req.headers.authorization )
 		return res.status(400).send({ success: false, message: 'Los encabezados no tienen un parámetro de autorización.' });
