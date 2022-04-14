@@ -12,7 +12,7 @@ import { sendEmailForgotPassword, sendEmailNewPassword } from "../../middlewares
  * @param req req Request de la petición, se espera que tenga la información del nuevo usuario
  * @param res Response, retornará el token del usuario con un mensaje de creacion correcta mas un mensaje true
  */
-export const signUp: RequestHandler = async (req, res) => {
+export const signUp: RequestHandler = async (req:any, res:any) => {
     const { name, rut ,password, mail, permission_level} = req.body;
 
     //Se valida que los atributos sean validos
@@ -51,7 +51,7 @@ export const signUp: RequestHandler = async (req, res) => {
  * @param req Request, se espera que tenga el id del usuario
  * @param res Response, returna true, el nombre del usuario ingresado por id y un mensaje de confirmacion
  */
-export const getUserName: RequestHandler = async (req, res) => {
+export const getUserName: RequestHandler = async (req:any, res:any) => {
 
     const _id = req.params.id;
     const userFound = await User.findById(_id);
@@ -77,7 +77,7 @@ export const getUserName: RequestHandler = async (req, res) => {
  * @param req Request, se espera que tenga la informacion del usuario modificada
  * @param res Response, returna true, un data vacio y un mensaje de confirmacion
  */
-export const editUser: RequestHandler = async (req, res) => {
+export const editUser: RequestHandler = async (req:any, res:any) => {
     const _id = req.params.id;
     const updateUser = req.body;
      
@@ -105,7 +105,7 @@ export const editUser: RequestHandler = async (req, res) => {
  * @param req Request, se espera que tenga el id del usuario a eliminar
  * @param res Response, returna true, un data vacio y un mensaje de confirmacion
  */
-export const deleteUser: RequestHandler = async (req, res) => {
+export const deleteUser: RequestHandler = async (req:any, res:any) => {
     const _id = req.params.id;
 
     //se valida el id
@@ -131,7 +131,7 @@ export const deleteUser: RequestHandler = async (req, res) => {
  * @param req Request, se espera que tenga el id del usuario a eliminar
  * @param res Response, returna true, el token del usuario y un mensaje de confirmacion
  */
-export const signIn: RequestHandler = async (req, res) => {
+export const signIn: RequestHandler = async (req:any, res:any) => {
     const userFound = await User.findOne({ rut: req.body.rut });
 
     //Se valida si existe el usuario
@@ -160,7 +160,7 @@ export const signIn: RequestHandler = async (req, res) => {
  * @param req Request, no contiene nada
  * @param res Response, returna true, los nombres y rut de todos los usuarios y un mensaje de confirmacion
  */
-export const getUsers: RequestHandler = async (req, res) => {
+export const getUsers: RequestHandler = async (req:any, res:any) => {
     const users = await User.find();
 
     //Se valida la existencia del usuario
@@ -184,7 +184,7 @@ export const getUsers: RequestHandler = async (req, res) => {
  * @param req Request, se espera que tenga el correo del usuario
  * @param res Response, retornará succes: true, data: {}, message: "String" de que el correo fué enviado para recuperar la contraseña.
  */
- export const forgotPassword: RequestHandler = async (req, res) => {
+ export const forgotPassword: RequestHandler = async (req:any, res:any) => {
     const mail = req.body.mail;
     const userFound = await User.findOne({ mail });
 
@@ -212,7 +212,7 @@ export const getUsers: RequestHandler = async (req, res) => {
  * @param req Request, se espera el token asociado al usuario por params y la nueva contraseña via body en formato json
  * @param res Response, retornará succes: true, data: {}, message: "String"; indicando que la contraseña fue actualizada.
  */
-export const newPassword: RequestHandler = async (req, res) => {
+export const newPassword: RequestHandler = async (req:any, res:any) => {
     const token = req.params.token;
     const newPassword = req.body.password;
 
@@ -246,7 +246,7 @@ export const newPassword: RequestHandler = async (req, res) => {
     });   
 }
 
-export const getUserInfo: RequestHandler = async (req, res) => {
+export const getUserInfo: RequestHandler = async (req:any, res:any) => {
     const _id = req.params.id;
     const userFound = await User.findById(_id);
 
