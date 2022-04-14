@@ -8,7 +8,7 @@ import graphicRoutes from './Graphic/graphic.routes';
 
 const router = Router();
 
-router.get('/', (req, res) => {
+router.get('/', (req:any, res:any) => {
     return res.send('Welcome to my API!');
 });
 
