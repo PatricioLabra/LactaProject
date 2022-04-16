@@ -6,7 +6,7 @@ import passport from 'passport';
 const router = Router();
 
 // Agregar un nuevo usuario
-router.post('/user/signup', isAdmin, userCtrl.signUp);
+router.post('/user/signup', userCtrl.signUp);
 
 // Obtener la informacion de un usuario(Nombre Header)
 router.get('/user/:id', passport.authenticate('jwt', {session: false, failureRedirect: '/' }), isRol, userCtrl.getUserName);
