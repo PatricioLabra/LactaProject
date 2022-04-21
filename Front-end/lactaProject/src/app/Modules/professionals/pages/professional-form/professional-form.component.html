@@ -77,7 +77,27 @@
                         </div>
                     </div>
                 </div>
-
+                 <!-- Password -->
+                 <div class="input-label-container"> 
+                    <label class="label-text">Password:</label>
+                    <div class="password-container">
+                        <input type="password" class="form-control" formControlName="password" placeholder="Contraseña" maxlength="20"
+                        [ngClass]="{ 'is-invalid': form.controls['password'].invalid && (form.controls['password'].dirty || form.controls['password'].touched),
+                        'is-valid': form.controls['password'].valid && (form.controls['password'].dirty || form.controls['password'].touched)  }">
+                    </div>
+                    <div *ngIf="form.controls['password'].invalid && (form.controls['password'].dirty || form.controls['password'].touched)">
+                        <div *ngIf="form.controls['password']?.hasError('required')" > 
+                            <div class="invalid-text">
+                                Debe rellenar el campo
+                            </div>
+                        </div>
+                        <div *ngIf="form.controls['password']?.hasError('minlength')" > 
+                            <div class="invalid-text">
+                                Minimo 6 digitos de largo
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <!-- Mail -->
                 <div class="input-label-container"> 
                     <label class="label-text">Mail:</label>

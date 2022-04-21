@@ -22,6 +22,7 @@ export class ProfessionalFormComponent implements OnInit {
       name: ['', Validators.required],
       rut: ['', [Validators.required,Validators.pattern("^[0-9]{7,8}$")]],
       rut_vc: ['', [Validators.required,Validators.pattern("^[0-9kK]{1}$")]],
+      password: ['', [Validators.required,Validators.minLength(6)]],
       mail: ['', [Validators.email, Validators.required]],
       permission_level: ['0', Validators.required]
     });
