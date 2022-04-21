@@ -78,7 +78,7 @@
                     </div>
                 </div>
                  <!-- Password -->
-                 <div class="input-label-container"> 
+                 <div class="input-label-container" *ngIf="id == '0'"> 
                     <label class="label-text">Password:</label>
                     <div class="password-container">
                         <input type="password" class="form-control" formControlName="password" placeholder="Contraseña" maxlength="20"
