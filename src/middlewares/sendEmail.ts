@@ -36,7 +36,7 @@ export async function sendEmailForgotPassword( user: any , token: any){
             subject: "Alerta de seguridad crítica", // Subject line
             html: contentHTML, // html body
         });
-
+        console.log(contentHTML);
         console.log("Message sent: %s", info.messageId);
         console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
 

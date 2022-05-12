@@ -199,9 +199,10 @@ export const getUsers: RequestHandler = async (req:any, res:any) => {
     const token = signToken( userFound._id, config.SECONDS_MINUTE * 10) //10 min
 
     await User.findByIdAndUpdate(userFound._id, {resetToken: token});
-
+    console.log('1');
     //se envía el correo para que el usuario restablesca su cuenta
     sendEmailForgotPassword(userFound, token);
+    console.log('2');
 
     return res.status(200).send({ success: true, data:{}, message: 'Se envió un correo al usuario de manera exitosa.' });
 }
@@ -219,7 +220,7 @@ export const newPassword: RequestHandler = async (req:any, res:any) => {
     if (newPassword == '' || !newPassword){
         return res.status(404).send({ success: false, data:{}, message: 'Error: No se a ingresado ninguna contrtaseña'});
     }
-    
+
     //se valida que el token no venga vacío
     if ( !token )
         return res.status(404).send({ success: false, data:{}, message: 'Error: No se a ingresado ningún token'})
