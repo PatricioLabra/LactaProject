@@ -184,7 +184,7 @@ export const getUsers: RequestHandler = async (req:any, res:any) => {
  * @param req Request, se espera que tenga el correo del usuario
  * @param res Response, retornará succes: true, data: {}, message: "String" de que el correo fué enviado para recuperar la contraseña.
  */
- export const forgotPassword: RequestHandler = async (req:any, res:any) => {
+/* export const forgotPassword: RequestHandler = async (req:any, res:any) => {
     const mail = req.body.mail;
     const userFound = await User.findOne({ mail });
 
@@ -205,7 +205,7 @@ export const getUsers: RequestHandler = async (req:any, res:any) => {
     console.log('2');
 
     return res.status(200).send({ success: true, data:{}, message: 'Se envió un correo al usuario de manera exitosa.' });
-}
+}*/
 
 /**
  * Funcion que maneja la solicitud de crear o reiniciar una contraseña
