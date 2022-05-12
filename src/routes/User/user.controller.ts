@@ -216,6 +216,10 @@ export const newPassword: RequestHandler = async (req:any, res:any) => {
     const token = req.params.token;
     const newPassword = req.body.password;
 
+    if (newPassword == '' || !newPassword){
+        return res.status(404).send({ success: false, data:{}, message: 'Error: No se a ingresado ninguna contrtaseña'});
+    }
+    
     //se valida que el token no venga vacío
     if ( !token )
         return res.status(404).send({ success: false, data:{}, message: 'Error: No se a ingresado ningún token'})
