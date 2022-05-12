@@ -28,7 +28,7 @@ export async function sendEmailForgotPassword( user: any , token: any){
         <p>Gracias por su paciencia.</p>
         <p>Saludos coordiales.</p> 
         `;
-
+        console.log(contentHTML);
         // send mail with defined transport object
         const info = await transporter.sendMail({
             from: '"LactaPlanet" <lactaproject@gmail.com>', // sender address
