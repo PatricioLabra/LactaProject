@@ -32,7 +32,7 @@ app.use(passport.initialize());
 passport.use(passportMiddleware);
 
 // Routes
-app.use(indexRoutes);
+app.use('/api',indexRoutes);
 
 export default app;
 
