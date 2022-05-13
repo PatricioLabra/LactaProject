@@ -34,14 +34,14 @@ app.use(passport.initialize());
 passport.use(passportMiddleware);
 
 // Routes
-app.use('/',express.static('../client',{redirect:false})) //para produccion
+app.use('/',express.static('./client',{redirect:false})) //para produccion
 
 app.use('/api',indexRoutes);
 
 app.get('*',function(req,res,next){
-    return res.sendFile(path.resolve('../client/index.html')); //para produccion
+    return res.sendFile(path.resolve('./client/index.html')); //para produccion
 });
 
-
+console.log(path.dirname(__filename));
 export default app;
 

@@ -24,7 +24,7 @@ export async function sendEmailForgotPassword( user: any , token: any){
         <p> Estimado/a ${user.name}:</p>
         <p> Hemos recibido una solicitud para recuperar el acceso a la cuenta de LactaPlanet ${user.mail}.</p>
         <p>Si la has enviado tú, puedes clickear el siguiente enlace que tiene una duración de 10 minutos, para poder generar una nueva contraseña. </p>
-        <p>https://localhost:4200/user/resetPassword/${token}</p>
+        <p>https://compact-citizen-346817.rj.r.appspot.com/user/resetPassword/${token}</p>
         <p>Gracias por su paciencia.</p>
         <p>Saludos coordiales.</p> 
         `;
