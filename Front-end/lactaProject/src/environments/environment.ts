@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  API_URL: 'http://localhost:4000' //producción: https://compact-citizen-346817.rj.r.appspot.com
+  API_URL: 'http://localhost:4000/api' //producción: https://compact-citizen-346817.rj.r.appspot.com
 };
 
 /*
