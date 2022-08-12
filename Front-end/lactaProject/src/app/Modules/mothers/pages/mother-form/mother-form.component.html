@@ -8,11 +8,23 @@
         <div class="form-container">
             <form [formGroup]="form" (ngSubmit)="sendMotherData()" autocomplete="off">
                 <!-- Titulo -->
-                <div class="title-container" *ngIf="id == '0'">
-                    <p class="title-text">Formulario Ingreso de Asesorada</p>
-                </div>
-                <div class="title-container" *ngIf="id != '0'">
-                    <p class="title-text">Editar Asesorada</p>
+                <div class="title-row">
+                    <div class="row">
+                        <div class="col">
+                            <div class="title-image"></div>
+                        </div>
+                        <div class="col-6">
+                            <div class="title-container" *ngIf="id == '0'">
+                                <p class="title-text">Formulario Ingreso de Asesorada</p>
+                            </div>
+                            <div class="title-container" *ngIf="id != '0'">
+                                <p class="title-text">Editar Asesorada</p>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="title-image2"></div>
+                        </div>
+                    </div>
                 </div>
                 <!-- Nombre -->
                 <div class="input-label-container"> 

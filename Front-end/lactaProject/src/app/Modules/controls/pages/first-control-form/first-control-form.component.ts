@@ -80,6 +80,12 @@ export class FirstControlFormComponent implements OnInit {
     const url:string = 'asesoradas/';
     this.router.navigate([url]);
   }
+
+  goToMotherProfile(idMother: string) {
+    const url: string = 'asesoradas/profile/' + idMother;
+    this.router.navigate([url]);
+  }
+
   // Funcion que crea una lista de enfermedades cronicas
   createList(){
     if(this.form.get("mejorar_acople")?.value == true){

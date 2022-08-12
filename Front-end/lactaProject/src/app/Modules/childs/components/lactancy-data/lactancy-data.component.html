@@ -16,8 +16,7 @@
                 <li>
                     Enfermedades durante la gestación:
                 </li>
-                <li class="item">
-                    {{childData.gestacion_data.diseases_during_pregnancy}}
+                <li *ngIf="childData.gestacion_data.diseases_during_pregnancy; then yes; else no" class="item">
                 </li>
             </ul>
 
@@ -51,10 +50,7 @@
                         
                     </li>
                     
-                    <li class="item">
-                        {{childData.gestacion_data.planned_pregnancy}}
-
-                    </li>
+                    <li *ngIf="childData.gestacion_data.planned_pregnancy; then yes; else no" class="item"> </li>
                 </ul>
 
             </div>
@@ -65,9 +61,7 @@
                         Fetilizacion asistida:   
                     </li>
                     
-                    <li class="item">
-                        {{childData.gestacion_data.assisted_fertilization}}
-                    </li>
+                    <li *ngIf="childData.gestacion_data.assisted_fertilization; then yes; else no" class="item"> </li>
                 </ul>
             </div>
 
@@ -108,9 +102,7 @@
                     
                 </li>
                 
-                <li class="item">
-                    {{childData.gestacion_data.breastfeeding_education}}
-                </li>
+                <li *ngIf="childData.gestacion_data.breastfeeding_education; then yes; else no" class="item"> </li>
             </ul>
         </div>
 
@@ -119,3 +111,14 @@
 
 
 </div>
+
+<ng-template #yes>
+    <li class="item">
+      Si
+    </li>
+  </ng-template>
+  <ng-template #no>
+    <li class="item">
+      No
+    </li>
+</ng-template>

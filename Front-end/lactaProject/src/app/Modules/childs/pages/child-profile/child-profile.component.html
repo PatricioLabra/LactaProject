@@ -1,11 +1,16 @@
 
+<div class="content">
+
+
 <div class="topBar">
     <a [href]="'/asesoradas/profile/' + idMother" mdbBtn class="backButton" mdbWavesEffect>
         <i class="fas fa-long-arrow-alt-left"></i>
     </a>
 
+    
+
     <div class="btn-group" mdbDropdown>
-        <a mdbDropdownToggle type="button" mdbBtn color="primary" class="sortButton dropdown-toggle waves-light"
+        <a mdbDropdownToggle type="button" mdbBtn color="" class="sortButton dropdown-toggle waves-light"
           mdbWavesEffect>
         </a>
       
@@ -13,14 +18,13 @@
           <a class="dropdown-item" (click)="goToEditChild(idMother,childId)">Editar Lactante</a>
           <a class="dropdown-item" (click)="show()">Eliminar Lactante</a>
         </div>
-
-
-        <div class="childName" *ngIf="childData!=null" >
-            <div class="childNameBg">
-                <h3 >{{childData.name}}</h3>
-            </div>
-        </div>
     </div>
+
+    <div class="childName" *ngIf="childData!=null" >
+      <div class="childNameBg">
+          <h3 >{{childData.name}}</h3>
+      </div>
+  </div>
 
 </div>
 
@@ -68,4 +72,5 @@
     </div>
     <!--/.Content-->
   </div>
+</div>
 </div>

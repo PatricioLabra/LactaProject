@@ -1,9 +1,12 @@
-
+.content{
+    min-height: 85vh;
+}
 .topBar{
-    margin-top: 7%;
+
+    margin-top: 10px;
 
     .btn-group{
-        margin-left: 70vw;
+        margin-left: 75vw;
         position: relative;
         box-shadow: none;
         width: 5%;
@@ -11,8 +14,9 @@
     }
     
     .sortButton{
+        position: relative;
         background:white;
-        margin-right: 20vw;
+        margin-right: 25vw;
         border-radius: 30px;
     }
     .backButton{
@@ -26,12 +30,10 @@
         border-radius: 30px;
     }
     .childName{
-        position: absolute;
-        right: 240%;
         .childNameBg{
             padding-top: 10px;
             padding-bottom: 10px;
-            width: 30vw;
+            width: min(40%,70.5rem);
             margin: auto;
             text-align: center;
             box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -41,16 +43,27 @@
     }
 }
 .container-fluid{
-    margin-top: 20px;
-    height: 60vh;
+    margin-top: 10px;
+    height: 60%;
+    
+
     .row{
         height: 50%;
-        width: 70vw;
+        width: min(90%,70.5rem);
+        padding-bottom: 10px;
         margin: auto;
         text-align: center;
     }
-    .rectangle1{
-        padding-bottom: 3%;
+}
+.drpDown{
+    text-align: right;
+    a{
+        background-color: whitesmoke;
+
     }
+    
+}
+.dropdown-toggle{
+    color: gray !important;
     
 }

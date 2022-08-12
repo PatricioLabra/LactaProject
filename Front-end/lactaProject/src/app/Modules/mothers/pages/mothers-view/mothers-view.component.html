@@ -1,19 +1,30 @@
-<div class="topBar">
-    <a href="/control-panel" mdbBtn color="" class="backButton" mdbWavesEffect>
-        <i class="fas fa-long-arrow-alt-left"></i>
-    </a>
 
-    <div class="addMotherBtn">
-        <a href="/asesoradas/agregar/0" mdbBtn color="" class="text-white" mdbWavesEffect>Agregar Asesorada</a>
-    </div>
-
-</div>
 
 
 <div class="container-fluid">
 
-    <div class="component">
-        <app-mothers-list></app-mothers-list>
+    <div class="content">
+
+        <div class="topBar">
+    
+            <div class="buttons">
+                <div class="backButton">
+                    <a href="/control-panel" mdbBtn color="" mdbWavesEffect>
+                        <i class="fas fa-long-arrow-alt-left"></i>
+                    </a>
+                </div>
+    
+                <div class="addMotherBtn text-white">
+                    <a  href="/asesoradas/agregar/0" mdbBtn color="" mdbWavesEffect>Agregar Asesorada</a>
+                </div>
+            </div>
+        
+        </div>
+    
+        <div class="component">
+            <app-mothers-list></app-mothers-list>
+        </div>
+
     </div>
 
 </div>

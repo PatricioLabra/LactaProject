@@ -42,9 +42,4 @@ export class MotherProfileComponent implements OnInit {
     const url:string = 'asesoradas/agregar/' + idMother;
     this.router.navigate([url]);
   }
-
-  goToAddChild(idMother:string){
-    const url:string = 'asesoradas/' + idMother + '/agregar-lactante/0';
-    this.router.navigate([url]);
-  }
 }

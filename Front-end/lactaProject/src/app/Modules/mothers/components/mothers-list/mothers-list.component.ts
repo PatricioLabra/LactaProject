@@ -18,7 +18,7 @@ export class MothersListComponent implements OnInit, AfterViewInit {
   @ViewChild('row', { static: true }) row: ElementRef;
 
   elements: any = [];
-  headElements = ['name', 'rut', 'last', 'handle'];
+  headElements = ['name', 'rut', 'mail', 'phone_number'];
 
   searchText: string = '';
   previous: string;

@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
+import { ApiResponse } from '@interfaces/api_response';
+import { UserInfoService } from 'src/app/services/user-info.service';
 
 @Component({
   selector: 'app-login-view',
@@ -9,13 +11,11 @@ import { Router } from '@angular/router';
 })
 export class LoginViewComponent implements OnInit {
 
-  usuario="20111222-k"
-  contraseña="1234"
   @ViewChild('frame', { static: true }) public frameModal;
 
   public login: FormGroup;
 
-  constructor(private fb: FormBuilder, private router: Router) { 
+  constructor(private fb: FormBuilder, private router: Router, private userService:UserInfoService) { 
     this.login=this.fb.group({
       rut:['',Validators.required],
       password:['',Validators.required]
@@ -26,13 +26,19 @@ export class LoginViewComponent implements OnInit {
   }
 
   log_in(){
-    if(this.login.get("rut").value!=this.usuario && this.login.get("password").value!=this.contraseña){
-      this.frameModal.show();
-      this.login.get("rut").setValue("");
-      this.login.get("password").setValue("");
-      return;
-
-    }
-    this.router.navigate(['postlogin']);
+    this.userService.signInUser(this.login.get("rut")?.value, this.login.get("password")?.value).subscribe((
+      response: ApiResponse)=>{
+        if(response.success){
+          if(response.data.userInfo.permission_level==1){
+            this.router.navigate(['postlogin']);
+          }else{
+            this.router.navigate(['control-panel']);
+          }
+          
+        }else{
+          console.log(response.message);
+        }
+      },(error:any)=>{console.log(error);}
+    );
   }
 }

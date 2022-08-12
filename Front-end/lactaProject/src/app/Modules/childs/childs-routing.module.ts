@@ -3,10 +3,11 @@ import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 import { ChildProfileComponent } from './pages/child-profile/child-profile.component';
 import { ChildFormComponent } from './pages/child-form/child-form.component';
+import { CanActivateService } from 'src/app/services/can-activate.service';
 
 const routes: Routes=[
-  { path: "asesoradas/:idMother/child/:idChild", component: ChildProfileComponent },
-  { path: "asesoradas/:idMother/agregar-lactante/:idChild", component: ChildFormComponent}
+  { path: "asesoradas/:idMother/child/:idChild", component: ChildProfileComponent , canActivate:[CanActivateService]},
+  { path: "asesoradas/:idMother/agregar-lactante/:idChild", component: ChildFormComponent , canActivate:[CanActivateService]}
 ];
 
 @NgModule({
