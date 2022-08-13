@@ -64,9 +64,7 @@ export class ChildFormComponent implements OnInit {
    }
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('idChild')as string;
-    console.log(this.id);
     this.motherId = this.route.snapshot.paramMap.get('idMother')as string;
-    console.log(this.motherId);
     // Form controls
     if(this.id != '0'){
       this.apiGet.getChild(this.id).subscribe((response:ApiResponse)=>{

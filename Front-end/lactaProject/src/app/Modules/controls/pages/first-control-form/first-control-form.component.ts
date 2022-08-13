@@ -19,7 +19,6 @@ export class FirstControlFormComponent implements OnInit {
   form:FormGroup;
   constructor(private location:Location , private fb:FormBuilder, private apiSend:ApiSendService, private apiGet:ApiGetService, private router:Router, private route:ActivatedRoute) {
     this.idChild = this.route.snapshot.paramMap.get('idChild')as string;
-    console.log(this.idChild);
     
     this.form=this.fb.group({
       consultation_place: ['domicilio'],
