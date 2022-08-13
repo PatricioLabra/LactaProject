@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl, FormArray } from '@angular/forms';
 import { typeMother } from '@interfaces/mother';
 import { ApiResponse } from '@interfaces/api_response';
 import { ApiGetService } from 'src/app/services/api-get.service';
@@ -49,7 +49,9 @@ export class MotherFormComponent implements OnInit {
       diabetes_m2: ['', Validators.required],
       hipotiroidismo: ['', Validators.required],
       hipertiroidismo: ['', Validators.required],
-      other: [''],
+      new_disease: [''],
+      other: new FormArray([
+      ]),
     });
     // Si la id que recibe el formulario, es igual a 0: Formulario para agregar / en caso contrario: Formulario para editar
     if (this.id!='0'){
@@ -166,12 +168,19 @@ export class MotherFormComponent implements OnInit {
   goLastPage() {
     this.location.back();
   }
-  // Funcion que se encarga de crear enfermedades que no esten en la lista principal
-  otherDiseaseFunction(){
-    if(this.form.get("other")?.value != ""){
-      this.chronic_diseases.push(this.form.get("other")?.value);
-      this.other_diseases.push(this.form.get("other")?.value);
+  newDisease = () => {
+    if ( this.other_diseases.indexOf(this.form.get("new_disease")?.value) == -1) {
+      (<FormArray>this.form.get('other')).push( new FormControl(true));
+      this.other_diseases.push(this.form.get("new_disease")?.value);
+      this.form.get("new_disease")?.setValue('');
+    }else{
+      console.log('este valor ya existe');
     }
+  }
+
+  checkDisease = () => {
+    this.createList();
+    this.chronic_diseases.forEach((el) => console.log(el));
   }
   // Funcion que crea una lista de enfermedades cronicas
   createList(){
@@ -190,6 +199,11 @@ export class MotherFormComponent implements OnInit {
     if(this.form.get("hipertiroidismo")?.value == true){
       this.chronic_diseases.push("hipertiroidismo"); 
     }
+    this.form.get('other')['controls'].forEach((element, index) => {
+      if (element.value) {
+        this.chronic_diseases.push(this.other_diseases[index]);
+      }
+    });
     if(this.chronic_diseases.length == 0){
       this.chronic_diseases.push("ninguna");
     }
