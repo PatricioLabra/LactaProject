@@ -22,6 +22,10 @@ const controlSchema = new Schema({
         type: Date,
         trim: true
     },
+    age_child:{
+        type: Number,
+        default: null,
+    },
     weight:{
         type: Number,
         default: null
