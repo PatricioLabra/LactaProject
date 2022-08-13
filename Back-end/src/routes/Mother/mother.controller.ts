@@ -6,6 +6,7 @@ import Control from '../Control/control.model';
 import { addDataGraphic , deleteDataGraphic } from "../../libs/generate.graphics";
 import { deleteControlGraphic } from "../Control/control.controller";
 import { deleteChildGraphic } from "../Child/child.controller";
+import { originAgentCluster } from "helmet";
 
 /**
  * Función que maneja la petición de agregar a una nueva madre al sistema.
@@ -31,8 +32,10 @@ export const newMother: RequestHandler = async (req, res) => {
     if ( motherFound )
         return res.status(301).send({ success: false, data:{}, message:'ERROR: La madre ya está registrada en el sistema.' });
     
+    const birth_date = convertNumbertoDate(birth);
+
     const newMother = {
-        name, rut, commune, phone_number, mail, birth, 
+        name, rut, commune, phone_number, mail, "birth": birth_date, 
         ocupation, studies, marital_status, forecast,
         chronic_diseases, number_of_living_children
     }
@@ -71,6 +74,8 @@ export const editMother: RequestHandler = async (req, res) => {
 
     //se eliminan los datos de la madre asociados
     deleteMotherGraphic (motherFound);
+
+    updatedMother.birth = convertNumbertoDate(updatedMother.birth);
 
     //se actualiza la madre en el sistema
     await Mother.findByIdAndUpdate( _id, updatedMother );
@@ -199,7 +204,7 @@ function destructureMother(motherFound: any) {
         commune: motherFound.commune,
         phone_number: motherFound.phone_number,
         mail: motherFound.mail,
-        birth : motherFound.birth.toISOString().substring(0,10),
+        birth : convertDatetoNumber(motherFound.birth),
         ocupation: motherFound.ocupation,
         studies: motherFound.studies,
         marital_status: motherFound.marital_status,
@@ -217,7 +222,7 @@ function destructureMother(motherFound: any) {
  */
 function addMotherGraphic( mother: any ) {
     addDataGraphic("commune",mother.commune);
-    addDataGraphic("birth", mother.birth.toISOString().substring(0,4));
+    addDataGraphic("birth", convertDatetoNumber(mother.birth).toString());
     addDataGraphic("studies", mother.studies);
     addDataGraphic("marital_status", mother.marital_status);
     addDataGraphic("forecast", mother.forecast);
@@ -245,4 +250,34 @@ export function deleteMotherGraphic( mother: any ) {
     if ( mother.chronic_diseases.length > 0 ){
         deleteDataGraphic("chronic_diseases", mother.chronic_diseases);
     }
+}
+
+/**
+ * Esta encargada realizar una conversion de Date a años de una persona.
+ * @param date fecha de nacimiento en Date
+ */
+function convertDatetoNumber( date : any ){
+    const birth_day = new Date(date);
+    const one_year_in_miliseconds = 31536000000;
+    const current_date = new Date();
+  
+    let years = (current_date.getTime() - birth_day.getTime()) / one_year_in_miliseconds;
+
+    return Math.floor(years);
+}
+
+
+/**
+ * Esta encargada realizar una conversion de años de una persona a un dato del tipo Date con la fecha de nacimiento de la misma
+ * @param years Años de la persona (number)
+ */
+ function convertNumbertoDate( years: any ){
+    
+    const one_year_in_miliseconds = 31536000000;
+    const current_date = new Date();
+    const birth_day = current_date.getTime() - (one_year_in_miliseconds*years);
+
+    const date = new Date(birth_day);
+
+    return date;
 }
