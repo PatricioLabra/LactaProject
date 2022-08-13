@@ -30,7 +30,7 @@
                 <div class="input-label-container"> 
                     <label class="label-text">Nombre:</label>
                     <div class="name-container">
-                        <input type="text" class="form-control" formControlName="name" placeholder="Nombre" maxlength="50"
+                        <input type="text" class="form-control input-control-style" formControlName="name" placeholder="Nombre" maxlength="50"
                         [ngClass]="{ 'is-invalid': form.controls['name'].invalid && (form.controls['name'].dirty || form.controls['name'].touched),
                         'is-valid': form.controls['name'].valid && (form.controls['name'].dirty || form.controls['name'].touched)  }">
                     </div>
@@ -47,7 +47,7 @@
                     <label class="label-text">Rut:</label>
                     <div class="full-rut-container">
                         <div class="rut-container">
-                            <input type="number" class="form-control" formControlName="rut" placeholder="Rut"
+                            <input type="number" class="form-control input-control-style" formControlName="rut" placeholder="Rut"
                             [ngClass]="{ 'is-invalid': form.controls['rut'].invalid && (form.controls['rut'].dirty || form.controls['rut'].touched),
                             'is-valid': form.controls['rut'].valid && (form.controls['rut'].dirty || form.controls['rut'].touched)  }">
                             <div *ngIf="form.controls['rut']?.hasError('pattern')">
@@ -58,7 +58,7 @@
                         </div>
                         <p class="guion-container">-</p>
                         <div class="rut-vc-container">
-                            <input type="text" class="form-control" formControlName="rut_vc" placeholder="VC"
+                            <input type="text" class="form-control input-control-style" formControlName="rut_vc" placeholder="VC"
                             [ngClass]="{ 'is-invalid': form.controls['rut_vc'].invalid && (form.controls['rut_vc'].dirty || form.controls['rut_vc'].touched),
                             'is-valid': form.controls['rut_vc'].valid && (form.controls['rut_vc'].dirty || form.controls['rut_vc'].touched)  }">
                             <div *ngIf="form.controls['rut_vc']?.hasError('pattern')">
@@ -80,7 +80,7 @@
                 <div class="input-label-container"> 
                     <label class="label-text">Comuna:</label>
                     <div class="comune-container">
-                        <input type="text" class="form-control" formControlName="commune" placeholder="Comuna"
+                        <input type="text" class="form-control input-control-style" formControlName="commune" placeholder="Comuna"
                         [ngClass]="{ 'is-invalid': form.controls['commune'].invalid && (form.controls['commune'].dirty || form.controls['commune'].touched),
                         'is-valid': form.controls['commune'].valid && (form.controls['commune'].dirty || form.controls['commune'].touched)  }">
                     </div>
@@ -96,7 +96,7 @@
                 <div class="input-label-container"> 
                     <label class="label-text">Teléfono:</label>
                     <div class="phone-container">
-                        <input type="number" class="form-control" formControlName="phone_number" placeholder="Teléfono" 
+                        <input type="number" class="form-control input-control-style" formControlName="phone_number" placeholder="Teléfono" 
                         [ngClass]="{ 'is-invalid': form.controls['phone_number'].invalid && (form.controls['phone_number'].dirty || form.controls['phone_number'].touched),
                         'is-valid': form.controls['phone_number'].valid && (form.controls['phone_number'].dirty || form.controls['phone_number'].touched)  }">
                     </div>
@@ -112,7 +112,7 @@
                 <div class="input-label-container"> 
                     <label class="label-text">Mail:</label>
                     <div class="mail-container">
-                        <input type="email" class="form-control" formControlName="mail" placeholder="Mail"
+                        <input type="email" class="form-control input-control-style" formControlName="mail" placeholder="Mail"
                         [ngClass]="{ 'is-invalid': form.controls['mail'].invalid && (form.controls['mail'].dirty || form.controls['mail'].touched),
                         'is-valid': form.controls['mail'].valid && (form.controls['mail'].dirty || form.controls['mail'].touched)  }">
                     </div>
@@ -128,7 +128,7 @@
                 <div class="input-label-container"> 
                     <label class="label-text">Edad:</label>
                     <div class="birth-container">
-                        <input type="number" class="form-control" formControlName="birth"
+                        <input type="number" class="form-control input-control-style" formControlName="birth"
                         [ngClass]="{ 'is-invalid': form.controls['birth'].invalid && (form.controls['birth'].dirty || form.controls['birth'].touched),
                         'is-valid': form.controls['birth'].valid && (form.controls['birth'].dirty || form.controls['birth'].touched)  }">
                     </div>
@@ -144,7 +144,7 @@
                 <div class="input-label-container"> 
                     <label class="label-text">Ocupación:</label>
                     <div class="ocupation-container">
-                        <input type="text" class="form-control" formControlName="ocupation" placeholder="Ocupación"
+                        <input type="text" class="form-control input-control-style" formControlName="ocupation" placeholder="Ocupación"
                         [ngClass]="{ 'is-invalid': form.controls['ocupation'].invalid && (form.controls['ocupation'].dirty || form.controls['ocupation'].touched),
                         'is-valid': form.controls['ocupation'].valid && (form.controls['ocupation'].dirty || form.controls['ocupation'].touched)  }">
                     </div>
@@ -193,7 +193,7 @@
                 <div class="input-label-container"> 
                     <label class="label-text">N° de hijos vivos:</label>
                     <div class="number-of-children-container">
-                        <input type="number" class="form-control" formControlName="number_of_children"
+                        <input type="number" class="form-control input-control-style" formControlName="number_of_children"
                         [ngClass]="{ 'is-invalid': form.controls['number_of_children'].invalid && (form.controls['number_of_children'].dirty || form.controls['number_of_children'].touched),
                         'is-valid': form.controls['number_of_children'].valid && (form.controls['number_of_children'].dirty || form.controls['number_of_children'].touched)  }">
                     </div>
@@ -207,23 +207,23 @@
                 </div>
                 <!-- Enfermedades Crónicas -->
                 <div class="input-label-container">
-                    <div class="form-check">
+                    <div class="form-check checkbox-container">
                         <input type="checkbox" class="form-check-input" formControlName="hipertension_a">
                         <label class="form-check-label">Hipertensión arterial</label>
                     </div>
-                    <div class="form-check">
+                    <div class="form-check checkbox-container">
                         <input type="checkbox" class="form-check-input" formControlName="diabetes_m1">
                         <label class="form-check-label">Diabetes mellitus 1</label>
                     </div>
-                    <div class="form-check">
+                    <div class="form-check checkbox-container">
                         <input type="checkbox" class="form-check-input" formControlName="diabetes_m2">
                         <label class="form-check-label">Diabetes mellitus 2</label>
                     </div>
-                    <div class="form-check">
+                    <div class="form-check checkbox-container">
                         <input type="checkbox" class="form-check-input" formControlName="hipotiroidismo">
                         <label class="form-check-label">Hipotiroidismo</label>
                     </div>
-                    <div class="form-check">
+                    <div class="form-check checkbox-container">
                         <input type="checkbox" class="form-check-input" formControlName="hipertiroidismo">
                         <label class="form-check-label">Hipertiroidismo</label>
                     </div>
