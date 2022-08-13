@@ -71,7 +71,8 @@ export class MotherFormComponent implements OnInit {
   // Funcion que rellena los datos de la asesorada en los form control
   fillInputs(){
     this.form.get('name')?.setValue(this.element.name);
-    //pa que se muestre Date
+    // TODO: Actualizar para que muestre la edad (lineas 76 - 78)
+    //this.form.get('birth')?.setValue(this.element.birth);
     let parts=this.element.birth.split('-')
     let newdate=new Date(parts[0], parts[1] - 1, parts[2]);
     this.form.get('birth')?.setValue(this.datePipe.transform(newdate,"yyyy-MM-dd"));
@@ -130,10 +131,12 @@ export class MotherFormComponent implements OnInit {
       number_of_living_children: this.form.get("number_of_children")?.value,
       };
       
-      this.apiSend.addMother(motherData).subscribe((response: ApiResponse) => {
+      // TODO: quitar el log y descomentar la llamada a la api (cuando se termine de modificar el formulario)
+      console.log(motherData);
+      /*this.apiSend.addMother(motherData).subscribe((response: ApiResponse) => {
       console.log(response);
       this.goLastPage();
-      });
+      });*/
     
   }
 

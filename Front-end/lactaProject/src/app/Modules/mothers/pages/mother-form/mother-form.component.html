@@ -124,11 +124,11 @@
                         </div>
                     </div>
                 </div>
-                <!-- Fecha de Nacimiento -->
+                <!-- Edad -->
                 <div class="input-label-container"> 
-                    <label class="label-text">Fecha de Nacimiento:</label>
+                    <label class="label-text">Edad:</label>
                     <div class="birth-container">
-                        <input type="date" class="form-control" formControlName="birth"
+                        <input type="number" class="form-control" formControlName="birth"
                         [ngClass]="{ 'is-invalid': form.controls['birth'].invalid && (form.controls['birth'].dirty || form.controls['birth'].touched),
                         'is-valid': form.controls['birth'].valid && (form.controls['birth'].dirty || form.controls['birth'].touched)  }">
                     </div>
