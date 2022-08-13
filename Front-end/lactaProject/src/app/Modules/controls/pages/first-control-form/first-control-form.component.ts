@@ -26,7 +26,7 @@ export class FirstControlFormComponent implements OnInit {
       monitoring_medium: ['whatsapp'],
       date_control: [new Date().toISOString().split('T')[0], Validators.required],
       age: ['', Validators.required],
-      weight: ['', Validators.required],
+      weight: [''],
       reason_of_consultation: ['', Validators.required],
       other_consultation: [''],
       accompanied_by: ['', Validators.required],
