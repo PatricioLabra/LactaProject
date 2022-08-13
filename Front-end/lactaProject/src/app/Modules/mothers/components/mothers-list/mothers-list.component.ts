@@ -32,10 +32,8 @@ export class MothersListComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.apiGet.getMothers().subscribe((response: ApiResponse) => {
-      console.log(response);
       if (response.success) {
         this.elements=response.data.list_of_mothers;
-        console.log(this.elements)
 
         this.mdbTable.setDataSource(this.elements);
         this.elements = this.mdbTable.getDataSource();
