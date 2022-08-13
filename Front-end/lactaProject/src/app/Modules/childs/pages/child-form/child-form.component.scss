@@ -79,7 +79,7 @@ form{
     margin-right: 20px;
 }
 
-.form-check{
+.checkbox-container{
     padding:3px 0px 0px 40px;
     margin: 2px 5px 2px 5px;
     align-items: center;
@@ -169,16 +169,32 @@ form{
     border: white;
 }
 
-.other-disease-container{
+.new-disease-container{
+    padding: 3px 5px 0px 10px;
     margin: 2px 5px 2px 5px;
-    min-width: 200px;
+    justify-content: center;
     display: flex;
+    min-width: 100px;
+    background-color: white;
+    height: 30px;
+    color: black;
+    border-radius: 20px;
+    border: white;
+}
+.new-disease-input{
+    border-style: none;
+}
+.new-disease-input:focus{
+    border-style: none;
+    border: 0px solid white;
+    outline: none;
 }
 .new-disease-button{
-    height: 30px;
-    width: 30px;
+    height: 25px;
+    width: 25px;
     border-radius: 30px;
     border: none;
+    background-color: $pink;
 }
 // Send Button Styles
 .button-container{

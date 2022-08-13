@@ -49,33 +49,46 @@
                  <div class="input-label-container">
                     <label class="label-text">Enfermedades durante la gestación:</label>
                     <div class="chronic-diseases-container">
-                        <div class="form-check">
+                        <div class="form-check checkbox-container">
                             <input type="checkbox" class="form-check-input" formControlName="sintoma_parto_prematuro">
                             <label class="form-check-label">Síntoma de parto prematuro</label>
                         </div>
-                        <div class="form-check">
+                        <div class="form-check checkbox-container">
                             <input type="checkbox" class="form-check-input" formControlName="preeclampsia">
                             <label class="form-check-label">Preeclampsia</label>
                         </div>
-                        <div class="form-check">
+                        <div class="form-check checkbox-container">
                             <input type="checkbox" class="form-check-input" formControlName="eclampsia">
                             <label class="form-check-label">Eclampsia</label>
                         </div>
-                        <div class="form-check">
+                        <div class="form-check checkbox-container">
                             <input type="checkbox" class="form-check-input" formControlName="diabetes_gestacional">
                             <label class="form-check-label">Diabetes gestacional</label>
                         </div>
-                        <div class="form-check">
+                        <div class="form-check checkbox-container">
                             <input type="checkbox" class="form-check-input" formControlName="hipotiroidismo">
                             <label class="form-check-label">hipotiroidismo</label>
                         </div>
-                        <div class="form-check">
+                        <div class="form-check checkbox-container">
                             <input type="checkbox" class="form-check-input" formControlName="hipertiroidismo">
                             <label class="form-check-label">hipertiroidismo</label>
                         </div>
-                        <div class="form-check">
+                        <div class="form-check checkbox-container">
                             <input type="checkbox" class="form-check-input" formControlName="e_autoinmune">
                             <label class="form-check-label">Enfermedad autoinmune</label>
+                        </div>
+                        <ng-container formArrayName="other">
+                            <ng-container *ngFor="let disease of form.get('other')['controls']; index as i">
+                                <div class = "form-check checkbox-container" *ngIf="other_diseases.length != 0">
+                                    <input type="checkbox" class="form-check-input" formControlName="{{i}}">
+                                    <label class="form-check-label">{{ other_diseases[i] }}</label>
+                                </div>
+                            </ng-container>
+                        </ng-container>
+                        
+                        <div class="new-disease-container">
+                            <input type="text" formControlName="new_disease" class="new-disease-input" placeholder="Ingrese otra opción">
+                            <button type="button" (click)="newDisease()" class="new-disease-button">+</button>
                         </div>
                     </div>
 
