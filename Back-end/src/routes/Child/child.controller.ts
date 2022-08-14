@@ -24,7 +24,7 @@ export const newChild: RequestHandler = async (req, res) => {
         gestional_age, gender, birth_weight, skin_to_skin_contact, breastfeeding_b4_2hours, has_suplement, why_recived_suplement,
         joint_accommodation, use_of_pacifier, post_discharge_feeding, last_weight_control }} = req.body;
 
-    //se valida si alguno de los atributos required no son válidos
+    //se validan los campos obligatorios
     if ( !name || !birthplace || !birthday || !type_of_birth)
     return res.status(400).send({ success: false, data:{}, message:'ERROR: Datos inválidos' + req.body });
 
