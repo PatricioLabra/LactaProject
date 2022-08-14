@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl, FormArray } from '@angular/forms';
 import { ApiResponse } from '@interfaces/api_response';
 import { ApiGetService } from 'src/app/services/api-get.service';
 import { ApiSendService } from 'src/app/services/api-send.service';
@@ -15,6 +15,7 @@ import { Location } from '@angular/common';
 export class FirstControlFormComponent implements OnInit {
   idChild="";
   indications:Array<string>=[];
+  other_indications = [];
   
   form:FormGroup;
   constructor(private location:Location , private fb:FormBuilder, private apiSend:ApiSendService, private apiGet:ApiGetService, private router:Router, private route:ActivatedRoute) {
@@ -41,7 +42,10 @@ export class FirstControlFormComponent implements OnInit {
       next_control: ['false'],
       consultation_place2: [''],
       monitoring_medium2: [''],
-      date_control2: ['']
+      date_control2: [''],
+      new_indication: [''],
+      other: new FormArray([
+      ]),
     });
    }
   ngOnInit(): void {
@@ -52,8 +56,12 @@ export class FirstControlFormComponent implements OnInit {
   public sendControlData(){
     this.createList();
     let reason = this.form.get("reason_of_consultation")?.value;
+    let companion = this.form.get("accompanied_by")?.value;
     if ( this.form.get('reason_of_consultation')?.value == 'otras' ) {
       reason = this.form.get("other_consultation")?.value
+    }
+    if ( this.form.get('accompanied_by')?.value == 'otras' ) {
+      companion = this.form.get("other_companion")?.value
     }
     let controlData:typeControl={
       
@@ -63,7 +71,7 @@ export class FirstControlFormComponent implements OnInit {
         age: this.calculateAge(),
         weight: this.form.get("weight")?.value,
         reason_of_consultation: reason,
-        accompanied_by: this.form.get("accompanied_by")?.value,
+        accompanied_by: companion,
         emotional_status: this.form.get("emotional_status")?.value,
         observations: this.form.get("observations")?.value,
         indications: this.indications,
@@ -109,8 +117,18 @@ export class FirstControlFormComponent implements OnInit {
     return new_age;
   }
 
+  newIndication = () => {
+    if ( this.other_indications.indexOf(this.form.get("new_indication")?.value) == -1) {
+      (<FormArray>this.form.get('other')).push( new FormControl(true));
+      this.other_indications.push(this.form.get("new_indication")?.value);
+      this.form.get("new_disease")?.setValue('');
+    }else{
+      console.log('este valor ya existe');
+    }
+  }
+
   // Funcion que crea una lista de enfermedades cronicas
-  createList(){
+  private createList(){
     if(this.form.get("mejorar_acople")?.value == true){
       this.indications.push("mejorar acople"); 
     }
@@ -126,6 +144,11 @@ export class FirstControlFormComponent implements OnInit {
     if(this.form.get("relactacion")?.value == true){
       this.indications.push("relactación"); 
     }
+    this.form.get('other')['controls'].forEach((element, index) => {
+      if (element.value) {
+        this.indications.push(this.other_indications[index]);
+      }
+    });
     if(this.indications.length == 0){
       this.indications.push("ninguna");
     }

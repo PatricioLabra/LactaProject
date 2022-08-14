@@ -133,7 +133,7 @@
                             <option value="amiga">amiga</option>
                             <option value="familiar">familiar</option>
                             <option value="sin acompañante">sin acompañante</option>
-                            <option value="otras">otras</option>
+                            <option value="otras">otro</option>
                         </select>
                     </div>
                     <div *ngIf="form.controls['accompanied_by']?.value == 'otras'">
@@ -196,6 +196,19 @@
                         <div class="form-check">
                             <input type="checkbox" class="form-check-input" formControlName="relactacion">
                             <label class="form-check-label">Relactación</label>
+                        </div>
+                        <ng-container formArrayName="other">
+                            <ng-container *ngFor="let indication of form.get('other')['controls']; index as i">
+                                <div class = "form-check checkbox-container" *ngIf="other_indications.length != 0">
+                                    <input type="checkbox" class="form-check-input" formControlName="{{i}}">
+                                    <label class="form-check-label">{{ other_indications[i] }}</label>
+                                </div>
+                            </ng-container>
+                        </ng-container>
+                        
+                        <div class="new-indication-container">
+                            <input type="text" formControlName="new_indication" class="new-indication-input" placeholder="Ingrese otra opción">
+                            <button type="button" (click)="newIndication()" class="new-indication-button">+</button>
                         </div>
                     </div>
                 </div>
