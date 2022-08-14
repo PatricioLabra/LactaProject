@@ -5,7 +5,7 @@ export interface typeMother{
     commune: string,
     phone_number: string,
     mail: string,
-    birth: Date,
+    birth: Number,
     ocupation: string,
     studies: string,
     marital_status: string,

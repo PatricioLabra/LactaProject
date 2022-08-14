@@ -243,7 +243,10 @@
                 </div>
                 <!-- Boton Agregar -->
                 <div class="button-container" *ngIf="id == '0'">
-                    <button type="submit" class="send-button">AGREGAR</button>
+                    <button type="submit" [disabled]="form.invalid" class="send-button">AGREGAR</button>
+                    <div *ngIf="form.invalid" class="disabled-button-text">
+                        <p>Porfavor rellene los campos del formulario, para que este pueda ser enviado</p>
+                    </div>
                 </div>
                 <!-- Boton Editar -->
                 <div class="button-container" *ngIf="id != '0'">

@@ -14,7 +14,7 @@ import { DatePipe, Location } from '@angular/common';
 })
 export class MotherFormComponent implements OnInit {
   rut_array:Array<string> = [];
-  element:any;
+  private element : typeMother;
   chronic_diseases:Array<string>=[];
   other_diseases:Array<string>=[];
   form:FormGroup;
@@ -29,7 +29,6 @@ export class MotherFormComponent implements OnInit {
     private location: Location
     ) {
     this.id=this.route.snapshot.paramMap.get('id') as string;
-    console.log(this.id);
     // Form controls del form
     this.form=this.fb.group({
       name: ['', Validators.required],
@@ -43,42 +42,34 @@ export class MotherFormComponent implements OnInit {
       studies: ['ninguna'],
       marital_status: ['soltera'],
       forecast: ['ninguna'],
-      number_of_children: ['', Validators.required],
-      hipertension_a: ['', Validators.required],
-      diabetes_m1: ['', Validators.required],
-      diabetes_m2: ['', Validators.required],
-      hipotiroidismo: ['', Validators.required],
-      hipertiroidismo: ['', Validators.required],
+      number_of_children: [''],
+      hipertension_a: [''],
+      diabetes_m1: [''],
+      diabetes_m2: [''],
+      hipotiroidismo: [''],
+      hipertiroidismo: [''],
       new_disease: [''],
       other: new FormArray([
       ]),
     });
+    
+  }
+  
+  ngOnInit(): void {
     // Si la id que recibe el formulario, es igual a 0: Formulario para agregar / en caso contrario: Formulario para editar
     if (this.id!='0'){
       this.apiGet.getMother(this.id).subscribe((response: ApiResponse) => {
-        console.log(response);
         if (response.success) {
-          this.element=response.data.mother;
+          this.element =  response.data.mother;
           this.fillInputs();
         }
       });
     }
-
-  }
-
-  ngOnInit(): void {
-
- 
   }
   // Funcion que rellena los datos de la asesorada en los form control
-  fillInputs(){
+  private fillInputs(){
     this.form.get('name')?.setValue(this.element.name);
-    // TODO: Actualizar para que muestre la edad (lineas 76 - 78)
-    //this.form.get('birth')?.setValue(this.element.birth);
-    let parts=this.element.birth.split('-')
-    let newdate=new Date(parts[0], parts[1] - 1, parts[2]);
-    this.form.get('birth')?.setValue(this.datePipe.transform(newdate,"yyyy-MM-dd"));
-    //----------
+    this.form.get('birth')?.setValue(this.element.birth);
     this.rut_array = this.element.rut.split('-');
     this.form.get('rut')?.setValue(this.rut_array[0]);
     this.form.get('rut_vc')?.setValue(this.rut_array[1]);
@@ -93,29 +84,43 @@ export class MotherFormComponent implements OnInit {
     this.descomponerList();
   }
   // Funcion que descompone la lista de enfermedades cronicas, No tiene en cuenta las 'otras'
-  descomponerList(){
-    if(this.element.chronic_diseases[0] != 'ninguna'){
-      for(let i=0;i<5;i++){
-        if(this.element.chronic_diseases[i] == 'hipertension arterial'){
+  private descomponerList(){
+    const { chronic_diseases } = this.element;
+    if( chronic_diseases[0] != 'ninguna' ){
+      let disease;
+      const length = chronic_diseases.length;
+      for( let i=0; i<length; i++ ) {
+        disease = chronic_diseases[i];
+        if( disease == 'hipertension arterial' ){
           this.form.get('hipertension_a')?.setValue(true);
         }
-        if(this.element.chronic_diseases[i] == 'diabetes mellitus 1'){
+        if( disease == 'diabetes mellitus 1' ){
           this.form.get('diabetes_m1')?.setValue(true);
         }
-        if(this.element.chronic_diseases[i] == 'diabetes mellitus 2'){
+        if( disease == 'diabetes mellitus 2' ){
           this.form.get('diabetes_m2')?.setValue(true);
         }
-        if(this.element.chronic_diseases[i] == 'hipotiroidismo'){
+        if( disease == 'hipotiroidismo' ){
           this.form.get('hipotiroidismo')?.setValue(true);
         }
-        if(this.element.chronic_diseases[i] == 'hipertiroidismo'){
+        if( disease == 'hipertiroidismo' ){
           this.form.get('hipertiroidismo')?.setValue(true);
+        }
+        if ( (disease != 'hipertension arterial') && (disease != 'diabetes mellitus 1') && 
+        (disease != 'diabetes mellitus 2') && (disease != 'hipotiroidismo') && (disease != 'hipertiroidismo')) {
+          this.addExistingOtherDiseases(disease);
         }
       }
     }
   }
-  // Funcion que ACTUALMENTE solo se encarga de imprimir por consola los valores obtenidos en el formulario
-  sendMotherData(){
+  // Funcion que agrega otras enfermedades ( Se utiliza principalmente para traer datos existentes del formulario de editar )
+  private addExistingOtherDiseases = (disease) => {
+    this.other_diseases.push(disease);
+    (<FormArray>this.form.get('other')).push( new FormControl(true));
+    this.other_diseases.push(disease);
+  } 
+  // Funcion que se encarga de agregar una nueva asesorada
+  public sendMotherData(){
     
       this.createList();
       let motherData:typeMother={
@@ -133,16 +138,13 @@ export class MotherFormComponent implements OnInit {
       number_of_living_children: this.form.get("number_of_children")?.value,
       };
       
-      // TODO: quitar el log y descomentar la llamada a la api (cuando se termine de modificar el formulario)
-      console.log(motherData);
-      /*this.apiSend.addMother(motherData).subscribe((response: ApiResponse) => {
-      console.log(response);
+      this.apiSend.addMother(motherData).subscribe((response: ApiResponse) => {
       this.goLastPage();
-      });*/
+      });
     
   }
 
-  editMotherData(){
+  public editMotherData(){
     this.createList();
     let motherData1:typeMother={
     _id: this.id,
@@ -160,7 +162,6 @@ export class MotherFormComponent implements OnInit {
     number_of_living_children: this.form.get("number_of_children")?.value,
     };
     this.apiSend.updateMother(motherData1).subscribe((response: ApiResponse) => {
-    console.log(response);
     this.goLastPage();
     });
   }
@@ -168,6 +169,7 @@ export class MotherFormComponent implements OnInit {
   goLastPage() {
     this.location.back();
   }
+  // Funcion que se encarga de agregar una nueva enfermedad
   newDisease = () => {
     if ( this.other_diseases.indexOf(this.form.get("new_disease")?.value) == -1) {
       (<FormArray>this.form.get('other')).push( new FormControl(true));
@@ -177,13 +179,13 @@ export class MotherFormComponent implements OnInit {
       console.log('este valor ya existe');
     }
   }
-
+  // Funcion DE PRUEBA que se encarga de verificar las enfermedades
   checkDisease = () => {
     this.createList();
     this.chronic_diseases.forEach((el) => console.log(el));
   }
   // Funcion que crea una lista de enfermedades cronicas
-  createList(){
+  private createList(){
     if(this.form.get("hipertension_a")?.value == true){
       this.chronic_diseases.push("hipertension arterial"); 
     }
