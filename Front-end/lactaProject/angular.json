@@ -134,5 +134,8 @@
       }
     }
   },
-  "defaultProject": "lactaProject"
+  "defaultProject": "lactaProject",
+  "cli": {
+    "analytics": false
+  }
 }
