@@ -25,6 +25,7 @@ export class FirstControlFormComponent implements OnInit {
       monitoring_medium: ['whatsapp'],
       date_control: [new Date().toISOString().split('T')[0], Validators.required],
       age: ['', Validators.required],
+      age_type: ['month'],
       weight: [''],
       reason_of_consultation: ['', Validators.required],
       other_consultation: [''],
@@ -48,23 +49,28 @@ export class FirstControlFormComponent implements OnInit {
 
 
   // Funcion que imprime por consola los form control value
-  sendControlData(){
+  public sendControlData(){
     this.createList();
+    let reason = this.form.get("reason_of_consultation")?.value;
+    if ( this.form.get('reason_of_consultation')?.value == 'otras' ) {
+      reason = this.form.get("other_consultation")?.value
+    }
     let controlData:typeControl={
       
         consultation_place: this.form.get("consultation_place")?.value,
         monitoring_medium: this.form.get("monitoring_medium")?.value,
         date_control: this.form.get("date_control")?.value,
+        age: this.calculateAge(),
         weight: this.form.get("weight")?.value,
-        reason_of_consultation: this.form.get("reason_of_consultation")?.value,
+        reason_of_consultation: reason,
         accompanied_by: this.form.get("accompanied_by")?.value,
         emotional_status: this.form.get("emotional_status")?.value,
         observations: this.form.get("observations")?.value,
         indications: this.indications,
 
     }
-    console.log(this.indications);
-    this.apiSend.addControl(controlData,this.idChild).subscribe((response:ApiResponse)=>{
+    console.log(controlData);
+    /* this.apiSend.addControl(controlData,this.idChild).subscribe((response:ApiResponse)=>{
       console.log(response);
       if(this.form.get("next_control")?.value == 'true'){
         let nextControlData:typeControl={
@@ -77,7 +83,7 @@ export class FirstControlFormComponent implements OnInit {
         }); 
       }
       this.goToMotherProfile();
-    });
+    }); */
   }
 
   goToMotherView(){
@@ -87,6 +93,20 @@ export class FirstControlFormComponent implements OnInit {
 
   goToMotherProfile() {
     this.location.back()
+  }
+
+  // Funcion que re calcula la edad a semanas
+  private calculateAge = () => {
+
+    let new_age = 0;
+    const age = this.form.get('age')?.value;
+    const age_type = this.form.get('age_type')?.value;
+
+    if ( age_type == 'day' ) new_age = age / 7;
+    if ( age_type == 'week' ) new_age = age;
+    if ( age_type == 'month' ) new_age = age * 4.34524;
+    if ( age_type == 'year' ) new_age = age * 52.1429;
+    return new_age;
   }
 
   // Funcion que crea una lista de enfermedades cronicas

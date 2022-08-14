@@ -39,7 +39,7 @@
                     <label class="label-text">Via de seguimiento:</label>
                     <div>
                         <select class="browser-default custom-select" formControlName="monitoring_medium">
-                            <option value="whatsapp">whatsapp</option>
+                            <option value="whatsapp">Whatsapp</option>
                             <option value="teléfono">Teléfono</option>
                             <option value="en consulta">En consulta</option>
                             <option value="domicilio">Domicilio</option>
@@ -50,7 +50,7 @@
                 <div class="input-label-container"> 
                     <label class="label-text">Fecha de Control:</label>
                     <div class="birth-container">
-                        <input type="date" class="form-control disabled" formControlName="date_control"
+                        <input type="date" class="form-control input-control-style disabled" formControlName="date_control"
                         [ngClass]="{ 'is-invalid': form.controls['date_control'].invalid && (form.controls['date_control'].dirty || form.controls['date_control'].touched),
                         'is-valid': form.controls['date_control'].valid && (form.controls['date_control'].dirty || form.controls['date_control'].touched)  }">
                     </div>
@@ -66,12 +66,20 @@
                 <div class="input-label-container"> 
                     <label class="label-text">Edad (semanas):</label>
                     <div class="number-container">
-                        <input type="number" class="form-control" formControlName="age"
+                        <input type="number" class="form-control input-control-style" formControlName="age"
                         [ngClass]="{ 'is-invalid': form.controls['age'].invalid && (form.controls['age'].dirty || form.controls['age'].touched),
                         'is-valid': form.controls['age'].valid && (form.controls['age'].dirty || form.controls['age'].touched)  }">
                     </div>
+                    <div>
+                        <select class="browser-default custom-select age-type-select" formControlName="age_type">
+                            <option value="day">Dias</option>
+                            <option value="week">Semanas</option>
+                            <option value="month">Meses</option>
+                            <option value="year">Años</option>
+                        </select>
+                    </div>
                 </div>
-                <div *ngIf="form.controls['age'].invalid && (form.controls['weight'].dirty || form.controls['weight'].touched)">
+                <div *ngIf="form.controls['age'].invalid && (form.controls['weight'].dirty || form.controls['age'].touched)">
                     <div *ngIf="form.controls['age']?.hasError('required')" > 
                         <div class="invalid-text">
                             Debe rellenar el campo
@@ -82,7 +90,7 @@
                 <div class="input-label-container"> 
                     <label class="label-text">Peso Actual (gramos):</label>
                     <div class="number-container">
-                        <input type="number" class="form-control" formControlName="weight"
+                        <input type="number" class="form-control input-control-style" formControlName="weight"
                         [ngClass]="{ 'is-invalid': form.controls['weight'].invalid && (form.controls['weight'].dirty || form.controls['weight'].touched),
                         'is-valid': form.controls['weight'].valid && (form.controls['weight'].dirty || form.controls['weight'].touched)  }">
                     </div>
@@ -111,7 +119,7 @@
                         </select>
                     </div>
                     <div *ngIf="form.controls['reason_of_consultation']?.value == 'otras'">
-                        <input type="text" class="form-control" formControlName="other_consultation" placeholder="Especificar otro">
+                        <input type="text" class="form-control input-another-reason" formControlName="other_consultation" placeholder="Especificar otro">
                     </div>
                 </div>
                 <!-- Acompañante -->
@@ -129,14 +137,14 @@
                         </select>
                     </div>
                     <div *ngIf="form.controls['accompanied_by']?.value == 'otras'">
-                        <input type="text" class="form-control" formControlName="other_companion" placeholder="Especificar otro">
+                        <input type="text" class="form-control input-another-reason" formControlName="other_companion" placeholder="Especificar otro">
                     </div>
                 </div>
                 <!-- Estado emocional de la madre -->
                 <div class="input-label-container"> 
                     <label class="label-text">Estado emocional de la madre:</label>
                     <div class="number-container">
-                        <input type="text" class="form-control" formControlName="emotional_status"
+                        <input type="text" class="form-control input-control-style" formControlName="emotional_status"
                         [ngClass]="{ 'is-invalid': form.controls['emotional_status'].invalid && (form.controls['emotional_status'].dirty || form.controls['emotional_status'].touched),
                         'is-valid': form.controls['emotional_status'].valid && (form.controls['emotional_status'].dirty || form.controls['emotional_status'].touched)  }">
                     </div>
