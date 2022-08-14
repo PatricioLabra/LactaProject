@@ -60,9 +60,17 @@ form{
     margin-left: 10px;
 }
 
-.form-control{
+.input-control-style{
     background-color: white;
     height: 30px;
+    color: black;
+    border-radius: 20px;
+    border: white;
+}
+
+.input-another-reason{
+    margin-left: 5px;
+    background-color: white;
     color: black;
     border-radius: 20px;
     border: white;
