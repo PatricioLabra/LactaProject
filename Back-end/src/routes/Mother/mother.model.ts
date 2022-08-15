@@ -28,7 +28,7 @@ const motherSchema = new Schema({
     },
     birth:{
         required: true,
-        type: Number,
+        type: Date,
         trim: true
     },
     ocupation:{
