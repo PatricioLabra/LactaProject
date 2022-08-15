@@ -19,13 +19,17 @@ export const newChild: RequestHandler = async (req, res) => {
     if ( !Types.ObjectId.isValid(_idMother) )
     return res.status(400).send({ success: false, data:{}, message: 'ERROR: El id ingresado no es válido.' });
 
-    const { name, gestacion_data:{ diseases_during_pregnancy, nutritional_status_mother, planned_pregnancy, assisted_fertilization, previous_lactaction,
+    const { name, gestacion_data:{ diseases_during_pregnancy, planned_pregnancy, assisted_fertilization, previous_lactaction,
         duration_of_past_lactaction_in_months, breastfeeding_education }, birth_data:{ birthplace, type_of_birth, birthday,
         gestional_age, gender, birth_weight, skin_to_skin_contact, breastfeeding_b4_2hours, has_suplement, why_recived_suplement,
         joint_accommodation, use_of_pacifier, post_discharge_feeding, last_weight_control }} = req.body;
 
+    //se validan los campos obligatorios
+    if ( !name || !birthplace || !birthday || !type_of_birth)
+    return res.status(400).send({ success: false, data:{}, message:'ERROR: Datos inválidos' + req.body });
+
     const newChild = {
-        name, gestacion_data: { diseases_during_pregnancy, nutritional_status_mother, planned_pregnancy, assisted_fertilization, previous_lactaction,
+        name, gestacion_data: { diseases_during_pregnancy, planned_pregnancy, assisted_fertilization, previous_lactaction,
         duration_of_past_lactaction_in_months, breastfeeding_education }, birth_data:{ birthplace, type_of_birth, birthday, gestional_age, gender,
         birth_weight, skin_to_skin_contact, breastfeeding_b4_2hours, has_suplement, why_recived_suplement, joint_accommodation,
         use_of_pacifier, post_discharge_feeding, last_weight_control }, id_mother: _idMother
@@ -247,7 +251,6 @@ function destructureChild( childFound: any ){
     addDataGraphic("previous_lactaction", child.gestacion_data.previous_lactaction);
     addDataGraphic("duration_of_past_lactaction_in_months", child.gestacion_data.duration_of_past_lactaction_in_months.toString());
     addDataGraphic("breastfeeding_education", isTrueOrFalse(child.gestacion_data.breastfeeding_education));
-    addDataGraphic("nutritional_status_mother", child.gestacion_data.nutritional_status_mother);
 
     //se valida que el arreglo no venga vacío
     if ( child.gestacion_data.diseases_during_pregnancy.length > 0 ){
@@ -278,7 +281,6 @@ export function deleteChildGraphic( child: any ) {
     if ( child.gestacion_data.previous_lactaction != null ){ deleteDataGraphic("previous_lactaction", child.gestacion_data.previous_lactaction); };
     if ( child.gestacion_data.duration_of_past_lactaction_in_months != null ){ deleteDataGraphic("duration_of_past_lactaction_in_months", child.gestacion_data.duration_of_past_lactaction_in_months.toString()); };
     if ( child.gestacion_data.breastfeeding_education != null ){ deleteDataGraphic("breastfeeding_education", isTrueOrFalse(child.gestacion_data.breastfeeding_education)); };
-    if ( child.gestacion_data.nutritional_status_mother != null ){ deleteDataGraphic("nutritional_status_mother", child.gestacion_data.nutritional_status_mother); };
 
     //se valida que el arreglo no venga vacío
     if ( child.gestacion_data.diseases_during_pregnancy.length > 0 ){

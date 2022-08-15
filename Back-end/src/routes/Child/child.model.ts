@@ -8,7 +8,6 @@ const childSchema = new Schema({
   },
   gestacion_data:{
     diseases_during_pregnancy:{ required:true, type: [String] } ,
-    nutritional_status_mother: { required:true, type: String },
     planned_pregnancy: { required:true, type: Boolean },
     assisted_fertilization: { required: true, type: Boolean },
     previous_lactaction: { required: true, type: String },
