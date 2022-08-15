@@ -31,7 +31,7 @@
                 <div class="input-label-container"> 
                     <label class="label-text">Nombre:</label>
                     <div class="name-container">
-                        <input type="text" class="form-control" formControlName="name" placeholder="Nombre" maxlength="30"
+                        <input type="text" class="form-control input-control-style" formControlName="name" placeholder="Nombre" maxlength="30"
                         [ngClass]="{ 'is-invalid': form.controls['name'].invalid && (form.controls['name'].dirty || form.controls['name'].touched),
                         'is-valid': form.controls['name'].valid && (form.controls['name'].dirty || form.controls['name'].touched)  }">
                     </div>
@@ -129,7 +129,7 @@
                 <div class="input-label-container" *ngIf="form.controls['previous_lactaction']?.value != 'ninguna'"> 
                     <label class="label-text">Duración de Lactancia anterior (meses):</label>
                     <div class="number-container">
-                        <input type="number" class="form-control" formControlName="duration_of_past_lactaction_in_months">
+                        <input type="number" class="form-control input-control-style" formControlName="duration_of_past_lactaction_in_months">
                     </div>
                 </div>
                 <!-- Educación en Lactancia -->
@@ -173,7 +173,7 @@
                         <div class="input-label-container"> 
                             <label class="label-text">Fecha de Nacimiento:</label>
                             <div class="birth-container">
-                                <input type="date" class="form-control" formControlName="birth"
+                                <input type="date" class="form-control input-control-style" formControlName="birth"
                                 [ngClass]="{ 'is-invalid': form.controls['birth'].invalid && (form.controls['birth'].dirty || form.controls['birth'].touched),
                                 'is-valid': form.controls['birth'].valid && (form.controls['birth'].dirty || form.controls['birth'].touched)  }">
                             </div>
@@ -189,7 +189,7 @@
                         <div class="input-label-container"> 
                             <label class="label-text">Edad gestacional (semanas):</label>
                             <div class="number-container">
-                                <input type="number" class="form-control" formControlName="gestional_age"
+                                <input type="number" class="form-control input-control-style" formControlName="gestional_age"
                                 [ngClass]="{ 'is-invalid': form.controls['gestional_age'].invalid && (form.controls['gestional_age'].dirty || form.controls['gestional_age'].touched),
                                 'is-valid': form.controls['gestional_age'].valid && (form.controls['gestional_age'].dirty || form.controls['gestional_age'].touched)  }">
                             </div>
@@ -216,7 +216,7 @@
                         <div class="input-label-container"> 
                             <label class="label-text">Peso de Nacimiento (gramos):</label>
                             <div class="number-container">
-                                <input type="number" class="form-control" formControlName="birth_weight"
+                                <input type="number" class="form-control input-control-style" formControlName="birth_weight"
                                 [ngClass]="{ 'is-invalid': form.controls['birth_weight'].invalid && (form.controls['birth_weight'].dirty || form.controls['birth_weight'].touched),
                                 'is-valid': form.controls['birth_weight'].valid && (form.controls['birth_weight'].dirty || form.controls['birth_weight'].touched)  }">
                             </div>
@@ -286,7 +286,7 @@
                         <div class="input-label-container"> 
                             <label class="label-text">Ultimo control de peso (gramos):</label>
                             <div class="number-container">
-                                <input type="number" class="form-control" formControlName="last_weight_control"
+                                <input type="number" class="form-control input-control-style" formControlName="last_weight_control"
                                 [ngClass]="{ 'is-invalid': form.controls['last_weight_control'].invalid && (form.controls['last_weight_control'].dirty || form.controls['last_weight_control'].touched),
                                 'is-valid': form.controls['last_weight_control'].valid && (form.controls['last_weight_control'].dirty || form.controls['last_weight_control'].touched)  }">
                             </div>
@@ -309,7 +309,7 @@
                             </div>
                         </div>
                         <!-- Motivo del suplemento -->
-                        <div class="input-label-container" *ngIf="form.controls['has_suplement']?.value == 'true'"> 
+                        <div class="input-label-container" *ngIf="form.controls['has_suplement']?.value"> 
                             <label class="label-text">Motivo del suplemento:</label>
                             <div>
                                 <select class="browser-default custom-select" formControlName="why_recived_suplement">
@@ -317,7 +317,11 @@
                                     <option value="hambre">Hambre</option>
                                     <option value="hipoglicemia">Hipoglicemia</option>
                                     <option value="sugerencia de algún profesional">Sugerencia de algún profesional</option>
+                                    <option value="otras">Otro</option>
                                 </select>
+                            </div>
+                            <div *ngIf="form.controls['why_recived_suplement']?.value == 'otras'">
+                                <input type="text" class="form-control input-another-reason" formControlName="another_reason_sup" placeholder="Especificar otro">
                             </div>
                         </div>
                     </div>
@@ -325,10 +329,13 @@
                 <!-- Boton Agregar -->
                 <div class="button-container">
                     <button type="submit" class="send-button" [disabled]="form.invalid" *ngIf="id == '0'">AGREGAR</button>
+                    <div *ngIf="form.invalid" class="disabled-button-text">
+                        <p>Porfavor rellene los campos del formulario, para que este pueda ser enviado</p>
+                    </div>
                 </div>
                 <!-- Boton Editar -->
                 <div class="button-container">
-                    <button type="submit" (click)="editChildData()" class="send-button" *ngIf="id != '0'">EDITAR</button>
+                    <button type="button" (click)="editChildData()" class="send-button" *ngIf="id != '0'">EDITAR</button>
                 </div>
             </form>
         </div>

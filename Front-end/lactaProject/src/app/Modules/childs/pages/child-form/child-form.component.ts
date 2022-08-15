@@ -13,7 +13,7 @@ import { DatePipe, Location } from '@angular/common';
   styleUrls: ['./child-form.component.scss']
 })
 export class ChildFormComponent implements OnInit {
-  element:any;
+  private element:any;
   id="";
   motherId="";
   chronic_diseases:Array<string>=[];
@@ -52,8 +52,9 @@ export class ChildFormComponent implements OnInit {
       gestional_age: [''],
       gender: ['indefinido'],
       birth_weight: [''],
-      has_suplement: ['false'],
+      has_suplement: ['true'],
       why_recived_suplement: [''],
+      another_reason_sup: [''],
       joint_accommodation: ['false'],
       use_of_pacifier: ['false'],
       breastfeeding_b4_2hours: ['false'],
@@ -68,18 +69,23 @@ export class ChildFormComponent implements OnInit {
     // Form controls
     if(this.id != '0'){
       this.apiGet.getChild(this.id).subscribe((response:ApiResponse)=>{
-        console.log(response);
         if(response.success){
           this.element = response.data;
-          console.log(this.element);
           this.fillInputs();
         }
       });
     }
   }
   // Funcion que rellena los campos de los form control, en caso de que este control se utilice para editar un lactante
-  fillInputs(){
+  private fillInputs(){
     this.descomponerList();
+    //Razon de suplemento
+    let reason = this.element.birth_data.why_recived_suplement;
+    if ( (reason != 'solicitud materna') && (reason != 'hambre') && 
+    (reason != 'hipoglicemia') && (reason != 'sugerencia de algún profesional')) {
+      reason = 'otras';
+      this.form.get('another_reason_sup')?.setValue(this.element.birth_data.why_recived_suplement);
+    }
     //fecha
     let parts=this.element.birth_data.birthday.split('-')
     let newdate=new Date(parts[0], parts[1] - 1, parts[2]);
@@ -98,7 +104,7 @@ export class ChildFormComponent implements OnInit {
     this.form.get('gender')?.setValue(this.element.birth_data.gender);
     this.form.get('birth_weight')?.setValue(this.element.birth_data.birth_weight);
     this.form.get('has_suplement')?.setValue(this.element.birth_data.has_suplement);
-    this.form.get('why_recived_suplement')?.setValue(this.element.birth_data.why_recived_suplement);
+    this.form.get('why_recived_suplement')?.setValue(reason);
     this.form.get('joint_accommodation')?.setValue(this.element.birth_data.joint_accommodation);
     this.form.get('use_of_pacifier')?.setValue(this.element.birth_data.use_of_pacifier);
     this.form.get('breastfeeding_b4_2hours')?.setValue(this.element.birth_data.breastfeeding_b4_2hours);
@@ -107,36 +113,56 @@ export class ChildFormComponent implements OnInit {
     this.form.get('last_weight_control')?.setValue(this.element.birth_data.last_weight_control);
   }
   // Funcion que descompone la lista de enfermedades cronicas y las valida dentro del form, No tiene en cuenta las 'otras'
-  descomponerList(){
-    if(this.element.gestacion_data.diseases_during_pregnancy[0] != 'ninguna'){
-      for(let i=0;i<7;i++){
-        if(this.element.gestacion_data.diseases_during_pregnancy[i] == 'sintoma de parto prematuro'){
+  private descomponerList(){
+    const { diseases_during_pregnancy } = this.element.gestacion_data;
+    if( diseases_during_pregnancy[0] != 'ninguna' ){
+      let disease;
+      const length = diseases_during_pregnancy.length;
+      for( let i=0; i < length; i++ ){
+        disease = diseases_during_pregnancy[i];
+        
+        if( disease == 'sintoma de parto prematuro' ){
           this.form.get('sintoma_parto_prematuro')?.setValue(true);
         }
-        if(this.element.gestacion_data.diseases_during_pregnancy[i] == 'preeclampsia'){
+        if( disease == 'preeclampsia' ){
           this.form.get('preeclampsia')?.setValue(true);
         }
-        if(this.element.gestacion_data.diseases_during_pregnancy[i] == 'eclampsia'){
+        if( disease == 'eclampsia' ){
           this.form.get('eclampsia')?.setValue(true);
         }
-        if(this.element.gestacion_data.diseases_during_pregnancy[i] == 'diabetes gestacional'){
+        if( disease == 'diabetes gestacional' ){
           this.form.get('diabetes_gestacional')?.setValue(true);
         }
-        if(this.element.gestacion_data.diseases_during_pregnancy[i] == 'hipertiroidismo'){
+        if( disease == 'hipertiroidismo' ){
           this.form.get('hipertiroidismo')?.setValue(true);
         }
-        if(this.element.gestacion_data.diseases_during_pregnancy[i] == 'hipotiroidismo'){
+        if( disease == 'hipotiroidismo' ){
           this.form.get('hipotiroidismo')?.setValue(true);
         }
-        if(this.element.gestacion_data.diseases_during_pregnancy[i] == 'enfermedad autoinmune'){
+        if( disease == 'enfermedad autoinmune' ){
           this.form.get('e_autoinmune')?.setValue(true);
+        }
+        if ( (disease != 'sintoma de parto prematuro') && (disease != 'preeclampsia') && 
+        (disease != 'eclampsia') && (disease != 'enfermedad autoinmune') && (disease != 'diabetes gestacional') && 
+        (disease != 'hipotiroidismo') && (disease != 'hipertiroidismo')) {
+          this.addExistingOtherDiseases(disease);
         }
       }
     }
   }
+  // Funcion que agrega otras enfermedades ( Se utiliza principalmente para traer datos existentes del formulario de editar )
+  private addExistingOtherDiseases = (disease) => {
+    this.other_diseases.push(disease);
+    (<FormArray>this.form.get('other')).push( new FormControl(true));
+    this.other_diseases.push(disease);
+  } 
   // Funcion que ACTUALMENTE solo se encarga de imprimir por consola los valores obtenidos en el formulario
-  sendChildData(){
+  public sendChildData() {
     this.createList();
+    let suplement_reason = this.form.get("why_recived_suplement")?.value;
+    if ( this.form.get('why_recived_suplement')?.value == 'otras' ) {
+      suplement_reason = this.form.get("another_reason_sup")?.value
+    }
     let childData:typeChild={
       name: this.form.get("name")?.value,
       gestacion_data: {
@@ -158,23 +184,25 @@ export class ChildFormComponent implements OnInit {
         skin_to_skin_contact: this.form.get("skin_to_skin_contact")?.value,
         breastfeeding_b4_2hours: this.form.get("breastfeeding_b4_2hours")?.value,
         has_suplement: this.form.get("has_suplement")?.value,
-        why_recived_suplement: this.form.get("why_recived_suplement")?.value,
+        why_recived_suplement: suplement_reason,
         joint_accommodation: this.form.get("joint_accommodation")?.value,
         use_of_pacifier: this.form.get("use_of_pacifier")?.value,
         post_discharge_feeding: this.form.get("post_discharge_feeding")?.value,
         last_weight_control: this.form.get("last_weight_control")?.value
       },
     }
-    console.log(childData);
     this.apiSend.addChild(childData,this.motherId).subscribe((response:ApiResponse)=>{
-      console.log(response);
       this.goToMotherProfile();
     });
   }
 
 // Funcion que ACTUALMENTE solo se encarga de imprimir por consola los valores obtenidos en el formulario
-  editChildData(){
+  public editChildData() {
     this.createList();
+    let suplement_reason = this.form.get("why_recived_suplement")?.value;
+    if ( this.form.get('why_recived_suplement')?.value == 'otras' ) {
+      suplement_reason = this.form.get("another_reason_sup")?.value
+    }
     let childData1:typeChild={
       _id: this.id,
       name: this.form.get("name")?.value,
@@ -197,16 +225,14 @@ export class ChildFormComponent implements OnInit {
         skin_to_skin_contact: this.form.get("skin_to_skin_contact")?.value,
         breastfeeding_b4_2hours: this.form.get("breastfeeding_b4_2hours")?.value,
         has_suplement: this.form.get("has_suplement")?.value,
-        why_recived_suplement: this.form.get("why_recived_suplement")?.value,
+        why_recived_suplement: suplement_reason,
         joint_accommodation: this.form.get("joint_accommodation")?.value,
         use_of_pacifier: this.form.get("use_of_pacifier")?.value,
         post_discharge_feeding: this.form.get("post_discharge_feeding")?.value,
         last_weight_control: this.form.get("last_weight_control")?.value
       }
     }
-    console.log(childData1);
     this.apiSend.updateChild(childData1).subscribe((response:ApiResponse)=>{
-      console.log(response);
       this.goToMotherProfile();
     });
   }
@@ -231,7 +257,7 @@ export class ChildFormComponent implements OnInit {
   }
   
   // Funcion que crea una lista de enfermedades cronicas
-  createList(){
+  private createList(){
     if(this.form.get("sintoma_parto_prematuro")?.value == true){
       this.chronic_diseases.push("sintoma de parto prematuro"); 
     }
