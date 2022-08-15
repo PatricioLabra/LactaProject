@@ -59,7 +59,7 @@ form{
     margin-left: 10px;
 }
 
-.form-control{
+.input-control-style{
     background-color: white;
     height: 30px;
     color: black;
@@ -94,9 +94,24 @@ form{
     }
 }
 
+.input-another-reason{
+    margin-left: 5px;
+    background-color: white;
+    color: black;
+    border-radius: 20px;
+    border: white;
+}
+
 .custom-select{
     border-radius: 20px;
     height: fit-content;
+    border:white;
+}
+.age-type-select{
+    font-size: small;
+    margin-left: 5px;
+    border-radius: 20px;
+    height: 30px;
     border:white;
 }
 // Title Styles
@@ -165,6 +180,33 @@ form{
     width: 100%;
     display: flex;
     flex-wrap: wrap;
+}
+.new-indication-container{
+    padding: 3px 5px 0px 10px;
+    margin: 2px 5px 2px 5px;
+    justify-content: center;
+    display: flex;
+    min-width: 100px;
+    background-color: white;
+    height: 30px;
+    color: black;
+    border-radius: 20px;
+    border: white;
+}
+.new-indication-input{
+    border-style: none;
+}
+.new-indication-input:focus{
+    border-style: none;
+    border: 0px solid white;
+    outline: none;
+}
+.new-indication-button{
+    height: 25px;
+    width: 25px;
+    border-radius: 30px;
+    border: none;
+    background-color: $light-blue;
 }
 // Send Button Styles
 .button-container{

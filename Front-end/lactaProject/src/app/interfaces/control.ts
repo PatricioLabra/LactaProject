@@ -3,6 +3,7 @@ export interface typeControl{
     consultation_place?: string,
     monitoring_medium?: string,
     date_control?: Date,
+    age?: Number,
     weight?: number,
     reason_of_consultation?: string,
     accompanied_by?: string,
