@@ -77,9 +77,7 @@ export class FirstControlFormComponent implements OnInit {
         indications: this.indications,
 
     }
-    console.log(controlData);
-    /* this.apiSend.addControl(controlData,this.idChild).subscribe((response:ApiResponse)=>{
-      console.log(response);
+    this.apiSend.addControl(controlData,this.idChild).subscribe((response:ApiResponse)=>{
       if(this.form.get("next_control")?.value == 'true'){
         let nextControlData:typeControl={
           consultation_place: this.form.get("consultation_place2")?.value,
@@ -87,11 +85,10 @@ export class FirstControlFormComponent implements OnInit {
           date_control: this.form.get("date_control2")?.value,
         }
         this.apiSend.addControl(nextControlData,this.idChild).subscribe((response:ApiResponse)=>{
-          console.log(response);
         }); 
       }
       this.goToMotherProfile();
-    }); */
+    });
   }
 
   goToMotherView(){
