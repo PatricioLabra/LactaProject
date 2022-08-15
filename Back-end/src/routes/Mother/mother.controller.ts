@@ -222,7 +222,7 @@ function destructureMother(motherFound: any) {
  */
 function addMotherGraphic( mother: any ) {
     addDataGraphic("commune",mother.commune);
-    addDataGraphic("birth", convertDatetoNumber(mother.birth).toString());
+    addDataGraphic("birth", mother.birth.toISOString().substring(0,4));
     addDataGraphic("studies", mother.studies);
     addDataGraphic("marital_status", mother.marital_status);
     addDataGraphic("forecast", mother.forecast);
@@ -240,7 +240,7 @@ function addMotherGraphic( mother: any ) {
  */
 export function deleteMotherGraphic( mother: any ) {
     if ( mother.commune != null ){ deleteDataGraphic("commune",mother.commune); };
-    addDataGraphic("birth", mother.birth.toISOString().substring(0,4));
+    if ( mother.birth != null ){ deleteDataGraphic("birth", mother.birth.toISOString().substring(0,4)); };
     if ( mother.studies != null ){ deleteDataGraphic("studies", mother.studies); };
     if ( mother.marital_status != null ){ deleteDataGraphic("marital_status", mother.marital_status); };
     if ( mother.forecast != null ){ deleteDataGraphic("forecast", mother.forecast); };
