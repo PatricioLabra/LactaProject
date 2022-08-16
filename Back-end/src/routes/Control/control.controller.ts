@@ -30,16 +30,16 @@ export const newControl: RequestHandler = async (req, res) => {
     const controls = await Control.find( {id_child} ).count();
 
     //se validan los campos required de la primera cita (todos)
-    if ( !dataNewControl.child_name || !dataNewControl.consultation_place || !dataNewControl.monitoring_medium || !dataNewControl.date_control )
+    /*if ( !dataNewControl.child_name || !dataNewControl.consultation_place || !dataNewControl.monitoring_medium || !dataNewControl.date_control )
         return res.status(400).send({ success: false, data:{}, message: 'ERROR: Los datos del control no son válidos.' + req.body });
-
+*/
 
     const newControl = {
         child_name: childFound.name,
         consultation_place: dataNewControl.consultation_place,
         monitoring_medium: dataNewControl.monitoring_medium,
         date_control: dataNewControl.date_control,
-        age_child: dataNewControl.age_child,
+        age: dataNewControl.age,
         weight: dataNewControl.weight,
         reason_of_consultation: dataNewControl.reason_of_consultation,
         accompanied_by: dataNewControl.accompanied_by,
@@ -385,7 +385,7 @@ function destructureControl ( controlFound: any ){
     const controlFiltered ={
         _id: controlFound._id,
         date_control: controlFound.date_control.toISOString().substring(0,10),
-        age_child: controlFound.age_child,
+        age: controlFound.age,
         child_name: controlFound.child_name,
         consultation_place: controlFound.consultation_place,
         monitoring_medium: controlFound.monitoring_medium,

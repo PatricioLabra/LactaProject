@@ -22,7 +22,7 @@ const controlSchema = new Schema({
         type: Date,
         trim: true
     },
-    age_child:{
+    age:{
         type: Number,
         default: null,
     },
