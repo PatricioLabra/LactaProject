@@ -234,27 +234,27 @@ function destructureChild( childFound: any ){
  * @param child Lactante con todos los datos a guardar en la BD
  */
  function addChildGraphic( child: any ) {
-    addDataGraphic("birthplace", child.birth_data.birthplace);
-    addDataGraphic("type_of_birth", child.birth_data.type_of_birth);
-    addDataGraphic("gestional_age", child.birth_data.gestional_age.toString());
-    addDataGraphic("gender", child.birth_data.gender);
-    addDataGraphic("birth_weight", child.birth_data.birth_weight.toString());
-    addDataGraphic("skin_to_skin_contact", isTrueOrFalse(child.birth_data.skin_to_skin_contact));
-    addDataGraphic("breastfeeding_b4_2hours", isTrueOrFalse(child.birth_data.breastfeeding_b4_2hours));
-    addDataGraphic("use_of_pacifier", isTrueOrFalse(child.birth_data.use_of_pacifier));
-    addDataGraphic("post_discharge_feeding", child.birth_data.post_discharge_feeding.toString());
-    addDataGraphic("joint_accommodation", isTrueOrFalse(child.birth_data.joint_accommodation));
-    addDataGraphic("has_suplement", isTrueOrFalse(child.birth_data.has_suplement));
-    addDataGraphic("why_recived_suplement", child.birth_data.why_recived_suplement);
-    addDataGraphic("planned_pregnancy", isTrueOrFalse(child.gestacion_data.planned_pregnancy));
-    addDataGraphic("assisted_fertilization", isTrueOrFalse(child.gestacion_data.assisted_fertilization));
-    addDataGraphic("previous_lactaction", child.gestacion_data.previous_lactaction);
-    addDataGraphic("duration_of_past_lactaction_in_months", child.gestacion_data.duration_of_past_lactaction_in_months.toString());
-    addDataGraphic("breastfeeding_education", isTrueOrFalse(child.gestacion_data.breastfeeding_education));
+    if( child.birth_data.birthplace != null ){ addDataGraphic("birthplace", child.birth_data.birthplace) };
+    if( child.birth_data.type_of_birth != null ){ addDataGraphic("type_of_birth", child.birth_data.type_of_birth) };
+    if( child.birth_data.gestional_age != null ){ addDataGraphic("gestional_age", child.birth_data.gestional_age.toString()) };
+    if( child.birth_data.gender != null ){ addDataGraphic("gender", child.birth_data.gender) };
+    if( child.birth_data.birth_weight != null ){ addDataGraphic("birth_weight", child.birth_data.birth_weight.toString()) };
+    if( child.birth_data.skin_to_skin_contact != null ){ addDataGraphic("skin_to_skin_contact", isTrueOrFalse(child.birth_data.skin_to_skin_contact)) };
+    if( child.birth_data.breastfeeding_b4_2hours != null ){ addDataGraphic("breastfeeding_b4_2hours", isTrueOrFalse(child.birth_data.breastfeeding_b4_2hours)) };
+    if( child.birth_data.use_of_pacifier != null ){ addDataGraphic("use_of_pacifier", isTrueOrFalse(child.birth_data.use_of_pacifier)) };
+    if( child.birth_data.post_discharge_feeding != null ){ addDataGraphic("post_discharge_feeding", child.birth_data.post_discharge_feeding.toString()) };
+    if( child.birth_data.joint_accommodation != null ){ addDataGraphic("joint_accommodation", isTrueOrFalse(child.birth_data.joint_accommodation)) };
+    if( child.birth_data.has_suplement != null ){ addDataGraphic("has_suplement", isTrueOrFalse(child.birth_data.has_suplement)) };
+    if( child.birth_data.why_recived_suplement != null ){ addDataGraphic("why_recived_suplement", child.birth_data.why_recived_suplement) };
+    if( child.gestacion_data.planned_pregnancy != null ){ addDataGraphic("planned_pregnancy", isTrueOrFalse(child.gestacion_data.planned_pregnancy)) };
+    if( child.gestacion_data.assisted_fertilization != null ){ addDataGraphic("assisted_fertilization", isTrueOrFalse(child.gestacion_data.assisted_fertilization)) };
+    if( child.gestacion_data.previous_lactaction != null ){ addDataGraphic("previous_lactaction", child.gestacion_data.previous_lactaction) };
+    if( child.gestacion_data.duration_of_past_lactaction_in_months != null ){ addDataGraphic("duration_of_past_lactaction_in_months", child.gestacion_data.duration_of_past_lactaction_in_months.toString()) };
+    if( child.gestacion_data.breastfeeding_education != null ){ addDataGraphic("breastfeeding_education", isTrueOrFalse(child.gestacion_data.breastfeeding_education)) };
 
     //se valida que el arreglo no venga vacío
     if ( child.gestacion_data.diseases_during_pregnancy.length > 0 ){
-        addDataGraphic("diseases_during_pregnancy", child.gestacion_data.diseases_during_pregnancy);
+        if( child.gestacion_data.diseases_during_pregnancy != null ){ addDataGraphic("diseases_during_pregnancy", child.gestacion_data.diseases_during_pregnancy) };
     }
 }
 
