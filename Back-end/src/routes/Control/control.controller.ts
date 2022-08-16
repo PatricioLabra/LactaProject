@@ -30,9 +30,9 @@ export const newControl: RequestHandler = async (req, res) => {
     const controls = await Control.find( {id_child} ).count();
 
     //se validan los campos required de la primera cita (todos)
-    /*if ( !dataNewControl.child_name || !dataNewControl.consultation_place || !dataNewControl.monitoring_medium || !dataNewControl.date_control )
+    if ( !dataNewControl.consultation_place || !dataNewControl.monitoring_medium || !dataNewControl.date_control )
         return res.status(400).send({ success: false, data:{}, message: 'ERROR: Los datos del control no son válidos.' + req.body });
-*/
+
 
     const newControl = {
         child_name: childFound.name,
