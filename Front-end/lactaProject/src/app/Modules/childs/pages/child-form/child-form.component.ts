@@ -40,26 +40,26 @@ export class ChildFormComponent implements OnInit {
       new_disease: [''],
       other: new FormArray([
       ]),
-      nutritional_status_mother: ['normal'],
-      planned_pregnancy: ['false'],
-      assisted_fertilization: ['false'],
-      previous_lactaction: ['ninguna'],
-      duration_of_past_lactaction_in_months: ['0'],
-      breastfeeding_education: ['false'],
-      birthplace: ['publico', Validators.required],
-      type_of_birth: ['parto', Validators.required],
+      nutritional_status_mother: [''],
+      planned_pregnancy: [''],
+      assisted_fertilization: [''],
+      previous_lactaction: [''],
+      duration_of_past_lactaction_in_months: [''],
+      breastfeeding_education: [''],
+      birthplace: ['', Validators.required],
+      type_of_birth: ['', Validators.required],
       birth: ['', Validators.required],
       gestional_age: [''],
-      gender: ['indefinido'],
+      gender: [''],
       birth_weight: [''],
-      has_suplement: ['true'],
+      has_suplement: [''],
       why_recived_suplement: [''],
       another_reason_sup: [''],
-      joint_accommodation: ['false'],
-      use_of_pacifier: ['false'],
-      breastfeeding_b4_2hours: ['false'],
-      post_discharge_feeding: ['lme'],
-      skin_to_skin_contact: ['false'],
+      joint_accommodation: [''],
+      use_of_pacifier: [''],
+      breastfeeding_b4_2hours: [''],
+      post_discharge_feeding: [''],
+      skin_to_skin_contact: [''],
       last_weight_control: ['']
     });
    }
@@ -229,7 +229,7 @@ export class ChildFormComponent implements OnInit {
         joint_accommodation: this.form.get("joint_accommodation")?.value,
         use_of_pacifier: this.form.get("use_of_pacifier")?.value,
         post_discharge_feeding: this.form.get("post_discharge_feeding")?.value,
-        last_weight_control: this.form.get("last_weight_control")?.value
+        last_weight_control: this.form.get("last_weight_control")?.value 
       }
     }
     this.apiSend.updateChild(childData1).subscribe((response:ApiResponse)=>{

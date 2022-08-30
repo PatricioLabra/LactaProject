@@ -29,7 +29,7 @@
                 </div>
                 <!-- Nombre -->
                 <div class="input-label-container"> 
-                    <label class="label-text">Nombre:</label>
+                    <label class="label-text">Nombre (✱):</label>
                     <div class="name-container">
                         <input type="text" class="form-control input-control-style" formControlName="name" placeholder="Nombre" maxlength="30"
                         [ngClass]="{ 'is-invalid': form.controls['name'].invalid && (form.controls['name'].dirty || form.controls['name'].touched),
@@ -149,7 +149,7 @@
                     <div class="birth-sub-container">
                         <!-- Lugar de nacimiento -->
                         <div class="input-label-container"> 
-                            <label class="label-text">Lugar de nacimiento:</label>
+                            <label class="label-text">Lugar de nacimiento (✱):</label>
                             <div>
                                 <select class="browser-default custom-select" formControlName="birthplace">
                                     <option value="publico">Público</option>
@@ -160,7 +160,7 @@
                         </div>
                         <!-- Tipo de Nacimiento -->
                         <div class="input-label-container"> 
-                            <label class="label-text">Tipo de nacimiento:</label>
+                            <label class="label-text">Tipo de nacimiento (✱):</label>
                             <div>
                                 <select class="browser-default custom-select" formControlName="type_of_birth">
                                     <option value="parto">Parto</option>
@@ -171,7 +171,7 @@
                         </div>
                         <!-- Fecha de Nacimiento -->
                         <div class="input-label-container"> 
-                            <label class="label-text">Fecha de Nacimiento:</label>
+                            <label class="label-text">Fecha de Nacimiento (✱):</label>
                             <div class="birth-container">
                                 <input type="date" class="form-control input-control-style" formControlName="birth"
                                 [ngClass]="{ 'is-invalid': form.controls['birth'].invalid && (form.controls['birth'].dirty || form.controls['birth'].touched),

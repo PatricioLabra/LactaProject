@@ -40,7 +40,7 @@ export class MotherFormComponent implements OnInit {
       birth: ['', Validators.required],
       ocupation: ['', Validators.required],
       studies: ['ninguna'],
-      marital_status: ['soltera'],
+      marital_status: ['ninguno'],
       forecast: ['ninguna'],
       number_of_children: [''],
       hipertension_a: [''],

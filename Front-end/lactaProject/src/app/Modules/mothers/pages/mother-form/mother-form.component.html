@@ -28,7 +28,7 @@
                 </div>
                 <!-- Nombre -->
                 <div class="input-label-container"> 
-                    <label class="label-text">Nombre:</label>
+                    <label class="label-text">Nombre (✱):</label>
                     <div class="name-container">
                         <input type="text" class="form-control input-control-style" formControlName="name" placeholder="Nombre" maxlength="50"
                         [ngClass]="{ 'is-invalid': form.controls['name'].invalid && (form.controls['name'].dirty || form.controls['name'].touched),
@@ -44,7 +44,7 @@
                 </div>
                 <!-- Rut -->
                 <div class="input-label-container">
-                    <label class="label-text">Rut:</label>
+                    <label class="label-text">Rut (✱):</label>
                     <div class="full-rut-container">
                         <div class="rut-container">
                             <input type="number" class="form-control input-control-style" formControlName="rut" placeholder="Rut"
@@ -78,7 +78,7 @@
                 </div>
                 <!-- Comuna -->
                 <div class="input-label-container"> 
-                    <label class="label-text">Comuna:</label>
+                    <label class="label-text">Comuna (✱):</label>
                     <div class="comune-container">
                         <input type="text" class="form-control input-control-style" formControlName="commune" placeholder="Comuna"
                         [ngClass]="{ 'is-invalid': form.controls['commune'].invalid && (form.controls['commune'].dirty || form.controls['commune'].touched),
@@ -94,7 +94,7 @@
                 </div>
                 <!-- Numero telefónico -->
                 <div class="input-label-container"> 
-                    <label class="label-text">Teléfono:</label>
+                    <label class="label-text">Teléfono (✱):</label>
                     <div class="phone-container">
                         <input type="number" class="form-control input-control-style" formControlName="phone_number" placeholder="Teléfono" 
                         [ngClass]="{ 'is-invalid': form.controls['phone_number'].invalid && (form.controls['phone_number'].dirty || form.controls['phone_number'].touched),
@@ -110,7 +110,7 @@
                 </div>
                 <!-- Mail -->
                 <div class="input-label-container"> 
-                    <label class="label-text">Mail:</label>
+                    <label class="label-text">Mail (✱):</label>
                     <div class="mail-container">
                         <input type="email" class="form-control input-control-style" formControlName="mail" placeholder="Mail"
                         [ngClass]="{ 'is-invalid': form.controls['mail'].invalid && (form.controls['mail'].dirty || form.controls['mail'].touched),
@@ -126,7 +126,7 @@
                 </div>
                 <!-- Edad -->
                 <div class="input-label-container"> 
-                    <label class="label-text">Edad:</label>
+                    <label class="label-text">Edad (✱):</label>
                     <div class="birth-container">
                         <input type="number" class="form-control input-control-style" formControlName="birth"
                         [ngClass]="{ 'is-invalid': form.controls['birth'].invalid && (form.controls['birth'].dirty || form.controls['birth'].touched),
@@ -142,7 +142,7 @@
                 </div>
                 <!-- Ocupación -->
                 <div class="input-label-container"> 
-                    <label class="label-text">Ocupación:</label>
+                    <label class="label-text">Ocupación (✱):</label>
                     <div class="ocupation-container">
                         <input type="text" class="form-control input-control-style" formControlName="ocupation" placeholder="Ocupación"
                         [ngClass]="{ 'is-invalid': form.controls['ocupation'].invalid && (form.controls['ocupation'].dirty || form.controls['ocupation'].touched),
@@ -171,6 +171,7 @@
                 <div class="input-label-container"> 
                     <label class="label-text">Estado Civil:</label>
                     <select class="browser-default custom-select" formControlName="marital_status">
+                        <option value="ninguno">Ninguno</option>
                         <option value="soltera">Soltera</option>
                         <option value="casada">Casada</option>
                         <option value="conviviente civil">Conviviente civil</option>
