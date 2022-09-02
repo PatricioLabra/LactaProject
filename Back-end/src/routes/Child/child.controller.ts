@@ -5,7 +5,6 @@ import Child from './child.model';
 import Control from '../Control/control.model';
 import { addDataGraphic , deleteDataGraphic } from "../../libs/generate.graphics";
 import { deleteControlGraphic } from "../Control/control.controller";
-import childModel from "./child.model";
 
 /**
  * Funcion que maneja la peticion de agregar un nuevo usuario al sistema
@@ -58,8 +57,6 @@ export const newChild: RequestHandler = async (req, res) => {
         }, 
         id_mother: _idMother
     }
-
-    console.log(newChild);
 
     const motherFound = await Mother.findById(_idMother);
 
