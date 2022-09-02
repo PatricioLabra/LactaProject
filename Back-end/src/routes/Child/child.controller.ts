@@ -125,7 +125,7 @@ export const editChild: RequestHandler = async (req, res) => {
     const childFoundUpdated = await Child.findById( _id );
     addChildGraphic(childFoundUpdated);
 
-    return res.status(200).send({ success: true, data:{}, messagge: 'Lactante editado exitosamente' });
+    return res.status(200).send({ success: true, data:{}, messagge: 'Lactante editado exitosamente' }); 
 }
 
 /**
@@ -286,7 +286,7 @@ function destructureChild( childFound: any ){
     if( child.gestacion_data.breastfeeding_education != null ){ addDataGraphic("breastfeeding_education", isTrueOrFalse(child.gestacion_data.breastfeeding_education)) };
 
     //se valida que el arreglo no venga vacío
-    if ( child.gestacion_data.diseases_during_pregnancy.length > 0 ){
+    if ( child.gestacion_data.diseases_during_pregnancy.length > 0 && child.gestacion_data.diseases_during_pregnancy != null){
         if( child.gestacion_data.diseases_during_pregnancy != null ){ addDataGraphic("diseases_during_pregnancy", child.gestacion_data.diseases_during_pregnancy) };
     }
 }
@@ -316,7 +316,7 @@ export function deleteChildGraphic( child: any ) {
     if ( child.gestacion_data.breastfeeding_education != null ){ deleteDataGraphic("breastfeeding_education", isTrueOrFalse(child.gestacion_data.breastfeeding_education)); };
 
     //se valida que el arreglo no venga vacío
-    if ( child.gestacion_data.diseases_during_pregnancy.length > 0 ){
+    if ( child.gestacion_data.diseases_during_pregnancy.length > 0 && child.gestacion_data.diseases_during_pregnancy != null){
         deleteDataGraphic("diseases_during_pregnancy", child.gestacion_data.diseases_during_pregnancy);
     }
 }
