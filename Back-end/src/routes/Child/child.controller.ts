@@ -5,6 +5,7 @@ import Child from './child.model';
 import Control from '../Control/control.model';
 import { addDataGraphic , deleteDataGraphic } from "../../libs/generate.graphics";
 import { deleteControlGraphic } from "../Control/control.controller";
+import childModel from "./child.model";
 
 /**
  * Funcion que maneja la peticion de agregar un nuevo usuario al sistema
@@ -23,18 +24,43 @@ export const newChild: RequestHandler = async (req, res) => {
         duration_of_past_lactaction_in_months, breastfeeding_education }, birth_data:{ birthplace, type_of_birth, birthday,
         gestional_age, gender, birth_weight, skin_to_skin_contact, breastfeeding_b4_2hours, has_suplement, why_recived_suplement,
         joint_accommodation, use_of_pacifier, post_discharge_feeding, last_weight_control }} = req.body;
+        
 
     //se validan los campos obligatorios
     if ( !name || !birthplace || !birthday || !type_of_birth)
-    return res.status(400).send({ success: false, data:{}, message:'ERROR: Datos inválidos' + req.body });
+        return res.status(400).send({ success: false, data:{}, message:'ERROR: Datos inválidos' + req.body });
 
     const newChild = {
-        name, gestacion_data: { diseases_during_pregnancy, planned_pregnancy, assisted_fertilization, previous_lactaction,
-        duration_of_past_lactaction_in_months, breastfeeding_education }, birth_data:{ birthplace, type_of_birth, birthday, gestional_age, gender,
-        birth_weight, skin_to_skin_contact, breastfeeding_b4_2hours, has_suplement, why_recived_suplement, joint_accommodation,
-        use_of_pacifier, post_discharge_feeding, last_weight_control }, id_mother: _idMother
+        name: name,
+        gestacion_data: { 
+            diseases_during_pregnancy : diseases_during_pregnancy,
+            planned_pregnancy: isNullorUndefined(planned_pregnancy), 
+            assisted_fertilization: isNullorUndefined(assisted_fertilization), 
+            previous_lactaction: isNullorUndefined(previous_lactaction),
+            duration_of_past_lactaction_in_months: isNullorUndefined(duration_of_past_lactaction_in_months), 
+            breastfeeding_education: isNullorUndefined(breastfeeding_education) 
+        }, 
+        birth_data:{ 
+            birthplace: birthplace, 
+            type_of_birth: type_of_birth, 
+            birthday: isNullorUndefined(birthday), 
+            gestional_age: isNullorUndefined(gestional_age), 
+            gender: isNullorUndefined(gender),
+            birth_weight: isNullorUndefined(birth_weight), 
+            skin_to_skin_contact: isNullorUndefined(skin_to_skin_contact), 
+            breastfeeding_b4_2hours: isNullorUndefined(breastfeeding_b4_2hours), 
+            has_suplement: isNullorUndefined(has_suplement), 
+            why_recived_suplement: isNullorUndefined(why_recived_suplement), 
+            joint_accommodation: isNullorUndefined(joint_accommodation),
+            use_of_pacifier: isNullorUndefined(use_of_pacifier), 
+            post_discharge_feedin: isNullorUndefined(post_discharge_feeding), 
+            last_weight_control: isNullorUndefined(last_weight_control)
+        }, 
+        id_mother: _idMother
     }
-    
+
+    console.log(newChild);
+
     const motherFound = await Mother.findById(_idMother);
 
     //se valida la existencia de la madre en el sistema
@@ -208,22 +234,29 @@ function destructureChild( childFound: any ){
     const childFiltered ={
         _id: childFound._id,
         name: childFound.name,
-        gestacion_data: childFound.gestacion_data,
+        gestacion_data: { 
+            diseases_during_pregnancy : childFound.gestacion_data.diseases_during_pregnancy,
+            planned_pregnancy: isNullorUndefined(childFound.gestacion_data.planned_pregnancy), 
+            assisted_fertilization: isNullorUndefined(childFound.gestacion_data.assisted_fertilization), 
+            previous_lactaction: isNullorUndefined(childFound.gestacion_data.previous_lactaction),
+            duration_of_past_lactaction_in_months: isNullorUndefined(childFound.gestacion_data.duration_of_past_lactaction_in_months), 
+            breastfeeding_education: isNullorUndefined(childFound.gestacion_data.breastfeeding_education) 
+        },
         birth_data: {
             birthplace: childFound.birth_data.birthplace,
             type_of_birth: childFound.birth_data.type_of_birth,
             birthday: childFound.birth_data.birthday.toISOString().substring(0,10),
-            gestional_age: childFound.birth_data.gestional_age,
-            gender: childFound.birth_data.gender,
-            birth_weight: childFound.birth_data.birth_weight,
-            skin_to_skin_contact: childFound.birth_data.skin_to_skin_contact,
-            breastfeeding_b4_2hours: childFound.birth_data.breastfeeding_b4_2hours,
-            has_suplement: childFound.birth_data.has_suplement,
-            why_recived_suplement: childFound.birth_data.why_recived_suplement,
-            joint_accommodation: childFound.birth_data.joint_accommodation,
-            use_of_pacifier: childFound.birth_data.use_of_pacifier,
-            post_discharge_feeding: childFound.birth_data.post_discharge_feeding,
-            last_weight_control: childFound.birth_data.last_weight_control
+            gestional_age: isNullorUndefined(childFound.birth_data.gestional_age),
+            gender: isNullorUndefined(childFound.birth_data.gender),
+            birth_weight: isNullorUndefined(childFound.birth_data.birth_weight),
+            skin_to_skin_contact: isNullorUndefined(childFound.birth_data.skin_to_skin_contact),
+            breastfeeding_b4_2hours: isNullorUndefined(childFound.birth_data.breastfeeding_b4_2hours),
+            has_suplement: isNullorUndefined(childFound.birth_data.has_suplement),
+            why_recived_suplement: isNullorUndefined(childFound.birth_data.why_recived_suplement),
+            joint_accommodation: isNullorUndefined(childFound.birth_data.joint_accommodation),
+            use_of_pacifier: isNullorUndefined(childFound.birth_data.use_of_pacifier),
+            post_discharge_feeding: isNullorUndefined(childFound.birth_data.post_discharge_feeding),
+            last_weight_control: isNullorUndefined(childFound.birth_data.last_weight_control)
         }
     };
     return childFiltered;
@@ -299,3 +332,12 @@ function isTrueOrFalse(option: any){
         return "No";
     }
 }
+
+function isNullorUndefined(valor: any) {
+    if ( valor === undefined || valor == null || valor == ''){
+        return null;
+    }
+
+    return valor;
+}
+
