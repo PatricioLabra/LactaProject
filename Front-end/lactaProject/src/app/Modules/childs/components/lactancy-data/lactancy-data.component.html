@@ -18,8 +18,14 @@
                 <li>
                     Enfermedades durante la gestación:
                 </li>
-                <li *ngIf="childData.gestacion_data.diseases_during_pregnancy; then yes; else no" class="item">
-                </li>
+
+                <ng-container *ngIf="childData.gestacion_data.diseases_during_pregnancy == null; else exist"> 
+                    <li class="item"></li>
+                </ng-container>
+                <ng-template #exist>
+                    <li *ngIf="childData.gestacion_data.diseases_during_pregnancy; then yes; else no" class="item"></li>
+                </ng-template>
+                
             </ul>
 
 
@@ -52,7 +58,13 @@
                         
                     </li>
                     
-                    <li *ngIf="childData.gestacion_data.planned_pregnancy; then yes; else no" class="item"> </li>
+                    <ng-container *ngIf="childData.gestacion_data.planned_pregnancy == null; else exist"> 
+                        <li class="item"></li>
+                    </ng-container>
+                    <ng-template #exist>
+                        <li *ngIf="childData.gestacion_data.planned_pregnancy; then yes; else no" class="item"></li>
+                    </ng-template>
+                    
                 </ul>
 
             </div>
@@ -63,7 +75,13 @@
                         Fetilizacion asistida:   
                     </li>
                     
-                    <li *ngIf="childData.gestacion_data.assisted_fertilization; then yes; else no" class="item"> </li>
+                    <ng-container *ngIf="childData.gestacion_data.assisted_fertilization == null; else exist"> 
+                        <li class="item"></li>
+                    </ng-container>
+                    <ng-template #exist>
+                        <li *ngIf="childData.gestacion_data.assisted_fertilization; then yes; else no" class="item"></li>
+                    </ng-template>
+                    
                 </ul>
             </div>
 
@@ -104,7 +122,13 @@
                     
                 </li>
                 
-                <li *ngIf="childData.gestacion_data.breastfeeding_education; then yes; else no" class="item"> </li>
+                <ng-container *ngIf="childData.gestacion_data.breastfeeding_education == null; else exist"> 
+                    <li class="item"></li>
+                </ng-container>
+                <ng-template #exist>
+                    <li *ngIf="childData.gestacion_data.breastfeeding_education; then yes; else no" class="item"></li>
+                </ng-template>
+                
             </ul>
         </div>
 

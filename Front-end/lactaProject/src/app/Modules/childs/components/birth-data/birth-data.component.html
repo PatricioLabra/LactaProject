@@ -129,9 +129,13 @@
                         Contacto piel a piel al nacer:
          
                     </li>
+                    <ng-container *ngIf="childData.birth_data.skin_to_skin_contact == null; else exist"> 
+                        <li class="item"></li>
+                    </ng-container>
+                    <ng-template #exist>
+                        <li  *ngIf="childData.birth_data.skin_to_skin_contact; then yes; else no" class="item"></li>
+                    </ng-template>
                     
-                    <li  *ngIf="childData.birth_data.skin_to_skin_contact; then yes; else no" class="item">
-                    </li>
                 </ul>
 
             </div>
@@ -163,9 +167,13 @@
                         Alojamiento conjunto:
          
                     </li>
+                    <ng-container *ngIf="childData.birth_data.joint_accommodation == null; else exist"> 
+                        <li class="item"></li>
+                    </ng-container>
+                    <ng-template #exist>
+                        <li *ngIf="childData.birth_data.joint_accommodation; then yes; else no" class="item"></li>
+                    </ng-template>
                     
-                    <li *ngIf="childData.birth_data.joint_accommodation; then yes; else no" class="item">
-                    </li>
                 </ul>
 
 
@@ -197,10 +205,12 @@
                         Uso de chupetes en la hospitalización:
          
                     </li>
-                    
-                    <li *ngIf="childData.birth_data.use_of_pacifier; then yes; else no" class="item">
-    
-                    </li>
+                    <ng-container *ngIf="childData.birth_data.use_of_pacifier == null; else exist"> 
+                        <li class="item"></li>
+                    </ng-container>
+                    <ng-template #exist>
+                        <li *ngIf="childData.birth_data.use_of_pacifier; then yes; else no" class="item"></li>
+                    </ng-template>
                 </ul>
 
             </div>
@@ -213,9 +223,13 @@
          
                     </li>
                     
-                    <li *ngIf="childData.birth_data.breastfeeding_b4_2hours; then yes; else no" class="item">
-                      
-                    </li>
+                    <ng-container *ngIf="childData.birth_data.breastfeeding_b4_2hours == null; else exist"> 
+                        <li class="item"></li>
+                    </ng-container>
+                    <ng-template #exist>
+                        <li *ngIf="childData.birth_data.breastfeeding_b4_2hours; then yes; else no" class="item"></li>
+                    </ng-template>
+                    
                 </ul>
 
                 
@@ -232,10 +246,13 @@
                     <li>
                         Sumplemento de leche materna durante la hospitalización:
                     </li>
+                    <ng-container *ngIf="childData.birth_data.has_suplement == null; else exist"> 
+                        <li class="item"></li>
+                    </ng-container>
+                    <ng-template #exist>
+                        <li *ngIf="childData.birth_data.has_suplement; then yes; else no" class="item"></li>
+                    </ng-template>
                     
-                    <li *ngIf="childData.birth_data.has_suplement; then yes; else no" class="item">
-    
-                    </li>
                 </ul>
             </div>
 
