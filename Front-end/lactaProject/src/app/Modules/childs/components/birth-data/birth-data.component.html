@@ -20,10 +20,11 @@
                     <li>
                         Lugar de nacimiento:
                     </li>
-                    
-                    <li class="item">
-                        {{childData.birth_data.birthplace}}
-                    </li>
+                    <ng-container *ngIf="childData.birth_data.birthplace != null; else dontExist">
+                        <li class="item">
+                            {{childData.birth_data.birthplace}}
+                        </li>
+                    </ng-container>
                 </ul>
 
             </div>
@@ -35,11 +36,11 @@
                         Nacimiento: 
          
                     </li>
-                    
-                    <li class="item">
-                        {{childData.birth_data.type_of_birth}}
-    
-                    </li>
+                    <ng-container *ngIf="childData.birth_data.type_of_birth != null; else dontExist">
+                        <li class="item">
+                            {{childData.birth_data.type_of_birth}}
+                        </li>
+                    </ng-container>
                 </ul>
 
 
@@ -56,11 +57,11 @@
                         Fecha de nacimiento:
          
                     </li>
-                    
-                    <li class="item">
-                        {{childData.birth_data.birthday}}
-    
-                    </li>
+                    <ng-container *ngIf="childData.birth_data.birthday != null; else dontExist">
+                        <li class="item">
+                            {{childData.birth_data.birthday}}
+                        </li>
+                    </ng-container>
                 </ul>
 
             </div>
@@ -72,11 +73,11 @@
                         Sexo:
          
                     </li>
-                    
-                    <li class="item">
-                        {{childData.birth_data.gender}}
-    
-                    </li>
+                    <ng-container *ngIf="childData.birth_data.gender != null; else dontExist">                        
+                        <li class="item">
+                            {{childData.birth_data.gender}}
+                        </li>
+                    </ng-container>
                 </ul>
 
 
@@ -93,11 +94,11 @@
                         Edad gestional (semanas):
          
                     </li>
-                    
-                    <li class="item">
-                        {{childData.birth_data.gestional_age}}
-    
-                    </li>
+                    <ng-container *ngIf="childData.birth_data.gestional_age != null; else dontExist">
+                        <li class="item">
+                            {{childData.birth_data.gestional_age}}
+                        </li>
+                    </ng-container>
                 </ul>
 
             </div>
@@ -109,11 +110,11 @@
                         Peso de nacimiento:
          
                     </li>
-                    
-                    <li class="item">
-                        {{childData.birth_data.birth_weight}}
-    
-                    </li>
+                    <ng-container *ngIf="childData.birth_data.birth_weight != null; else dontExist">
+                        <li class="item">
+                            {{childData.birth_data.birth_weight}}
+                        </li>
+                    </ng-container>
                 </ul>
 
             </div>
@@ -129,12 +130,9 @@
                         Contacto piel a piel al nacer:
          
                     </li>
-                    <ng-container *ngIf="childData.birth_data.skin_to_skin_contact == null; else exist"> 
-                        <li class="item"></li>
-                    </ng-container>
-                    <ng-template #exist>
+                    <ng-container *ngIf="childData.birth_data.skin_to_skin_contact != null; else dontExist"> 
                         <li  *ngIf="childData.birth_data.skin_to_skin_contact; then yes; else no" class="item"></li>
-                    </ng-template>
+                    </ng-container>
                     
                 </ul>
 
@@ -147,11 +145,11 @@
                         Último control de peso:
          
                     </li>
-                    
-                    <li class="item">
-                        {{childData.birth_data.last_weight_control}}
-    
-                    </li>
+                    <ng-container *ngIf="childData.birth_data.last_weight_control != null; else dontExist">
+                        <li class="item">
+                            {{childData.birth_data.last_weight_control}}
+                        </li>
+                    </ng-container>
                 </ul>
 
             </div>
@@ -167,12 +165,9 @@
                         Alojamiento conjunto:
          
                     </li>
-                    <ng-container *ngIf="childData.birth_data.joint_accommodation == null; else exist"> 
-                        <li class="item"></li>
-                    </ng-container>
-                    <ng-template #exist>
+                    <ng-container *ngIf="childData.birth_data.joint_accommodation != null; else dontExist"> 
                         <li *ngIf="childData.birth_data.joint_accommodation; then yes; else no" class="item"></li>
-                    </ng-template>
+                    </ng-container>
                     
                 </ul>
 
@@ -186,10 +181,11 @@
                         Alimentación al alta:
          
                     </li>
-                    
-                    <li class="item">
-                        {{childData.birth_data.post_discharge_feeding}}
-                    </li>
+                    <ng-container *ngIf="childData.birth_data.post_discharge_feeding != null; else dontExist">
+                        <li class="item">
+                            {{childData.birth_data.post_discharge_feeding}}
+                        </li>
+                    </ng-container>
                 </ul>
 
             </div>
@@ -205,12 +201,9 @@
                         Uso de chupetes en la hospitalización:
          
                     </li>
-                    <ng-container *ngIf="childData.birth_data.use_of_pacifier == null; else exist"> 
-                        <li class="item"></li>
-                    </ng-container>
-                    <ng-template #exist>
+                    <ng-container *ngIf="childData.birth_data.use_of_pacifier != null; else dontExist"> 
                         <li *ngIf="childData.birth_data.use_of_pacifier; then yes; else no" class="item"></li>
-                    </ng-template>
+                    </ng-container>
                 </ul>
 
             </div>
@@ -223,12 +216,9 @@
          
                     </li>
                     
-                    <ng-container *ngIf="childData.birth_data.breastfeeding_b4_2hours == null; else exist"> 
-                        <li class="item"></li>
-                    </ng-container>
-                    <ng-template #exist>
+                    <ng-container *ngIf="childData.birth_data.breastfeeding_b4_2hours != null; else dontExist"> 
                         <li *ngIf="childData.birth_data.breastfeeding_b4_2hours; then yes; else no" class="item"></li>
-                    </ng-template>
+                    </ng-container>
                     
                 </ul>
 
@@ -246,12 +236,9 @@
                     <li>
                         Sumplemento de leche materna durante la hospitalización:
                     </li>
-                    <ng-container *ngIf="childData.birth_data.has_suplement == null; else exist"> 
-                        <li class="item"></li>
-                    </ng-container>
-                    <ng-template #exist>
+                    <ng-container *ngIf="childData.birth_data.has_suplement != null; else dontExist"> 
                         <li *ngIf="childData.birth_data.has_suplement; then yes; else no" class="item"></li>
-                    </ng-template>
+                    </ng-container>
                     
                 </ul>
             </div>
@@ -262,10 +249,11 @@
                     <li>
                         Motivo del suplemento:
                     </li>
-                    
-                    <li class="item">
-                        {{childData.birth_data.why_recived_suplement}}
-                    </li>
+                    <ng-container *ngIf="childData.birth_data.why_recived_suplement != null; else dontExist">
+                        <li class="item">
+                            {{childData.birth_data.why_recived_suplement}}
+                        </li>
+                    </ng-container>
                 </ul>
             </div>
 
@@ -284,5 +272,8 @@
     <li class="item">
       No
     </li>
+</ng-template>
+<ng-template #dontExist>
+    <li class="item">No hay datos</li>
 </ng-template>
 

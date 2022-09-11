@@ -19,12 +19,9 @@
                     Enfermedades durante la gestación:
                 </li>
 
-                <ng-container *ngIf="childData.gestacion_data.diseases_during_pregnancy == null; else exist"> 
-                    <li class="item"></li>
-                </ng-container>
-                <ng-template #exist>
+                <ng-container *ngIf="childData.gestacion_data.diseases_during_pregnancy != null; else dontExist"> 
                     <li *ngIf="childData.gestacion_data.diseases_during_pregnancy; then yes; else no" class="item"></li>
-                </ng-template>
+                </ng-container>
                 
             </ul>
 
@@ -39,11 +36,11 @@
                     Estado nutricional de la madre:
                     
                 </li>
-                
-                <li class="item">
-                    {{childData.gestacion_data.nutritional_status_mother}}
-
-                </li>
+                <ng-container *ngIf="childData.gestacion_data.nutritional_status_mother != null; else dontExist">
+                    <li class="item">
+                        {{childData.gestacion_data.nutritional_status_mother}}
+                    </li>
+                </ng-container>
             </ul>
             
         </div>
@@ -58,12 +55,9 @@
                         
                     </li>
                     
-                    <ng-container *ngIf="childData.gestacion_data.planned_pregnancy == null; else exist"> 
-                        <li class="item"></li>
-                    </ng-container>
-                    <ng-template #exist>
+                    <ng-container *ngIf="childData.gestacion_data.planned_pregnancy != null; else dontExist"> 
                         <li *ngIf="childData.gestacion_data.planned_pregnancy; then yes; else no" class="item"></li>
-                    </ng-template>
+                    </ng-container>
                     
                 </ul>
 
@@ -75,12 +69,9 @@
                         Fetilizacion asistida:   
                     </li>
                     
-                    <ng-container *ngIf="childData.gestacion_data.assisted_fertilization == null; else exist"> 
-                        <li class="item"></li>
-                    </ng-container>
-                    <ng-template #exist>
+                    <ng-container *ngIf="childData.gestacion_data.assisted_fertilization != null; else dontExist"> 
                         <li *ngIf="childData.gestacion_data.assisted_fertilization; then yes; else no" class="item"></li>
-                    </ng-template>
+                    </ng-container>
                     
                 </ul>
             </div>
@@ -92,10 +83,11 @@
                         Lactancia anterior:
                         
                     </li>
-                    
-                    <li class="item">
-                        {{childData.gestacion_data.previous_lactaction}}
-                    </li>
+                    <ng-container *ngIf="childData.gestacion_data.previous_lactaction != null; else dontExist">
+                        <li class="item">
+                            {{childData.gestacion_data.previous_lactaction}}
+                        </li>
+                    </ng-container>
                 </ul>
 
             </div>
@@ -108,10 +100,11 @@
                 <li>
                     Duracion de la lactancia anterior (meses):    
                 </li>
-                
-                <li class="item">
-                    {{childData.gestacion_data.duration_of_past_lactaction_in_months}}
-                </li>
+                <ng-container *ngIf="childData.gestacion_data.duration_of_past_lactaction_in_months != null; else dontExist">
+                    <li class="item">
+                        {{childData.gestacion_data.duration_of_past_lactaction_in_months}}
+                    </li>
+                </ng-container>
             </ul>
         </div>
 
@@ -122,12 +115,9 @@
                     
                 </li>
                 
-                <ng-container *ngIf="childData.gestacion_data.breastfeeding_education == null; else exist"> 
-                    <li class="item"></li>
-                </ng-container>
-                <ng-template #exist>
+                <ng-container *ngIf="childData.gestacion_data.breastfeeding_education != null; else dontExist"> 
                     <li *ngIf="childData.gestacion_data.breastfeeding_education; then yes; else no" class="item"></li>
-                </ng-template>
+                </ng-container>
                 
             </ul>
         </div>
@@ -147,4 +137,7 @@
     <li class="item">
       No
     </li>
+</ng-template>
+<ng-template #dontExist>
+    <li class="item">No hay datos</li>
 </ng-template>
