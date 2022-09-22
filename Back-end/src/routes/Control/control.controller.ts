@@ -349,8 +349,8 @@ export const getSearchControlFiltered: RequestHandler = async (req, res) => {
     const nextControl = await Control.findOne( { "id_mother": _id, "date_control": {"$gte": date}} ).sort({date_control: 1});
     
     //se cambia el formato de la fecha por string yyyy-mm-dd
-    const last_control = lastControl.date_control.toISOString().substring(0,10);
-    const next_control = nextControl.date_control.toISOString().substring(0,10);
+    const last_control = lastControl?.date_control.toISOString().substring(0,10);
+    const next_control = nextControl?.date_control.toISOString().substring(0,10);
 
     return res.status(200).send({ success: true, data:{ "last_control": last_control, "next_control": next_control }, message: 'Se muestran el ultimo y proximo control exitosamente.' });
 }
