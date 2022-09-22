@@ -6,6 +6,8 @@ import passportMiddleware from './middlewares/passport'
 import dotenv from 'dotenv';
 import helmet from "helmet";
 
+let path = require('path');
+
 // Load enviroments variables
 dotenv.config();
 
@@ -32,7 +34,12 @@ app.use(passport.initialize());
 passport.use(passportMiddleware);
 
 // Routes
+app.use('/',express.static('./client',{redirect:false})) //para produccion
+
 app.use('/api',indexRoutes);
 
-export default app;
+app.get('*',function(req,res,next){
+    return res.sendFile(path.resolve('./client/index.html')); //para produccion
+});
 
+export default app;
