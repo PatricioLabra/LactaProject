@@ -7007,8 +7007,8 @@ class ControlFormComponent {
         this.fb = fb;
         this.indications = [];
         this.form = this.fb.group({
-            consultation_place: ['domicilio'],
-            monitoring_medium: ['whatsapp'],
+            consultation_place: ['domicilio', _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required],
+            monitoring_medium: ['whatsapp', _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required],
             date_control: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required],
             age: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required],
             weight: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required],
@@ -8213,7 +8213,7 @@ function ControlDataComponent_div_1_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](6);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"](" ", ctx_r0.controlData.monitoring_medium, " ");
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](6);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"](" ", ctx_r0.controlData.weight, " gr ");
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"](" ", ctx_r0.controlData.weight, " ");
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](6);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"](" ", ctx_r0.controlData.reason_of_consultation, " ");
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](6);
@@ -8672,8 +8672,8 @@ class FirstControlFormComponent {
         };
         this.idChild = this.route.snapshot.paramMap.get('idChild');
         this.form = this.fb.group({
-            consultation_place: [''],
-            monitoring_medium: [''],
+            consultation_place: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required],
+            monitoring_medium: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required],
             date_control: [new Date().toISOString().split('T')[0], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required],
             age: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required],
             age_type: ['month'],
@@ -8804,7 +8804,7 @@ FirstControlFormComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵ
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](17, "div", 14);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](18, "label", 15);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](19, "Lugar de consulta:");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](19, "Lugar de consulta (\u2731):");
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](20, "div");
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](21, "select", 16);
@@ -8822,7 +8822,7 @@ FirstControlFormComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵ
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](28, "div", 14);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](29, "label", 15);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](30, "Via de seguimiento:");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](30, "Via de seguimiento (\u2731):");
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](31, "div");
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](32, "select", 20);
