@@ -11,8 +11,8 @@ export class ControlFormComponent implements OnInit {
   form:FormGroup;
   constructor(private fb:FormBuilder) {
     this.form=this.fb.group({
-      consultation_place: ['domicilio'],
-      monitoring_medium: ['whatsapp'],
+      consultation_place: ['domicilio',Validators.required],
+      monitoring_medium: ['whatsapp',Validators.required],
       date_control: ['', Validators.required],
       age: ['', Validators.required],
       weight: ['', Validators.required],

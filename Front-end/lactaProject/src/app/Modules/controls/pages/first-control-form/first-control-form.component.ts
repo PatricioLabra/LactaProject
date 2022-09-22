@@ -22,8 +22,8 @@ export class FirstControlFormComponent implements OnInit {
     this.idChild = this.route.snapshot.paramMap.get('idChild')as string;
     
     this.form=this.fb.group({
-      consultation_place: [''],
-      monitoring_medium: [''],
+      consultation_place: ['', Validators.required],
+      monitoring_medium: ['', Validators.required],
       date_control: [new Date().toISOString().split('T')[0], Validators.required],
       age: ['', Validators.required],
       age_type: ['month'],
